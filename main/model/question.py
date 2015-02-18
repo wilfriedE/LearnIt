@@ -19,6 +19,7 @@ class Question(model.Base):
   question_type = ndb.StringProperty(default='text', choices=[
       'text', 'multiple-choice', 'multiple-image-choice',
     ])
+  # Add option for fill in the blank. Figure out the logic as well.
   question_fields = ndb.KeyProperty(kind='AnswerChoice', repeated=True)
   answer = ndb.KeyProperty(kind='AnswerChoice')
   minimum_answers = ndb.IntegerProperty()

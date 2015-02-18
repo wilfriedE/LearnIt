@@ -1,6 +1,8 @@
 FIRSTMastery
 ============
 
+A centralized training resource for all FIRST Robotics team.
+
 FIRSTMastery is built on top of gae-init.
 
 **gae-init** is the easiest way to kick start new applications on Google

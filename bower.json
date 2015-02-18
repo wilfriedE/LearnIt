@@ -1,7 +1,28 @@
 {
-  "name": "gae-init",
+  "name": "FIRSTMastery",
+  "version": "0.0.0",
+  "authors": [
+    "wilfriedE <wilfried.hounyo@gmail.com>"
+  ],
+  "description": "A learning platform for all things FIRST Robotics",
+  "main": "run.py",
+  "keywords": [
+    "FIRST",
+    "Robotics"
+  ],
+  "license": "MIT",
+  "homepage": "Firstmastery.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
   "dependencies": {
     "bootstrap": "~3",
+    "bootstrap-material-design": "~0",
     "bootstrap-sweetalert": "~0",
     "font-awesome": "~4",
     "jquery": "~2",
@@ -14,6 +35,9 @@
     },
     "bootstrap-sweetalert": {
       "main": ["lib/*.less", "lib/sweet-alert.js"]
+    },
+    "bootstrap-material-design": {
+      "main": ["less/**","fonts/*","scripts/*"]
     },
     "font-awesome": {
       "main": ["less/*", "fonts/*"]

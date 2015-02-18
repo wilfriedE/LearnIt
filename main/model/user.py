@@ -24,6 +24,12 @@ class User(model.Base):
   token = ndb.StringProperty(default='')
   password_hash = ndb.StringProperty(default='')
 
+  #  Bellow properties were added for FIRSTMastery
+  teams = ndb.KeyProperty(repeated=True)
+  achievements = ndb.KeyProperty(repeated=True)
+  points = ndb.IntegerProperty()
+
+
   def has_permission(self, perm):
     return self.admin or perm in self.permissions
 

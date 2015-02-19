@@ -1,14 +1,51 @@
 <footer class="footer" role="contentinfo">
   <div class="container">
-    # if current_user.admin
-      <p>
-        Version: {{config.CURRENT_VERSION_NAME}}
-        (<time datetime="{{config.CURRENT_VERSION_DATE}}">{{config.CURRENT_VERSION_DATE}}</time>)
-        # if api_url
-          | <a class='api-url' href="{{api_url}}{% if request.query_string %}?{{request.query_string}}{% endif %}" target="_blank" data-api-url="{{api_url}}">View in JSON</a>
+  
+    <div class="col-lg-4">
+      <div class="bs-component">
+        <p>Look, I'm in a well!</p>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="bs-component">
+      # if current_user.admin
+        <p>
+          Version: {{config.CURRENT_VERSION_NAME}}
+          (<time datetime="{{config.CURRENT_VERSION_DATE}}">{{config.CURRENT_VERSION_DATE}}</time>)
+          # if api_url
+            | <a class='api-url' href="{{api_url}}{% if request.query_string %}?{{request.query_string}}{% endif %}" target="_blank" data-api-url="{{api_url}}">View in JSON</a>
+          # endif
+        </p>
+      # endif
+      <p>&copy; 2015 - {{config.CONFIG_DB.brand_name}}</p>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="bs-component">
+      <ul class="nav navbar-nav navbar-right">
+      
+      # if current_user.id > 0
+
+        <li><a href="{{url_for('profile')}}" class="btn btn-primary btn-raised"><img src="{{current_user.user_db.avatar_url_size(20)}}" alt="Avatar of {{current_user.name}}"> {{current_user.name}} </a></li>
+        # if current_user.admin
+          <li class="divider"></li>
+          <li><a class="btn btn-info btn-raised" href="{{url_for('admin')}}"><span class="fa fa-fw fa-cog"></span> Admin</a></li>
         # endif
-      </p>
-    # endif
-    <p>&copy; 2015 - {{config.CONFIG_DB.brand_name}}</p>
+        <li class="divider"></li>
+        <li><a class="btn btn-danger btn-raised" href="{{url_for('signout')}}"><span class="fa fa-fw fa-sign-out"></span> Sign out</a></li>
+
+      # else
+
+        <li><a class="btn btn-primary btn-raised" href="{{url_for('signin')}}"><span class="fa fa-fw fa-sign-in"></span> Sign in</a></li>
+        <li class="divider"></li>
+        <li><a class="btn btn-info btn-raised" href="{{url_for('signup')}}"><span class="fa fa-fw fa-chevron-up"></span> Sign up</a> </li>
+
+      # endif
+      </ul>
+      </div>
+    </div>
+
   </div>
 </footer>

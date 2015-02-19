@@ -15,18 +15,23 @@
   </head>
 
   <body>
-    # include 'bit/header.html'
     # include 'bit/announcement.html'
+    <div id="wrapper"> 
+    <div class="overlay"></div>
+    # include 'bit/hamburger.html'
     # block header
     # endblock
-    <div class="container">
+    <div id="page-content-wrapper">
+    <div class="container" >
       # include 'bit/notifications.html'
       # block content
       # endblock
+    </div>
     </div>
     # include 'bit/footer.html'
     # include 'bit/script.html'
     # block scripts
     # endblock
+    </div>
   </body>
 </html>

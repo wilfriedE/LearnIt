@@ -3,7 +3,7 @@
   
     <div class="col-lg-4">
       <div class="bs-component">
-        <p>Look, I'm in a well!</p>
+        <p>An open learning platform, <br/> for all things <a class='api-url' href="http://www3.usfirst.org/" target="_blank" >FIRST</p>
       </div>
     </div>
 
@@ -17,6 +17,8 @@
             | <a class='api-url' href="{{api_url}}{% if request.query_string %}?{{request.query_string}}{% endif %}" target="_blank" data-api-url="{{api_url}}">View in JSON</a>
           # endif
         </p>
+      # else
+        <br/>
       # endif
       <p>&copy; 2015 - {{config.CONFIG_DB.brand_name}}</p>
       </div>

@@ -13,19 +13,47 @@ from main import app
 ###############################################################################
 # Lesson View
 ###############################################################################
+@app.route('/lesson/<lesson_key>/v/<version_key>')
 @app.route('/lesson/<lesson_key>')
-def lesson(lesson_key):
+@app.route('/course/<course_key>/l/<lesson_key>')
+def lesson(lesson_key, version_key, course_key):
+
+  #set default lesson version key to the retrieved lesson's key
+  #if there is a version key then set the lesson version key to it
+  if version_key:
+    lesson_version_key = version_key
+  #Set a condition to verify there is a course. 
+  #In order to activate the next and previous lesson button in the view
+
   lesson = {"name":"Hello Lesson",}
   return flask.render_template(
       'lesson/lesson.html',
       title=lesson['name'],
       html_class='lesson-view',
+      lesson_version_key=lesson_version_key,
       lesson=lesson,
     )
 
-@app.route('/lesson/<lesson_key>/v/<version_key>')
-def lesson_version(lesson_key,version_key):
-  lesson = {"name":"Hello Lesson",}
+
+@app.route('/lesson_version/<version_key>')
+def render_lesson_version(version_key):  
+  return flask.render_template(
+      'lesson/lesson_version.html',
+      title='',
+      html_class='lesson_version',
+      lesson=#Only need to find the lesson version by version key,
+    )
+
+
+###############################################################################
+# New Lesson
+###############################################################################
+@app.route('/new_lesson/', methods=['GET','POST'])
+@auth.login_required
+def new_lesson():
+  user_db = auth.current_user_db()
+  form = ProfileUpdateForm(obj=user_db)
+  wtforms
   return flask.render_template(
       'lesson/lesson.html',
       title=lesson['name'],

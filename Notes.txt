@@ -1,0 +1,14 @@
+Create a model for Course which has various lessons
+	Has a name, and lessons array of course
+	Has a contributors array with user keys
+Create a model for Track which has various courses
+	Has a name, and courses array of course ///HAHAHA PUN
+	Has a contributors array with user keys
+	Tracks can be created by any user but can only be approved by thos with moderator permissions. Same goes for a Course.
+	For creating Courses and Tracks, have modal that displays searchable lessons or Courses that can just be added with a plus button that adds to an array of contents to be added to either a new course or a Track. Render them as cards.
+Add an finishedlessons array to user's model
+Add an enrolledcourses array to user's model
+	For this when the user finishes all the lessons for the course which would be checked everytime he finishes a lesson; the course's key would be added to the finished courses array and removed from the enrolledcourses
+Add a finishedcourses array to user's model
+Create a cards for Users with something like this http://bootsnipp.com/snippets/featured/event-list
+Create a cards for Courses with something like above with a button below it that has a dropdown for lessons within as well as the quizes if the lesson has a quiz.

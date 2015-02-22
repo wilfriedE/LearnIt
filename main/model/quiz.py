@@ -13,10 +13,8 @@ import config
 
 
 class Quiz(model.Base):
-  name = ndb.StringProperty()
+  name = ndb.StringProperty(required=True)
   questions = ndb.KeyProperty(kind='Question', repeated=True)
+  points = ndb.IntegerProperty(default=10)
   achievement = ndb.KeyProperty(kind='Achievement')
-  minimum_answers = ndb.IntegerProperty()
-  
-  # def answers
-  # returns a list of correct answers based on the question's anser valur
+  minimum_answers = ndb.IntegerProperty(default=1)

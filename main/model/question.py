@@ -15,11 +15,10 @@ import config
 class Question(model.Base):
   description = ndb.StringProperty()
   quiz = ndb.KeyProperty(kind='Quiz')
-  achievement = ndb.KeyProperty(kind='Achievement')
-  question_type = ndb.StringProperty(default='text', choices=[
-      'text', 'multiple-choice', 'multiple-image-choice',
+  question_type = ndb.StringProperty(default='word-answer', choices=[
+      'word-answer' , 'fill-the-blank', 'multiple-choice', 'multiple-image-choice',
     ])
-  # Add option for fill in the blank. Figure out the logic as well.
+  # Figure out other posibilities.
   question_fields = ndb.KeyProperty(kind='AnswerChoice', repeated=True)
   answer = ndb.KeyProperty(kind='AnswerChoice')
   minimum_answers = ndb.IntegerProperty()

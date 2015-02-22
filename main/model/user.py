@@ -29,6 +29,8 @@ class User(model.Base):
   achievements = ndb.KeyProperty(repeated=True)
   points = ndb.IntegerProperty()
 
+  #  Define a method to evaluate if user is a team admin based on team's number
+
 
   def has_permission(self, perm):
     return self.admin or perm in self.permissions

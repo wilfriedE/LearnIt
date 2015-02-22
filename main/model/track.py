@@ -11,9 +11,9 @@ import model
 import util
 import config
 
-class Lesson(model.Base):
+
+class Track(model.Base):
   name = ndb.StringProperty(required=True)
-  latest_version = ndb.KeyProperty(kind='LessonVersion')
-  versions = ndb.KeyProperty(kind='LessonVersion', repeated=True)
+  courses = ndb.KeyProperty(kind='Course', repeated=True)
   topics = ndb.KeyProperty(kind='Topic', repeated=True)
-  contributors = ndb.KeyProperty(repeated=True)
+  contributors = ndb.KeyProperty(kind='User', repeated=True)

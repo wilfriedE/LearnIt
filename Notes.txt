@@ -20,7 +20,8 @@ Change from Coyright 2015 to Creative Commons talk with Remy about details and s
 	This is a basic setup for the data object for a lesson
 
 	lesson-version.data = {
-	'fields':['image_url','video_url','video_id',]
+	'fields':[service_type','image_url','video_url','video_id',]
+	'service_type': 'youtube or vimeo',
 	'image_url': 'urlhere',
 	'video_url': 'urlhere',
 	...

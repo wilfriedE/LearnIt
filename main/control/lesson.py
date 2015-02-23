@@ -8,6 +8,14 @@ import auth
 import config
 import util
 import task
+##import cgi
+
+##import gdata.service
+##import gdata.youtube
+##import gdata.youtube.service
+##import gdata.media
+##import gdata.geo
+##import gdata.alt.appengine
 
 from main import app
 ###############################################################################
@@ -25,7 +33,6 @@ def lesson(lesson_key, version_key, course_key):
   #Set a condition to verify there is a course. 
   #In order to activate the next and previous lesson button in the view
 
-  lesson = {"name":"Hello Lesson",}
   return flask.render_template(
       'lesson/lesson.html',
       title=lesson['name'],
@@ -48,16 +55,90 @@ def render_lesson_version(version_key):
 ###############################################################################
 # New Lesson
 ###############################################################################
+class NewLessonForm(wtf.Form):
+  name = wtforms.StringField(
+      'Name',
+      [wtforms.validators.required()], filters=[util.strip_filter],
+    )
+  topics = wtforms.StringField(
+      'Topics', [wtforms.validators.Length(min=2, max=25)],
+      filters=[util.sort_filter],
+    )
+  description = wtforms.TextField(
+      'Description', [wtforms.validators.Length(min=2, max=25)]
+    )
+  video_thumnail = wtforms.FileField('Video Thumbnail Image')
+  video_file = wtforms.FileField('Video File')
+  video_url = wtforms.StringField('Video Link')
+
 @app.route('/new_lesson/', methods=['GET','POST'])
 @auth.login_required
 def new_lesson():
   user_db = auth.current_user_db()
-  form = ProfileUpdateForm(obj=user_db)
-  wtforms
+  lesson = Lesson()
+  lesson_version = LessonVersion()
+  form = NewLessonForm(obj=lesson_version)
+
   return flask.render_template(
       'lesson/lesson.html',
       title=lesson['name'],
       html_class='lesson-version-view',
+      lesson=lesson,
+    )
+
+##No Longer Doing Video Uploads for the time being because of this article
+## http://apiblog.youtube.com/2012/02/video-uploads-from-your-sites-community.html
+## Considering implementing AuthSub to allow users to upload their own account instead.
+##@app.route('/video_meta_check/', methods=['POST'])
+##@auth.login_required
+##def process_video_meta():
+##  client = gdata.youtube.service.YouTubeService()
+##  gdata.alt.appengine.run_on_appengine(client)
+##
+##  video_title = cgi.escape(flask.request.args.get('video_title'))
+##  video_description = cgi.escape(flask.request.args.get('video_description'))
+##  video_category = cgi.escape(flask.request.args.get('video_category'))
+##  video_tags = cgi.escape(flask.request.args.get('video_tags'))
+##  my_media_group = gdata.media.Group(
+##        title = gdata.media.Title(text=video_title),
+##        description = gdata.media.Description(description_type='plain',
+##                                            text=video_description),
+##        keywords = gdata.media.Keywords(text=video_tags),
+##        category = gdata.media.Category(
+##          text=video_category,
+##          scheme='http://gdata.youtube.com/schemas/2007/categories.cat',
+##          label=video_category),
+##      player=None
+##      )
+##  video_entry = gdata.youtube.YouTubeVideoEntry(media=my_media_group)
+##  
+##  try:
+##      server_response = client.GetFormUploadToken(video_entry)
+##  except gdata.service.RequestError, request_error:
+##    return
+##
+##  post_url = server_response[[]0]
+##  youtube_token = server_response[[]1]
+##
+##  return flask.render_template(
+##      'lesson/lesson.html',
+##      title=lesson['name'],
+##      html_class='lesson-version-view',
+##      lesson=lesson,
+##    )
+
+@app.route('/propose_update/lesson/<lesson_key>', methods=['GET','POST'])
+@auth.login_required
+def new_lesson_version(lesson_key):
+  user_db = auth.current_user_db()
+  lesson_version = LessonVersion()
+
+  form = NewLessonForm(obj=lesson_version)
+
+  return flask.render_template(
+      'lesson/lesson.html',
+      title='Lesson Update',
+      html_class='lesson-version',
       lesson=lesson,
     )
 

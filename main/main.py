@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import flask
+from flask_wtf.csrf import CsrfProtect
 
 import config
 import util
@@ -15,6 +16,7 @@ app.jinja_env.globals.update(
     slugify=util.slugify,
     update_query_argument=util.update_query_argument,
   )
+CsrfProtect(app)
 
 import auth
 import control

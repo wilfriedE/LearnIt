@@ -15,4 +15,4 @@ import config
 class Topic(model.Base):
   #  Topics can be FRC, FTC, Safety etc...
   name = ndb.StringProperty(required=True)
-
+  #  Define a method for before creation that does not create if it's a duplicate.

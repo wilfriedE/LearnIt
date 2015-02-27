@@ -1,13 +1,19 @@
-<div class="embed-responsive embed-responsive-16by9">
-    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/FLzfXQSPBOg"></iframe>
+<div class="well well-lg">
+	<div class="embed-responsive embed-responsive-16by9">
+    #if lesson_version_data.service_type == "youtube"
+		# include 'lesson/youtube_player.html'
+	#elif lesson_version_data.service_type == "vimeo"
+		# include 'lesson/vimeo_player.html'
+	#endif
+	</div>
+	<div>
+	<span><h3>{{lesson_version.name}}</h3>
+	<a href="javascript:void(0)" class="btn btn-info btn-fab btn-raised mdi-navigation-expand-more"></a>
+	<a href="javascript:void(0)" class="btn btn-warning btn-fab btn-raised mdi-navigation-expand-less"></a></span>
+	</div>
+	
+	{{lesson_version.description}}
+	{{lesson_version.contributor}}
+    Add a button that shows dropdown of all contributors to lesson.
+	
 </div>
-If it's youtube import a template for youtube controller and if it's vimeo do import the one for vimeo instead.
-using preloaded youtube javascript player api controll the scrolling, play/pause/FULLSCREEN and other controlls of the loaded video.
-
-
-Figure a good way to add rating button or just  have an up and down button that updates their votes. 
-
-<a href="javascript:void(0)" class="btn btn-success btn-fab btn-raised mdi-action-grade"></a>
-<a href="javascript:void(0)" class="btn btn-info btn-fab btn-raised mdi-action-grade"></a>
-<a href="javascript:void(0)" class="btn btn-warning btn-fab btn-raised mdi-action-grade"></a>
-<a href="javascript:void(0)" class="btn btn-danger btn-fab btn-raised mdi-action-grade"></a>

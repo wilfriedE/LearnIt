@@ -10,8 +10,13 @@ from api import fields
 import model
 import util
 import config
-
+import json
 
 class AnswerChoice(model.Base):
-  data = ndb.JsonProperty(default='', required=True)
+  data = ndb.StringProperty(default='', required=True)
   template = ndb.StringProperty()
+
+  @classmethod
+  def data_in_json(self):
+    data = json.loads(self.data)
+    return data

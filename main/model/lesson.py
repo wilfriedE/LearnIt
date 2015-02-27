@@ -16,5 +16,6 @@ class Lesson(model.Base):
   contributors = ndb.KeyProperty(repeated=True)
 
   # Return the Latest version. After some logical procession.
-  def latest_version():
+  @classmethod
+  def latest_version(self):
   	pass

@@ -1,5 +1,5 @@
 # coding: utf-8
-
+import logging
 from flask.ext import wtf
 import flask
 import wtforms
@@ -10,6 +10,7 @@ import model
 import util
 import task
 import urlparse
+import json
 ##import cgi
 
 ##import gdata.service
@@ -25,33 +26,40 @@ from main import app
 ###############################################################################
 # Lesson View
 ###############################################################################
+
+@app.route('/course/<course_id>/l/<lesson_id>')
 @app.route('/lesson/<lesson_id>/v/<version_id>')
 @app.route('/lesson/<lesson_id>')
-@app.route('/course/<course_id>/l/<lesson_id>')
-def lesson(lesson_id, version_id, course_id):
-
-  #set default lesson version key to the retrieved lesson's key
-  #if there is a version key then set the lesson version key to it
+def lesson(lesson_id, version_id='', course_id=''):
+  display_type = 'lesson'
+  course = ''
+  lesson = model.Lesson.get_by_id(int(lesson_id))
+  if course_id and lesson_id:
+    display_type = 'course-lesson'
+    course = model.Course.get_by_id(int(course_id))
   if version_id:
-    lesson_version_id = version_id
-  #Set a condition to verify there is a course. 
-  #In order to activate the next and previous lesson button in the view
-
+    display_type = 'lesson-version'
+    
   return flask.render_template(
       'lesson/lesson.html',
-      title=lesson['name'],
+      lesson = lesson,
+      lesson_version_id = version_id,
+      course = course,
+      title= 'Learning',
       html_class='lesson-view',
-      lesson_version_id=lesson_version_id,
-      lesson=lesson,
+      display_type=display_type,
     )
 
 
 @app.route('/lesson_version/<version_id>')
-def render_lesson_version(version_id):  
+def render_lesson_version(version_id):
+  lesson_version = model.LessonVersion.get_by_id(int(version_id)) 
   return flask.render_template(
       'lesson/lesson_version.html',
-      title='',
-      html_class='lesson_version',
+      title=lesson_version.name,
+      lesson_version=lesson_version,
+      lesson_version_data = lesson_version.data_in_json(),
+      html_class='lesson-version',
     )
 
 
@@ -80,8 +88,9 @@ def new_lesson():
   lesson = model.Lesson(contributors = [auth.current_user_key()])
   vote = model.Vote()
   form = NewLessonForm()
-  print flask.request.data
-  if flask.request.method == 'POST':
+  app.logger.debug(form.validate_on_submit())
+  app.logger.debug(form.validate())
+  if flask.request.method == 'POST' and form.video_url.data and form.description.data and form.name.data:
     vote = vote.put()
     lesson = lesson.put()
     topics = []
@@ -90,9 +99,10 @@ def new_lesson():
       t = t.put()
       topics.append(t)
 
-    lesson_version = model.LessonVersion(data= reform_data_scheme(form.video_url.data),
-                   name=form.name.data,
-                   description=form.description.data,
+    lesson_version = model.LessonVersion(
+                   data = reform_data_scheme(form.video_url.data),
+                   name = form.name.data,
+                   description = form.description.data,
                    topics = topics,
                    vote = vote,
                    contributor = auth.current_user_key(),
@@ -110,13 +120,14 @@ def new_lesson():
       for topic in topics:
           topic.delete()
       return flask.jsonify(error = 'The Lesson was not created because of some errors.')
+  elif flask.request.method == 'POST':
+    return flask.jsonify(error = 'The Lesson was not created because of some errors.')
 
   return flask.render_template(
       'lesson/new_lesson.html',
       title='New Lesson',
       form=form,
       html_class='lesson',
-      requestt=flask.request.method,
     )
 
 @app.route('/propose_update/lesson/<lesson_id>', methods=['GET','POST'])
@@ -179,18 +190,18 @@ def new_lesson_version(lesson_id):
 # Lesson Creation Helpers
 ###############################################################################
 ## Data scheme for LessonVersion Data
-DATASCHEME = { 'fields': ['service_type'],
-                'service_type':'',
+DATASCHEME = { "fields": ["service_type"],
+                "service_type":"",
               }
 def reform_data_scheme(video_link):
     url_data = urlparse.urlparse(video_link)
-    if url_data.netloc == 'www.youtube.com':
+    if url_data.netloc == "www.youtube.com":
       query = urlparse.parse_qs(url_data.query)
-      DATASCHEME['video_id'] = query["v"][0]
-      DATASCHEME['fields'].append('video_id')
-      DATASCHEME['service_type'] = 'youtube'
-    if url_data.netloc == 'www.vimeo.com':
-      DATASCHEME['video_id'] = url_data.path.lstrip("/")
-      DATASCHEME['fields'].append('video_id')
-      DATASCHEME['service_type'] = ('vimeo')
-    return DATASCHEME
+      DATASCHEME["video_id"] = query["v"][0]
+      DATASCHEME["fields"].append("video_id")
+      DATASCHEME["service_type"] = "youtube"
+    if url_data.netloc == "www.vimeo.com":
+      DATASCHEME["video_id"] = url_data.path.lstrip("/")
+      DATASCHEME["fields"].append("video_id")
+      DATASCHEME["service_type"] = ("vimeo")
+    return json.dumps(DATASCHEME)

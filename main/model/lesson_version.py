@@ -10,16 +10,20 @@ from api import fields
 import model
 import util
 import config
+import json
 
 class LessonVersion(model.Base):
   #  Different versions of a lesson
   name = ndb.StringProperty(required=True)
   description = ndb.TextProperty()
+  data = ndb.StringProperty(required=True)
   topics = ndb.KeyProperty(kind='Topic', repeated=True)
-  data = ndb.JsonProperty(required=True)
-  lesson = ndb.KeyProperty()
+  lesson = ndb.KeyProperty(kind='Lesson')
   popularity = ndb.IntegerProperty()
   contributor = ndb.KeyProperty(kind='User')
   quiz = ndb.KeyProperty(kind='Quiz')
   vote = ndb.KeyProperty(kind='Vote')
 
+  def data_in_json(self):
+    data = json.loads(self.data)
+    return data

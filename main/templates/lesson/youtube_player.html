@@ -11,6 +11,12 @@
       var volSeekerButton = $("#player-volseeker-btn");
       var muteButton = $("#player-mute-btn");
       var captionButton = $("#player-captionbutton-btn");
+      var speedTimes2Button = $("#play-speed-x2");
+	  var speedTimes1andhalfButton = $("#play-speed-x1-5");
+	  var speedNormalButton = $("#play-speed-x1");   
+	  var speedHalfButton = $("#play-speed-x0-5"); 
+	  var speedQuaterButton = $("#play-speed-x0-25");
+	  var currentSpeedButton = $("#play-speed-x1");
       var playablestate = "mdi-av-play-circle-outline";
       var pausablestate = "mdi-av-pause-circle-fill mdi-material-red-A400";
       var replayablestate = "mdi-av-replay mdi-material-light-blue-A700";
@@ -126,7 +132,21 @@
     		$(".volumeStateDisplay").addClass("mdi-av-volume-up").removeClass("mdi-av-volume-off");
     	};
 	}
- 
+ 	
+	//Controlling video speed
+	speedTimes2Button.click(function() {player.setPlaybackRate(2); evlauteSpeedDisplay($(this));});
+
+	speedTimes1andhalfButton.click(function() {player.setPlaybackRate(1.5); evlauteSpeedDisplay($(this));}); 
+ 	speedNormalButton.click(function() {player.setPlaybackRate(1); evlauteSpeedDisplay($(this));}); 
+	speedHalfButton.click(function() {player.setPlaybackRate(0.5); evlauteSpeedDisplay($(this));}); 
+	speedQuaterButton.click(function() {player.setPlaybackRate(0.25); evlauteSpeedDisplay($(this));}); 
+	  
+
+	function evlauteSpeedDisplay(el) {
+		currentSpeedButton.removeClass("primaryActive");
+		currentSpeedButton = el;
+		currentSpeedButton.addClass("primaryActive");
+	}
 	  //Enable Close Captioning --Temporary Disabled
 	  /**
 	    var captionsize = 0;

@@ -1,15 +1,15 @@
 <div class="well well-lg">
 	<div class="embed-responsive embed-responsive-16by9">
-	<!-- Commented out for demoing Different Players -->
-    <!-- #if lesson_version_data.service_type == "youtube" -->
-
+	#if lesson_version_data.service_type == "youtube"
 		# include 'lesson/youtube_player.html'
-	<!-- #elif lesson_version_data.service_type == "vimeo" -->
+	#elif lesson_version_data.service_type == "vimeo"
 		# include 'lesson/vimeo_player.html'
-	<!-- #endif -->
+	#endif
 	</div>
-	# include 'lesson/player_bar.html'
-	
+	#if lesson_version_data.service_type == "youtube"
+		# include 'lesson/beautiful_player_bar.html'
+	#endif
+
 	{{lesson_version.description}}
 	{{lesson_version.contributor}}
     Add a button that shows dropdown of all contributors to lesson.

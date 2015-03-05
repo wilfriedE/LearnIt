@@ -2,7 +2,7 @@
   src="http://www.youtube.com/embed/{{lesson_version_data.video_id}}?enablejsapi=1&controls=0&modestbranding=1&cc_load_policy=1&rel=0&showinfo=0"  webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 
- <script>
+<script>
       // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
       var playbutton = $("#player-play-btn");
@@ -57,12 +57,6 @@
       function onPlayerStateChange(event) {
       	evaluatePlayButtonStatus(event);
       }
-      
-
-      function stopVideo() {
-        player.stopVideo();
-      }
-
 
  	  /// Controlling VideoPlayer Actions
  	  //Play video and pause it

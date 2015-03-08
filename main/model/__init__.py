@@ -9,7 +9,6 @@ from .answer_choice import AnswerChoice
 from .course import Course
 from .lesson import Lesson
 from .lesson_version import LessonVersion
-from .program import Program
 from .question import Question
 from .quiz import Quiz
 from .suggestion import Suggestion

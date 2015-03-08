@@ -3,6 +3,7 @@
 from __future__ import absolute_import
 
 import hashlib
+import random
 
 from google.appengine.ext import ndb
 
@@ -17,3 +18,10 @@ class Course(model.Base):
   lessons = ndb.KeyProperty(kind='Lesson', repeated=True)
   topics = ndb.KeyProperty(kind='Topic', repeated=True)
   contributors = ndb.KeyProperty(kind='User', repeated=True)
+  color = ndb.StringProperty()
+
+  #Generate Color if non already
+  def _pre_put_hook(self):
+  	if not self.color:
+  		r = lambda: random.randint(0,255)
+  		self.color = ('#%02X%02X%02X' % (r(),r(),r()))

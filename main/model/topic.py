@@ -3,6 +3,7 @@
 from __future__ import absolute_import
 
 import hashlib
+import random
 
 from google.appengine.ext import ndb
 
@@ -15,4 +16,11 @@ import config
 class Topic(model.Base):
   #  Topics can be FRC, FTC, Safety etc...
   name = ndb.StringProperty(required=True)
-  #  Define a method for before creation that does not create if it's a duplicate.
+  color = ndb.StringProperty()
+
+  #Generate Color if non already
+  def _pre_put_hook(self):
+  	if not self.color:
+  		r = lambda: random.randint(0,255)
+  		self.color = ('#%02X%02X%02X' % (r(),r(),r()))
+  		

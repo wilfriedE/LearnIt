@@ -88,40 +88,38 @@ def new_lesson():
   lesson = model.Lesson(contributors = [auth.current_user_key()])
   vote = model.Vote()
   form = NewLessonForm()
-  app.logger.debug(form.validate_on_submit())
-  app.logger.debug(form.validate())
   if flask.request.method == 'POST' and form.video_url.data and form.description.data and form.name.data:
+    
     vote = vote.put()
     lesson = lesson.put()
     topics = []
-    for topic in form.topics.data.split(","):
-      t = model.Topic(name=topic.strip().capitalize())
-      t = t.put()
-      topics.append(t)
 
-    lesson_version = model.LessonVersion(
-                   data = reform_data_scheme(form.video_url.data),
-                   name = form.name.data,
-                   description = form.description.data,
-                   topics = topics,
-                   vote = vote,
-                   contributor = auth.current_user_key(),
-                   lesson = lesson,
-                   )
-    lesson_version = lesson_version.put()
-    if lesson_version:
+    try:
+      for topic in form.topics.data.split(","):
+        t = model.Topic.get_or_insert(topic.strip().capitalize(), name=topic.strip().capitalize())
+        if t not in topics:
+          topics.append(t.key)
+
+      lesson_version = model.LessonVersion(
+                     data = reform_data_scheme(form.video_url.data),
+                     name = form.name.data,
+                     description = form.description.data,
+                     topics = topics,
+                     vote = vote,
+                     contributor = auth.current_user_key(),
+                     lesson = lesson,
+                     )
+      lesson_version = lesson_version.put()
       lesson = lesson.get()
       lesson.lesson_versions.append(lesson_version)
       lesson.put()
       return flask.jsonify(lesson_id = lesson_version.id())
-    else:
+    except: 
       vote.delete()
       lesson.delete()
       for topic in topics:
           topic.delete()
       return flask.jsonify(error = 'The Lesson was not created because of some errors.')
-  elif flask.request.method == 'POST':
-    return flask.jsonify(error = 'The Lesson was not created because of some errors.')
 
   return flask.render_template(
       'lesson/new_lesson.html',

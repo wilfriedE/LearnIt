@@ -18,6 +18,7 @@ class Course(model.Base):
   lessons = ndb.KeyProperty(kind='Lesson', repeated=True)
   topics = ndb.KeyProperty(kind='Topic', repeated=True)
   contributors = ndb.KeyProperty(kind='User', repeated=True)
+  approved = ndb.BooleanProperty(default=False)
   color = ndb.StringProperty()
 
   #Generate Color if non already

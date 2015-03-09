@@ -17,7 +17,6 @@ class Achievement(model.Base):
   data = ndb.StringProperty(required=True)
   quiz= ndb.KeyProperty(required=True)
 
-  @classmethod
   def data_in_json(self):
     data = json.loads(self.data)
     return data

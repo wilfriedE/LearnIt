@@ -3,7 +3,7 @@
 import flask
 
 import config
-
+import model
 from main import app
 
 
@@ -13,6 +13,15 @@ from main import app
 @app.route('/')
 def welcome():
   return flask.render_template('welcome.html', html_class='welcome')
+
+
+###############################################################################
+# Library
+###############################################################################
+@app.route('/library')
+def library():
+  lessons = model.Lesson.query().fetch()
+  return flask.render_template('library.html',lessons=lessons, html_class='library')
 
 
 ###############################################################################

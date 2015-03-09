@@ -39,6 +39,8 @@ def lesson(lesson_id, version_id='', course_id=''):
     course = model.Course.get_by_id(int(course_id))
   if version_id:
     display_type = 'lesson-version'
+  else:
+    version_id = lesson.latest_version.id()
     
   return flask.render_template(
       'lesson/lesson.html',
@@ -62,6 +64,15 @@ def render_lesson_version(version_id):
       html_class='lesson-version',
     )
 
+@app.route('/card/l/<lesson_id>')
+def lesson_card(lesson_id):
+  lesson = model.Lesson.get_by_id(int(lesson_id)) 
+  return flask.render_template(
+      'lesson/lesson_card.html',
+      title='',
+      lesson=lesson,
+      html_class='lesson-card',
+    )
 
 ###############################################################################
 # New Lesson
@@ -85,10 +96,10 @@ class NewLessonForm(wtf.Form):
 @app.route('/new-lesson/', methods=['GET','POST'])
 @auth.login_required
 def new_lesson():
-  lesson = model.Lesson(contributors = [auth.current_user_key()])
+  lesson = model.Lesson()
   vote = model.Vote()
   form = NewLessonForm()
-  if flask.request.method == 'POST' and form.video_url.data and form.description.data and form.name.data:
+  if flask.request.method is 'POST' and form.video_url.data and form.description.data and form.name.data:
     
     vote = vote.put()
     lesson = lesson.put()
@@ -128,6 +139,8 @@ def new_lesson():
       html_class='lesson',
     )
 
+
+##This would be the process where users can propose new versions for a Lesson. These would of course need approval.
 @app.route('/propose_update/lesson/<lesson_id>', methods=['GET','POST'])
 @auth.login_required
 def new_lesson_version(lesson_id):

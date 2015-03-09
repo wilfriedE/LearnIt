@@ -16,7 +16,6 @@ class AnswerChoice(model.Base):
   data = ndb.StringProperty(default='', required=True)
   template = ndb.StringProperty()
 
-  @classmethod
   def data_in_json(self):
     data = json.loads(self.data)
     return data

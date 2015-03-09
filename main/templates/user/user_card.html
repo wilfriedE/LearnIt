@@ -1,1 +1,19 @@
-//SHOULD CONTAIN A RENDERING OF THE PASSED IN USER'S CARD
+<div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+	<ul class="card-list">
+		<li style="border-left: 1em solid #03a9f4">
+			<img class="img-thumbnail" src="{{user_db.avatar_url_size(150)}}" alt="Avatar of {{user_db.name}}">
+			<div class="info">
+				<h2 class="title">{{user_db.name}}</h2>
+				<p class="desc">Team: Available Soon.</p>									
+			</div>
+			<div class="social">
+				<ul>
+					<li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>
+					<li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
+					<li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>
+				</ul>
+			</div>
+		</li>
+
+	</ul>
+</div>

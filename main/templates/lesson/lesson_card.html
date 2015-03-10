@@ -1,39 +1,44 @@
-<div class="row">
- 	<ul class="card-list">
-		<li style="border-left: 1em solid {{lesson.color}}">
-			<div class="info">
-				<a href="/lesson/{{lesson.key.id()}}"><i class="mdi-av-play-circle-outline" style="font-size: 75pt;float:left"></i></a>
-				<h2 class="title">{{lesson.name}}</h2>
-				<p class="desc">{{lesson.description}}</p>	
-				<ul>
-					<li style="width:100%;"><a class="" data-toggle="collapse" href="#collapseListGroup{{lesson.key.id()}}" aria-controls="collapseListGroup{{lesson.key.id()}}"><span class="mdi-content-content-copy"></span> All Versions</a></li>
-				</ul>									
-			</div>
-			<div class="social">
-				<ul>
-					<li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>
-					<li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
-					<li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>
-				</ul>
-			</div>
-		
-		<div class="panel-collapse collapse card-collapse" id="collapseListGroup{{lesson.key.id()}}" role="tabpanel" >
-			# for version in lesson.lesson_versions
-			# set version = version.get()
-			<div class="media btn btn-default btn-raised">
-			  <div class="media-left">
-			    <a href="/lesson/{{lesson.key.id()}}/v/{{version.key.id()}}">
-			     <i class="mdi-av-play-circle-outline" style="font-size: 50pt;float:left"></i>
-			    </a>
-			  </div>
-			  <div class="media-body">
-			    <h4 class="media-heading">{{version.name}}</h4>
-			  </div>
-			</div>
-			# endfor
-      </div>
-
-		</li>
-
-	</ul>
+<div class="row media" >
+  <div class="media-left media-middle">
+    <a href="/lesson/{{lesson.key.id()}}" style="color:{{lesson.color}}"><i class="mdi-av-play-circle-outline" style="font-size: 60pt;"></i></a>
+  </div>
+  <div class="media-body">
+    <h3 class="title">{{lesson.name}}</h3>
+	<p class="desc">{{lesson.description}}</p>	
+	<!-- Versions modal trigger -->
+	<button class="btn" data-toggle="modal" data-target="#versions{{lesson.key.id()}}"><span class="mdi-content-content-copy"></span> Show all Versions </button>
+  </div>
 </div>
+
+<!--Versions Modal -->
+<div class="modal fade" id="versions{{lesson.key.id()}}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title"><b>{{lesson.name}}'s Versions</b></h4>
+            </div>
+            <div class="modal-body">
+                # for version in lesson.lesson_versions
+				# set version = version.get()
+				<div class="media" style="border-left: 0.25em solid #03a9f4">
+				  <div class="media-left media-middle">
+				    <a href="/lesson/{{lesson.key.id()}}/v/{{version.key.id()}}">
+				     <i class="mdi-av-play-circle-outline" style="font-size: 50pt;"></i>
+				    </a>
+				  </div>
+				  <div class="media-body">
+				    <h5 class="media-heading"><b>{{version.name}}</b></h5>
+				    <p class="desc">{{version.description}}</p>
+				  </div>
+				</div>
+				# endfor
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Propose an update</button>
+            </div>
+        </div>
+    </div>
+</div>
+ 

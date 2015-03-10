@@ -53,6 +53,7 @@ SCRIPTS = [
         'ext/bootstrap/js/alert.js',
         'ext/bootstrap/js/button.js',
         'ext/bootstrap/js/transition.js',
+        'ext/bootstrap/js/modal.js',
         'ext/bootstrap/js/collapse.js',
         'ext/bootstrap/js/dropdown.js',
         'ext/bootstrap/js/tooltip.js',

@@ -103,10 +103,8 @@ def new_lesson():
     if form.lesson_id.data:
       lesson = model.Lesson.get_by_id(int(form.lesson_id.data))
       lesson = lesson.key
-      app.logger.info('In here')
     else:
       lesson = model.Lesson().put()
-      app.logger.info('Actually here')
 
     topics = []
     for topic in form.topics.data.split(","):
@@ -144,7 +142,6 @@ def new_lesson():
 def new_lesson_version(lesson_id):
   user_db = auth.current_user_db()
   lesson = model.Lesson.get_by_id(int(lesson_id))
-  app.logger.info(lesson)
   form = NewLessonForm(name = lesson.name, description = lesson.description, topics = ', '.join([ key.id() for key in lesson.topics]), lesson_id = lesson_id)
   return flask.render_template(
       'lesson/new_lesson.html',

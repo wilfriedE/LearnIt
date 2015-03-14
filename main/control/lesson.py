@@ -85,9 +85,10 @@ class NewLessonForm(wtf.Form):
   topics = wtforms.StringField(
       'Topics', [wtforms.validators.Length(min=2, max=25)],
     )
-  description = wtforms.TextField(
-      'Description', [wtforms.validators.Length(min=2, max=25)]
+  description = wtforms.TextAreaField(
+      'Description', [wtforms.validators.Length(min=2, max=25)],
     )
+  lesson_id = wtforms.HiddenField()#This field is only nesessary when creating a new version of an existing lesson.
   ##video_thumnail = wtforms.FileField('Video Thumbnail Image')
   ##video_file = wtforms.FileField('Video File')
   video_url = wtforms.StringField('Video Link')
@@ -96,41 +97,38 @@ class NewLessonForm(wtf.Form):
 @app.route('/new-lesson/', methods=['GET','POST'])
 @auth.login_required
 def new_lesson():
-  lesson = model.Lesson()
-  vote = model.Vote()
   form = NewLessonForm()
-  if flask.request.method is 'POST' and form.video_url.data and form.description.data and form.name.data:
-    
-    vote = vote.put()
-    lesson = lesson.put()
+  if flask.request.method == 'POST' and form.video_url.data and form.description.data and form.name.data:
+    vote = model.Vote().put()
+    if form.lesson_id.data:
+      lesson = model.Lesson.get_by_id(int(form.lesson_id.data))
+      lesson = lesson.key
+      app.logger.info('In here')
+    else:
+      lesson = model.Lesson().put()
+      app.logger.info('Actually here')
+
     topics = []
-
-    try:
-      for topic in form.topics.data.split(","):
-        t = model.Topic.get_or_insert(topic.strip().capitalize(), name=topic.strip().capitalize())
-        if t not in topics:
-          topics.append(t.key)
-
-      lesson_version = model.LessonVersion(
-                     data = reform_data_scheme(form.video_url.data),
-                     name = form.name.data,
-                     description = form.description.data,
-                     topics = topics,
-                     vote = vote,
-                     contributor = auth.current_user_key(),
-                     lesson = lesson,
-                     )
-      lesson_version = lesson_version.put()
-      lesson = lesson.get()
-      lesson.lesson_versions.append(lesson_version)
-      lesson.put()
-      return flask.jsonify(lesson_id = lesson_version.id())
-    except: 
-      vote.delete()
-      lesson.delete()
-      for topic in topics:
-          topic.delete()
-      return flask.jsonify(error = 'The Lesson was not created because of some errors.')
+    for topic in form.topics.data.split(","):
+      t = model.Topic.get_or_insert(topic.strip().capitalize(), name=topic.strip().capitalize())
+      if t not in topics:
+        topics.append(t.key)
+    lesson_version = model.LessonVersion(
+                   data = reform_data_scheme(form.video_url.data),
+                   name = form.name.data,
+                   description = form.description.data,
+                   topics = topics,
+                   vote = vote,
+                   contributor = auth.current_user_key(),
+                   lesson = lesson,
+                   )
+    lesson_version = lesson_version.put()
+    lesson = lesson.get()
+    lesson.lesson_versions = lesson.lesson_versions + [lesson_version]
+    lesson = lesson.put()
+    return flask.jsonify(action = sendScript('success', message='Your lesson was created. You may now create a quiz for your lesson',lesson_id = lesson.id(), lesson_version = lesson_version.id()))
+  elif flask.request.method == 'POST':
+    return flask.jsonify(action = sendScript('error', message='The Lesson was not created because some parts are missing.'))
 
   return flask.render_template(
       'lesson/new_lesson.html',
@@ -141,20 +139,20 @@ def new_lesson():
 
 
 ##This would be the process where users can propose new versions for a Lesson. These would of course need approval.
-@app.route('/propose_update/lesson/<lesson_id>', methods=['GET','POST'])
+@app.route('/propose_update/lesson/<lesson_id>')
 @auth.login_required
 def new_lesson_version(lesson_id):
   user_db = auth.current_user_db()
-  lesson_version = LessonVersion()
-
-  form = NewLessonForm(obj=lesson_version)
-
+  lesson = model.Lesson.get_by_id(int(lesson_id))
+  app.logger.info(lesson)
+  form = NewLessonForm(name = lesson.name, description = lesson.description, topics = ', '.join([ key.id() for key in lesson.topics]), lesson_id = lesson_id)
   return flask.render_template(
       'lesson/new_lesson.html',
-      title='Lesson Proposal',
+      title='Lesson Update Proposal',
       form=form,
-      html_class='lesson-version',
+      html_class='lesson-update',
     )
+
 ##No Longer Doing Video Uploads for the time being because of this article
 ## http://apiblog.youtube.com/2012/02/video-uploads-from-your-sites-community.html
 ## Considering implementing AuthSub to allow users to upload their own account instead.
@@ -216,3 +214,12 @@ def reform_data_scheme(video_link):
       DATASCHEME["fields"].append("video_id")
       DATASCHEME["service_type"] = ("vimeo")
     return json.dumps(DATASCHEME)
+
+def sendScript(event, message='', lesson_id='', lesson_version=''):
+  layer = "<script type='text/javascript'>{0}</script>"
+  if event == 'success':
+    lesson_s_message = " or view your <a href='/lesson/{0}/v/{1}'>New Lesson</a>".format(lesson_id, lesson_version)
+    sidedisplay = message + lesson_s_message
+    return layer.format("$('#side-result-view').html(\"{0}\");\n$('#new-lesson-form-container').html('Create Quiz');".format(sidedisplay))
+  elif event == 'error':
+    return layer.format("$('#side-result-view').text({0});".format(message))

@@ -2,8 +2,12 @@
 # block lesson_content
   <div class="col-lg-8">
     //NAV BAR FOR Lesson
-    <div class="bs-component" id="lesson-player"> 
-
+    <div class="bs-component" id="lesson-player">
+      All Contributors
+      #for contributor in lesson.contributors
+      #set contributor = contributor.get()
+        {{contributor.load_card()|safe }}
+      #endfor
     </div>
       //Discuss Comments for Lesson
   </div>
@@ -11,10 +15,14 @@
   <div class="col-lg-3">
     <div class="bs-component">
     <div class="well well-lg">
-      IF there is a quiz for this lesson show the Take Quiz button!
-      IF this a Track of lessons then show the next/previous button
-
-      Otherwise,show other versions of the current lesson if available
+      #if display_type == 'lesson'
+        Take Quiz if There is a Quiz for this lesson else, learn more button 
+      #elif display_type == 'lesson-version'
+        Show All versions of the current lesson
+      #elif display_type == 'course-lesson'
+        Take Quiz if There is Quiz or Next Lesson if there is next lesson, Previous Lesson if there is previous lesson
+        To Do is Logic for Track 
+      #endif
     </div>
     </div>
   </div>

@@ -3,7 +3,7 @@
 # block lesson_content
   <div class="col-lg-8">
     <div class="bs-component">
-    <div class="well well-lg">
+    <div class="well well-lg" id="new-lesson-form-container">
       <form action="/new-lesson/" method="post"   id="new-lesson-form" data-autosubmit >
         {{form.csrf_token}}
         <div class="panel-group">
@@ -20,6 +20,7 @@
           {{ form.video_url.label }}{{ form.video_url(class_='form-control') }}
            </div>
         </div>
+        {{ form.lesson_id }}
         <button type="submit" id="submit-form-btn" class="btn btn-primary btn-lg btn-block btn-loading">
           Create a New Lesson
         </button>
@@ -31,7 +32,7 @@
   <div class="col-lg-3">
     <div class="bs-component">
     <div class="well well-lg" id="side-result-view">
-      Nothing here yet
+      Thanks contributing to the Community.
     </div>
     </div>
   </div>

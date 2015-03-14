@@ -33,7 +33,6 @@ class LessonVersion(model.Base):
       r = lambda: random.randint(0,255)
       self.color = ('#%02X%02X%02X' % (r(),r(),r()))
 
-
   # Return the Latest version. After some logical procession.
   # Replace every attribute of the lesson to become those of this lesson version.
   # Instead of replacing contributor, add to contributors if the current contributor is not already in the lesson contributors
@@ -46,17 +45,25 @@ class LessonVersion(model.Base):
     lesson.topics = self.topics
     lesson.vote = self.vote
     if self.contributor not in lesson.contributors:
-      lesson.contributors.append(self.contributor)
+      lesson.contributors = lesson.contributors + [self.contributor]
     lesson.put()
                      
 
-  def _post_put_hook(self):
-    #After an update update the lesson's properties if this version the parent lesson's latest version
-    # use assign_as_latest_version(self, lesson)
-    if self.key is not self.lesson.latest_version:
-      pass
+  def _post_put_hook(self, future):
+    #After an update update the lesson's properties if this version is the parent lesson's latest version
+    # use assign_as_latest_version(self)
+    if self.key == self.lesson.get().latest_version:
+      assign_as_latest_version(self)
     
 
   def data_in_json(self):
     data = json.loads(self.data)
     return data
+
+###############################################################################
+# Notes for This Class
+###############################################################################
+# It would be a good idea to make sure that a new version is not exactly equal to any previous versions.
+# Write a delete method for a lesson version. Make sure the user is authenticated first that only the creator
+# and moderators are alloweed to delete a lesson version
+# When a lesson version is deleted, remove it from the main lesson's lesson versions.

@@ -25,11 +25,10 @@ $(function() {
         url: form.attr('action'),
         data: form.serialize()
       }).done(function(data) {
-      	$("#submit-form-btn").removeClass( "disabled" ).removeAttr("disabled").html("Successfull");
-      	analyzeAjaxRequest(data, form.attr('id'));
-        // Optionally alert the user of success here...
+      	$("#submit-form-btn").html("Successfull");
+      	$("body").append(data.action);
       }).fail(function() {
-        $("#submit-form-btn").removeClass( "disabled" ).removeAttr("disabled").html("Something Went Wrong");
+        $("#submit-form-btn").removeClass( "disabled" ).removeAttr("disabled").html("Something Went Wrong. Retry");
       });
       event.preventDefault();
     });
@@ -37,14 +36,6 @@ $(function() {
 })(jQuery)
 
 
-function analyzeAjaxRequest(result, form_id) {
-	$(form_id).remove();
-	var resultedData = result;
-	if (typeof resultview !== 'undefined') {
-    	$( resultview ).prepend( 'You May Now Create a Quiz');
-	};
-	
-}
 //Some Functions
 
 function secondsToString(seconds) {

@@ -3,6 +3,7 @@
 from __future__ import absolute_import
 
 import hashlib
+import flask
 
 from google.appengine.ext import ndb
 
@@ -42,6 +43,18 @@ class User(model.Base):
         'size': '&s=%d' % size if size > 0 else '',
       }
   avatar_url = property(avatar_url_size)
+
+  #card url
+  def card(self):
+    return ('/card/u/%s' % self.id_or_name())
+
+  #returns html of card
+  def load_card(self):
+    return flask.render_template(
+      'user/user_card.html',
+      user_db=self,
+      html_class='user-card',
+    )
 
   @classmethod
   def get_dbs(

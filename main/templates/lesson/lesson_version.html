@@ -11,7 +11,9 @@
 	#endif
 
 	{{lesson_version.description}}
-	{{lesson_version.contributor}}
-    Add a button that shows dropdown of all contributors to lesson.
+	
+	Version Contributor
+	#set contributor = lesson_version.contributor.get()
+    {{contributor.load_card()|safe }}
 	
 </div>

@@ -25,3 +25,10 @@ class Topic(model.Base):
   		r = lambda: random.randint(0,255)
   		self.color = ('#%02X%02X%02X' % (r(),r(),r()))
   		
+  FIELDS = {
+      'name': fields.String,
+      'active': fields.Boolean,
+      'approved': fields.String
+    }
+
+  FIELDS.update(model.Base.FIELDS)

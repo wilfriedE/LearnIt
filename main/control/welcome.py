@@ -20,18 +20,18 @@ def welcome():
 ###############################################################################
 @app.route('/library')
 def library():
-  lessons = model.Lesson.query().fetch()
-  courses = model.Course.query().fetch()
+  lessons = model.Lesson.query(model.Lesson.approved==True).fetch()
+  courses = model.Course.query(model.Course.approved==True).fetch()
   return flask.render_template('library.html', lessons=lessons, courses=courses, html_class='library')
 
 ###############################################################################
 # Topic
 ###############################################################################
 @app.route('/topic:<topic_name>')
-def topic(topic_name):
+def topic_view(topic_name):
   topic = model.Topic.get_by_id(topic_name.strip().capitalize()).key
-  lessons = model.Lesson.query(model.Lesson.topics == topic).fetch()
-  courses = model.Course.query(model.Course.topics == topic).fetch()
+  lessons = model.Lesson.query(model.Lesson.topics == topic, model.Lesson.approved==True).fetch()
+  courses = model.Course.query(model.Course.topics == topic, model.Course.approved==True).fetch()
   return flask.render_template('topic.html', lessons=lessons, courses=courses, html_class='topic')
 
 ###############################################################################

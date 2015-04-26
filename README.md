@@ -1,7 +1,7 @@
 FIRSTMastery
 ============
 
-A centralized training resource for all FIRST Robotics team.
+A centralized training resource for the [FIRST](http://www.usfirst.org/) Robotics community.
 
 FIRSTMastery is built on top of gae-init.
 
@@ -51,5 +51,11 @@ and you ran the `run.py` script to minify all the static files:
     $ ./run.py -m
     $ appcfg.py update main
 
+GOALS and Objectives :
+---------------------
+- Build the best learning learning platform for the FIRST community.
+- Make the platform as collaborative a community central as possible.
+- Make the project modular and understanstable so anyone can contribute.
+- *become a contributor and introduce your goals...
 
-All Contributions are welcome.
+All Contributions are welcome. 

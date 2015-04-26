@@ -22,26 +22,40 @@
   ],
   "dependencies": {
     "bootstrap": "~3",
-    "bootstrap-material-design": "~0",
     "bootstrap-sweetalert": "~0",
     "font-awesome": "~4",
     "jquery": "~2",
     "lesshat": "~3",
     "moment": "~2",
-    "nprogress": "https://github.com/lipis/nprogress.git#master"
+    "nprogress": "https://github.com/lipis/nprogress.git#master",
+    "bootstrap-material-design": "~0.3.0"
   },
   "overrides": {
     "bootstrap": {
-      "main": ["less/**", "fonts/*", "js/*"]
+      "main": [
+        "less/**",
+        "fonts/*",
+        "js/*"
+      ]
     },
     "bootstrap-sweetalert": {
-      "main": ["lib/*.less", "lib/sweet-alert.js"]
+      "main": [
+        "lib/*.less",
+        "lib/sweet-alert.js"
+      ]
     },
     "bootstrap-material-design": {
-      "main": ["less/**","fonts/*","scripts/*"]
+      "main": [
+        "less/**",
+        "fonts/*",
+        "scripts/*"
+      ]
     },
     "font-awesome": {
-      "main": ["less/*", "fonts/*"]
+      "main": [
+        "less/*",
+        "fonts/*"
+      ]
     }
   }
 }

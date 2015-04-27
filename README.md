@@ -53,8 +53,8 @@ and you ran the `run.py` script to minify all the static files:
 
 GOALS and Objectives :
 ---------------------
-- Build the best learning learning platform for the FIRST community.
-- Make the platform as collaborative a community central as possible.
+- Build the best learning platform for the FIRST community.
+- Make the platform as collaborative and community central as possible.
 - Make the project modular and understanstable so anyone can contribute.
 - *become a contributor and introduce your goals...
 

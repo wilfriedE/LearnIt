@@ -27,8 +27,6 @@ class Topic(model.Base):
   		
   FIELDS = {
       'name': fields.String,
-      'active': fields.Boolean,
-      'approved': fields.String
     }
 
   FIELDS.update(model.Base.FIELDS)

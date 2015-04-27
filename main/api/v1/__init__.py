@@ -3,3 +3,4 @@
 from .config import *
 from .user import *
 from .topic import *
+from .lesson import *

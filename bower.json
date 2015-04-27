@@ -27,7 +27,8 @@
     "lesshat": "~3",
     "moment": "~2",
     "nprogress": "https://github.com/lipis/nprogress.git#master",
-    "bootstrap-material-design": "~0.3.0"
+    "bootstrap-material-design": "~0.3.0",
+    "selectize": "~0.12.1"
   },
   "overrides": {
     "bootstrap": {
@@ -42,6 +43,12 @@
         "less/**",
         "fonts/*",
         "scripts/*"
+      ]
+    },
+    "selectize": {
+      "main": [
+        "dist/less/**",
+        "dist/js/standalone/*"
       ]
     },
     "font-awesome": {

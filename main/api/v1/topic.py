@@ -13,7 +13,7 @@ import util
 
 from main import api_v1
 
-@api_v1.resource('/api/v1/topics/', endpoint='api.topics')
-class TopicsAPI(restful.Resource):
+@api_v1.resource('/topics/', endpoint='api.topic.list')
+class TopicListAPI(restful.Resource):
   def get(self):
-    return helpers.make_response(model.Topic.query().fetch(), model.Topic.FIELDS)
+    return helpers.make_response(model.Topic.query(model.Topic.approved==True).fetch(), model.Topic.FIELDS)

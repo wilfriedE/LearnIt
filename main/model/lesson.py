@@ -19,6 +19,8 @@ class Lesson(model.Base):
   latest_version = ndb.KeyProperty(kind='LessonVersion')
   contributors = ndb.KeyProperty(repeated=True)
   color = ndb.StringProperty()
+  deadLock = ndb.BooleanProperty(default=False) #only if new versions should not be accepted
+  is_a =  ndb.StringProperty() #the type of the lesson being submitted.
 
   #These properties are set based on the latest version
   #Fields are not required because 
@@ -53,3 +55,14 @@ class Lesson(model.Base):
   def data_in_json(self):
     data = json.loads(self.data)
     return data
+
+  FIELDS = {
+    'data': fields.String,
+    'is_a': fields.String,
+    'lesson_versions': fields.Key,
+    'description': fields.String,
+    'quiz': fields.Key,
+    'topics': fields.Key
+  }
+
+  FIELDS.update(model.Base.FIELDS)

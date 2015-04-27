@@ -49,6 +49,7 @@ SCRIPTS = [
         'ext/nprogress/nprogress.js',
         'ext/bootstrap-material-design/scripts/material.js',
         'ext/bootstrap-material-design/scripts/ripples.js',
+        'ext/selectize/dist/js/standalone/selectize.js',
         'ext/bootstrap/js/alert.js',
         'ext/bootstrap/js/button.js',
         'ext/bootstrap/js/transition.js',

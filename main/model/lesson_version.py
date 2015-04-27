@@ -26,6 +26,7 @@ class LessonVersion(model.Base):
   quiz = ndb.KeyProperty(kind='Quiz')
   vote = ndb.KeyProperty(kind='Vote')
   color = ndb.StringProperty()
+  is_a = ndb.StringProperty()
 
   def _pre_put_hook(self):
     #Generate Color if non already
@@ -60,6 +61,17 @@ class LessonVersion(model.Base):
     data = json.loads(self.data)
     return data
 
+  FIELDS = {
+    'name': fields.String,
+    'data': fields.String,
+    'is_a': fields.String,
+    'lesson': fields.Key,
+    'description': fields.String,
+    'quiz': fields.Key,
+    'topics': fields.Key
+  }
+
+  FIELDS.update(model.Base.FIELDS)
 ###############################################################################
 # Notes for This Class
 ###############################################################################

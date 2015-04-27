@@ -43,7 +43,7 @@ Change from Coyright 2015 to Creative Commons talk with Remy about details and s
 	...
 	}
 
-
+==The Quiz Engine
 Calculating Quiz Achievement and points assignments for User.
 Have an Javascript array that stores the keys of the questions gotten correct. If the number of questions gotten right is greater than or equal to the minimum answers of the quiz then add the quizes's points to the user's points and if it has an achievement, add it to the user's achievements. Do all of this unless this quiz is in the user's finished quizes array. 
 
@@ -51,3 +51,15 @@ For each question have a verify controller that checks if the user's submmitted 
 
 
 When a contributor deletes a lesson version, create an Suggestion for deleting lesson as well. This would be displayed to all the moderators who would then decide on deletion. During a lesson's deletion process delete everything that is related to it. And make sure to remove it from a course that has it. 
+
+==Lesson fields
+is_a field onn Lessons and Lesson Versions tells what kind of lesson it is.
+Possible types:
+	-Video
+	-Embeddables (Slides, other video types, pdf, audio)
+	-Image (data string needs number of images and an array of image links or sources)
+	-Audio (datatype would allow for cover image, and link to audio source)
+	-Live (These would be streams probably embeds.)
+		~Because this would display on live events page it should have button to mark end. When pressed it should change it from a live to another type.
+		
+The json string for these fields depending on which will have details about name and such which may be required. 

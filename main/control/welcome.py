@@ -25,6 +25,13 @@ def library():
   return flask.render_template('library.html', lessons=lessons, courses=courses, html_class='library')
 
 ###############################################################################
+# Library
+###############################################################################
+@app.route('/contribute')
+def contribute():
+  return flask.render_template('contribute.html', html_class='contribute')
+
+###############################################################################
 # Topic
 ###############################################################################
 @app.route('/topic:<topic_name>')

@@ -14,7 +14,7 @@ import config
 
 
 class Course(model.Base):
-  name = ndb.StringProperty(required=True)
+  name = ndb.StringProperty(required=True,indexed=True)
   lessons = ndb.KeyProperty(kind='Lesson', repeated=True)
   topics = ndb.KeyProperty(kind='Topic', repeated=True)
   contributors = ndb.KeyProperty(kind='User', repeated=True)

@@ -24,7 +24,7 @@ class Lesson(model.Base):
 
   #These properties are set based on the latest version
   #Fields are not required because 
-  name = ndb.StringProperty()
+  name = ndb.StringProperty(indexed=True)
   description = ndb.TextProperty()
   data = ndb.StringProperty()
   topics = ndb.KeyProperty(kind='Topic', repeated=True)

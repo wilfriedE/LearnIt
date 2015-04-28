@@ -15,7 +15,7 @@ import config
 
 class Topic(model.Base):
   #  Topics can be FRC, FTC, Safety etc...
-  name = ndb.StringProperty(required=True)
+  name = ndb.StringProperty(required=True,indexed=True)
   approved = ndb.BooleanProperty(default=False)
   color = ndb.StringProperty()
 

@@ -8,16 +8,16 @@
         {{form.csrf_token}}
         <div class="panel-group">
           <div class="form-group">
-          {{ form.name.label }} {{ form.name(class_='form-control')  }}
+          {{ form.name.label }} {{ form.name(class='form-control')  }}
           </div>
           <div class="form-group">
-          {{ form.topics.label }}{{ form.topics(class_='form-control') }}
+          {{ form.topics.label }}<div class="dotted-box">{{ form.topics( id='selectize-topics') }}</div>
           </div>
           <div class="form-group">
-          {{ form.description.label }} {{ form.description(class_='form-control') }}
+          {{ form.description.label }} {{ form.description(class='form-control') }}
            </div>
            <div class="form-group">
-          {{ form.video_url.label }}{{ form.video_url(class_='form-control') }}
+          {{ form.video_url.label }}{{ form.video_url(class='form-control') }}
            </div>
         </div>
         {{ form.lesson_id }}
@@ -41,6 +41,51 @@
       var resultview = "side-result-view"
       window.onload = function() {
         //sELECTIZE HERE
-      }; 
+        $('#selectize-topics').selectize({
+          delimiter: ',',
+          valueField: 'url',
+          labelField: 'name',
+          searchField: 'name',
+          create: false,
+          render: {
+              item: function(item, escape) {
+                  return '<div><span class="btn-info btn-raised" style="color:white"> <b>' + escape(item.name) + '</b></span></div>';
+              },
+              option: function(item, escape) {
+                return '<div>' +
+                      '<span class="title">' +
+                          '<span class="name"><i class="icon ' + (item.fork ? 'fork' : 'source') + '"></i>' + escape(item.name) + '</span>' +
+                          '<span class="by">' + escape(item.username) + '</span>' +
+                      '</span>' +
+                      '<span class="description">' + escape(item.description) + '</span>' +
+                      '<ul class="meta">' +
+                          (item.language ? '<li class="language">' + escape(item.language) + '</li>' : '') +
+                          '<li class="watchers"><span>' + escape(item.watchers) + '</span> watchers</li>' +
+                          '<li class="forks"><span>' + escape(item.forks) + '</span> forks</li>' +
+                      '</ul>' +
+                  '</div>';
+              }
+          },
+          score: function(search) {
+              var score = this.getScoreFunction(search);
+              return function(item) {
+                  return score(item) * (1 + Math.min(item.watchers / 100, 1));
+              };
+          },
+          load: function(query, callback) {
+              if (!query.length) return callback();
+              $.ajax({
+                  url: 'https://api.github.com/legacy/repos/search/' + encodeURIComponent(query),
+                  type: 'GET',
+                  error: function() {
+                      callback();
+                  },
+                  success: function(res) {
+                      callback(res.repositories.slice(0, 10));
+                  }
+              });
+          }
+      });
+    }; 
   </script>
 # endblock

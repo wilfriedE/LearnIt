@@ -93,6 +93,7 @@ class NewLessonForm(wtf.Form):
   ##video_file = wtforms.FileField('Video File')
   video_url = wtforms.StringField('Video Link')
 
+#this code below is disgusting -- seriously needs refactoring
 @app.route('/lesson/new', methods=['GET','POST'])
 @app.route('/new-lesson/', methods=['GET','POST'])
 @auth.login_required

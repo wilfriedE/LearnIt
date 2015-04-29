@@ -94,7 +94,7 @@ class NewLessonForm(wtf.Form):
   video_url = wtforms.StringField('Video Link')
 
 #this code below is disgusting -- seriously needs refactoring
-@app.route('/lesson/new', methods=['GET','POST'])
+@app.route('/lesson/new', methods=['GET'])
 @app.route('/new-lesson/', methods=['GET','POST'])
 @auth.login_required
 def new_lesson():

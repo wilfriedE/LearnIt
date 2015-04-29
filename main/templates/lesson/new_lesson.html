@@ -11,7 +11,7 @@
           {{ form.name.label }} {{ form.name(class='form-control')  }}
           </div>
           <div class="form-group">
-          {{ form.topics.label }}<div class="dotted-box">{{ form.topics( id='selectize-topics') }}</div>
+          {{ form.topics.label }}<div class="dotted-box">{{ form.topics(class='form-control') }}</div>
           </div>
           <div class="form-group">
           {{ form.description.label }} {{ form.description(class='form-control') }}
@@ -41,9 +41,9 @@
       var resultview = "side-result-view"
       window.onload = function() {
         //sELECTIZE HERE
-        $('#selectize-topics').selectize({
+        $('#topics').selectize({
           delimiter: ',',
-          valueField: 'url',
+          valueField: 'name',
           labelField: 'name',
           searchField: 'name',
           create: false,

@@ -63,3 +63,10 @@ Possible types:
 		~Because this would display on live events page it should have button to mark end. When pressed it should change it from a live to another type.
 		
 The json string for these fields depending on which will have details about name and such which may be required. 
+
+
+Notes for next time:
+During lesson version creation process, check if it already has a lesson or vote.
+If not create a vote instead of creating during form submission. This would help with preventing duplication.
+
+Also figure otu how to create indexes for the Appengine Document search api

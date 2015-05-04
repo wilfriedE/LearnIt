@@ -93,38 +93,41 @@ class NewLessonForm(wtf.Form):
   ##video_file = wtforms.FileField('Video File')
   video_url = wtforms.StringField('Video Link')
 
-#this code below is disgusting -- seriously needs refactoring
+#this code below is still disgusting -- seriously needs refactoring
 @app.route('/lesson/new', methods=['GET'])
 @app.route('/new-lesson/', methods=['GET','POST'])
 @auth.login_required
 def new_lesson():
   form = NewLessonForm()
   if flask.request.method == 'POST' and form.video_url.data and form.description.data and form.name.data:
-    vote = model.Vote().put()
+    #Remove this and create vote asynchronuously if it doesn't already exist.
+    lesson = None
     if form.lesson_id.data:
       lesson = model.Lesson.get_by_id(int(form.lesson_id.data))
       lesson = lesson.key
-    else:
-      lesson = model.Lesson().put()
 
     topics = []
     for topic in form.topics.data.split(","):
       t = model.Topic.get_or_insert(topic.strip().capitalize(), name=topic.strip().capitalize())
       if t not in topics:
         topics.append(t.key)
+
     lesson_version = model.LessonVersion(
                    data = reform_data_scheme(form.video_url.data),
                    name = form.name.data,
                    description = form.description.data,
                    topics = topics,
-                   vote = vote,
                    contributor = auth.current_user_key(),
                    lesson = lesson,
                    )
     lesson_version = lesson_version.put()
-    lesson = lesson.get()
-    lesson.lesson_versions = lesson.lesson_versions + [lesson_version]
-    lesson = lesson.put()
+    if lesson:
+      lesson = lesson.get()
+      lesson.lesson_versions = lesson.lesson_versions + [lesson_version]
+      lesson = lesson.put()
+    else:
+      lesson = lesson_version.get().lesson    
+    
     return flask.jsonify(action = sendScript('success', message='Your lesson was created. You may now create a quiz for your lesson',lesson_id = lesson.id(), lesson_version = lesson_version.id()))
   elif flask.request.method == 'POST':
     return flask.jsonify(action = sendScript('error', message='The Lesson was not created because some parts are missing.'))

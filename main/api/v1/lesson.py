@@ -26,4 +26,7 @@ class LessonVersionAPI(restful.Resource):
   	lesson_Version = ndb.Key(urlsafe=version_key).get()
   	return helpers.make_response(lesson_Version, model.LessonVersion.FIELDS)
 
- 
+@api_v1.resource('/lessons/search/<string:name>', endpoint='api.lesson.search')
+class LessonSearchAPI(restful.Resource):
+  def get(self):
+  	pass

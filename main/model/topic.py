@@ -13,6 +13,7 @@ import model
 import util
 import config
 
+INDEX_NAME = "topics"
 
 class Topic(model.Base):
   #  Topics can be FRC, FTC, Safety etc...
@@ -20,7 +21,6 @@ class Topic(model.Base):
   approved = ndb.BooleanProperty(default=False)
   color = ndb.StringProperty()
 
-  index = search.Index(name="topics", namespace='') #for search
   #Generate Color if non already
   def _pre_put_hook(self):
   	if not self.color:
@@ -30,19 +30,22 @@ class Topic(model.Base):
   def _post_put_hook(self, future):
     #create document
     #and add to topic index asynchronously
-    document = search.Document(
-    doc_id = self.id(),
+    doc = search.Document(
+    doc_id = self.key.id(),
     fields=[
        search.TextField(name='name', value=self.name)
        ])
-    index.put_async(document)
+    search.Index(name=INDEX_NAME).put(doc)
 
   @classmethod
   def _post_delete_hook(cls, key, future):
-    index.delete_async(key.id())
+    index = search.Index(INDEX_NAME)
+    index.delete(key.id())
 
-  def search(query):
-    return index.search(search.Query(query))
+  @classmethod
+  def search(cls, query):
+    index = search.Index(INDEX_NAME)
+    return index.search(query)
 
   FIELDS = {
       'name': fields.String,

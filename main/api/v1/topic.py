@@ -18,8 +18,8 @@ class TopicListAPI(restful.Resource):
   def get(self):
     return helpers.make_response(model.Topic.query(model.Topic.approved==True).fetch(), model.Topic.FIELDS)
 
-@api_v1.resource('/topics/search/<string:title>', endpoint='api.topic.search')
+@api_v1.resource('/topics/search/<string:query>', endpoint='api.topic.search')
 class TopicSearchAPI(restful.Resource):
-  def get(self, title):
-  	ab = model.Topic.search(title)
+  def get(self, query):
+  	ab = model.Topic.search(query)
   	return str(ab)

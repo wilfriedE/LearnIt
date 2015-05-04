@@ -18,3 +18,4 @@ class Quiz(model.Base):
   points = ndb.IntegerProperty(default=10)
   achievement = ndb.KeyProperty(kind='Achievement')
   minimum_answers = ndb.IntegerProperty(default=1)
+  item = ndb.KeyProperty() #to recognize owner Entity

@@ -23,6 +23,7 @@ else:
     import calendar
     CURRENT_VERSION_TIMESTAMP = calendar.timegm(datetime.utcnow().timetuple())
   CURRENT_VERSION_DATE = datetime.utcfromtimestamp(CURRENT_VERSION_TIMESTAMP)
+  USER_AGENT = '%s/%s' % (APPLICATION_ID, CURRENT_VERSION_ID)
 
   import model
   CONFIG_DB = model.Config.get_master_db()
@@ -34,39 +35,3 @@ else:
 
 DEFAULT_DB_LIMIT = 64
 SIGNIN_RETRY_LIMIT = 4
-
-###############################################################################
-# Client modules, also used by the run.py script.
-###############################################################################
-STYLES = [
-    'src/style/style.less',
-  ]
-
-SCRIPTS = [
-    ('libs', [
-        'ext/jquery/dist/jquery.js',
-        'ext/moment/moment.js',
-        'ext/nprogress/nprogress.js',
-        'ext/bootstrap-material-design/scripts/material.js',
-        'ext/bootstrap-material-design/scripts/ripples.js',
-        'ext/selectize/dist/js/standalone/selectize.js',
-        'ext/bootstrap/js/alert.js',
-        'ext/bootstrap/js/button.js',
-        'ext/bootstrap/js/transition.js',
-        'ext/bootstrap/js/modal.js',
-        'ext/bootstrap/js/collapse.js',
-        'ext/bootstrap/js/dropdown.js',
-        'ext/bootstrap/js/tooltip.js',
-      ]),
-    ('scripts', [
-        'src/script/common/api.coffee',
-        'src/script/common/util.coffee',
-        'src/script/site/app.coffee',
-        'src/script/site/app-extra.js',
-        'src/script/site/screenfull.js',
-        'src/script/site/hamburger.coffee',
-        'src/script/site/admin.coffee',
-        'src/script/site/auth.coffee',
-        'src/script/site/user.coffee',
-      ]),
-  ]

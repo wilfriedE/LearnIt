@@ -267,7 +267,6 @@ def signup():
 @app.route('/signout/')
 def signout():
   login.logout_user()
-  flask.flash('You have been signed out.', category='success')
   return flask.redirect(util.param('next') or flask.url_for('signin'))
 
 
@@ -289,6 +288,7 @@ def urls_for_oauth(next_url):
       'instagram_signin_url': url_for_signin('instagram', next_url),
       'linkedin_signin_url': url_for_signin('linkedin', next_url),
       'microsoft_signin_url': url_for_signin('microsoft', next_url),
+      'reddit_signin_url': url_for_signin('reddit', next_url),
       'twitter_signin_url': url_for_signin('twitter', next_url),
       'vk_signin_url': url_for_signin('vk', next_url),
       'yahoo_signin_url': url_for_signin('yahoo', next_url),
@@ -391,9 +391,6 @@ def signin_user_db(user_db):
   flask.session.pop('auth-params', None)
   if login.login_user(flask_user_db, remember=auth_params['remember']):
     user_db.put_async()
-    flask.flash('Hello %s, welcome to %s.' % (
-        user_db.name, config.CONFIG_DB.brand_name,
-      ), category='success')
     return flask.redirect(util.get_next_url(auth_params['next']))
   flask.flash('Sorry, but you could not sign in.', category='danger')
   return flask.redirect(flask.url_for('signin'))

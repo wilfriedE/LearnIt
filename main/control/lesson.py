@@ -94,7 +94,6 @@ class NewLessonForm(wtf.Form):
   video_url = wtforms.StringField('Video Link')
 
 #this code below is still disgusting -- seriously needs refactoring
-@app.route('/lesson/new', methods=['GET'])
 @app.route('/new-lesson/', methods=['GET','POST'])
 @auth.login_required
 def new_lesson():
@@ -105,12 +104,8 @@ def new_lesson():
     if form.lesson_id.data:
       lesson = model.Lesson.get_by_id(int(form.lesson_id.data))
       lesson = lesson.key
-
-    topics = []
-    for topic in form.topics.data.split(","):
-      t = model.Topic.get_or_insert(topic.strip().capitalize(), name=topic.strip().capitalize())
-      if t not in topics:
-        topics.append(t.key)
+    
+    topics = form.topics.data.split(",").strip().capitalize()
 
     lesson_version = model.LessonVersion(
                    data = reform_data_scheme(form.video_url.data),
@@ -119,8 +114,7 @@ def new_lesson():
                    topics = topics,
                    contributor = auth.current_user_key(),
                    lesson = lesson,
-                   )
-    lesson_version = lesson_version.put()
+                   ).put()
     if lesson:
       lesson = lesson.get()
       lesson.lesson_versions = lesson.lesson_versions + [lesson_version]

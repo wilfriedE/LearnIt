@@ -14,6 +14,8 @@ import model
 import util
 import config
 
+INDEX_NAME = "lessons"
+
 class Lesson(model.Base):
   lesson_versions = ndb.KeyProperty(kind='LessonVersion', repeated=True)
   latest_version = ndb.KeyProperty(kind='LessonVersion')
@@ -39,6 +41,17 @@ class Lesson(model.Base):
   	if not self.color:
   		r = lambda: random.randint(0,255)
   		self.color = ('#%02X%02X%02X' % (r(),r(),r()))
+  
+  def _post_put_hook(self, future):
+    #create document
+    #and add to topic index asynchronously
+    doc = search.Document(
+    doc_id = self.key,
+    fields=[
+       search.TextField(name='name', value=self.name),
+       search.TextField(name='description', value=self.description)
+       ])
+    search.Index(name=INDEX_NAME).put(doc)
 
   #card url
   def card(self):
@@ -55,6 +68,16 @@ class Lesson(model.Base):
   def data_in_json(self):
     data = json.loads(self.data)
     return data
+
+  @classmethod
+  def _post_delete_hook(cls, key, future):
+    index = search.Index(INDEX_NAME)
+    index.delete(key)
+
+  @classmethod
+  def search(cls, query):
+    index = search.Index(INDEX_NAME)
+    return index.search(query)
 
   FIELDS = {
     'data': fields.String,

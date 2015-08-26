@@ -24,7 +24,6 @@
     "bootstrap": "~3",
     "font-awesome": "~4",
     "jquery": "~2",
-    "lesshat": "~3",
     "moment": "~2",
     "nprogress": "https://github.com/lipis/nprogress.git#master",
     "bootstrap-material-design": "~0.3.0",

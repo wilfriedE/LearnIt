@@ -13,6 +13,8 @@ class Base(ndb.Model):
   created = ndb.DateTimeProperty(auto_now_add=True)
   modified = ndb.DateTimeProperty(auto_now=True)
   version = ndb.IntegerProperty(default=config.CURRENT_VERSION_TIMESTAMP)
+  dependents = ndb.KeyProperty(repeated=True)
+  owners = ndb.KeyProperty(repeated=True)
 
   @classmethod
   def get_by(cls, name, value):

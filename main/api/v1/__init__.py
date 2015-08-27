@@ -7,3 +7,4 @@ from .user import *
 from .topic import *
 from .lesson_version import *
 from .lesson import *
+from .vote import *

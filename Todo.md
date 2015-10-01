@@ -1,3 +1,4 @@
+---------------------------------------------------
 Create a model for Course which has various lessons
 	Has a name, and lessons array of course
 	Has a contributors array with user keys

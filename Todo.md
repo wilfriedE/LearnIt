@@ -1,73 +1,22 @@
----------------------------------------------------
-Create a model for Course which has various lessons
-	Has a name, and lessons array of course
-	Has a contributors array with user keys
-Create a model for Track which has various courses
-	Has a name, and courses array of course ///HAHAHA PUN
-	Has a contributors array with user keys
-	Tracks can be created by any user but can only be approved by thos with moderator permissions. Same goes for a Course.
-	For creating Courses and Tracks, have modal that displays searchable lessons or Courses that can just be added with a plus button that adds to an array of contents to be added to either a new course or a Track. Render them as cards.
-Add an finishedlessons array to user's model
-Add an enrolledcourses array to user's model
-	For this when the user finishes all the lessons for the course which would be checked everytime he finishes a lesson; the course's key would be added to the finished courses array and removed from the enrolledcourses
-Add a finishedcourses array to user's model
-Create a cards for Users with something like this http://bootsnipp.com/snippets/featured/event-list
-Create a cards for Courses with something like above with a button below it that has a dropdown for lessons within as well as the quizes if the lesson has a quiz.
-
-Change from Coyright 2015 to Creative Commons talk with Remy about details and stuff.
-
-
-------Lesson-version, Question, etc... data object Structure-----
-	This is a basic setup for the data object for a lesson
-
-	lesson-version.data = {
-	'fields':[service_type','image_url','video_url','video_id',]
-	'service_type': 'youtube or vimeo',
-	'image_url': 'urlhere',
-	'video_url': 'urlhere',
-	...
-	}
-
-	answer_choice.data = {
-	'fields':['image_url','missing-words-phrase','missing-words','video_id',]
-	'missing-words-phrase': 'Hello {{word1}}, this is a {{word2}} phrase',
-	'missing-words': ['word1 is this', 'word2 is this'],
-	'text': 'textvaluehere',
-	...
-	}	note that the missing words phrase could be empty with only one word missing or more.
-	In this case the missing-words array has the missing word or words to verified.
-
-	achievement.data =  {
-	'fields':['image_url','name',]
-	'image_url': 'link to image of badge',
-	'name': 'PneuMatic Master e.i',
-	...
-	}
-
-==The Quiz Engine
-Calculating Quiz Achievement and points assignments for User.
-Have an Javascript array that stores the keys of the questions gotten correct. If the number of questions gotten right is greater than or equal to the minimum answers of the quiz then add the quizes's points to the user's points and if it has an achievement, add it to the user's achievements. Do all of this unless this quiz is in the user's finished quizes array. 
-
-For each question have a verify controller that checks if the user's submmitted answer is correct. It only evaluates, it doesn't store anything. This controller receives the question key, the user's selected answer key and a parameter called user_answer. Have a case statement to evaluate the answer depending on the question type. If it's a fill in the blank type question, then the answer key is used to find the missing words from the answer choice's data attribute. This is used to compare to the user's user_answer parameter which is striped and programmatically evaluated efficiently. At the end a response is javascript answer is sent back wich stores the the question's key into an array variable if it's correct. It also let's the user know wether he or she got the question right.
-
-
-When a contributor deletes a lesson version, create an Suggestion for deleting lesson as well. This would be displayed to all the moderators who would then decide on deletion. During a lesson's deletion process delete everything that is related to it. And make sure to remove it from a course that has it. 
-
-==Lesson fields
-is_a field onn Lessons and Lesson Versions tells what kind of lesson it is.
-Possible types:
-	-Video
-	-Embeddables (Slides, other video types, pdf, audio)
-	-Image (data string needs number of images and an array of image links or sources)
-	-Audio (datatype would allow for cover image, and link to audio source)
-	-Live (These would be streams probably embeds.)
-		~Because this would display on live events page it should have button to mark end. When pressed it should change it from a live to another type.
-		
-The json string for these fields depending on which will have details about name and such which may be required. 
-
-
-Notes for next time:
-During lesson version creation process, check if it already has a lesson or vote.
-If not create a vote instead of creating during form submission. This would help with preventing duplication.
-
-Also figure otu how to create indexes for the Appengine Document search api
+* Add docstrings to classes and functions
+  *Backend Branch (Models and Controllers)
+  *APIs Branch 
+* APIs Branch
+  * Move some of the logics from the controllers to apis
+* Backend Branch
+  * Establish better relationship amongst Models
+  * Make sure deleted entities are handled properly
+  * Make routes for frontend consistent
+* Frontend Branch
+  * Better address the message on the welcome page
+  * Make the Hamburger menu a little more discoverable
+  * Content creation should have have multiple steps
+  	1. Content Information
+  	2. Allow selection of content type, which only includes a list of supported types e.i youtube, vimeo, embedable etc...
+  	3. After creation do an ajax check for succesful submission and redirect the user to the new material they have contributed.
+  	4. Topics for lessons would be searchable (ajax call to api)
+  	5. Lessons for Tracks would be searchable (ajax call to api)
+  	6. The lesson page should be simple and straigt forward. (T.B.D)
+*Other goals
+  * Get more people to understand the project
+  * Get others onboard

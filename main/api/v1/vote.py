@@ -13,13 +13,16 @@ from main import api_v1
 
 #Vote api endpoint does not need to be created. Creation should occur on other element creations.
 @api_v1.resource('/vote/<string:vote_key>', endpoint='api.vote')
-class LessonAPI(restful.Resource):
+class VoteAPI(restful.Resource):
+  """ Handles updating votes."""
   @auth.login_required
   def put(self):
+  	"""Update a specific vote"""
   	#Update a vote.
   	pass
   
   @auth.login_required
   def delete(self):
+  	"""Delete a specific vote."""
   	#Delete a vote
   	pass

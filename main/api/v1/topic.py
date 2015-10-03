@@ -15,5 +15,6 @@ from main import api_v1
 
 @api_v1.resource('/topics/', endpoint='api.topic.list')
 class TopicListAPI(restful.Resource):
+  """Returns all available topics"""
   def get(self):
     return helpers.make_response(model.Topic.query(model.Topic.approved==True).fetch(), model.Topic.FIELDS)

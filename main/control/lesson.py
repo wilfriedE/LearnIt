@@ -11,14 +11,6 @@ import util
 import task
 import urlparse
 import json
-##import cgi
-
-##import gdata.service
-##import gdata.youtube
-##import gdata.youtube.service
-##import gdata.media
-##import gdata.geo
-##import gdata.alt.appengine
 
 from main import app
 
@@ -26,10 +18,9 @@ from main import app
 ###############################################################################
 # Lesson View
 ###############################################################################
-
-@app.route('/course/<course_id>/l/<lesson_id>')
-@app.route('/lesson/<lesson_id>/v/<version_id>')
-@app.route('/lesson/<lesson_id>')
+@app.route('/lesson/<lesson_id>/')
+@app.route('/lesson/<lesson_id>/v/<version_id>/')
+@app.route('/course/<course_id>/l/<lesson_id>/')
 def lesson(lesson_id, version_id='', course_id=''):
   display_type = 'lesson'
   course = ''

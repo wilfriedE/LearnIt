@@ -27,17 +27,16 @@ class LessonVersionAPI(restful.Resource):
 
   def get(self):
     """Returns a specific lesson version BY version key"""
-  	lesson_Version = ndb.Key(urlsafe=version_key).get()
-  	return helpers.make_response(lesson_Version, model.LessonVersion.FIELDS)
+    lesson_Version = ndb.Key(urlsafe=version_key).get()
+    return helpers.make_response(lesson_Version, model.LessonVersion.FIELDS)
 
   @auth.login_required
   def put(self):
     """Updates a specific lesson version by key"""
-  	#Update Lesson version Might need to change this to post instead of put.
-  	pass
+    pass
 
   @auth.login_required
   def delete(self):
     """Deletes a specific lesson version"""
-  	#Delete Lesson version
-  	pass
+    #Delete Lesson version
+    pass

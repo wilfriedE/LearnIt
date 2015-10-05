@@ -38,20 +38,20 @@ class LessonAPI(restful.Resource):
   """
   def get(self):
     """Returns lesson"""
-  	lesson = ndb.Key(urlsafe=lesson_key).get()
-  	return helpers.make_response(lesson, model.Lesson.FIELDS)
+    lesson = ndb.Key(urlsafe=lesson_key).get()
+    return helpers.make_response(lesson, model.Lesson.FIELDS)
 
   @auth.login_required
   def put(self):
     """Updates a specific lesson"""
-  	#Update Lesson version Might need to change this to post instead of put.
-  	pass
+    #Update Lesson version Might need to change this to post instead of put.
+    pass
   
   @auth.login_required
   def delete(self):
     """Deletes a specific lesson"""
-  	#Delete Lesson version
-  	pass
+    #Delete Lesson version
+    pass
 
 #Search api endpoint for Lessons
 @api_v1.resource('/lessons/search/<string:name>', endpoint='api.lesson.search')

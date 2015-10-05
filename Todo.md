@@ -7,6 +7,7 @@
   * Establish better relationship amongst Models
   * Make sure deleted entities are handled properly
   * Make routes for frontend consistent
+  * Controllers should focus primarily on handling rendering and api should handle data post, delete, get and put requests.
 * Frontend Branch
   * Better address the message on the welcome page
   * Make the Hamburger menu a little more discoverable

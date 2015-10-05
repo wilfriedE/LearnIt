@@ -28,6 +28,9 @@ class Topic(model.Base):
 
   FIELDS = {
       'name': fields.String,
+      'description': fields.String,
+      'approved': fields.Boolean,
+      'color': fields.String,
     }
 
   FIELDS.update(model.Base.FIELDS)

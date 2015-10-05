@@ -82,13 +82,16 @@ class NewLessonForm(wtf.Form):
   lesson_id = wtforms.HiddenField()#This field is only nesessary when creating a new version of an existing lesson.
   ##video_thumnail = wtforms.FileField('Video Thumbnail Image')
   ##video_file = wtforms.FileField('Video File')
-  video_url = wtforms.StringField('Video Link')
+  is_a = wtforms.StringField('Content Type')
 
 #this code below is still disgusting -- seriously needs refactoring
+@app.route('/lesson/new')
 @app.route('/new-lesson/', methods=['GET','POST'])
 @auth.login_required
 def new_lesson():
+  """Renders the new lesson creation page"""
   form = NewLessonForm()
+  """
   if flask.request.method == 'POST' and form.video_url.data and form.description.data and form.name.data:
     #Remove this and create vote asynchronuously if it doesn't already exist.
     lesson = None
@@ -116,7 +119,7 @@ def new_lesson():
     return flask.jsonify(action = sendScript('success', message='Your lesson was created. You may now create a quiz for your lesson',lesson_id = lesson.id(), lesson_version = lesson_version.id()))
   elif flask.request.method == 'POST':
     return flask.jsonify(action = sendScript('error', message='The Lesson was not created because some parts are missing.'))
-
+  """
   return flask.render_template(
       'lesson/new_lesson.html',
       title='New Lesson',

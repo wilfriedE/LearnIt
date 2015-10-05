@@ -25,7 +25,8 @@ class Config(model.Base, model.ConfigAuth):
   recaptcha_public_key = ndb.StringProperty(default='', verbose_name='Public Key')
   salt = ndb.StringProperty(default=util.uuid())
   verify_email = ndb.BooleanProperty(default=True, verbose_name='Verify user emails')
-
+  supported_content_types = ndb.StringProperty(repeated=True)
+  
   @property
   def has_anonymous_recaptcha(self):
     return bool(self.anonymous_recaptcha and self.has_recaptcha)

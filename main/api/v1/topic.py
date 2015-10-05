@@ -18,3 +18,11 @@ class TopicListAPI(restful.Resource):
   """Returns all available topics"""
   def get(self):
     return helpers.make_response(model.Topic.query(model.Topic.approved==True).fetch(), model.Topic.FIELDS)
+
+@api_v1.resource('/topics/new', endpoint='api.topic.new')
+class TopicListAPI(restful.Resource):
+  """Returns all available topics"""
+  @auth.admin_required
+  def post(self):
+  	topic = util.param("name", cast=dict)
+  	print(topic)

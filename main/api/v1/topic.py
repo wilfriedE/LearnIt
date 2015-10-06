@@ -1,11 +1,10 @@
 # coding: utf-8
-
 from __future__ import absolute_import
 
 from google.appengine.ext import ndb
 from flask.ext import restful
-import flask
 
+import flask
 from api import helpers
 import auth
 import model
@@ -20,9 +19,14 @@ class TopicListAPI(restful.Resource):
     return helpers.make_response(model.Topic.query(model.Topic.approved==True).fetch(), model.Topic.FIELDS)
 
 @api_v1.resource('/topics/new', endpoint='api.topic.new')
-class TopicListAPI(restful.Resource):
+class TopicAPI(restful.Resource):
   """Returns all available topics"""
   @auth.admin_required
   def post(self):
-  	topic = util.param("name", cast=dict)
-  	print(topic)
+  	if util.param('name'):
+  		topic = model.Topic.get_or_insert(util.param('name'), name=util.param('name'))
+  		topic.color=util.param('color')
+  		topic.approved=util.param('approved', bool)
+  		topic.description=util.param('description')
+  		topic.put()
+  	return flask.redirect(flask.url_for('topic_list'))

@@ -11,7 +11,7 @@ beforeSend: function(xhr, settings) {
          }
      }
 });
-
+/*
 $(function() {
     $('form[data-autosubmit]').autosubmit();
 });
@@ -35,7 +35,7 @@ $(function() {
   }
 })(jQuery)
 
-
+*/
 //Some Functions
 
 function secondsToString(seconds) {

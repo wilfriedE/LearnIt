@@ -10,3 +10,4 @@ from .lesson import *
 from .course import *
 from .test import *
 from .welcome import *
+from .topic import *

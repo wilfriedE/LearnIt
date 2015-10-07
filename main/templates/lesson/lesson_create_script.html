@@ -1,0 +1,106 @@
+<script type="text/javascript">
+$.ajaxSetup({
+beforeSend: function(xhr, settings) {
+     if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+         xhr.setRequestHeader("X-CSRFToken", csrftoken)
+         }
+     }
+});
+
+window.onload = function() {
+//Beginning windows onload
+      var topics = [];
+      var formats = [];
+      $.ajax({
+        url: '/api/v1/topics',
+        type: 'GET',
+        error: function() {
+            console.log("unable to retrieve topics");
+        },
+        success: function(res) {
+           topics = res.result;
+           initTopicSelectize ();
+        }
+      });
+      $.ajax({
+        url: '/api/v1/supported',
+        type: 'GET',
+        error: function() {
+            console.log("unable to retrieve supported formats");
+        },
+        success: function(res) {
+           formats = res.result;
+           initContentTypeSelectize ();
+        }
+      });
+
+      function initTopicSelectize () {
+        $('#topics').selectize({
+          delimiter: ',',
+          persist: false,
+          options: topics,
+          valueField: "name",
+          sortField: 'name',
+          searchField: ['name', 'description'],
+          render: {
+            item: function(item, escape) {
+                return '<div>' +
+                    (item.name ? '<span class="name">' + escape(item.name) + '</span>' : '')
+                '</div>';
+            },
+            option: function(item, escape) {
+                var label = item.name || item.description;
+                var caption = item.name ? item.description : null;
+                return '<div>' +
+                    '<span class="label">' + escape(label) + ' </span>' +
+                    (caption ? '<span class="caption"> ' + escape(caption) + '</span>' : '') +
+                '</div>';
+            },
+          }
+        });
+      };
+
+      function initContentTypeSelectize () {
+        $('#content-type').selectize({
+            delimiter: ',',
+            persist: false,
+            options: formats,
+            maxItems: 1,
+            valueField: "name",
+            sortField: 'name',
+            searchField: ['name', 'description'],
+            render: {
+              item: function(item, escape) {
+                  return '<div>' +
+                      (item.name ? '<span class="name">' + escape(item.name) + '</span>' : '')
+                  '</div>';
+              },
+              option: function(item, escape) {
+                  var label = item.name || item.description;
+                  var caption = item.name ? item.description : null;
+                  return '<div>' +
+                      '<span class="label">' + escape(label) + ' </span>' +
+                      (caption ? '<span class="caption"> ' + escape(caption) + '</span>' : '') +
+                  '</div>';
+              },
+            }
+        });
+      };
+
+    $("#new-lesson-form").submit(function(event) {
+      var form = $(this);
+      $.ajax({
+        url: form.attr('method'),
+        type: 'POST',
+        error: function() {
+            $("#submit-form-btn").html("Retry")
+        },
+        success: function(res) {
+          console.log("Lesson Updated");
+        }
+      });
+      event.preventDefault();
+    });
+//End of Winloads onload 
+};
+</script>

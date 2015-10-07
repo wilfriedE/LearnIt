@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-xs-12"><div id="player-seeker-btn" class="slider shor slider-material-pink"></div></div>
+  
+  <div class="col-xs-1"><i id="player-play-btn" class="mdi-av-play-circle-outline primaryhover" style="font-size: 40pt;"></i></div>
+  <div class="col-xs-2"><b class="timeDisplay"></b></div>
+  <div class="col-xs-6"><h2 align="center">{{lesson_version.name}}</h2></div>
+  <div class="col-xs-3">
+  	<div class="btn-group">
+  	  <span class="dropup"> 
+	  <i class="mdi-av-volume-up dropdown-toggle primaryhover volumeStateDisplay" data-toggle="dropdown" aria-expanded="false"  style="font-size: 30pt;"></i>
+	  <ul class="dropdown-menu" style="min-width: 35px" role="menu">
+	  	  <li class="volume-count-display mdi-material-red-A400"></li>
+          <li style="height: 150px">
+    		<div id="player-volseeker-btn" class="slider svert" ></div>
+    	  </li>
+          <li class="divider"></li>
+          <li id="player-mute-btn" class="mdi-av-volume-off primaryhover volumeStateDisplay" style="font-size: 30pt;"></li>
+	  </ul></span>
+	  
+	  <span class="dropup">
+	  <i id="player-speed-btn" class="mdi-av-timer dropdown-toggle primaryhover" data-toggle="dropdown" aria-expanded="false"  style="font-size: 30pt;"></i> 
+	  <ul class="dropdown-menu" style="min-width: 35px" role="menu">
+	  	  <li id="play-speed-x2"   class="btn btn-default btn-raised">x 2</li> 
+	  	  <li id="play-speed-x1-5" class="btn btn-default btn-raised">x 1.5</li> 
+	  	  <li id="play-speed-x1"   class="btn btn-default btn-raised primaryActive">x 1</li> 
+	  	  <li id="play-speed-x0-5" class="btn btn-default btn-raised">x 0.5</li>
+          <li id="play-speed-x0-25"class="btn btn-default btn-raised">x 0.25</li> 
+	  </ul></span>
+
+	  <i id="player-fullscreen-btn" class="mdi-image-crop-free primaryhover" style="font-size: 30pt;"></i>
+	<!-- Removing Captioning for the time being because for some reason the youtube api is not working properly for it. -->
+	  <!-- <i id="player-captionbutton-btn" class="btn btn-default mdi-av-closed-caption" style="font-size: 30pt;"></i> -->
+	</div>
+  </div>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.js"></script>
+<script>
+    function setUiSliderInMotion() {
+        $.material.init();
+        seekerButton.noUiSlider({
+            start: 0.00,
+            connect: "lower",
+            range: {
+                min: 0.00,
+                max: totalTime
+            }
+        });
+
+        volSeekerButton.noUiSlider({
+            orientation: "vertical",
+            start: 50,
+            connect: "lower",
+            direction: "rtl",
+            range: {
+                min: 0,
+                max: 100
+            }
+        });
+    };
+</script>

@@ -37,7 +37,7 @@ class TopicUpdateForm(wtf.Form):
       model.Topic.name._verbose_name,
       [wtforms.validators.required()], filters=[util.strip_filter],
     )
-  description = wtforms.TextField(
+  description = wtforms.TextAreaField(
       model.Topic.description._verbose_name,
       [wtforms.validators.required()], filters=[util.strip_filter],
     )

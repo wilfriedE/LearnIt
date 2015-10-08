@@ -1,0 +1,37 @@
+# import 'macro/forms.html' as forms
+# import 'macro/utils.html' as utils
+# extends 'lesson/lesson_base.html'
+
+# block lesson_content
+  <div class="col-lg-8">
+    <div class="bs-component">
+    <div class="well well-lg" id="new-lesson-form-container">
+      <form method="POST" action="{{post_path}}"  id="new-lesson-form">
+        {{form.csrf_token}}
+        {{forms.text_field(form.name, autofocus=True)}}
+        <div class="dotted-box">
+          {{forms.text_field(form.topics)}}
+        </div>
+        {{forms.textarea_field(form.description)}}
+        {{forms.text_field(form.is_a, id='content-type')}} 
+        <hr>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <button type="submit" class="btn btn-primary btn-lg btn-block btn-loading" id="submit-form-btn">Continue</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3">
+    <div class="bs-component">
+    <div class="well well-lg" id="side-result-view">
+      Thanks for contributing to the Community.
+    </div>
+    </div>
+  </div>
+
+# include 'lesson/lesson_create_script.html'
+# endblock

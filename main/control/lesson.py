@@ -44,15 +44,13 @@ def lesson(lesson_id, version_id='', course_id=''):
     )
 
 
-@app.route('/lesson_version/<version_id>')
-def render_lesson_version(version_id):
-  lesson_version = model.LessonVersion.get_by_id(int(version_id)) 
+@app.route('/lesson/viewport/<content_type>/<data>')
+def render_lesson_version(content_type, data): 
   return flask.render_template(
-      'lesson/lesson_version.html',
-      title=lesson_version.name,
-      lesson_version=lesson_version,
-      lesson_version_data = lesson_version.data_in_json(),
-      html_class='lesson-version',
+      'lesson/lesson_viewport.html',
+      content_type=content_type,
+      data=data,
+      html_class='lesson-viewport',
     )
 
 @app.route('/card/l/<lesson_id>')
@@ -73,20 +71,17 @@ class NewLessonForm(wtf.Form):
       'Name',
       [wtforms.validators.required()], filters=[util.strip_filter],
     )
-  topics = wtforms.StringField(
-      'Topics', [wtforms.validators.Length(min=2, max=25)],
-    )
+  topics = wtforms.StringField('Topics')
   description = wtforms.TextAreaField(
-      'Description', [wtforms.validators.Length(min=2, max=25)],
+      'Description', [wtforms.validators.Length(min=2, max=400)],
     )
-  lesson_id = wtforms.HiddenField()#This field is only nesessary when creating a new version of an existing lesson.
+  lesson_id = wtforms.HiddenField() #This field is only nesessary when creating a new version of an existing lesson.
   ##video_thumnail = wtforms.FileField('Video Thumbnail Image')
   ##video_file = wtforms.FileField('Video File')
   is_a = wtforms.StringField('Content Type')
 
 #this code below is still disgusting -- seriously needs refactoring
-@app.route('/lesson/new')
-@app.route('/new-lesson/', methods=['GET','POST'])
+@app.route('/lesson/create')
 @auth.login_required
 def new_lesson():
   """Renders the new lesson creation page"""
@@ -121,7 +116,7 @@ def new_lesson():
     return flask.jsonify(action = sendScript('error', message='The Lesson was not created because some parts are missing.'))
   """
   return flask.render_template(
-      'lesson/new_lesson.html',
+      'lesson/lesson_update.html',
       title='New Lesson',
       form=form,
       html_class='lesson',
@@ -129,18 +124,38 @@ def new_lesson():
 
 
 ##This would be the process where users can propose new versions for a Lesson. These would of course need approval.
-@app.route('/propose_update/lesson/<lesson_id>')
+@app.route('/lesson/<lesson_id>/propose_update/')
 @auth.login_required
 def new_lesson_version(lesson_id):
   user_db = auth.current_user_db()
   lesson = model.Lesson.get_by_id(int(lesson_id))
   form = NewLessonForm(name = lesson.name, description = lesson.description, topics = ', '.join([ key.id() for key in lesson.topics]), lesson_id = lesson_id)
   return flask.render_template(
-      'lesson/new_lesson.html',
+      'lesson/lesson_update.html',
       title='Lesson Update Proposal',
       form=form,
       html_class='lesson-update',
     )
+
+
+@app.route('/lesson/version/<lesson_id>/update')
+@auth.login_required
+def update_lesson_version(lesson_id):
+  user_db = auth.current_user_db()
+  lesson = model.LessonVersion.get_by_id(int(lesson_id))
+  #make edit so only lesson version creator can make changes to lesson version.
+  form = NewLessonForm(name = lesson.name, description = lesson.description, topics = ', '.join([ key.id() for key in lesson.topics]), lesson_id = lesson_id)
+  return flask.render_template(
+      'lesson/lesson_update.html',
+      title='Lesson Update Proposal',
+      form=form,
+      html_class='lesson-update',
+    )
+
+
+
+
+
 
 ##No Longer Doing Video Uploads for the time being because of this article
 ## http://apiblog.youtube.com/2012/02/video-uploads-from-your-sites-community.html

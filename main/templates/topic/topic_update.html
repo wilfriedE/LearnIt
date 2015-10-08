@@ -14,7 +14,7 @@
       <div class="col-md-4 col-sm-6">
         {{form.csrf_token}}
         {{forms.text_field(form.name, autofocus=True)}}
-        {{ form.description.label }} {{ form.description(class='form-control') }}
+        {{forms.textarea_field(form.description)}}
         {{forms.text_field(form.color)}}
         {{forms.checkbox_field(form.approved)}}
       </div>

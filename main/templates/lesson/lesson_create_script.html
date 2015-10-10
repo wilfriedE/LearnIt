@@ -4,7 +4,7 @@ window.onload = function() {
     $.ajaxSetup({
       beforeSend: function(xhr, settings) {
            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
-               xhr.setRequestHeader("X-CSRFToken", csrftoken)
+               xhr.setRequestHeader("X-CSRFToken", $("#csrf_token").attr("value"));
                }
            }
     });
@@ -61,9 +61,10 @@ window.onload = function() {
     };
 
     function initContentTypeSelectize () {
-      $('#content-type').selectize({
+      $('#is_a').selectize({
           delimiter: ',',
           persist: false,
+          onItemAdd: appendFormField,
           options: formats,
           maxItems: 1,
           valueField: "name",
@@ -87,20 +88,30 @@ window.onload = function() {
       });
     };
 
+    function appendFormField (value, $item){
+      $("#content-form-field").html(ContentFields[value]);
+    };
+
     $("#new-lesson-form").submit(function(event) {
+      event.preventDefault();
       var form = $(this);
       $.ajax({
-        url: form.attr('method'),
-        type: 'POST',
+        url: form.attr('action'),
+        type: form.attr('method'),
+        data: form.serialize(),
         error: function() {
-            $("#submit-form-btn").html("Retry")
+            $("#notifications").html("<div class='alert alert-dismissable alert-danger'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>"+ "Failed to submit form" +"</div>");
+            $("#submit-form-btn").html("Retry").removeClass("disabled").removeAttr("disabled");
         },
         success: function(res) {
-          console.log("Lesson Updated");
+          var nexStep="<p>Your lesson has been created and waiting to be approved by a moderator. Click below to view or create a quiz for the lesson. Thank you for your contribution!</p>";
+          var nexStepBtn= "<div class='row'><a href='/lesson/"+ res.result.lesson + "/' class='btn btn-primary'>"+"View lesson"+"</a><a href='/quiz/"+ res.result.lesson + "/create' class='btn btn-primary'>"+"Make a quiz for lesson."+"</a></div>";
+          $("#new-lesson-form-container").html(nexStep+nexStepBtn);
+          console.log(res);
         }
       });
-      event.preventDefault();
     });
+
 //End of Winloads onload 
 };
 </script>

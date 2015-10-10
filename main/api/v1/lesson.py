@@ -11,6 +11,7 @@ import model
 import util
 from main import api_v1
 
+#Lessons api endpoint for listing all Lessons
 @api_v1.resource('/lessons/', endpoint='api.lesson.list')
 class LessonListAPI(restful.Resource):
   """
@@ -19,19 +20,49 @@ class LessonListAPI(restful.Resource):
   def get(self):
     return helpers.make_response(model.Lesson.query(model.Lesson.approved==True).fetch(), model.Lesson.FIELDS)
 
-#Lesson api endpoint for creating a Lesson
-@api_v1.resource('/lessons/lesson/new', endpoint='api.lesson.new')
+#Lessons api endpoint for creating a Lesson
+@api_v1.resource('/lessons/new', endpoint='api.lesson.new')
 class LessonCreateAPI(restful.Resource):
   """
   Handles post request for new lesson content
+  name = ndb.StringProperty(required=True)
+  description = ndb.TextProperty()
+  data = ndb.StringProperty(required=True)
+  topics = ndb.KeyProperty(kind='Topic', repeated=True)
+  lesson = ndb.KeyProperty(kind='Lesson')
+  popularity = ndb.IntegerProperty()
+  contributor = ndb.KeyProperty(kind='User')
+  approved = ndb.BooleanProperty(default=False)
+  quiz = ndb.KeyProperty(kind='Quiz')
+  vote = ndb.KeyProperty(kind='Vote')
+  color = ndb.StringProperty()
+  is_a = ndb.StringProperty()
   """
   @auth.login_required
   def post(self):
-  	#Create Lesson version
-  	pass
+    if util.param('name') and util.param('is_a'):
+      b_data = "{}"
+      b_is_a = util.param('is_a')
+      b_topics = util.param('topics').split()
+      b_name = util.param('name')
+      b_description = util.param('description')
+      b_contributor = auth.current_user_key()
+      b_lesson = model.Lesson(data=b_data,name=b_name,is_a=b_is_a,description=b_description,topics=b_topics,contributors=[b_contributor]).put().get()
+      b_lesson_version = model.LessonVersion(data=b_data,name=b_name,is_a=b_is_a,description=b_description,topics=b_topics,lesson=b_lesson.key,contributor=b_contributor).put()
+      b_lesson.latest_version = b_lesson_version
+      b_lesson.lesson_versions = [b_lesson_version]
+      b_lesson.put()
+      response = {
+        'status': 'success',
+        'count': 1,
+        'now': helpers.time_now(),
+        'result': {'lesson': b_lesson.key.urlsafe()},
+      }
+      return response
+    return helpers.make_bad_request_exception("Unsifificient parameters")
 
-#Lesson version api endpoint for Lessons
-@api_v1.resource('/lessons/lesson/<string:lesson_key>', endpoint='api.lesson')
+#Lessons api endpoint for a Lesson (retrieving, updating and deleting)
+@api_v1.resource('/lesson/<string:lesson_key>', endpoint='api.lesson')
 class LessonAPI(restful.Resource):
   """
   Retrieves and returns a specific lesson by lesson key

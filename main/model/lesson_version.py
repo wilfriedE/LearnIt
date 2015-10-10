@@ -62,8 +62,8 @@ class LessonVersion(model.Base):
     if not self.lesson:
       lesson = model.Lesson().put()
       self.lesson = lesson
-    if  self.lesson and self.key == self.lesson.get().latest_version:
-      update_lesson(self) #updates the lesson when the lesson version is updated
+    if self.lesson and self.key == self.lesson.get().latest_version:
+      self.update_lesson() #updates the lesson when the lesson version is updated
 
     self._put_async() #avoid using put() here because it will cause infinite loop
   

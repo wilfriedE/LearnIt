@@ -4,6 +4,8 @@ from flask.ext import wtf
 import flask
 import wtforms
 
+from google.appengine.ext import ndb
+
 import auth
 import config
 import model
@@ -18,25 +20,22 @@ from main import app
 ###############################################################################
 # Lesson View
 ###############################################################################
-@app.route('/lesson/<lesson_id>/')
-@app.route('/lesson/<lesson_id>/v/<version_id>/')
-@app.route('/course/<course_id>/l/<lesson_id>/')
-def lesson(lesson_id, version_id='', course_id=''):
+@app.route('/lesson/<lesson_key>/')
+@app.route('/lesson/<lesson_key>/v/<version_key>/')
+@app.route('/course/<course_key>/l/<lesson_key>/')
+def lesson(lesson_key, version_key='', course_key=''):
   display_type = 'lesson'
   course = ''
-  lesson = model.Lesson.get_by_id(int(lesson_id))
-  if course_id and lesson_id:
+  lesson = ndb.Key(urlsafe=lesson_key).get()
+  if course_key and lesson_key:
     display_type = 'course-lesson'
-    course = model.Course.get_by_id(int(course_id))
-  if version_id:
+    course =  ndb.Key(urlsafe=course_key).get()
+  if version_key:
     display_type = 'lesson-version'
-  else:
-    version_id = lesson.latest_version.id()
     
   return flask.render_template(
       'lesson/lesson.html',
       lesson = lesson,
-      lesson_version_id = version_id,
       course = course,
       title= 'Learning',
       html_class='lesson-view',
@@ -76,9 +75,10 @@ class NewLessonForm(wtf.Form):
       'Description', [wtforms.validators.Length(min=2, max=400)],
     )
   lesson_id = wtforms.HiddenField() #This field is only nesessary when creating a new version of an existing lesson.
-  ##video_thumnail = wtforms.FileField('Video Thumbnail Image')
-  ##video_file = wtforms.FileField('Video File')
-  is_a = wtforms.StringField('Content Type')
+  is_a = wtforms.StringField('Content Type', [wtforms.validators.required()])
+  ##Below this point are optional field types depending on requirements.
+  youtube_video_url = wtforms.StringField('Youtube Video Url', [wtforms.validators.required()])
+  vimeo_video_url = wtforms.StringField('Vimeo Video Url', [wtforms.validators.required()])
 
 #this code below is still disgusting -- seriously needs refactoring
 @app.route('/lesson/create')
@@ -118,6 +118,7 @@ def new_lesson():
   return flask.render_template(
       'lesson/lesson_update.html',
       title='New Lesson',
+      post_path=flask.url_for('api.lesson.new'),
       form=form,
       html_class='lesson',
     )

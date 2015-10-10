@@ -11,8 +11,8 @@ import model
 import util
 from main import api_v1
 
-#Lesson version api endpoint for creating a Lesson version
-@api_v1.resource('/lessons/version/new', endpoint='api.lesson.version.new')
+#Lesson versions api endpoint for creating a Lesson version (This expects a lesson_key parameter)
+@api_v1.resource('/lesson/version/new', endpoint='api.lesson.version.new')
 class LessonVersionCreateAPI(restful.Resource):
   """Handles creation of a new lesson version for a lesson"""
   @auth.login_required
@@ -20,8 +20,8 @@ class LessonVersionCreateAPI(restful.Resource):
   	#Create Lesson version
   	pass
 
-#Lesson version api endpoint for a Lesson Version
-@api_v1.resource('/lessons/version/<string:version_key>', endpoint='api.lesson.version')
+#Lesson versions api endpoint for a Lesson Version (retrieving, updating, and deleting)
+@api_v1.resource('/lesson/version/<string:version_key>', endpoint='api.lesson.version')
 class LessonVersionAPI(restful.Resource):
   """Returns and updates a a specific lesson version """
 

@@ -8,6 +8,7 @@ import json
 import flask
 
 from google.appengine.ext import ndb
+from google.appengine.api import search
 
 from api import fields
 import model
@@ -45,13 +46,15 @@ class Lesson(model.Base):
   def _post_put_hook(self, future):
     #create document
     #and add to topic index asynchronously
+    """
     doc = search.Document(
     doc_id = self.key,
     fields=[
-       search.TextField(name='name', value=self.name),
-       search.TextField(name='description', value=self.description)
+       search.TextField(name='name', value=unicode(self.name)),
+       search.TextField(name='description', value=unicode(self.description))
        ])
     search.Index(name=INDEX_NAME).put(doc)
+    """
 
   #card url
   def card(self):

@@ -24,7 +24,7 @@ class TopicAPI(restful.Resource):
   @auth.admin_required
   def post(self):
   	if util.param('name'):
-  		topic = model.Topic.get_or_insert(util.param('name'), name=util.param('name'))
+  		topic = model.Topic.get_or_insert(util.param('name').upper(), name=util.param('name').upper())
   		topic.color=util.param('color')
   		topic.approved=util.param('approved', bool)
   		topic.description=util.param('description')

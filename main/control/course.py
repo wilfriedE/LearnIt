@@ -4,6 +4,8 @@ from flask.ext import wtf
 import flask
 import wtforms
 
+from google.appengine.ext import ndb
+
 import auth
 import config
 import model

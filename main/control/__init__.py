@@ -11,3 +11,4 @@ from .course import *
 from .test import *
 from .welcome import *
 from .topic import *
+from .quiz import *

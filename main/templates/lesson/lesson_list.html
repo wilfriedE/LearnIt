@@ -1,0 +1,58 @@
+# extends 'admin/admin_base.html'
+# import 'macro/utils.html' as utils
+
+# block head
+  {{utils.prefetch_link(next_url)}}
+# endblock
+
+# block admin_content
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <a class="btn btn-sm btn-primary" href="{{url_for('new_lesson')}}">
+        <span class="fa fa-fw fa-list-alt"></span> New Lesson
+      </a>
+    </div>
+  </div>
+
+  <div class="table-responsive {{'hide' if lesson_dbs|count == 0}}">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="text-nowrap">
+          <th class="col-xs-2"><input id="select-all" type="checkbox"> {{utils.order_by_link('name', 'Name')}}</th>
+          <th class="col-xs-3">{{utils.order_by_link('approved', 'Approved')}}</th>
+          <th class="col-xs-4">Description</th>
+          <th class="col-xs-4">Topics</th>
+        </tr>
+      </thead>
+      <tbody>
+        # for lesson_db in lesson_dbs
+          <tr id="{{lesson_db.key.urlsafe()}}" class="row-link {{'text-muted' if not lesson_db.approved}}" data-href="{{url_for('lesson_version_update', lesson_id=lesson_db.latest_version.key.id())}}">
+            <td class="name">
+              <label class="not-link">
+                <input type="checkbox" name="lesson_db" value="{{lesson_db.key.urlsafe()}}">
+              </label>
+              <span>{{lesson_db.name}}</span>
+            </td>
+            <td class="text-nowrap">
+              # if lesson_db.approved
+                <span class="fa fa-check text-success" title="Verified">Approved</span>
+              # else
+                <span class="fa fa-check text-success" title="Verified">Not approved</span>
+              # endif
+            </td>
+            <td class="not-link">
+              # if lesson_db.description
+                <p>{{lesson_db.description}}</p>
+              # endif
+            </td>
+            <td class="not-link">
+              # if lesson_db.topics
+                <p>{{lesson_db.topics}}</p>
+              # endif
+            </td>
+          </tr>
+        # endfor
+      </tbody>
+    </table>
+  </div>
+# endblock

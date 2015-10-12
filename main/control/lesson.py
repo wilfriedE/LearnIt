@@ -18,6 +18,21 @@ from main import app
 
 
 ###############################################################################
+# Lesson List
+###############################################################################
+@app.route('/admin/lesson/')
+@auth.admin_required
+def lesson_list():
+  lesson_dbs = model.Lesson.query().fetch()
+  return flask.render_template(
+      'lesson/lesson_list.html',
+      html_class='user-list',
+      title='Lesson List',
+      lesson_dbs=lesson_dbs,
+      api_url=flask.url_for('api.lesson.list'),
+    )
+
+###############################################################################
 # Lesson View
 ###############################################################################
 @app.route('/lesson/<lesson_key>/')
@@ -86,35 +101,6 @@ class NewLessonForm(wtf.Form):
 def new_lesson():
   """Renders the new lesson creation page"""
   form = NewLessonForm()
-  """
-  if flask.request.method == 'POST' and form.video_url.data and form.description.data and form.name.data:
-    #Remove this and create vote asynchronuously if it doesn't already exist.
-    lesson = None
-    if form.lesson_id.data:
-      lesson = model.Lesson.get_by_id(int(form.lesson_id.data))
-      lesson = lesson.key
-    
-    topics = form.topics.data.split(",").strip().capitalize()
-
-    lesson_version = model.LessonVersion(
-                   data = reform_data_scheme(form.video_url.data),
-                   name = form.name.data,
-                   description = form.description.data,
-                   topics = topics,
-                   contributor = auth.current_user_key(),
-                   lesson = lesson,
-                   ).put()
-    if lesson:
-      lesson = lesson.get()
-      lesson.lesson_versions = lesson.lesson_versions + [lesson_version]
-      lesson = lesson.put()
-    else:
-      lesson = lesson_version.get().lesson    
-    
-    return flask.jsonify(action = sendScript('success', message='Your lesson was created. You may now create a quiz for your lesson',lesson_id = lesson.id(), lesson_version = lesson_version.id()))
-  elif flask.request.method == 'POST':
-    return flask.jsonify(action = sendScript('error', message='The Lesson was not created because some parts are missing.'))
-  """
   return flask.render_template(
       'lesson/lesson_update.html',
       title='New Lesson',
@@ -141,7 +127,7 @@ def new_lesson_version(lesson_id):
 
 @app.route('/lesson/version/<lesson_id>/update')
 @auth.login_required
-def update_lesson_version(lesson_id):
+def lesson_version_update(lesson_id):
   user_db = auth.current_user_db()
   lesson = model.LessonVersion.get_by_id(int(lesson_id))
   #make edit so only lesson version creator can make changes to lesson version.
@@ -149,7 +135,7 @@ def update_lesson_version(lesson_id):
   return flask.render_template(
       'lesson/lesson_update.html',
       title='Lesson Update Proposal',
-      form=form,
+      post_path=flask.url_for('api.lesson.version'),
       html_class='lesson-update',
     )
 

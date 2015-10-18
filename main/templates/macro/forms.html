@@ -107,7 +107,8 @@
 
 
 # macro checkbox_field(field)
-  <div class="checkbox {{'has-error' if field.errors}}">
+  <!--temporarily rendering regular checkbox until material-bootstrap fixed -->
+  <div class="{{'has-error' if field.errors}}">
     <label class="{{'text-muted' if 'disabled' in kwargs}}">
       {{field(**kwargs)}} {{field.label.text}}
     </label>

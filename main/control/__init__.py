@@ -6,6 +6,7 @@ from .admin import *
 from .error import *
 from .feedback import *
 from .profile import *
+from .lesson_version import *
 from .lesson import *
 from .course import *
 from .test import *

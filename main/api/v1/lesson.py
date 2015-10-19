@@ -41,9 +41,9 @@ class LessonCreateAPI(restful.Resource):
   @auth.login_required
   def post(self):
     if util.param('name') and util.param('is_a'):
-      b_data = "{}"
       b_is_a = util.param('is_a')
-      b_topics = util.param('topics').split()
+      b_data = helpers.data_scheme_constructor(b_is_a, helpers.rerieve_content_fields(util))
+      b_topics = [ ndb.Key(urlsafe=topic_key_url) for topic_key_url in util.param('topics', list)]
       b_name = util.param('name')
       b_description = util.param('description')
       b_contributor = auth.current_user_key()

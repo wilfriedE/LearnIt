@@ -71,4 +71,45 @@ Notes for next time:
 During lesson version creation process, check if it already has a lesson or vote.
 If not create a vote instead of creating during form submission. This would help with preventing duplication.
 
-Also figure otu how to create indexes for the Appengine Document search api
+Also figure out how to create indexes for the Appengine Document search api
+
+
+___lesson data field format___
+
+########## Version 0.0 #########
+##Base Form:
+
+data = {
+	"version": "0.0",
+	--(other structures in here)--
+	"source" : "None",
+	"original_string": "None",
+}
+
+data.version: data field format version. This will help in the future when the data field changes.
+
+data.source:  data source. For example youtube, vimeo etc...
+
+data.original_string:  data original content on creation. This is the original value entered during creation of the lesson such as the youtube link or vimeo link.
+
+##'youtube-video' type structure
+data = {
+	"version": "0.0",
+	"video_id": "dvShgNdY_GE",
+	"source" : "youtube",
+	"original_string": "https://www.youtube.com/watch?v=dvShgNdY_GE",
+}
+
+data.video_id: the youtube video id.
+
+##'vimeo-video' type structure
+data = {
+	"version": "0.0",
+	"video_id": "1548957",
+	"source" : "vimeo",
+	"original_string": "https://vimeo.com/1548957",
+}
+
+data.video_id: the vimeo video id.
+
+##other source...

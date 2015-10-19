@@ -18,6 +18,9 @@
   	4. Topics for lessons would be searchable (ajax call to api)
   	5. Lessons for Tracks would be searchable (ajax call to api)
   	6. The lesson page should be simple and straigt forward. (T.B.D)
+* Proper authorization and permissions
+  *Make sure users are where they are suppose to be
+  *Only mods and creators of contents can modify content
 *Other goals
   * Get more people to understand the project
   * Get others onboard

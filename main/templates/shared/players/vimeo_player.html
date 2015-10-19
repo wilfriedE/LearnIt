@@ -1,7 +1,8 @@
 <!-- <script src="//f.vimeocdn.com/js/froogaloop2.min.js"></script> -->
-<iframe id="player" class="embed-responsive-item"  src="//player.vimeo.com/video/76979871?api=1&player_id=player&autoplay=1&byline=0&badge=0&title=0&color=ff1744" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+<iframe id="player" class="embed-responsive-item"  src="//player.vimeo.com/video/{{data.video_id}}?api=1&player_id=player&autoplay=1&byline=0&badge=0&title=0&color=ff1744" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
 
-<!-- 
 <script>
 /**  Not using beautiful player bar for the Vimeo embeds because the vimeo api does not offer enough capabilities. And the way the controller works for the video makes it unnessary to have the beautiful player bar. Any opinions on this is welcome.
 $(function() {
@@ -165,4 +166,4 @@ $(function() {
 
 }); 
 **/
-</script> -->
+</script>

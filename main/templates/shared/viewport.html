@@ -1,19 +1,7 @@
 <div class="well well-lg">
-	<div class="embed-responsive embed-responsive-16by9">
-	#if lesson_version_data.service_type == "youtube"
-		# include 'lesson/youtube_player.html'
-	#elif lesson_version_data.service_type == "vimeo"
-		# include 'lesson/vimeo_player.html'
+	#if content_type == "youtube-video"
+		# include 'shared/players/youtube_player.html'
+	#elif content_type == "vimeo-video"
+		# include 'shared/players/vimeo_player.html'
 	#endif
-	</div>
-	#if lesson_version_data.service_type == "youtube"
-		# include 'lesson/beautiful_player_bar.html'
-	#endif
-
-	{{lesson.description}}
-	
-	Version Contributor
-	#set contributor = lesson_version.contributor.get()
-    {{contributor.load_card()|safe }}
-	
 </div>

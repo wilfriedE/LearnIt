@@ -44,8 +44,9 @@ def lesson_version(version_key):
       display_type='lesson-version',
     )
 
-@app.route('/lesson_version/viewport/<content_type>/<data>')
-def render_lesson_version_viewport(content_type, data): 
+@app.route('/lesson_version/viewport/<content_type>')
+def render_lesson_version_viewport(content_type): 
+  data = flask.json.loads(util.param("data"))
   return flask.render_template(
       'shared/viewport.html',
       content_type=content_type,

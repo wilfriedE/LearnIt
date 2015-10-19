@@ -1,0 +1,16 @@
+<script type="text/javascript">
+window.onload = function() {
+    $.ajax({
+      url: '/lesson/viewport/{{lesson.is_a}}/',
+      type: 'GET',
+      data: {"data": {{lesson.data|tojson}} },
+      error: function() {
+          console.log("unable to retrieve topics");
+      },
+      success: function(res) {
+        $("#viewport").html(res);
+      }
+    });
+//End of Winloads onload 
+};
+</script>

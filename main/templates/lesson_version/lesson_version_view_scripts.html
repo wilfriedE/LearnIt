@@ -1,0 +1,16 @@
+<script type="text/javascript">
+window.onload = function() {
+    $.ajax({
+      url: '/lesson_version/viewport/{{lesson_version.is_a}}/',
+      type: 'GET',
+      data: {"data": {{lesson_version.data|tojson}} },
+      error: function() {
+          console.log("unable to retrieve player");
+      },
+      success: function(res) {
+        $("#viewport").html(res);
+      }
+    });
+//End of Winloads onload 
+};
+</script>

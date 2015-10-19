@@ -11,6 +11,7 @@ import config
 import model
 import util
 import task
+import json
 
 from main import app
 
@@ -52,8 +53,9 @@ def lesson(lesson_key, course_key=''):
       display_type=display_type,
     )
 
-@app.route('/lesson/viewport/<content_type>/<data>')
-def render_lesson_viewport(content_type, data): 
+@app.route('/lesson/viewport/<content_type>/')
+def render_lesson_viewport(content_type): 
+  data = flask.json.loads(util.param("data"))
   return flask.render_template(
       'shared/viewport.html',
       content_type=content_type,

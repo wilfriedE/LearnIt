@@ -1,13 +1,14 @@
 # extends 'lesson/lesson_base.html'
 # block lesson_content
   <div class="col-lg-8">
-    //NAV BAR FOR Lesson
     <div class="bs-component" id="lesson-player">
+    <div id="viewport"></div>
     Details:<H2>Name:</H2> {{lesson.name}}
     <H2>Description:</H2>{{lesson.description}}
     <H2>Version:</H2>{{lesson.latest_version}}
     <H2>Versions:</H2>{{lesson.lesson_versions}}
     <H2>Topics:</H2>{{lesson.topics}}
+    <H2>Is a:</H2>{{lesson.is_a}}
     <H2>Data:</H2>{{lesson.data}}
       All Contributors
       #for contributor in lesson.contributors
@@ -32,4 +33,6 @@
     </div>
     </div>
   </div>
+
+# include 'lesson/lesson_view_scripts.html'
 # endblock

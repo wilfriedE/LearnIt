@@ -1,4 +1,4 @@
-# extends 'lesson/lesson_base.html'
+# extends 'lesson_version/lesson_version_base.html'
 # block lesson_content
   <div class="col-lg-8">
     //NAV BAR FOR Lesson
@@ -8,7 +8,6 @@
     <H2>Version:</H2>{{lesson.latest_version}}
     <H2>Versions:</H2>{{lesson.lesson_versions}}
     <H2>Topics:</H2>{{lesson.topics}}
-    <H2>Data:</H2>{{lesson.data}}
       All Contributors
       #for contributor in lesson.contributors
       #set contributor = contributor.get()

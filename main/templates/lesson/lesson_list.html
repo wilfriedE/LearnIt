@@ -26,7 +26,7 @@
       </thead>
       <tbody>
         # for lesson_db in lesson_dbs
-          <tr id="{{lesson_db.key.urlsafe()}}" class="row-link {{'text-muted' if not lesson_db.approved}}" data-href="{{url_for('lesson_version_update', lesson_id=lesson_db.latest_version.key.id())}}">
+          <tr id="{{lesson_db.key.urlsafe()}}" class="row-link {{'text-muted' if not lesson_db.approved}}" data-href="{{url_for('lesson_version_update', lesson_version_id=lesson_db.latest_version.id())}}">
             <td class="name">
               <label class="not-link">
                 <input type="checkbox" name="lesson_db" value="{{lesson_db.key.urlsafe()}}">

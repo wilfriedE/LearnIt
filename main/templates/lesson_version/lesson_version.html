@@ -11,7 +11,7 @@
     <H2>Is a:</H2>{{lesson_version.is_a}}
     <H2>Data:</H2>{{lesson_version.data}}
       Contributor:
-      {{lesson_version.contributor.load_card()|safe }}
+      {{lesson_version.contributor.get().load_card()|safe }}
     </div>
       //Discuss Comments for lesson_version
   </div>

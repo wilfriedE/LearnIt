@@ -25,8 +25,8 @@ def lesson_version_list():
       'lesson_version/lesson_version_list.html',
       html_class='user-list',
       title='Lesson Version List',
-      lesson_dbs=lesson_version_dbs,
-      api_url=flask.url_for('api.lesson_version.list'),
+      lesson_version_dbs=lesson_version_dbs,
+      api_url='',
     )
 
 ###############################################################################
@@ -44,7 +44,7 @@ def lesson_version(version_key):
       display_type='lesson-version',
     )
 
-@app.route('/lesson_version/viewport/<content_type>')
+@app.route('/lesson_version/viewport/<content_type>/')
 def render_lesson_version_viewport(content_type): 
   data = flask.json.loads(util.param("data"))
   return flask.render_template(

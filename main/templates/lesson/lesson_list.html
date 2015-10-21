@@ -18,27 +18,32 @@
     <table class="table table-bordered table-hover">
       <thead>
         <tr class="text-nowrap">
-          <th class="col-xs-2"><input id="select-all" type="checkbox"> {{utils.order_by_link('name', 'Name')}}</th>
-          <th class="col-xs-3">{{utils.order_by_link('approved', 'Approved')}}</th>
+          <th class="col-xs-3"><input id="select-all" type="checkbox"> {{utils.order_by_link('name', 'Name')}}</th>
+          <th class="col-xs-1">{{utils.order_by_link('approved', 'Approved')}}</th>
           <th class="col-xs-4">Description</th>
-          <th class="col-xs-4">Topics</th>
+          <th class="col-xs-2">Topics</th>
+          <th class="col-xs-2">Setting</th>
         </tr>
       </thead>
       <tbody>
         # for lesson_db in lesson_dbs
-          <tr id="{{lesson_db.key.urlsafe()}}" class="row-link {{'text-muted' if not lesson_db.approved}}" data-href="{{url_for('lesson_version_update', lesson_version_id=lesson_db.latest_version.id())}}">
+          <tr id="{{lesson_db.key.urlsafe()}}" class="row-link {{'text-muted' if not lesson_db.approved}}" data-href="{{url_for('lesson', lesson_key=lesson_db.key.urlsafe())}}">
             <td class="name">
               <label class="not-link">
                 <input type="checkbox" name="lesson_db" value="{{lesson_db.key.urlsafe()}}">
               </label>
               <span>{{lesson_db.name}}</span>
+
             </td>
-            <td class="text-nowrap">
+            <td class="not-link">
+            <!-- Onclick this should update the lesson version become accepted -->
+            <a class="btn btn-sm" href="#">      
               # if lesson_db.approved
                 <span class="fa fa-check text-success" title="Verified">Approved</span>
               # else
                 <span class="fa fa-check text-success" title="Verified">Not approved</span>
               # endif
+              </a>
             </td>
             <td class="not-link">
               # if lesson_db.description
@@ -49,6 +54,10 @@
               # if lesson_db.topics
                 <p>{{lesson_db.topics}}</p>
               # endif
+            </td>
+            <td class="not-link">
+                <a class="btn btn-sm btn-info" href="{{url_for('lesson_version_update', lesson_version_id=lesson_db.latest_version.id())}}"><span class="fa fa-edit" title="Verified"> Edit</span></a>
+                <a class="btn btn-sm btn-danger" href="#"><span class="fa fa-close" title="Verified"> Delete</span></a>
             </td>
           </tr>
         # endfor

@@ -2,6 +2,7 @@
 # block lesson_content
   <div class="col-lg-8">
     <div class="bs-component" id="lesson-player">
+    # include 'lesson/lesson_buttons.html'
     <div id="viewport"></div>
     Details:<H2>Name:</H2> {{lesson.name}}
     <H2>Description:</H2>{{lesson.description}}
@@ -22,6 +23,7 @@
   <div class="col-lg-3">
     <div class="bs-component">
     <div class="well well-lg">
+      "You are watching a Lesson."
       #if display_type == 'lesson'
         Take Quiz if There is a Quiz for this lesson else, learn more button 
       #elif display_type == 'lesson-version'

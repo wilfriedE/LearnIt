@@ -34,11 +34,11 @@ def lesson_version_list():
 ###############################################################################
 @app.route('/lesson_version/<version_key>/')
 def lesson_version(version_key):
-  lesson = ndb.Key(urlsafe=version_key).get()
+  lesson_version = ndb.Key(urlsafe=version_key).get()
     
   return flask.render_template(
       'lesson_version/lesson_version.html',
-      lesson = lesson,
+      lesson_version = lesson_version,
       title= 'Learning',
       html_class='lesson-view',
       display_type='lesson-version',

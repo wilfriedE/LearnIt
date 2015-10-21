@@ -109,7 +109,7 @@ def new_lesson():
 ##This would be the process where users can propose new versions for a Lesson. These would of course need approval.
 @app.route('/lesson/<lesson_id>/propose_update/')
 @auth.login_required
-def new_lesson_version(lesson_id):
+def propose_new_lesson_version(lesson_id):
   user_db = auth.current_user_db()
   lesson = model.Lesson.get_by_id(int(lesson_id))
   form = NewLessonForm(name = lesson.name, description = lesson.description, topics = ', '.join([ key.id() for key in lesson.topics]), lesson_id = lesson_id)

@@ -56,7 +56,9 @@ class LessonCreateAPI(restful.Resource):
         'status': 'success',
         'count': 1,
         'now': helpers.time_now(),
-        'result': {'lesson': b_lesson.key.urlsafe()},
+        'result': {'message': 'Lesson was successfuly created!!',
+                   'view_url': flask.url_for('lesson', lesson_key=b_lesson.key.urlsafe())
+                  },
       }
       return response
     return helpers.make_bad_request_exception("Unsifificient parameters")
@@ -67,20 +69,28 @@ class LessonAPI(restful.Resource):
   """
   Retrieves and returns a specific lesson by lesson key
   """
-  def get(self):
+  def get(self, lesson_key):
     """Returns lesson"""
-    lesson = ndb.Key(urlsafe=lesson_key).get()
-    return helpers.make_response(lesson, model.Lesson.FIELDS)
+    lesson_db = ndb.Key(urlsafe=lesson_key).get()
+    if not lesson_db:
+      helpers.make_not_found_exception('Lesson %s not found' % lesson_key)
+    return helpers.make_response(lesson_db, model.Lesson.FIELDS)
 
   @auth.login_required
-  def put(self):
+  def put(self, lesson_key):
     """Updates a specific lesson"""
+    lesson_db = ndb.Key(urlsafe=lesson_key).get()
+    if not lesson_db:
+      helpers.make_not_found_exception('Lesson %s not found' % lesson_key)
     #Update Lesson version Might need to change this to post instead of put.
     pass
   
   @auth.login_required
-  def delete(self):
+  def delete(self, lesson_key):
     """Deletes a specific lesson"""
+    lesson = ndb.Key(urlsafe=lesson_key).get()
+    if not lesson_db:
+      helpers.make_not_found_exception('Lesson %s not found' % lesson_key)
     #Delete Lesson version
     pass
 
@@ -88,5 +98,5 @@ class LessonAPI(restful.Resource):
 @api_v1.resource('/lessons/search/<string:name>', endpoint='api.lesson.search')
 class LessonSearchAPI(restful.Resource):
   """Returns lessons by search keyword"""
-  def get(self):
+  def get(self, name):
   	pass

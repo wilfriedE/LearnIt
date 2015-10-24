@@ -19,8 +19,7 @@ class TopicListAPI(restful.Resource):
     return helpers.make_response(model.Topic.query(model.Topic.approved==True).fetch(), model.Topic.FIELDS)
 
 @api_v1.resource('/topics/new', endpoint='api.topic.new')
-class TopicAPI(restful.Resource):
-  """Returns all available topics"""
+class TopicCreateAPI(restful.Resource):
   @auth.admin_required
   def post(self):
   	if util.param('name'):
@@ -30,3 +29,28 @@ class TopicAPI(restful.Resource):
   		topic.description=util.param('description')
   		topic.put()
   	return flask.redirect(flask.url_for('topic_list'))
+
+@api_v1.resource('/topic/<string:topic_key>/', endpoint='api.topic')
+class TopicAPI(restful.Resource):
+  """A specific topic"""
+  def get(self, topic_key):
+    topic_db = ndb.Key(urlsafe=topic_key).get()
+    if not topic_db:
+      helpers.make_not_found_exception('Topic %s not found' % topic_key)
+    return helpers.make_response(topic_db, model.Topic.FIELDS)
+
+  @auth.login_required
+  def put(self, topic_key):
+    """Updates a specific topic"""
+    topic_db = ndb.Key(urlsafe=topic_key).get()
+    if not topic_db:
+      helpers.make_not_found_exception('Topic %s not found' % topic_key)
+    pass
+  
+  @auth.login_required
+  def delete(self, topic_key):
+    """Deletes a specific topic"""
+    topic_db = ndb.Key(urlsafe=topic_key).get()
+    if not topic_db:
+      helpers.make_not_found_exception('Topic %s not found' % topic_key)
+    pass

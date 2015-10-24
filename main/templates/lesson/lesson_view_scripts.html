@@ -1,16 +1,15 @@
 <script type="text/javascript">
 window.onload = function() {
-    $.ajax({
-      url: '/lesson/viewport/{{lesson.is_a}}/',
-      type: 'GET',
-      data: {"data": {{lesson.data|tojson}} },
-      error: function() {
-          console.log("unable to retrieve topics");
+//Beginning windows onload
+
+  getUsingAjax("{{url_for('lesson_viewport',content_type=lesson.is_a)}}", {"data": {{lesson.data|tojson}} }).then(
+      function(response) {
+        $("#viewport").html(response);
       },
-      success: function(res) {
-        $("#viewport").html(res);
-      }
+      function(response) {
+      console.log("unable to retrieve player");
     });
+      
 //End of Winloads onload 
 };
 </script>

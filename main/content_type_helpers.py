@@ -38,3 +38,6 @@ def rerieve_content_fields(util):
   if util.param('is_a') == 'vimeo-video':
     return {'vimeo_video_url': util.param('vimeo_video_url')}
   return None
+
+def upgrade_data_scheme():
+  pass

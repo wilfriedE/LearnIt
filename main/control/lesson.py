@@ -53,16 +53,6 @@ def lesson(lesson_key, course_key=''):
       display_type=display_type,
     )
 
-@app.route('/lesson/viewport/<content_type>/')
-def render_lesson_viewport(content_type): 
-  data = flask.json.loads(util.param("data"))
-  return flask.render_template(
-      'shared/viewport.html',
-      content_type=content_type,
-      data=data,
-      html_class='lesson-viewport',
-    )
-
 @app.route('/card/l/<lesson_id>')
 def lesson_card(lesson_id):
   lesson = model.Lesson.get_by_id(int(lesson_id)) 
@@ -87,9 +77,6 @@ class NewLessonForm(wtf.Form):
     )
   lesson_id = wtforms.HiddenField() #This field is only nesessary when creating a new version of an existing lesson.
   is_a = wtforms.StringField('Content Type', [wtforms.validators.required()])
-  ##Below this point are optional field types depending on requirements.
-  youtube_video_url = wtforms.StringField('Youtube Video Url', [wtforms.validators.required()])
-  vimeo_video_url = wtforms.StringField('Vimeo Video Url', [wtforms.validators.required()])
 
 #this code below is still disgusting -- seriously needs refactoring
 @app.route('/lesson/create')
@@ -112,10 +99,13 @@ def new_lesson():
 def propose_new_lesson_version(lesson_id):
   user_db = auth.current_user_db()
   lesson = model.Lesson.get_by_id(int(lesson_id))
-  form = NewLessonForm(name = lesson.name, description = lesson.description, topics = ', '.join([ key.id() for key in lesson.topics]), lesson_id = lesson_id)
+  form = NewLessonForm(name = lesson.name, description = lesson.description,
+   topics = ', '.join([ key.id() for key in lesson.topics]), lesson_id = lesson_id,
+   is_a = lesson.is_a)
   return flask.render_template(
       'lesson/lesson_update.html',
       title='Lesson Update Proposal',
+      lesson_db=lesson,
       form=form,
       html_class='lesson-update',
     )

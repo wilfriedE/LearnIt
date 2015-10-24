@@ -33,6 +33,13 @@
     </div>
     </div>
   </div>
-# include 'shared/lesson_content_types.html'
-# include 'lesson/lesson_create_scripts.html'
+
+  # if lesson_db
+    # set ldata = lesson_db.data|tojson 
+  # else 
+    # set ldata = "{}"|tojson 
+  # endif
+
+# include 'shared/lesson/content_fields.html'
+# include 'shared/lesson/create_update_scripts.html'
 # endblock

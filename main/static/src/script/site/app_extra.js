@@ -18,25 +18,25 @@ function makeAjaxCall (method, p_url, p_data, success_callback, error_callback) 
     });
 };
 function getUsingAjax(url, data, success_callback, error_callback) {
-	data = typeof data !== 'undefined' ? data : {};
+	data = typeof data !== 'undefined' ? data : "";
 	success_callback = typeof success_callback !== 'undefined' ? success_callback : undefined;
 	error_callback = typeof error_callback !== 'undefined' ? error_callback : undefined;
     return makeAjaxCall('GET', url, data, success_callback, error_callback);
 };
 function postUsingAjax(url, data, success_callback, error_callback) {
-	data = typeof data !== 'undefined' ? data : {};
+	data = typeof data !== 'undefined' ? data : "";
 	success_callback = typeof success_callback !== 'undefined' ? success_callback : undefined;
 	error_callback = typeof error_callback !== 'undefined' ? error_callback : undefined;
     return makeAjaxCall('POST', url, data, success_callback, error_callback);
 };
 function putUsingAjax(url, data, success_callback, error_callback) {
-	data = typeof data !== 'undefined' ? data : {};
+	data = typeof data !== 'undefined' ? data : "";
 	success_callback = typeof success_callback !== 'undefined' ? success_callback : undefined;
 	error_callback = typeof error_callback !== 'undefined' ? error_callback : undefined;
     return makeAjaxCall('PUT', url, data, success_callback, error_callback);
 };
 function deleteUsingAjax(url, data, success_callback, error_callback) {
-	data = typeof data !== 'undefined' ? data : {};
+	data = typeof data !== 'undefined' ? data : "";
 	success_callback = typeof success_callback !== 'undefined' ? success_callback : undefined;
 	error_callback = typeof error_callback !== 'undefined' ? error_callback : undefined;
     return makeAjaxCall('DELETE', url, data, success_callback, error_callback);

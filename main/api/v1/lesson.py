@@ -108,12 +108,14 @@ class LessonAPI(restful.Resource):
   @auth.login_required
   def delete(self, lesson_key):
     """Deletes a specific lesson"""
-    lesson_key = ndb.Key(urlsafe=lesson_key)
+    lesson_key = ndb.Key(urlsafe=lesson_key).get()
     if not lesson_key:
       return helpers.make_not_found_exception('Lesson %s not found' % lesson_key)
-    lesson_key.delete()
+    lesson_key.deadLock = True
+    lesson_key.approved =  False
+    lesson_key = lesson_key.put()
     return flask.jsonify({
-        'result': {'message': 'Lesson successfuly deleted', 'key': lesson_key},
+        'result': {'message': 'Lesson has been placed in dealock state', 'key': lesson_key},
         'status': 'success',
       })
     

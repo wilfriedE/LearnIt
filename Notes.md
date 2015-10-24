@@ -156,3 +156,9 @@ Possible types:
 The json string for these fields depending on which will have details about name and such which may be required. 
 
 ___development ideas___END
+
+
+
+___notes for contributors___
+
+___notes for contributors___END

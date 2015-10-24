@@ -160,5 +160,6 @@ ___development ideas___END
 
 
 ___notes for contributors___
+The defined ajax request methods are all Promified.
 
 ___notes for contributors___END

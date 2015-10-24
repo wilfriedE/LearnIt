@@ -44,14 +44,14 @@ def lesson_version(version_key):
       display_type='lesson-version',
     )
 
-@app.route('/card/l/<lesson_id>')
-def lesson_version_card(lesson_id):
-  lesson = model.Lesson.get_by_id(int(lesson_id)) 
+@app.route('/card/l/v/<lesson_version_id>')
+def lesson_version_card(lesson_version_id):
+  lesson_version_db = model.LessonVersion.get_by_id(int(lesson_version_id)) 
   return flask.render_template(
       'lesson_version/lesson_version_card.html',
-      title='',
-      lesson=lesson,
-      html_class='lesson-card',
+      title=lesson_version_db.name,
+      lesson_version_db=lesson_version_db,
+      html_class='lesson-version-card',
     )
 
 ###############################################################################
@@ -81,9 +81,9 @@ def lesson_version_update(lesson_version_id):
   return flask.render_template(
       'lesson_version/lesson_version_update.html',
       title='Lesson Update Proposal',
-      post_path=flask.url_for('api.lesson_version.new'),
+      post_path=flask.url_for('api.lesson_version',version_key=lesson.key.urlsafe()),
       form=form,
       lesson_version_db=lesson,
-      html_class='lesson-update',
+      html_class='lesson-version-update',
     )
 

@@ -78,7 +78,6 @@ class NewLessonForm(wtf.Form):
   lesson_id = wtforms.HiddenField() #This field is only nesessary when creating a new version of an existing lesson.
   is_a = wtforms.StringField('Content Type', [wtforms.validators.required()])
 
-#this code below is still disgusting -- seriously needs refactoring
 @app.route('/lesson/create')
 @auth.login_required
 def new_lesson():
@@ -92,7 +91,6 @@ def new_lesson():
       html_class='lesson',
     )
 
-
 ##This would be the process where users can propose new versions for a Lesson. These would of course need approval.
 @app.route('/lesson/<lesson_id>/propose_update/')
 @auth.login_required
@@ -100,55 +98,30 @@ def propose_new_lesson_version(lesson_id):
   user_db = auth.current_user_db()
   lesson = model.Lesson.get_by_id(int(lesson_id))
   form = NewLessonForm(name = lesson.name, description = lesson.description,
-   topics = ', '.join([ key.id() for key in lesson.topics]), lesson_id = lesson_id,
+   topics = ', '.join([ key.urlsafe() for key in lesson.topics]), lesson_id = lesson_id,
    is_a = lesson.is_a)
   return flask.render_template(
       'lesson/lesson_update.html',
       title='Lesson Update Proposal',
-      lesson_db=lesson,
+      post_path=flask.url_for('api.lesson_version.new',lesson_key=lesson.key.urlsafe()),
       form=form,
-      html_class='lesson-update',
+      lesson_db=lesson,
+      html_class='lesson-update-proposal',
     )
 
-
-
-##No Longer Doing Video Uploads for the time being because of this article
-## http://apiblog.youtube.com/2012/02/video-uploads-from-your-sites-community.html
-## Considering implementing AuthSub to allow users to upload their own account instead.
-##@app.route('/video_meta_check/', methods=['POST'])
-##@auth.login_required
-##def process_video_meta():
-##  client = gdata.youtube.service.YouTubeService()
-##  gdata.alt.appengine.run_on_appengine(client)
-##
-##  video_title = cgi.escape(flask.request.args.get('video_title'))
-##  video_description = cgi.escape(flask.request.args.get('video_description'))
-##  video_category = cgi.escape(flask.request.args.get('video_category'))
-##  video_tags = cgi.escape(flask.request.args.get('video_tags'))
-##  my_media_group = gdata.media.Group(
-##        title = gdata.media.Title(text=video_title),
-##        description = gdata.media.Description(description_type='plain',
-##                                            text=video_description),
-##        keywords = gdata.media.Keywords(text=video_tags),
-##        category = gdata.media.Category(
-##          text=video_category,
-##          scheme='http://gdata.youtube.com/schemas/2007/categories.cat',
-##          label=video_category),
-##      player=None
-##      )
-##  video_entry = gdata.youtube.YouTubeVideoEntry(media=my_media_group)
-##  
-##  try:
-##      server_response = client.GetFormUploadToken(video_entry)
-##  except gdata.service.RequestError, request_error:
-##    return
-##
-##  post_url = server_response[[]0]
-##  youtube_token = server_response[[]1]
-##
-##  return flask.render_template(
-##      'lesson/lesson.html',
-##      title=lesson['name'],
-##      html_class='lesson-version-view',
-##      lesson=lesson,
-##    )
+@app.route('/admin/lesson/<lesson_id>/update')
+@auth.admin_required
+def lesson_update(lesson_id):
+  user_db = auth.current_user_db()
+  lesson = model.Lesson.get_by_id(int(lesson_id))
+  form =  NewLessonForm(name = lesson.name, description = lesson.description,
+   topics = ', '.join([ key.urlsafe() for key in lesson.topics]), lesson_id = lesson_id,
+   is_a = lesson.is_a)
+  return flask.render_template(
+      'lesson/lesson_update.html',
+      title='Lesson Update - (Admin Only)',
+      post_path=flask.url_for('api.lesson',lesson_key=lesson.key.urlsafe()),
+      form=form,
+      lesson_db=lesson,
+      html_class='lesson-update',
+    )

@@ -97,7 +97,7 @@ window.onload = function() {
 
     function handleFormSuccessPost (res) {
       var nexStep="<p>"+res.result.message+"</p>";
-          var nexStepBtn= "<div class='row'><a href='"+ res.result.view_url + "/' class='btn btn-primary'>"+"View lesson"+"</a><a href='#' class='btn btn-primary'>"+"Make a quiz for lesson. (not yet handled)"+"</a></div>";
+          var nexStepBtn= "<div class='row'><a href='"+ res.result.view_url + "' class='btn btn-primary'>"+"View lesson"+"</a><a href='#' class='btn btn-primary'>"+"Make a quiz for lesson. (not yet handled)"+"</a></div>";
           $("#new-lesson-form-container").html(nexStep+nexStepBtn);
           console.log(res);
     };

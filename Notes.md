@@ -1,4 +1,25 @@
----------------------------------------------------
+___development notes___
+Next milestones:
+1)	Fix edit pages for Lesson and Lesson Version
+		Make sure when lesson version gets edited it updates Lesson
+		Make sure edit for Lesson is only available from the Admin Dashboard
+	Implement Delete for Lesson and Lesson Version
+		Make redirec pages for when items no longer exist
+		Lesson Versions can be deleted currently, but on delete update main Lesson and notify of change.
+		Main Lesson delete only put them in a deadlock state.
+	Fix lesson and Lesson version cards.
+	
+2)  Implement the voting feature for Lesson and Lesson Versions
+		Allow voting for all users only
+		Add algorithm for Lession Version votes so that when treshold reached it sets vote to zero and becomes the main lesson version for the Main Lesson
+
+3)  Implement courses 
+		Creation and Edit
+		Admin interface for courses
+		Add voting to courses
+		Courses cards
+
+*_old_details_*
 #Some development notes.
 Create a model for Course which has various lessons
 	Has a name, and lessons array of course
@@ -16,8 +37,76 @@ Create a cards for Users with something like this http://bootsnipp.com/snippets/
 Create a cards for Courses with something like above with a button below it that has a dropdown for lessons within as well as the quizes if the lesson has a quiz.
 
 Change from Coyright 2015 to Creative Commons talk with Remy about details and stuff.
+*_old_details_END*
+
+___development notes___END
 
 
+
+___lesson data field format___
+
+########## Version 0.0 #########
+##Base Form:
+
+data = {
+	"version": "0.0",
+	--(other structures in here)--
+	"source" : "None",
+	"original_string": "None",
+}
+
+data.version: data field format version. This will help in the future when the data field changes.
+
+data.source:  data source. For example youtube, vimeo etc...
+
+data.original_string:  data original content on creation. This is the original value entered during creation of the lesson such as the youtube link or vimeo link.
+
+##'youtube-video' type structure
+data = {
+	"version": "0.0",
+	"video_id": "dvShgNdY_GE",
+	"source" : "youtube",
+	"original_string": "https://www.youtube.com/watch?v=dvShgNdY_GE",
+}
+
+data.video_id: the youtube video id.
+
+##'vimeo-video' type structure
+data = {
+	"version": "0.0",
+	"video_id": "1548957",
+	"source" : "vimeo",
+	"original_string": "https://vimeo.com/1548957",
+}
+
+data.video_id: the vimeo video id.
+
+##other source...
+
+___lesson data field format___END
+
+
+
+___apis/models/controllers structure notes___
+
+api should return primarily json
+any html data that needs to be handled by the application should be send by the controlers
+
+___apis/models/controllers structure___END
+
+
+
+___development ideas___
+
+During lesson version creation process, check if it already has a lesson or vote.
+If not create a vote instead of creating during form submission. This would help with preventing duplication.
+
+Also figure out how to create indexes for the Appengine Document search api
+
+*handling lessons (previous lessons, next lessons)  
+	Courses has a lessons property that is just a one element containing a linkedlist of lessons.
+*handling courses (previous courses, next courses)
+	Tracks also has a linkedlist of courses
 ------Lesson-version, Question, etc... data object Structure-----
 	This is a basic setup for the data object for a lesson
 
@@ -66,50 +155,4 @@ Possible types:
 		
 The json string for these fields depending on which will have details about name and such which may be required. 
 
-
-Notes for next time:
-During lesson version creation process, check if it already has a lesson or vote.
-If not create a vote instead of creating during form submission. This would help with preventing duplication.
-
-Also figure out how to create indexes for the Appengine Document search api
-
-
-___lesson data field format___
-
-########## Version 0.0 #########
-##Base Form:
-
-data = {
-	"version": "0.0",
-	--(other structures in here)--
-	"source" : "None",
-	"original_string": "None",
-}
-
-data.version: data field format version. This will help in the future when the data field changes.
-
-data.source:  data source. For example youtube, vimeo etc...
-
-data.original_string:  data original content on creation. This is the original value entered during creation of the lesson such as the youtube link or vimeo link.
-
-##'youtube-video' type structure
-data = {
-	"version": "0.0",
-	"video_id": "dvShgNdY_GE",
-	"source" : "youtube",
-	"original_string": "https://www.youtube.com/watch?v=dvShgNdY_GE",
-}
-
-data.video_id: the youtube video id.
-
-##'vimeo-video' type structure
-data = {
-	"version": "0.0",
-	"video_id": "1548957",
-	"source" : "vimeo",
-	"original_string": "https://vimeo.com/1548957",
-}
-
-data.video_id: the vimeo video id.
-
-##other source...
+___development ideas___END

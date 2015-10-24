@@ -10,7 +10,6 @@
         <span class="fa fa-fw fa-check-circle"></span> Vote
       </a>
 	  # if current_user.admin
-	  <!-- For now only edits lesson's lesson version. Future changes would enable the admins or moderators to specificaly edit the lesson while others modify a lesson version if they contributed on of the lesson versions. -->
 	    <a class="btn btn-sm btn-info btn-raised" href="{{url_for('lesson_version_update', lesson_version_id=lesson.latest_version.id())}}">
 	    	<span class="fa fa-fw fa-edit"></span> Edit
 	    </a>

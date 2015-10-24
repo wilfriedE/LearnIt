@@ -56,7 +56,7 @@
               # endif
             </td>
             <td class="not-link">
-                <a class="btn btn-sm btn-info" href="{{url_for('lesson_version_update', lesson_version_id=lesson_db.latest_version.id())}}"><span class="fa fa-edit" title="Verified"> Edit</span></a>
+                <a class="btn btn-sm btn-info" href="{{url_for('lesson_update', lesson_id=lesson_db.key.id())}}"><span class="fa fa-edit" title="Verified"> Edit</span></a>
                 <a class="btn btn-sm btn-danger" href="#"><span class="fa fa-close" title="Verified"> Delete</span></a>
             </td>
           </tr>

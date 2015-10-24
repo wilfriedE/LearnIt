@@ -3,15 +3,15 @@
       <a class="btn btn-sm btn-primary btn-raised" href="#">
         <span class="fa fa-fw fa-check-circle"></span> Vote
       </a>
-	  # if current_user.admin
-	  <!-- For now only edits lesson's lesson version. Future changes would enable the admins or moderators to specificaly edit the lesson while others modify a lesson version if they contributed on of the lesson versions. -->
-	    <a class="btn btn-sm btn-info btn-raised" href="{{url_for('lesson_version_update', lesson_version_id=lesson_version.key.id())}}">
+      # if current_user.id > 0
+       #if current_user.user_db.key == lesson_version.contributor or current_user.admin
+ 		<a class="btn btn-sm btn-info btn-raised" href="{{url_for('lesson_version_update', lesson_version_id=lesson_version.key.id())}}">
 	    	<span class="fa fa-fw fa-edit"></span> Edit
 	    </a>
 	    <a class="btn btn-sm btn-danger btn-raised" href="#">
 	    	<span class="fa fa-fw fa-close"></span> Delete
 	    </a>
-	    <!--Note for a lesson delete only puts the lesson into deadlock and disaproved. -->
+	   #endif
 	  # endif
     </div>
   </div>

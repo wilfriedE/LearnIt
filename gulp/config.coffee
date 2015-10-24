@@ -5,9 +5,6 @@ config =
     "#{paths.static.ext}/jquery/dist/jquery.js"
     "#{paths.static.ext}/moment/moment.js"
     "#{paths.static.ext}/nprogress/nprogress.js"
-    "#{paths.static.ext}/bootstrap-material-design/scripts/material.js"
-    "#{paths.static.ext}/bootstrap-material-design/scripts/ripples.js"
-    "#{paths.static.ext}/selectize/dist/js/standalone/selectize.js"
     "#{paths.static.ext}/bootstrap/js/alert.js"
     "#{paths.static.ext}/bootstrap/js/button.js"
     "#{paths.static.ext}/bootstrap/js/transition.js"
@@ -15,6 +12,11 @@ config =
     "#{paths.static.ext}/bootstrap/js/collapse.js"
     "#{paths.static.ext}/bootstrap/js/dropdown.js"
     "#{paths.static.ext}/bootstrap/js/tooltip.js"
+    "#{paths.static.ext}/bootstrap-material-design/scripts/material.js"
+    "#{paths.static.ext}/bootstrap-material-design/scripts/ripples.js"
+    "#{paths.static.ext}/selectize/dist/js/standalone/selectize.js"
+    "#{paths.static.ext}/bluebird/js/browser/bluebird.js"
+    "#{paths.src.script}/**/*.js"
   ]
   style: [
     "#{paths.src.style}/style.less"

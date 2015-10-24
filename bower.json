@@ -27,7 +27,8 @@
     "moment": "~2",
     "nprogress": "https://github.com/lipis/nprogress.git#master",
     "bootstrap-material-design": "~0.3.0",
-    "selectize": "~0.12.1"
+    "selectize": "~0.12.1",
+    "bluebird": "~2.10.2"
   },
   "overrides": {
     "bootstrap": {
@@ -35,6 +36,12 @@
         "less/**",
         "fonts/*",
         "js/*"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "less/*",
+        "fonts/*"
       ]
     },
     "bootstrap-material-design": {
@@ -48,12 +55,6 @@
       "main": [
         "dist/less/**",
         "dist/js/standalone/*"
-      ]
-    },
-    "font-awesome": {
-      "main": [
-        "less/*",
-        "fonts/*"
       ]
     }
   }

@@ -25,6 +25,8 @@ class LessonVersionCreateAPI(restful.Resource):
       b_description = util.param('description')
       b_contributor = auth.current_user_key()
       b_lesson = ndb.Key(urlsafe=lesson_key).get()
+      if not b_lesson:
+        return helpers.make_not_found_exception('Lesson %s not found' % b_lesson)
       b_lesson_version = model.LessonVersion(data=b_data,name=b_name,is_a=b_is_a,description=b_description,topics=b_topics,lesson=b_lesson.key,contributor=b_contributor).put()
       b_lesson.contributors += [b_contributor]
       b_lesson.lesson_versions += [b_lesson_version]
@@ -60,6 +62,8 @@ class LessonVersionAPI(restful.Resource):
       b_name = util.param('name')
       b_description = util.param('description')
       b_lesson_version = ndb.Key(urlsafe=version_key).get()
+      if not b_lesson_version:
+        return helpers.make_not_found_exception('LessonVersion %s not found' % b_lesson_version)
       b_lesson_version.data=b_data
       b_lesson_version.name=b_name
       b_lesson_version.is_a=b_is_a
@@ -80,5 +84,12 @@ class LessonVersionAPI(restful.Resource):
   @auth.login_required
   def delete(self, version_key):
     """Deletes a specific lesson version"""
-    b_lesson_version = ndb.Key(urlsafe=version_key)
-    b_lesson_version.delete()
+    lesson_version_key = ndb.Key(urlsafe=version_key)
+    if not lesson_version_key:
+      return helpers.make_not_found_exception('LessonVersion %s not found' % lesson_version_key)
+    lesson_version_key.delete()
+    return flask.jsonify({
+        'result': {'message': 'LessonVersion successfuly deleted', 'key': lesson_version_key},
+        'status': 'success',
+      })
+    

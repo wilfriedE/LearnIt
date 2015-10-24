@@ -73,26 +73,50 @@ class LessonAPI(restful.Resource):
     """Returns lesson"""
     lesson_db = ndb.Key(urlsafe=lesson_key).get()
     if not lesson_db:
-      helpers.make_not_found_exception('Lesson %s not found' % lesson_key)
+      return helpers.make_not_found_exception('Lesson %s not found' % lesson_key)
     return helpers.make_response(lesson_db, model.Lesson.FIELDS)
 
   @auth.login_required
   def post(self, lesson_key):
     """Updates a specific lesson"""
-    lesson_db = ndb.Key(urlsafe=lesson_key).get()
-    if not lesson_db:
-      helpers.make_not_found_exception('Lesson %s not found' % lesson_key)
-    #Update Lesson version Might need to change this to post instead of put.
-    pass
+    if util.param('name') and util.param('is_a'):
+      b_is_a = util.param('is_a')
+      b_data = helpers.data_scheme_constructor(b_is_a, helpers.rerieve_content_fields(util))
+      b_topics = [ ndb.Key(urlsafe=topic_key_url) for topic_key_url in util.param('topics', list)]
+      b_name = util.param('name')
+      b_description = util.param('description')
+      b_lesson = ndb.Key(urlsafe=lesson_key).get()
+      if not b_lesson:
+        return helpers.make_not_found_exception('Lesson %s not found' % lesson_key)
+      b_lesson.data=b_data
+      b_lesson.name=b_name
+      b_lesson.is_a=b_is_a
+      b_lesson.description=b_description
+      b_lesson.topics=b_topics
+      b_lesson = b_lesson.put()
+      response = {
+        'status': 'success',
+        'count': 1,
+        'now': helpers.time_now(),
+        'result': {'message': 'Lesson was successfuly updated!!',
+                   'view_url': flask.url_for('lesson', lesson_key=b_lesson.urlsafe())
+                  },
+      }
+      return response
+    return helpers.make_bad_request_exception("Unsifificient parameters")
   
   @auth.login_required
   def delete(self, lesson_key):
     """Deletes a specific lesson"""
-    lesson = ndb.Key(urlsafe=lesson_key).get()
-    if not lesson_db:
-      helpers.make_not_found_exception('Lesson %s not found' % lesson_key)
-    #Delete Lesson version
-    pass
+    lesson_key = ndb.Key(urlsafe=lesson_key)
+    if not lesson_key:
+      return helpers.make_not_found_exception('Lesson %s not found' % lesson_key)
+    lesson_key.delete()
+    return flask.jsonify({
+        'result': {'message': 'Lesson successfuly deleted', 'key': lesson_key},
+        'status': 'success',
+      })
+    
 
 #Search api endpoint for Lessons
 @api_v1.resource('/lessons/search/<string:name>', endpoint='api.lesson.search')

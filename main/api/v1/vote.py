@@ -16,7 +16,7 @@ from main import api_v1
 class VoteAPI(restful.Resource):
   """ Handles updating votes."""
   @auth.login_required
-  def put(self):
+  def post(self):
   	"""Update a specific vote"""
   	#Update a vote.
   	pass

@@ -40,7 +40,7 @@ class TopicAPI(restful.Resource):
     return helpers.make_response(topic_db, model.Topic.FIELDS)
 
   @auth.login_required
-  def put(self, topic_key):
+  def post(self, topic_key):
     """Updates a specific topic"""
     topic_db = ndb.Key(urlsafe=topic_key).get()
     if not topic_db:

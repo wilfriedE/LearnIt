@@ -77,7 +77,7 @@ class LessonAPI(restful.Resource):
     return helpers.make_response(lesson_db, model.Lesson.FIELDS)
 
   @auth.login_required
-  def put(self, lesson_key):
+  def post(self, lesson_key):
     """Updates a specific lesson"""
     lesson_db = ndb.Key(urlsafe=lesson_key).get()
     if not lesson_db:

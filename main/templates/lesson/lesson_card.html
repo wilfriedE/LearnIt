@@ -1,30 +1,30 @@
 <div class="row media" >
   <div class="media-left media-middle">
-    <a href="/lesson/{{lesson.key.id()}}" style="color:{{lesson.color}}"><i class="mdi-av-play-circle-outline" style="font-size: 60pt;"></i></a>
+    <a href="{{url_for('lesson', lesson_key=lesson_db.key.urlsafe())}}" style="color:{{lesson_db.color}}"><i class="mdi-av-play-circle-outline" style="font-size: 60pt;"></i></a>
   </div>
   <div class="media-body">
-    <h3 class="title">{{lesson.name}}</h3>
-	<p class="desc">{{lesson.description}}</p>	
+    <h3 class="title">{{lesson_db.name}}</h3>
+	<p class="desc">{{lesson_db.description}}</p>	
 	<!-- Versions modal trigger -->
-	<button class="btn" data-toggle="modal" data-target="#versions{{lesson.key.id()}}"><span class="mdi-content-content-copy"></span> Show all Versions </button>
+	<button class="btn" data-toggle="modal" data-target="#versions{{lesson_db.key.urlsafe()}}"><span class="mdi-content-content-copy"></span> Show all Versions </button>
   </div>
 </div>
 
 <!--Versions Modal -->
-<div class="modal fade" id="versions{{lesson.key.id()}}" tabindex="-1">
+<div class="modal fade" id="versions{{lesson_db.key.urlsafe()}}" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"><b>{{lesson.name}}'s Versions</b></h4>
+                <h4 class="modal-title"><b>{{lesson_db.name}}'s Versions</b></h4>
             </div>
             <div class="modal-body">
-                # for version in lesson.lesson_versions
+                # for version in lesson_db.lesson_versions
                 # set version_key = version
 				# set version = version.get()
 				<div class="media" style="border-left: 0.25em solid #03a9f4">
 				  <div class="media-left media-middle">
-				    <a href="/lesson/{{lesson.key.id()}}/v/{{version_key.id()}}">
+				    <a href="{{url_for('lesson_version', version_key=version_key.urlsafe())}}">
 				     <i class="mdi-av-play-circle-outline" style="font-size: 50pt;"></i>
 				    </a>
 				  </div>
@@ -37,7 +37,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="/propose_update/lesson/{{lesson.key.id()}}" type="button" class="btn btn-primary">Propose an update</a>
+                <a href="{{url_for('propose_new_lesson_version', lesson_id=lesson_db.key.id())}}" type="button" class="btn btn-primary">Propose an update</a>
             </div>
         </div>
     </div>

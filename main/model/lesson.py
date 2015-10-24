@@ -56,16 +56,15 @@ class Lesson(model.Base):
     search.Index(name=INDEX_NAME).put(doc)
     """
 
-  #card url
   def card(self):
-  	return ('/card/l/%s' % self.id_or_name())
+  	return flask.url_for('lesson_card',lesson_id=self.key.id())
 
   #returns html of card
   def load_card(self):
   	return flask.render_template(
-      'lesson/lesson_card.html',
-      lesson=self,
-      html_class='lesson-card',
+      'shared/load_card.html',
+      card=self.card(),
+      card_id=self.key.urlsafe(),
     )
 
   def data_in_json(self):

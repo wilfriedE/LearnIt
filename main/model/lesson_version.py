@@ -49,7 +49,17 @@ class LessonVersion(model.Base):
     if self.contributor not in lesson.contributors:
       lesson.contributors = lesson.contributors + [self.contributor]
     lesson.put()
-                     
+
+  def card(self):
+    return flask.url_for('lesson_version_card',lesson_version_id=self.key.id())
+
+  #returns html of card
+  def load_card(self):
+    return flask.render_template(
+      'shared/load_card.html',
+      card=self.card(),
+      card_id=self.key.urlsafe(),
+    )                  
 
   def _post_put_hook(self, future):
     #After an update update the lesson's properties if this version is the parent lesson's latest version

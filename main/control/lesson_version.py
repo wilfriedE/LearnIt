@@ -23,7 +23,7 @@ def lesson_version_list():
   lesson_version_dbs = model.LessonVersion.query().fetch()
   return flask.render_template(
       'lesson_version/lesson_version_list.html',
-      html_class='user-list',
+      html_class='lesson-version-list',
       title='Lesson Version List',
       lesson_version_dbs=lesson_version_dbs,
       api_url='',
@@ -35,12 +35,11 @@ def lesson_version_list():
 @app.route('/lesson_version/<version_key>/')
 def lesson_version(version_key):
   lesson_version = ndb.Key(urlsafe=version_key).get()
-    
   return flask.render_template(
       'lesson_version/lesson_version.html',
       lesson_version = lesson_version,
       title= 'Learning',
-      html_class='lesson-view',
+      html_class='lesson-version-view',
       display_type='lesson-version',
     )
 
@@ -74,7 +73,6 @@ class NewLessonVersionForm(wtf.Form):
 def lesson_version_update(lesson_version_id):
   user_db = auth.current_user_db()
   lesson = model.LessonVersion.get_by_id(int(lesson_version_id))
-  #make edit so only lesson version creator can make changes to lesson version.
   form =  NewLessonVersionForm(name = lesson.name, description = lesson.description,
    topics = ', '.join([ key.urlsafe() for key in lesson.topics]), lesson_id = lesson_version_id,
    is_a = lesson.is_a)

@@ -136,6 +136,17 @@ def user_verify(token):
   flask.flash('Hooray! Your email is now verified.', category='success')
   return flask.redirect(flask.url_for('profile'))
 
+###############################################################################
+# User Card
+###############################################################################
+@app.route('/card/u/<string:user_id>')
+def user_card(user_id):
+  user_db = model.User.get_by_id(int(user_id)) 
+  return flask.render_template(
+      'user/user_card.html',
+      user_db=user_db,
+      html_class='user-card',
+    )
 
 ###############################################################################
 # User Forgot

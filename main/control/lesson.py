@@ -55,11 +55,11 @@ def lesson(lesson_key, course_key=''):
 
 @app.route('/card/l/<lesson_id>')
 def lesson_card(lesson_id):
-  lesson = model.Lesson.get_by_id(int(lesson_id)) 
+  lesson_db = model.Lesson.get_by_id(int(lesson_id)) 
   return flask.render_template(
       'lesson/lesson_card.html',
       title='',
-      lesson=lesson,
+      lesson_db=lesson_db,
       html_class='lesson-card',
     )
 

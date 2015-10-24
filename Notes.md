@@ -1,13 +1,14 @@
 ___development notes___
 Next milestones:
-1)	Fix edit pages for Lesson and Lesson Version
-		Make sure when lesson version gets edited it updates Lesson
-		Make sure edit for Lesson is only available from the Admin Dashboard
-	Implement Delete for Lesson and Lesson Version
-		Make redirec pages for when items no longer exist
-		Lesson Versions can be deleted currently, but on delete update main Lesson and notify of change.
-		Main Lesson delete only put them in a deadlock state.
-	Fix lesson and Lesson version cards.
+1)	Implement Delete for Lesson and Lesson Version
+		Lesson Delete
+			Admins only can delete a Lesson
+				When a lesson is deleted it puts it into a deadlock state not actually deleted.
+				Redirect to 404 if it's in deadlock state
+		Lesson Versions Delete
+			Admins, Moderators and Version Creator (contributor) can delete
+				Delete actually deletes the Lesson version permenantly.
+				(To be worked out further later.)
 	
 2)  Implement the voting feature for Lesson and Lesson Versions
 		Allow voting for all users only

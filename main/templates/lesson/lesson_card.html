@@ -5,7 +5,7 @@
       </div>
       <div class="media-body">
         <h3 class="title">{{lesson_db.name}}</h3>
-    	<p class="desc">{{lesson_db.description|truncate(20)}}</p>	
+    	<p class="desc">{{lesson_db.description|truncate(100)}}</p>	
     	<!-- Versions modal trigger -->
     	<button class="btn" data-toggle="modal" data-target="#versions{{lesson_db.key.urlsafe()}}"><span class="mdi-content-content-copy"></span> Show all Versions </button>
       </div>

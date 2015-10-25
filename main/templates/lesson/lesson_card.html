@@ -1,22 +1,24 @@
-<div class="row media" >
-  <div class="media-left media-middle">
-    <a href="{{url_for('lesson', lesson_key=lesson_db.key.urlsafe())}}" style="color:{{lesson_db.color}}"><i class="mdi-av-play-circle-outline" style="font-size: 60pt;"></i></a>
-  </div>
-  <div class="media-body">
-    <h3 class="title">{{lesson_db.name}}</h3>
-	<p class="desc">{{lesson_db.description}}</p>	
-	<!-- Versions modal trigger -->
-	<button class="btn" data-toggle="modal" data-target="#versions{{lesson_db.key.urlsafe()}}"><span class="mdi-content-content-copy"></span> Show all Versions </button>
-  </div>
+<div class="well well-lg"  style="min-height:230px;max-height:230px;">
+    <div class="row media"  >
+      <div class="media-left media-middle">
+        <a href="{{url_for('lesson', lesson_key=lesson_db.key.urlsafe())}}" style="color:{{lesson_db.color}}"><i class="mdi-av-play-circle-outline" style="font-size: 60pt;"></i></a>
+      </div>
+      <div class="media-body">
+        <h3 class="title">{{lesson_db.name}}</h3>
+    	<p class="desc">{{lesson_db.description|truncate(20)}}</p>	
+    	<!-- Versions modal trigger -->
+    	<button class="btn" data-toggle="modal" data-target="#versions{{lesson_db.key.urlsafe()}}"><span class="mdi-content-content-copy"></span> Show all Versions </button>
+      </div>
+    </div>
 </div>
-
 <!--Versions Modal -->
 <div class="modal fade" id="versions{{lesson_db.key.urlsafe()}}" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"><b>{{lesson_db.name}}'s Versions</b></h4>
+                <h4 class="modal-title"><b>All versions:</b></h4>
+                <br/>
             </div>
             <div class="modal-body">
                 # for version in lesson_db.lesson_versions

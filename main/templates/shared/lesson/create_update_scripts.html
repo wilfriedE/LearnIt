@@ -1,15 +1,6 @@
 <script type="text/javascript">
 window.onload = function() {
 //Beginning windows onload
-
-    $.ajaxSetup({
-      beforeSend: function(xhr, settings) {
-           if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
-               xhr.setRequestHeader("X-CSRFToken", $("#csrf_token").attr("value"));
-               }
-           }
-    });
-
     var etopics = topics.value.split(",");
     var eformat = is_a.value.split()[0];
     var ldata = {{ldata}};

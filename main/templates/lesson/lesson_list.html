@@ -37,11 +37,27 @@
             </td>
             <td class="not-link">
             <!-- Onclick this should update the lesson version become accepted -->
-            <a class="btn btn-sm" href="#">      
+            <a class="btn btn-sm" >      
               # if lesson_db.approved
-                <span class="fa fa-check text-success" title="Verified">Approved</span>
+                <span class="fa fa-check text-success" title="Verified" 
+                  data-actionable="lesson-approve"
+                  data-action="postable"
+                  data-postable="post"
+                  data-success="Lesson has been disaproved"
+                  data-url="{{url_for('api.lesson.approve',lesson_key=lesson_db.key.urlsafe())}}"
+                  data-value="false"
+                  data-error="Something went wrong while disapproving lesson. Please try again."
+                >Approved</span>
               # else
-                <span class="fa fa-check text-success" title="Verified">Not approved</span>
+                <span class="fa fa-check text-success" title="Verified"
+                  data-actionable="lesson-disaproval"
+                  data-action="postable"
+                  data-postable="post"
+                  data-url="{{url_for('api.lesson.approve',lesson_key=lesson_db.key.urlsafe())}}"
+                  data-value="true"
+                  data-success="Lesson has been approved"
+                  data-error="Something went wrong while approving lesson. Please try again."
+                >Not approved</span>
               # endif
               </a>
             </td>

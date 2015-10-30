@@ -120,9 +120,27 @@ class LessonAPI(restful.Resource):
       })
     
 
+@api_v1.resource('/lessons/<string:lesson_key>/approve', endpoint='api.lesson.approve')
+class LessonApprovalAPI(restful.Resource):
+  """"""
+  def post(self, lesson_key):
+    data = util.param("data")
+    lesson_db = ndb.Key(urlsafe=lesson_key).get()
+    if not lesson_db:
+      return helpers.make_not_found_exception('Lesson %s not found' % lesson_key)
+    if data == "true":
+      lesson_db.approved =  True
+    elif data == "false":
+      lesson_db.approved =  False
+    lesson_key = lesson_db.put()
+    return flask.jsonify({
+        'result': {'message': 'Lesson has been updated', 'key': lesson_key.urlsafe()},
+        'status': 'success',
+      })
+
 #Search api endpoint for Lessons
 @api_v1.resource('/lessons/search/<string:name>', endpoint='api.lesson.search')
 class LessonSearchAPI(restful.Resource):
   """Returns lessons by search keyword"""
   def get(self, name):
-  	pass
+    pass

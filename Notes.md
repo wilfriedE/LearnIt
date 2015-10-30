@@ -20,6 +20,25 @@ Next milestones:
 		Add voting to courses
 		Courses cards
 
+#dataActionable
+defines data attributes to easily enable dynamic actions with elements.
+data fields:
+	data-actionable: "This is the name of the data actionable element"
+	data-action: "This is the name of the action type postable, getable, collectible etc..."
+	data-postable: "This specifies the type of post to perform for the postable action."
+	data-getable: "This specifies the type of get to perform for the gettable action."
+	data-collectible: "This specifies the type of collectible it is."
+	data-url: "This is the url to send the ajax requests to, for either get or post etc..."
+	data-value: "This field represents the value of the actionable element"
+	data-collectors: "This specifies the name of the parent collectors for a data collectible"
+	data-collectibles: "This specifies the name of the collectibles for a parent collector"
+	data-collected: "This tells wether the collectible has been collected or not"
+	data-success: "This contains a message to put in notifications when actions were performed sucsesfully."
+	data-error: "This contains a message to put in notifications when actions were not performed sucsesfully or failed."
+	data-comfirm: "This is to specify a message to ask permission from a user before performing action."
+	data-after-effect: "This is a name for a set of possible after effects."
+
+
 *_old_details_*
 #Some development notes.
 Create a model for Course which has various lessons
@@ -155,6 +174,8 @@ Possible types:
 		~Because this would display on live events page it should have button to mark end. When pressed it should change it from a live to another type.
 		
 The json string for these fields depending on which will have details about name and such which may be required. 
+
+.data-deletable are classes for elements that when cliked can delete stuff using ajax
 
 ___development ideas___END
 

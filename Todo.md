@@ -24,3 +24,11 @@
 *Other goals
   * Get more people to understand the project
   * Get others onboard
+
+
+-----------------
+TEAMS AND STUDENTS
+TEAM PINS
+SETUP SLACK FOR PROJECT
+INTEGRATE SLACK BOT FOR ITEM CREATION AND DESTROY ETC...
+ADD OTHER FEATURES TO SLACK TO MAKE WORK EASIER FOR MODS...

@@ -92,4 +92,23 @@ class LessonVersionAPI(restful.Resource):
         'result': {'message': 'LessonVersion successfuly deleted', 'key': lesson_version_key},
         'status': 'success',
       })
+
     
+
+@api_v1.resource('/lesson_version/<string:version_key>/approve', endpoint='api.lesson_version.approve')
+class LessonVersionApprovalAPI(restful.Resource):
+  """"""
+  def post(self, version_key):
+    data = util.param("data")
+    lesson_version_db = ndb.Key(urlsafe=version_key).get()
+    if not lesson_version_db:
+      return helpers.make_not_found_exception('Lesson Version %s not found' % version_key)
+    if data == "true":
+      lesson_version_db.approved =  True
+    elif data == "false":
+      lesson_version_db.approved =  False
+    version_key = lesson_version_db.put()
+    return flask.jsonify({
+        'result': {'message': 'Lesson has been updated', 'key': version_key.urlsafe()},
+        'status': 'success',
+      })

@@ -1,0 +1,40 @@
+# import 'macro/forms.html' as forms
+# import 'macro/utils.html' as utils
+# extends 'course/course_base.html'
+
+# block course_content
+  <div class="col-lg-8">
+    <div class="bs-component">
+    <div class="well well-lg" id="new-lesson-form-container">
+      <form method="{{form_method}}" action="{{post_path}}" novalidate id="course-form">
+        {{form.csrf_token}}
+        {{forms.text_field(form.name, autofocus=True)}}
+        <div class="dotted-box">
+          {{forms.text_field(form.topics)}}
+        </div>
+        <div class="dotted-box">
+          {{forms.text_field(form.lessons)}}
+        </div>
+        {{forms.textarea_field(form.description)}}
+        <hr>
+        <div id="content-form-field"></div>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <button type="submit" class="btn btn-primary btn-lg btn-block btn-loading" id="submit-form-btn">Continue</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3">
+    <div class="bs-component">
+    <div class="well well-lg" id="side-result-view">
+      Thanks for contributing to the Community.
+    </div>
+    </div>
+  </div>
+
+# include 'course/create_update_scripts.html'
+# endblock

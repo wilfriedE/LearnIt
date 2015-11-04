@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="well well-lg">
+    <div class="row media" >
+
+    <div class="media-left media-middle">
+      <i class="mdi-maps-layers" style="font-size: 60pt;"></i>
+    </div>
+    <div class="media-body" >
+      <h3 class="title">{{course_db.name}}</h3>
+      <p class="desc">List Topics: {{course_db.topics|join(' ')}}</p>  
+      <button class="btn btn-info" ><span class="mdi-image-slideshow"></span>Start Course</button>
+      <button class="btn btn-primary"  data-toggle="collapse" data-target="#collapseLessons-{{course_db.key.urlsafe()}}" aria-expanded="false" aria-controls="collapseLessons-{{course_db.key.urlsafe()}}"><span class="mdi-content-content-copy"></span>View Lessons</button>
+    </div>
+
+    <div  class="collapse" id="collapseLessons-{{course_db.key.urlsafe()}}">
+      # for lesson in course_db.lessons
+      # set lesson_key = lesson
+      # set lesson = lesson.get()
+      <div class="media" style="border-left: 0.25em solid {{lesson.color}}">
+        <div class="media-left media-middle">
+          <a href="{{url_for('lesson', lesson_key=lesson.key.urlsafe())}}">
+           <i class="mdi-av-play-circle-outline" style="font-size: 50pt;"></i>
+          </a>
+        </div>
+        <div class="media-body">
+          <h5 class="media-heading"><b>{{lesson.name}}</b></h5>
+          <p class="desc">{{lesson.description}}</p>
+        </div>
+      </div>
+      # endfor
+    </div>
+
+  </div>
+  </div>
+</div>

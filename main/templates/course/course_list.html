@@ -1,0 +1,83 @@
+# extends 'admin/admin_base.html'
+# import 'macro/utils.html' as utils
+
+# block head
+  {{utils.prefetch_link(next_url)}}
+# endblock
+
+# block admin_content
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <a class="btn btn-sm btn-primary" href="{{url_for('new_course')}}">
+        <span class="fa fa-fw fa-list-alt"></span> New Course
+      </a>
+    </div>
+  </div>
+
+  <div class="table-responsive {{'hide' if course_dbs|count == 0}}">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="text-nowrap">
+          <th class="col-xs-3"><input id="select-all" type="checkbox"> {{utils.order_by_link('name', 'Name')}}</th>
+          <th class="col-xs-1">{{utils.order_by_link('approved', 'Approved')}}</th>
+          <th class="col-xs-4">Description</th>
+          <th class="col-xs-2">Lessons</th>
+          <th class="col-xs-2">Setting</th>
+        </tr>
+      </thead>
+      <tbody>
+        # for course_db in course_dbs
+          <tr id="{{course_db.key.urlsafe()}}" class="row-link {{'text-muted' if not course_db.approved}}" data-href="{{url_for('course', course_key=course_db.key.urlsafe())}}">
+            <td class="name">
+              <label class="not-link">
+                <input type="checkbox" name="course_db" value="{{course_db.key.urlsafe()}}">
+              </label>
+              <span>{{course_db.name}}</span>
+
+            </td>
+            <td class="not-link">
+            <!-- Onclick this should update the lesson version become accepted -->
+            <a class="btn btn-sm" >      
+              # if course_db.approved
+                <span class="fa fa-check text-success" title="Verified" 
+                  data-actionable="course-approve"
+                  data-action="postable"
+                  data-postable="post"
+                  data-success="Course has been disaproved"
+                  data-url="{{url_for('api.course.approve',course_key=course_db.key.urlsafe())}}"
+                  data-value="false"
+                  data-error="Something went wrong while disapproving course. Please try again."
+                >Approved</span>
+              # else
+                <span class="fa fa-times text-warning" title="Not Verified"
+                  data-actionable="course-disaproval"
+                  data-action="postable"
+                  data-postable="post"
+                  data-url="{{url_for('api.course.approve',course_key=course_db.key.urlsafe())}}"
+                  data-value="true"
+                  data-success="Course has been approved"
+                  data-error="Something went wrong while approving course. Please try again."
+                >Not approved</span>
+              # endif
+              </a>
+            </td>
+            <td class="not-link">
+              # if course_db.description
+                <p>{{course_db.description}}</p>
+              # endif
+            </td>
+            <td class="not-link">
+              # if course_db.lessons
+                <p>{{course_db.lessons}}</p>
+              # endif
+            </td>
+            <td class="not-link">
+                <a class="btn btn-sm btn-info" href="{{url_for('course_update', course_id=course_db.key.id())}}"><span class="fa fa-edit" title="Verified"> Edit</span></a>
+                <a class="btn btn-sm btn-danger" href="#"><span class="fa fa-close" title="Delete"> Delete</span></a>
+            </td>
+          </tr>
+        # endfor
+      </tbody>
+    </table>
+  </div>
+# endblock

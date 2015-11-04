@@ -92,10 +92,11 @@ class LessonVersion(model.Base):
 
   FIELDS = {
     'name': fields.String,
+    'description': fields.String,
+    'approved': fields.Boolean,
     'data': fields.String,
     'is_a': fields.String,
     'lesson': fields.Key,
-    'description': fields.String,
     'quiz': fields.Key,
     'topics': fields.Key
   }

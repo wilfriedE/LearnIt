@@ -82,12 +82,11 @@ class Lesson(model.Base):
     return index.search(query)
 
   FIELDS = {
+    'name': fields.String,
+    'description': fields.String,
+    'approved': fields.Boolean,
     'data': fields.String,
     'is_a': fields.String,
-    'lesson_versions': fields.Key,
-    'description': fields.String,
-    'quiz': fields.Key,
-    'topics': fields.Key
   }
 
   FIELDS.update(model.Base.FIELDS)

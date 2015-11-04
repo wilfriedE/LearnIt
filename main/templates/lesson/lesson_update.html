@@ -5,8 +5,8 @@
 # block lesson_content
   <div class="col-lg-8">
     <div class="bs-component">
-    <div class="well well-lg" id="new-lesson-form-container">
-      <form method="POST" action="{{post_path}}" novalidate id="new-lesson-form">
+    <div class="well well-lg" id="lesson-form-container">
+      <form method="POST" action="{{post_path}}" novalidate id="lesson-form">
         {{form.csrf_token}}
         {{forms.text_field(form.name, autofocus=True)}}
         <div class="dotted-box">

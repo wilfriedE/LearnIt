@@ -20,6 +20,7 @@
     {{admin_link('Topic List', 'list-alt', url_for('topic_list'))}}
     {{admin_link('Lesson List', 'book', url_for('lesson_list'))}}
     {{admin_link('Lesson Version List', 'book', url_for('lesson_version_list'))}}
+    {{admin_link_m('Course List', 'mdi-maps-layers', url_for('course_list'))}}
   </div>
 
   <div class="page-header">
@@ -45,6 +46,15 @@
   <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
     <a class="text-muted" href="{{url}}" target="{{target}}">
       <h4><span class="fa fa-fw fa-3x fa-{{icon}}"></span></h4>
+      <h4 class="ellipsis">{{title}}</h4>
+    </a>
+  </div>
+# endmacro
+
+# macro admin_link_m(title, icon, url, target='')
+  <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+    <a class="text-muted" href="{{url}}" target="{{target}}">
+      <i class="{{icon}}" style="font-size: 45pt;"></i>
       <h4 class="ellipsis">{{title}}</h4>
     </a>
   </div>

@@ -65,7 +65,7 @@ window.onload = function() {
       $is_a.selectize.addItems(eformat);
     };
 
-    $("#new-lesson-form").submit(function(event) {
+    $("#esson-form").submit(function(event) {
       event.preventDefault();
       var form = $(this);
       postUsingAjax(form.attr('action'), form.serialize(), handleFormSuccessPost, handleFormFailurePost);
@@ -89,7 +89,7 @@ window.onload = function() {
     function handleFormSuccessPost (res) {
       var nexStep="<p>"+res.result.message+"</p>";
           var nexStepBtn= "<div class='row'><a href='"+ res.result.view_url + "' class='btn btn-primary'>"+"View lesson"+"</a><a href='#' class='btn btn-primary'>"+"Make a quiz for lesson. (not yet handled)"+"</a></div>";
-          $("#new-lesson-form-container").html(nexStep+nexStepBtn);
+          $("#lesson-form-container").html(nexStep+nexStepBtn);
           console.log(res);
     };
 

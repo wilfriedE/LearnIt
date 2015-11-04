@@ -7,5 +7,6 @@ from .user import *
 from .topic import *
 from .lesson_version import *
 from .lesson import *
+from .course import *
 from .vote import *
 from .shared import *

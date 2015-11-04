@@ -4,6 +4,7 @@ from __future__ import absolute_import
 
 import hashlib
 import random
+import flask
 
 from google.appengine.ext import ndb
 
@@ -15,12 +16,25 @@ import config
 
 class Course(model.Base):
   name = ndb.StringProperty(required=True,indexed=True)
+  description = ndb.TextProperty()
   lessons = ndb.KeyProperty(kind='Lesson', repeated=True)
   topics = ndb.KeyProperty(kind='Topic', repeated=True)
   contributors = ndb.KeyProperty(kind='User', repeated=True)
   approved = ndb.BooleanProperty(default=False)
+  deadlock = ndb.BooleanProperty(default=False)
   color = ndb.StringProperty()
   vote = ndb.KeyProperty(kind='Vote')
+
+  def card(self):
+    return flask.url_for('course_card',course_id=self.key.id())
+
+  #returns html of card
+  def load_card(self):
+    return flask.render_template(
+      'shared/load_card.html',
+      card=self.card(),
+      card_id=self.key.urlsafe(),
+    )
 
   #Generate Color if non already
   def _pre_put_hook(self):
@@ -31,8 +45,7 @@ class Course(model.Base):
   def _post_put_hook(self, future):
     if not self.vote:
       self.vote = model.Vote(item=self.key).put()
-
-    self._put_async() #AVOIT USING put() because it will cause infinite loop
+      self._put_async() #AVOID USING put() because it will cause infinite loop
 
   @classmethod
   def _post_delete_hook(cls, key, future):
@@ -42,3 +55,15 @@ class Course(model.Base):
       model.Quiz.query(model.Quiz.item == key).get().delete()
     except Exception, e:
       pass
+
+  FIELDS = {
+    'name': fields.String,
+    'description': fields.String,
+    'lessons': fields.Key,
+    'approved': fields.Boolean,
+    'topics': fields.Key,
+    'contributors': fields.Key,
+    'vote': fields.Key,
+  }
+
+  FIELDS.update(model.Base.FIELDS)

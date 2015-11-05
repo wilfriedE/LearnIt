@@ -2,7 +2,7 @@
 window.onload = function() {
 //Beginning windows onload
     var etopics = topics.value.split(",");
-    var elessons = lessons.value.split()[0];
+    var elessons = lessons.value.split(",");
     getUsingAjax("{{url_for('api.topic.list')}}", {}).then(function (res) {
       var $topics = $("#topics").selectize({
         delimiter: ',',

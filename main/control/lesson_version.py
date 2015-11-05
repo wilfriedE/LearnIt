@@ -74,7 +74,7 @@ def lesson_version_update(lesson_version_id):
   user_db = auth.current_user_db()
   lesson = model.LessonVersion.get_by_id(int(lesson_version_id))
   form =  NewLessonVersionForm(name = lesson.name, description = lesson.description,
-   topics = ', '.join([ key.urlsafe() for key in lesson.topics]), lesson_id = lesson_version_id,
+   topics = ','.join([ key.urlsafe() for key in lesson.topics]), lesson_id = lesson_version_id,
    is_a = lesson.is_a)
   return flask.render_template(
       'lesson_version/lesson_version_update.html',

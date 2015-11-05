@@ -89,7 +89,7 @@ def new_course():
 def course_update(course_id):
   course_db = model.Course.get_by_id(int(course_id))
   form = NewCourseForm(name = course_db.name, description = course_db.description,
-   lessons = ', '.join([ key.urlsafe() for key in course_db.lessons]), course_id = course_db.key.id())
+   lessons = ','.join([ key.urlsafe() for key in course_db.lessons]), course_id = course_db.key.id())
   return flask.render_template(
       'course/course_update.html',
       title='Course Update',

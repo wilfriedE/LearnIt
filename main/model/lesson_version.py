@@ -4,6 +4,7 @@ from __future__ import absolute_import
 
 import hashlib
 import random
+import flask
 
 from google.appengine.ext import ndb
 
@@ -51,15 +52,7 @@ class LessonVersion(model.Base):
     lesson.put()
 
   def card(self):
-    return flask.url_for('lesson_version_card',lesson_version_id=self.key.id())
-
-  #returns html of card
-  def load_card(self):
-    return flask.render_template(
-      'shared/load_card.html',
-      card=self.card(),
-      card_id=self.key.urlsafe(),
-    )                  
+    return flask.url_for('lesson_version_card',lesson_version_id=self.key.id())             
 
   def _post_put_hook(self, future):
     #After an update update the lesson's properties if this version is the parent lesson's latest version

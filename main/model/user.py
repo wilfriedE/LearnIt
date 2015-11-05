@@ -47,14 +47,6 @@ class User(model.Base):
   def card(self):
     return flask.url_for('user_card',user_id=self.key.id())
 
-  #returns html of card
-  def load_card(self):
-    return flask.render_template(
-      'shared/load_card.html',
-      card=self.card(),
-      card_id=self.key.urlsafe(),
-    )
-
   @classmethod
   def get_dbs(
       cls, admin=None, active=None, verified=None, permissions=None, **kwargs

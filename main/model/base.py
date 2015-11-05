@@ -1,7 +1,7 @@
 # coding: utf-8
 
 from __future__ import absolute_import
-
+import flask
 from google.appengine.ext import ndb
 
 from api import fields
@@ -15,6 +15,16 @@ class Base(ndb.Model):
   version = ndb.IntegerProperty(default=config.CURRENT_VERSION_TIMESTAMP)
   dependents = ndb.KeyProperty(repeated=True)
   owners = ndb.KeyProperty(repeated=True)
+
+  #returns html of card
+  def load_card(self):
+    if self.card():
+      return flask.render_template(
+        'shared/load_card.html',
+        card=self.card(),
+        card_id=self.key.urlsafe(),
+      )
+    return "Entity has no card"  
 
   @classmethod
   def get_by(cls, name, value):

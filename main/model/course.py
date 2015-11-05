@@ -28,14 +28,6 @@ class Course(model.Base):
   def card(self):
     return flask.url_for('course_card',course_id=self.key.id())
 
-  #returns html of card
-  def load_card(self):
-    return flask.render_template(
-      'shared/load_card.html',
-      card=self.card(),
-      card_id=self.key.urlsafe(),
-    )
-
   #Generate Color if non already
   def _pre_put_hook(self):
   	if not self.color:

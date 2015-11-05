@@ -123,10 +123,6 @@ If not create a vote instead of creating during form submission. This would help
 
 Also figure out how to create indexes for the Appengine Document search api
 
-*handling lessons (previous lessons, next lessons)  
-	Courses has a lessons property that is just a one element containing a linkedlist of lessons.
-*handling courses (previous courses, next courses)
-	Tracks also has a linkedlist of courses
 ------Lesson-version, Question, etc... data object Structure-----
 	This is a basic setup for the data object for a lesson
 

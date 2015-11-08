@@ -4,7 +4,6 @@ from __future__ import absolute_import
 
 import hashlib
 import random
-import json
 import flask
 
 from google.appengine.ext import ndb
@@ -58,10 +57,6 @@ class Lesson(model.Base):
 
   def card(self):
   	return flask.url_for('lesson_card',lesson_id=self.key.id())
-
-  def data_in_json(self):
-    data = json.loads(self.data)
-    return data
 
   @classmethod
   def _post_delete_hook(cls, key, future):

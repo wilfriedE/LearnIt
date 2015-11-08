@@ -35,22 +35,16 @@ def lesson_list():
 # Lesson View
 ###############################################################################
 @app.route('/lesson/<lesson_key>/')
-@app.route('/course/<course_key>/l/<lesson_key>/')
-def lesson(lesson_key, course_key=''):
-  display_type = 'lesson'
-  course = ''
-  lesson = ndb.Key(urlsafe=lesson_key).get()
-  if course_key and lesson_key:
-    display_type = 'course-lesson'
-    course =  ndb.Key(urlsafe=course_key).get()
-    
+def lesson(lesson_key):
+  lesson_db = ndb.Key(urlsafe=lesson_key).get()
+  if not lesson_db:
+    flask.abort(404)
   return flask.render_template(
       'lesson/lesson.html',
-      lesson = lesson,
-      course = course,
+      lesson_db=lesson_db,
       title= 'Learning',
       html_class='lesson-view',
-      display_type=display_type,
+      display_type='lesson',
     )
 
 @app.route('/card/l/<lesson_id>')

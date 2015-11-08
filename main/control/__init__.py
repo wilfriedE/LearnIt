@@ -10,6 +10,7 @@ from .shared import *
 from .lesson_version import *
 from .lesson import *
 from .course import *
+from .track import *
 from .test import *
 from .welcome import *
 from .topic import *

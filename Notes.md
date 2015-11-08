@@ -1,24 +1,10 @@
 ___development notes___
 Next milestones:
-1)	Implement Delete for Lesson and Lesson Version
-		Lesson Delete
-			Admins only can delete a Lesson
-				When a lesson is deleted it puts it into a deadlock state not actually deleted.
-				Redirect to 404 if it's in deadlock state
-		Lesson Versions Delete
-			Admins, Moderators and Version Creator (contributor) can delete
-				Delete actually deletes the Lesson version permenantly.
-				(To be worked out further later.)
-	
-2)  Implement the voting feature for Lesson and Lesson Versions
+1)  Implement the voting feature for Lesson and Lesson Versions
 		Allow voting for all users only
 		Add algorithm for Lession Version votes so that when treshold reached it sets vote to zero and becomes the main lesson version for the Main Lesson
 
-3)  Implement courses 
-		Creation and Edit
-		Admin interface for courses
-		Add voting to courses
-		Courses cards
+2)  Add a div on item cards that alows deletion, updating, etc...
 
 #dataActionable
 defines data attributes to easily enable dynamic actions with elements.
@@ -104,6 +90,24 @@ data.video_id: the vimeo video id.
 ##other source...
 
 ___lesson data field format___END
+
+
+___connected_entities with previous_&_next field format___
+
+connected_entities_field = {
+  "position_x": {
+      "e_next" : "next_entity_position",
+      "e_value" : "entity_urlsafe_key",
+      "e_previous" : "previous_entity_position",
+  },
+  "position_y": {
+      "e_next" : "next_entity_position",
+      "e_value" : "entity_urlsafe_key",
+      "e_previous" : "previous_entity_position",
+  }
+}
+
+___connected_entities with previous_&_next field format___END
 
 
 

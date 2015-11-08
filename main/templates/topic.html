@@ -1,12 +1,34 @@
 # extends 'base.html'
 # block content
 <div class="row">
-    # for lesson in lessons
+  <h2 > Viewing contents with Topic: {{topic.name}}</h2>
+</div>
+<div class="row">
+	<h2 align="center">Lessons</h2>
+   # for lesson in lessons
     <div class="col-lg-6">
       <div class="bs-component">
-       <div class="well well-lg">
-        {{lesson.load_card()|safe }}
-        </div>
+        {{ lesson.load_card()|safe }}
+      </div>
+    </div>
+  # endfor
+</div>
+<div class="row">
+  <h2 align="center">Courses</h2>
+  # for course in courses
+    <div class="col-lg-6">
+      <div class="bs-component">
+        {{ course.load_card()|safe }}
+      </div>
+    </div>
+  # endfor
+</div>
+<div class="row">
+  <h2 align="center">Tracks</h2>
+  # for track in tracks
+    <div class="col-lg-6">
+      <div class="bs-component">
+        {{ track.load_card()|safe }}
       </div>
     </div>
   # endfor

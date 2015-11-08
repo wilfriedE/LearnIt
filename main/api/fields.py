@@ -45,3 +45,7 @@ class Integer(fields.Integer):
 class Key(fields.Raw):
   def format(self, value):
     return value.urlsafe()
+
+class Keys(fields.Raw):
+  def format(self, value):
+    return [key.urlsafe() for key in value]

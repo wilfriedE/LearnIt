@@ -1,6 +1,6 @@
   <div class="panel panel-default">
     <div class="panel-body">
-      <a class="btn btn-sm btn-primary btn-raised" href="{{url_for('propose_new_lesson_version', lesson_id=lesson.key.id())}}">
+      <a class="btn btn-sm btn-primary btn-raised" href="{{url_for('propose_new_lesson_version', lesson_id=lesson_db.key.id())}}">
         <span class="fa fa-fw fa-plus"></span>Propose an update
       </a>
       <a class="btn btn-sm btn-primary btn-raised" href="#">
@@ -10,7 +10,7 @@
         <span class="fa fa-fw fa-check-circle"></span> Vote
       </a>
 	  # if current_user.admin
-	    <a class="btn btn-sm btn-info btn-raised" href="{{url_for('lesson_version_update', lesson_version_id=lesson.latest_version.id())}}">
+	    <a class="btn btn-sm btn-info btn-raised" href="{{url_for('lesson_version_update', lesson_version_id=lesson_db.latest_version.id())}}">
 	    	<span class="fa fa-fw fa-edit"></span> Edit
 	    </a>
 	    <a class="btn btn-sm btn-danger btn-raised" href="#">

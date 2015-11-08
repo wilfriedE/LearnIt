@@ -17,7 +17,7 @@ import config
 class Course(model.Base):
   name = ndb.StringProperty(required=True,indexed=True)
   description = ndb.TextProperty()
-  lessons = ndb.KeyProperty(kind='Lesson', repeated=True)
+  lessons = ndb.TextProperty()
   topics = ndb.KeyProperty(kind='Topic', repeated=True)
   contributors = ndb.KeyProperty(kind='User', repeated=True)
   approved = ndb.BooleanProperty(default=False)
@@ -27,6 +27,28 @@ class Course(model.Base):
 
   def card(self):
     return flask.url_for('course_card',course_id=self.key.id())
+
+  def get_lessons(self):
+    """
+      returns a list of the lesson keys
+    """
+    lessons_lst = []
+    for k,lesson in self.data_to_json(self.lessons).items():
+      lessons_lst += [ndb.Key(urlsafe=lesson['e_value'])]
+    return lessons_lst
+
+  def get_lessons_dict(self):
+    """
+      returns an ordered json formated version of the lessons
+    """
+    return self.data_to_json(self.lessons)
+
+  def get_lesson(self, position):
+    """
+      returns a lesson based on position
+    """
+    lessons_dict = self.data_to_json(self.lessons)
+    return lessons_dict[position]
 
   #Generate Color if non already
   def _pre_put_hook(self):
@@ -51,10 +73,10 @@ class Course(model.Base):
   FIELDS = {
     'name': fields.String,
     'description': fields.String,
-    'lessons': fields.Key,
+    'lessons': fields.String,
     'approved': fields.Boolean,
-    'topics': fields.Key,
-    'contributors': fields.Key,
+    'topics': fields.Keys,
+    'contributors': fields.Keys,
     'vote': fields.Key,
   }
 

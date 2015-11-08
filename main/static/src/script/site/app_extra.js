@@ -191,6 +191,9 @@ function dataAfterEffect (element, value) {
 function dataElemEffect (element, effect, value) {
 	// performs action on ellement and it's collectibles if any
 	switch(effect){
+		case "refresh":
+			location.reload();
+			break
 		case "hide":
 			$(element).hide();
 			break

@@ -67,7 +67,7 @@ window.onload = function() {
     function handleFormSuccessPost (res) {
       var nexStep="<p>"+res.result.message+"</p>";
           var nexStepBtn= "<div class='row'><a href='"+ res.result.view_url + "' class='btn btn-primary'>"+"View Course </a></div>";
-          $("#new-lesson-form-container").html(nexStep+nexStepBtn);
+          $("#course-form-container").html(nexStep+nexStepBtn);
           console.log(res);
     };
 

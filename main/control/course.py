@@ -55,6 +55,30 @@ def course_card(course_id):
     )
 
 ###############################################################################
+# Course Lesson View
+###############################################################################
+@app.route('/course/<course_key>/l/<position>')
+def course_lesson(course_key, position=0):
+  if course_key and position:
+    course_db =  ndb.Key(urlsafe=course_key).get()
+    c_lesson = course_db.get_lesson(position)
+    lesson_db = ndb.Key(urlsafe=c_lesson['e_value']).get()
+    l_previous = c_lesson['e_previous']
+    l_next = c_lesson['e_next']
+  else:
+    flask.abort(404)
+  return flask.render_template(
+      'lesson/lesson.html',
+      lesson_db = lesson_db,
+      course_db = course_db,
+      l_previous = l_previous,
+      l_next = l_next,
+      title= 'Learning',
+      html_class='lesson-view',
+      display_type='course-lesson',
+    )
+
+###############################################################################
 # New Course
 ###############################################################################
 class NewCourseForm(wtf.Form):
@@ -89,7 +113,8 @@ def new_course():
 def course_update(course_id):
   course_db = model.Course.get_by_id(int(course_id))
   form = NewCourseForm(name = course_db.name, description = course_db.description,
-   lessons = ','.join([ key.urlsafe() for key in course_db.lessons]), course_id = course_db.key.id())
+    topics = ','.join([ key.urlsafe() for key in course_db.topics]), 
+    lessons = ','.join([ key.urlsafe() for key in course_db.get_lessons()]), course_id = course_db.key.id())
   return flask.render_template(
       'course/course_update.html',
       title='Course Update',

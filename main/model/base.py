@@ -2,6 +2,8 @@
 
 from __future__ import absolute_import
 import flask
+import json
+
 from google.appengine.ext import ndb
 
 from api import fields
@@ -25,6 +27,10 @@ class Base(ndb.Model):
         card_id=self.key.urlsafe(),
       )
     return "Entity has no card"  
+  
+  def data_to_json(self, data):
+    data = json.loads(data)
+    return data
 
   @classmethod
   def get_by(cls, name, value):

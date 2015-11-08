@@ -4,15 +4,15 @@
     <div class="bs-component" id="lesson-player">
     # include 'lesson/lesson_buttons.html'
     <div id="viewport"></div>
-    Details:<H2>Name:</H2> {{lesson.name}}
-    <H2>Description:</H2>{{lesson.description}}
-    <H2>Version:</H2>{{lesson.latest_version}}
-    <H2>Versions:</H2>{{lesson.lesson_versions}}
-    <H2>Topics:</H2>{{lesson.topics}}
-    <H2>Is a:</H2>{{lesson.is_a}}
-    <H2>Data:</H2>{{lesson.data}}
+    Details:<H2>Name:</H2> {{lesson_db.name}}
+    <H2>Description:</H2>{{lesson_db.description}}
+    <H2>Version:</H2>{{lesson_db.latest_version}}
+    <H2>Versions:</H2>{{lesson_db.lesson_versions}}
+    <H2>Topics:</H2>{{lesson_db.topics}}
+    <H2>Is a:</H2>{{lesson_db.is_a}}
+    <H2>Data:</H2>{{lesson_db.data}}
       All Contributors
-      #for contributor in lesson.contributors
+      #for contributor in lesson_db.contributors
       #set contributor = contributor.get()
         {{contributor.load_card()|safe }}
       #endfor
@@ -23,14 +23,24 @@
   <div class="col-lg-3">
     <div class="bs-component">
     <div class="well well-lg">
-      "You are watching a Lesson."
-      #if display_type == 'lesson'
-        Take Quiz if There is a Quiz for this lesson else, learn more button 
-      #elif display_type == 'lesson-version'
-        Show All versions of the current lesson
-      #elif display_type == 'course-lesson'
-        Take Quiz if There is Quiz or Next Lesson if there is next lesson, Previous Lesson if there is previous lesson
-        To Do is Logic for Track 
+      "You are watching a lesson_db."
+      #if lesson_db.quiz
+        Take Quiz button 
+      #endif
+      #if display_type == 'course-lesson'
+        #if l_previous or l_previous >= 0
+          <a class="btn btn-sm btn-info btn-raised" href="{{url_for('course_lesson', course_key=course_db.key.urlsafe(), position=l_previous)}}">
+          <span class="fa fa-fw fa-arrow-circle-left"></span> Previous Lesson
+         </a>
+        #endif
+        #if l_next or l_next >= 0
+         <a class="btn btn-sm btn-info btn-raised" href="{{url_for('course_lesson', course_key=course_db.key.urlsafe(), position=l_next)}}">
+          <span class="fa fa-fw fa-arrow-circle-right"></span> Next Lesson
+         </a>
+        #endif
+        <a class="btn btn-sm btn-primary" href="{{url_for('course', course_key=course_db.key.urlsafe())}}">
+          <span class="fa fa-fw fa-eye"></span> View Course
+         </a>
       #endif
     </div>
     </div>

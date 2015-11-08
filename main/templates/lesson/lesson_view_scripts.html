@@ -2,7 +2,7 @@
 window.onload = function() {
 //Beginning windows onload
 
-  getUsingAjax("{{url_for('lesson_viewport',content_type=lesson.is_a)}}", {"data": {{lesson.data|tojson}} }).then(
+  getUsingAjax("{{url_for('lesson_viewport',content_type=lesson_db.is_a)}}", {"data": {{lesson_db.data|tojson}} }).then(
       function(response) {
         $("#viewport").html(response);
       },

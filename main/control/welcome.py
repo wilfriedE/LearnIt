@@ -22,7 +22,8 @@ def welcome():
 def library():
   lessons = model.Lesson.query(model.Lesson.approved==True).fetch()
   courses = model.Course.query(model.Course.approved==True).fetch()
-  return flask.render_template('library.html', lessons=lessons, courses=courses, html_class='library')
+  tracks = model.Track.query(model.Track.approved==True).fetch()
+  return flask.render_template('library.html', lessons=lessons, courses=courses, tracks=tracks, html_class='library')
 
 ###############################################################################
 # Library
@@ -34,12 +35,16 @@ def contribute():
 ###############################################################################
 # Topic
 ###############################################################################
-@app.route('/topic:<topic_name>')
+@app.route('/topic:<string:topic_name>')
 def topic_view(topic_name):
-  topic = model.Topic.get_by_id(topic_name.strip().capitalize()).key
-  lessons = model.Lesson.query(model.Lesson.topics == topic, model.Lesson.approved==True).fetch()
-  courses = model.Course.query(model.Course.topics == topic, model.Course.approved==True).fetch()
-  return flask.render_template('topic.html', lessons=lessons, courses=courses, html_class='topic')
+  topic_db = model.Topic.get_by_id(topic_name.strip().upper())
+  if topic_db:
+    topic_key = topic_db.key
+    lessons = model.Lesson.query(model.Lesson.topics == topic_key, model.Lesson.approved==True).fetch()
+    courses = model.Course.query(model.Course.topics == topic_key, model.Course.approved==True).fetch()
+    tracks = model.Track.query(model.Track.topics == topic_key, model.Track.approved==True).fetch()
+    return flask.render_template('topic.html', topic=topic_db, lessons=lessons, courses=courses, tracks=tracks, html_class='topic')
+  return flask.abort(404)
 
 ###############################################################################
 # Sitemap stuff

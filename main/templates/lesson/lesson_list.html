@@ -47,6 +47,7 @@
                   data-url="{{url_for('api.lesson.approve',lesson_key=lesson_db.key.urlsafe())}}"
                   data-value="false"
                   data-error="Something went wrong while disapproving lesson. Please try again."
+                  data-after-effect="refresh"
                 >Approved</span>
               # else
                 <span class="fa fa-times text-warning" title="Not Verified"
@@ -57,6 +58,7 @@
                   data-value="true"
                   data-success="Lesson has been approved"
                   data-error="Something went wrong while approving lesson. Please try again."
+                  data-after-effect="refresh"
                 >Not approved</span>
               # endif
               </a>
@@ -73,7 +75,16 @@
             </td>
             <td class="not-link">
                 <a class="btn btn-sm btn-info" href="{{url_for('lesson_update', lesson_id=lesson_db.key.id())}}"><span class="fa fa-edit" title="Verified"> Edit</span></a>
-                <a class="btn btn-sm btn-danger" href="#"><span class="fa fa-close" title="Verified"> Delete</span></a>
+                <a class="btn btn-sm btn-danger" href="#"
+                  data-actionable="lesson-delete"
+                  data-action="postable"
+                  data-postable="delete"
+                  data-success="Lesson has been deleted"
+                  data-url="{{url_for('api.lesson',lesson_key=lesson_db.key.urlsafe())}}"
+                  data-value="true"
+                  data-error="Something went wrong while deleting lesson. Please try again."
+                  data-after-effect="refresh"
+                  ><span class="fa fa-close" title="Delete"> Delete</span></a>
             </td>
           </tr>
         # endfor

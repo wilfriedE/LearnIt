@@ -1,0 +1,33 @@
+# extends 'track/track_base.html'
+
+# block track_content
+<div class="well well-lg">
+  <div class="row media" >
+  <div class="media-left media-middle">
+    <i class="mdi-maps-layers" style="font-size: 60pt;"></i>
+  </div>
+  <div class="media-body">
+    <h3 class="title">{{track_db.name}}</h3>
+    <p class="desc">List Topics: {{track_db.topics|join(' ')}}</p>  
+    <button class="btn btn-info" ><span class="mdi-content-content-copy"></span> Start</button>
+
+    # for course in track_db.get_courses()
+    # set course_key = course
+    # set course = course.get()
+    <div class="media" style="border-left: 0.25em solid {{course.color}}">
+      <div class="media-left media-middle">
+        <a href="{{url_for('course', course_key=course.key.urlsafe())}}">
+         <i class="mdi-av-play-circle-outline" style="font-size: 50pt;"></i>
+        </a>
+      </div>
+      <div class="media-body">
+        <h5 class="media-heading"><b>{{course.name}}</b></h5>
+        <p class="desc">{{course.description}}</p>
+      </div>
+    </div>
+    # endfor
+
+  </div>
+  </div>
+</div>
+# endblock

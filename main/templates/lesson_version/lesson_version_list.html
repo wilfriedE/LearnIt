@@ -54,6 +54,7 @@
                   data-url="{{url_for('api.lesson_version.approve',version_key=lesson_version_db.key.urlsafe())}}"
                   data-value="false"
                   data-error="Something went wrong while disapproving lesson version. Please try again."
+                  data-after-effect="refresh"
                 >Approved</span>
               # else
                 <span class="fa fa-times text-warning" title="Not Verified"
@@ -64,6 +65,7 @@
                   data-value="true"
                   data-success="Lesson Version has been approved"
                   data-error="Something went wrong while approving lesson version. Please try again."
+                  data-after-effect="refresh"
                 >Not approved</span>
               # endif
               </a>

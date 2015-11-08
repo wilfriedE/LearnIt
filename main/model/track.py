@@ -4,6 +4,7 @@ from __future__ import absolute_import
 
 import hashlib
 import random 
+import flask 
 
 from google.appengine.ext import ndb
 
@@ -15,12 +16,38 @@ import config
 
 class Track(model.Base):
   name = ndb.StringProperty(required=True)
-  courses = ndb.KeyProperty(kind='Course', repeated=True)
+  description = ndb.TextProperty()
+  courses = ndb.TextProperty()
   topics = ndb.KeyProperty(kind='Topic', repeated=True)
   contributors = ndb.KeyProperty(kind='User', repeated=True)
   approved = ndb.BooleanProperty(default=False)
   color = ndb.StringProperty()
   vote = ndb.KeyProperty(kind='Vote')
+
+  def card(self):
+    return flask.url_for('track_card', track_id=self.key.id())
+  
+  def get_courses(self):
+    """
+      returns a list of the courses
+    """
+    courses_lst = []
+    for k,course in self.data_to_json(self.courses).items():
+      courses_lst += [ndb.Key(urlsafe=course['e_value'])]
+    return courses_lst
+
+  def get_courses_dict(self):
+    """
+      returns an ordered json formated version of the courses
+    """
+    return self.data_to_json(self.courses)
+
+  def get_course(self, position):
+    """
+      returns a course based on position
+    """
+    courses_dict = self.data_to_json(self.courses)
+    return courses_dict[position]
 
   #Generate Color if non already
   def _pre_put_hook(self):

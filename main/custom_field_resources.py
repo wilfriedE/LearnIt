@@ -40,4 +40,23 @@ def rerieve_content_fields(util):
   return None
 
 def upgrade_data_scheme():
+  #update data schreme to newer version
   pass
+
+def connected_entities_constructor(asc_entities_keys):#ascending list order of entity keys
+  CNF = {}
+  e_previous = None
+  e_next = None
+  limit = len(asc_entities_keys)
+  for index, key in enumerate(asc_entities_keys):
+    if index+1 < limit:
+      e_next = index+1
+    else:
+      e_next = None
+    CNF[index] = {
+      "e_next" : e_next,
+      "e_value" : key,
+      "e_previous": e_previous,
+    }
+    e_previous = index
+  return json.dumps(CNF)

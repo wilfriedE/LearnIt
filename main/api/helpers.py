@@ -75,4 +75,4 @@ def make_bad_request_exception(description):
 def time_now():
   return datetime.utcnow().isoformat()
 
-from content_type_helpers import *
+from custom_field_resources import *

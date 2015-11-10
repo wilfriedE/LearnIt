@@ -1,47 +1,38 @@
-<div class="well well-lg"  style="min-height:230px;max-height:230px;">
-    <div class="row media"  >
-      <div class="media-left media-middle">
-        <a href="{{url_for('lesson', lesson_key=lesson_db.key.urlsafe())}}" style="color:{{lesson_db.color}}"><i class="mdi-av-play-circle-outline" style="font-size: 60pt;"></i></a>
-      </div>
-      <div class="media-body">
-        <h3 class="title">{{lesson_db.name}}</h3>
-    	<p class="desc">{{lesson_db.description|truncate(100)}}</p>	
-    	<!-- Versions modal trigger -->
-    	<button class="btn" data-toggle="modal" data-target="#versions{{lesson_db.key.urlsafe()}}"><span class="mdi-content-content-copy"></span> Show all Versions </button>
-      </div>
+<div class="row">
+  <div class="well well-lg">
+   <div class="row media"  style="min-height:195px;">
+
+    <div class="media-left media-middle">
+      <a href="{{url_for('lesson', lesson_key=lesson_db.key.urlsafe())}}" style="color:{{lesson_db.color}}"><i class="mdi-av-play-circle-outline" style="font-size: 60pt;"></i></a>
     </div>
-</div>
-<!--Versions Modal -->
-<div class="modal fade" id="versions{{lesson_db.key.urlsafe()}}" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"><b>All versions:</b></h4>
-                <br/>
-            </div>
-            <div class="modal-body">
-                # for version in lesson_db.lesson_versions
-                # set version_key = version
-				# set version = version.get()
-				<div class="media" style="border-left: 0.25em solid #03a9f4">
-				  <div class="media-left media-middle">
-				    <a href="{{url_for('lesson_version', version_key=version_key.urlsafe())}}">
-				     <i class="mdi-av-play-circle-outline" style="font-size: 50pt;"></i>
-				    </a>
-				  </div>
-				  <div class="media-body">
-				    <h5 class="media-heading"><b>{{version.name}}</b></h5>
-				    <p class="desc">{{version.description}}</p>
-				  </div>
-				</div>
-				# endfor
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="{{url_for('propose_new_lesson_version', lesson_id=lesson_db.key.id())}}" type="button" class="btn btn-primary">Propose an update</a>
-            </div>
+    <div class="media-body">
+      <h3 class="title">{{lesson_db.name|truncate(50)}}</h3>
+	  <p class="desc">{{lesson_db.description|truncate(100)}}</p>	
+	  <!-- Versions modal trigger -->
+	  <button class="btn" class="btn btn-primary"  data-toggle="collapse" data-target="#collapseVersions-{{lesson_db.key.urlsafe()}}" aria-expanded="false" aria-controls="collapseVersions-{{lesson_db.key.urlsafe()}}"><span class="  mdi-content-content-copy"></span>View Versions </button>
+      <a align="center" href="{{url_for('propose_new_lesson_version', lesson_id=lesson_db.key.id())}}" type="button"   class="btn btn-primary">Propose an update</a>
+    </div>
+
+    <!--Versions -->
+    <div  class="collapse" id="collapseVersions-{{lesson_db.key.urlsafe()}}">
+      <!--<b>All versions:</b>-->
+      # for version in lesson_db.lesson_versions
+      # set version_key = version
+      # set version = version.get()
+      <div class="media" style="border-left: 0.25em solid #03a9f4">
+        <div class="media-left media-middle">
+          <a href="{{url_for('lesson_version', version_key=version_key.urlsafe())}}">
+           <i class="mdi-av-play-circle-outline" style="font-size: 50pt;"></i>
+          </a>
         </div>
+        <div class="media-body">
+          <h5 class="media-heading"><b>{{version.name}}</b></h5>
+          <p class="desc">{{version.description}}</p>
+        </div>
+      </div>
+      # endfor
     </div>
+
+   </div>
+  </div>
 </div>
- 

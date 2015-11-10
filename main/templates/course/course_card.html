@@ -1,12 +1,12 @@
 <div class="row">
   <div class="well well-lg">
-    <div class="row media" >
+   <div class="row media" >
 
     <div class="media-left media-middle">
       <i class="mdi-maps-layers" style="font-size: 60pt;"></i>
     </div>
     <div class="media-body" >
-      <h3 class="title">{{course_db.name}}</h3>
+      <h3 class="title">{{course_db.name|truncate(50)}}</h3>
       <p class="desc">List Topics: {{course_db.topics|join(' ')}}</p>  
       <a class="btn btn-info" href="{{url_for('course_lesson', course_key=course_db.key.urlsafe(), position=0)}}"><span class="mdi-image-slideshow"></span>Start Course</a>
       <button class="btn btn-primary"  data-toggle="collapse" data-target="#collapseLessons-{{course_db.key.urlsafe()}}" aria-expanded="false" aria-controls="collapseLessons-{{course_db.key.urlsafe()}}"><span class="mdi-content-content-copy"></span>View Lessons</button>
@@ -32,6 +32,6 @@
       # endfor
     </div>
 
-  </div>
+   </div>
   </div>
 </div>

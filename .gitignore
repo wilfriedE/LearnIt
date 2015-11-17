@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -55,3 +56,21 @@ docs/_build/
 
 # PyBuilder
 target/
+=======
+
+
+*.pyc
+*.pyo
+.DS_Store
+.git*
+.hg*
+bower_components
+main/index.yaml
+main/lib
+main/lib.zip
+main/static/dev
+main/static/ext
+main/static/min
+node_modules
+temp/
+>>>>>>> 9f010e0ecd2043c50cc076846a141ddf8d62a6e0

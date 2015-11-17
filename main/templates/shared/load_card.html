@@ -1,0 +1,12 @@
+<div id="loaded_card_{{card_id}}" style="padding: 0.5em;"></div>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+  getUsingAjax("{{card}}").then(
+    function(response) {
+       $("#loaded_card_{{card_id}}").html(response);
+      },
+    function (error) {
+      console.log("unable to retrieve card");
+  });
+});
+</script>

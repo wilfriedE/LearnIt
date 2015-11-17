@@ -1,0 +1,9 @@
+<div class="row media" >
+  <div class="media-left media-middle" style="border-left: 0.25em solid #03a9f4">
+    <a href="{{url_for('lesson_version', version_key=lesson_version_db.key.urlsafe())}}" style="color:{{lesson_version_db.color}}"><i class="mdi-av-play-circle-outline" style="font-size: 60pt;"></i></a>
+  </div>
+  <div class="media-body">
+    <h3 class="title">{{lesson_version_db.name}}</h3>
+	<p class="desc">{{lesson_version_db.description}}</p>
+  </div>
+</div>

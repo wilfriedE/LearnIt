@@ -1,0 +1,61 @@
+{
+  "name": "FIRSTMastery",
+  "version": "0.0.0",
+  "authors": [
+    "wilfriedE <wilfried.hounyo@gmail.com>"
+  ],
+  "description": "A learning platform for all things FIRST Robotics",
+  "main": "run.py",
+  "keywords": [
+    "FIRST",
+    "Robotics"
+  ],
+  "license": "MIT",
+  "homepage": "Firstmastery.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3",
+    "font-awesome": "~4",
+    "jquery": "~2",
+    "moment": "~2",
+    "nprogress": "https://github.com/lipis/nprogress.git#master",
+    "bootstrap-material-design": "~0.3.0",
+    "selectize": "~0.12.1",
+    "bluebird": "~2.10.2"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "less/**",
+        "fonts/*",
+        "js/*"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "less/*",
+        "fonts/*"
+      ]
+    },
+    "bootstrap-material-design": {
+      "main": [
+        "less/**",
+        "fonts/*",
+        "scripts/*"
+      ]
+    },
+    "selectize": {
+      "main": [
+        "dist/less/**",
+        "dist/js/standalone/*"
+      ]
+    }
+  }
+}

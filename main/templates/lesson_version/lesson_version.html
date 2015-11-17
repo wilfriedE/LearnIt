@@ -1,0 +1,35 @@
+# extends 'lesson_version/lesson_version_base.html'
+# block lesson_version_content
+  <div class="col-lg-8">
+    <div class="bs-component" id="lesson-version-player">
+    # include 'lesson_version/lesson_version_buttons.html'
+    <div id="viewport"></div>
+    Details:<H2>Name:</H2> {{lesson_version.name}}
+    <H2>Description:</H2>{{lesson_version.description}}
+    <H2>Prime Lesson:</H2>{{lesson_version.lesson}}
+    <H2>Topics:</H2>{{lesson_version.topics}}
+    <H2>Is a:</H2>{{lesson_version.is_a}}
+    <H2>Data:</H2>{{lesson_version.data}}
+      Contributor:
+      {{lesson_version.contributor.get().load_card()|safe }}
+    </div>
+      //Discuss Comments for lesson_version
+  </div>
+
+  <div class="col-lg-3">
+    <div class="bs-component">
+    <div class="well well-lg">
+    "This is a lesson version"
+      #if display_type == 'lesson_version'
+        Take Quiz if There is a Quiz for this lesson else, learn more button 
+      #elif display_type == 'lesson-version'
+        Show All versions of the current lesson
+      #elif display_type == 'course-lesson'
+        Take Quiz if There is Quiz or Next Lesson if there is next lesson, Previous Lesson if there is previous lesson
+        To Do is Logic for Track 
+      #endif
+    </div>
+    </div>
+  </div>
+# include 'lesson_version/lesson_version_view_scripts.html'
+# endblock

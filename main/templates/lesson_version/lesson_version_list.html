@@ -1,0 +1,92 @@
+# extends 'admin/admin_base.html'
+# import 'macro/utils.html' as utils
+
+# block head
+  {{utils.prefetch_link(next_url)}}
+# endblock
+
+# block admin_content
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <a class="btn btn-sm btn-primary" href="#">
+        <span class="fa fa-fw fa-list-alt"></span> Nothing for now
+      </a>
+    </div>
+  </div>
+
+  <div class="table-responsive {{'hide' if lesson_version_dbs|count == 0}}">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="text-nowrap">
+          <th class="col-xs-2"><input id="select-all" type="checkbox"> {{utils.order_by_link('name', 'Name')}}</th>
+          <th class="col-xs-1">Lesson</th>
+          <th class="col-xs-1">{{utils.order_by_link('approved', 'Approved')}}</th>
+          <th class="col-xs-4">Description</th>
+          <th class="col-xs-2">Topics</th>
+          <th class="col-xs-2">Setting</th>
+        </tr>
+      </thead>
+      <tbody>
+        # for lesson_version_db in lesson_version_dbs
+          <tr id="{{lesson_version_db.key.urlsafe()}}" class="row-link {{'text-muted' if not lesson_version_db.approved}}" data-href="{{url_for('lesson_version', version_key=lesson_version_db.key.urlsafe())}}">
+            <td class="name">
+              <label class="not-link">
+                <input type="checkbox" name="lesson_version_db" value="{{lesson_version_db.key.urlsafe()}}">
+              </label>
+              <span>{{lesson_version_db.name}}</span>
+
+            </td>
+            <td class="not-link">
+            <!-- Onclick this should update the lesson version become accepted -->
+            <a class="btn btn-sm btn-info" href="{{url_for('lesson', lesson_key=lesson_version_db.lesson.urlsafe())}}">      
+              <span class="fa fa-eye" title="View Parent">View</span>
+              </a>
+            </td>
+            <td class="not-link">
+            <!-- Onclick this should update the lesson version become accepted -->
+            <a class="btn btn-sm" >      
+              # if lesson_version_db.approved
+                <span class="fa fa-check text-success" title="Verified" 
+                  data-actionable="lesson-version-approve"
+                  data-action="postable"
+                  data-postable="post"
+                  data-success="Lesson version has been disapproved"
+                  data-url="{{url_for('api.lesson_version.approve',version_key=lesson_version_db.key.urlsafe())}}"
+                  data-value="false"
+                  data-error="Something went wrong while disapproving lesson version. Please try again."
+                  data-after-effect="refresh"
+                >Approved</span>
+              # else
+                <span class="fa fa-times text-warning" title="Not Verified"
+                  data-actionable="lesson-version-disaproval"
+                  data-action="postable"
+                  data-postable="post"
+                  data-url="{{url_for('api.lesson_version.approve',version_key=lesson_version_db.key.urlsafe())}}"
+                  data-value="true"
+                  data-success="Lesson Version has been approved"
+                  data-error="Something went wrong while approving lesson version. Please try again."
+                  data-after-effect="refresh"
+                >Not approved</span>
+              # endif
+              </a>
+            </td>
+            <td class="not-link">
+              # if lesson_version_db.description
+                <p>{{lesson_version_db.description}}</p>
+              # endif
+            </td>
+            <td class="not-link">
+              # if lesson_version_db.topics
+                <p>{{lesson_version_db.topics}}</p>
+              # endif
+            </td>
+            <td class="not-link">
+                <a class="btn btn-sm btn-info" href="{{url_for('lesson_version_update', lesson_version_id=lesson_version_db.key.id())}}"><span class="fa fa-edit" title="Edit"> Edit</span></a>
+                <a class="btn btn-sm btn-danger" href="#"><span class="fa fa-close" title="Delete"> Delete</span></a>
+            </td>
+          </tr>
+        # endfor
+      </tbody>
+    </table>
+  </div>
+# endblock

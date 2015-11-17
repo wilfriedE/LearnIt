@@ -1,0 +1,92 @@
+# extends 'admin/admin_base.html'
+# import 'macro/utils.html' as utils
+
+# block head
+  {{utils.prefetch_link(next_url)}}
+# endblock
+
+# block admin_content
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <a class="btn btn-sm btn-primary" href="{{url_for('new_track')}}">
+        <span class="fa fa-fw fa-list-alt"></span> New Track
+      </a>
+    </div>
+  </div>
+
+  <div class="table-responsive {{'hide' if track_dbs|count == 0}}">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="text-nowrap">
+          <th class="col-xs-3"><input id="select-all" type="checkbox"> {{utils.order_by_link('name', 'Name')}}</th>
+          <th class="col-xs-1">{{utils.order_by_link('approved', 'Approved')}}</th>
+          <th class="col-xs-4">Description</th>
+          <th class="col-xs-2">Courses</th>
+          <th class="col-xs-2">Setting</th>
+        </tr>
+      </thead>
+      <tbody>
+        # for track_db in track_dbs
+          <tr id="{{track_db.key.urlsafe()}}" class="row-link {{'text-muted' if not track_db.approved}}" data-href="{{url_for('track', track_key=track_db.key.urlsafe())}}">
+            <td class="name">
+              <label class="not-link">
+                <input type="checkbox" name="track_db" value="{{track_db.key.urlsafe()}}">
+              </label>
+              <span>{{track_db.name}}</span>
+
+            </td>
+            <td class="not-link">
+            <!-- Onclick this should update the track to become accepted -->
+            <a class="btn btn-sm" >      
+              # if track_db.approved
+                <span class="fa fa-check text-success" title="Verified" 
+                  data-actionable="track-approve"
+                  data-action="postable"
+                  data-postable="post"
+                  data-success="Track has been disaproved"
+                  data-url="{{url_for('api.track.approve',track_key=track_db.key.urlsafe())}}"
+                  data-value="false"
+                  data-error="Something went wrong while disapproving track. Please try again."
+                  data-after-effect="refresh"
+                >Approved</span>
+              # else
+                <span class="fa fa-times text-warning" title="Not Verified"
+                  data-actionable="track-disaproval"
+                  data-action="postable"
+                  data-postable="post"
+                  data-url="{{url_for('api.track.approve',track_key=track_db.key.urlsafe())}}"
+                  data-value="true"
+                  data-success="Track has been approved"
+                  data-error="Something went wrong while approving track. Please try again."
+                  data-after-effect="refresh"
+                >Not approved</span>
+              # endif
+              </a>
+            </td>
+            <td class="not-link">
+              # if track_db.description
+                <p>{{track_db.description}}</p>
+              # endif
+            </td>
+            <td class="not-link">
+              # if track_db.get_courses()
+                <p>{{track_db.get_courses()}}</p>
+              # endif
+            </td>
+            <td class="not-link">
+                <a class="btn btn-sm btn-info" href="{{url_for('track_update', track_id=track_db.key.id())}}"><span class="fa fa-edit" title="Verified"> Edit</span></a>
+                <a class="btn btn-sm btn-danger" href="#"
+                  data-actionable="track-deletable"
+                  data-action="postable"
+                  data-postable="delete"
+                  data-url="{{url_for('api.track',track_key=track_db.key.urlsafe())}}"
+                  data-success="Track has been deleted"
+                  data-error="Something went wrong while deleting track. Please try again."
+                  ><span class="fa fa-close" title="Delete"> Delete</span></a>
+            </td>
+          </tr>
+        # endfor
+      </tbody>
+    </table>
+  </div>
+# endblock

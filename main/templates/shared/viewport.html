@@ -1,0 +1,7 @@
+<div class="well well-lg">
+	#if content_type == "youtube-video"
+		# include 'shared/players/youtube_player.html'
+	#elif content_type == "vimeo-video"
+		# include 'shared/players/vimeo_player.html'
+	#endif
+</div>

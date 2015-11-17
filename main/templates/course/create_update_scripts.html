@@ -1,0 +1,81 @@
+<script type="text/javascript">
+window.onload = function() {
+//Beginning windows onload
+    var etopics = topics.value.split(",");
+    var elessons = lessons.value.split(",");
+    getUsingAjax("{{url_for('api.topic.list')}}", {}).then(function (res) {
+      var $topics = $("#topics").selectize({
+        delimiter: ',',
+        persist: false,
+        options: res.result, 
+        valueField: "key",
+        sortField: 'name',
+        searchField: ['name', 'description'],
+        render: {
+          item: function(item, escape) {
+              return '<div>' +
+                  (item.name ? '<span class="name">' + escape(item.name) + '</span>' : '')
+              '</div>';
+          },
+          option: function(item, escape) {
+              var label = item.name || item.description;
+              var caption = item.name ? item.description : null;
+              return '<div>' +
+                  '<span class="label">' + escape(label) + ' </span>' +
+                  (caption ? '<span class="caption"> ' + escape(caption) + '</span>' : '') +
+              '</div>';
+          },
+        }
+      })[0];
+      $topics.selectize.addItems(etopics, false);
+    });
+
+    getUsingAjax("{{url_for('api.lesson.list')}}", {}).then(function (res) {
+      var $lessons = $("#lessons").selectize({
+          delimiter: ',',
+          persist: false,
+          options: res.result,
+          minItems: 3,
+          valueField: "key",
+          sortField: 'name',
+          searchField: ['name', 'description'],
+          render: {
+            item: function(item, escape) {
+                return '<div>' +
+                    (item.name ? '<span class="name">' + escape(item.name) + '</span>' : '')
+                '</div>';
+            },
+            option: function(item, escape) {
+                var label = item.name || item.description;
+                var caption = item.name ? item.description : null;
+                return '<div>' +
+                    '<span class="label">' + escape(label) + ' </span>' +
+                    (caption ? '<span class="caption"> ' + escape(caption) + '</span>' : '') +
+                '</div>';
+            },
+          }
+      })[0];
+      $lessons.selectize.addItems(elessons);
+    });
+
+    $("#course-form").submit(function(event) {
+      event.preventDefault();
+      var form = $(this);
+      postUsingAjax(form.attr('action'), form.serialize(), handleFormSuccessPost, handleFormFailurePost);
+    });
+
+    function handleFormSuccessPost (res) {
+      var nexStep="<p>"+res.result.message+"</p>";
+          var nexStepBtn= "<div class='row'><a href='"+ res.result.view_url + "' class='btn btn-primary'>"+"View Course </a></div>";
+          $("#course-form-container").html(nexStep+nexStepBtn);
+          console.log(res);
+    };
+
+    function handleFormFailurePost (res) {
+      makeNotification("Failed to submit form", "danger");
+      $("#submit-form-btn").html("Retry").removeClass("disabled").removeAttr("disabled");
+    };
+
+//End of Winloads onload 
+};
+</script>

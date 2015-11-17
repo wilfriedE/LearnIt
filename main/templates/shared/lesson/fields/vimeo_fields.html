@@ -1,0 +1,5 @@
+# if data.original_string
+	{{forms.text_field(form.vimeo_video_url, autofocus=True, value=data.original_string)}}
+# else
+	{{forms.text_field(form.vimeo_video_url, autofocus=True)}}
+# endif

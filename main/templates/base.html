@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html class="{% block html_class %}{{html_class}}{% endblock %}" lang="en">
+  <head>
+    # include 'bit/meta.html'
+    <title>
+      # block title
+        {{title + ' |' if title}}
+      # endblock
+      {{config.CONFIG_DB.brand_name}}
+    </title>
+    # include 'bit/style.html'
+    # block head
+    # endblock
+    # include 'bit/analytics.html'
+  </head>
+
+  <body>
+    # include 'bit/announcement.html'
+    <div id="wrapper"> 
+    <div class="overlay"></div>
+    # include 'bit/hamburger.html'
+    # block header
+    # endblock
+    <div id="page-content-wrapper">
+    <div class="container" >
+      # include 'bit/notifications.html'
+      # block content
+      # endblock
+    </div>
+    </div>
+    # include 'bit/footer.html'
+    # include 'bit/script.html'
+    # block scripts
+    # endblock
+    </div>
+  </body>
+</html>

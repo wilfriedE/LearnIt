@@ -1,0 +1,103 @@
+<script type="text/javascript">
+window.onload = function() {
+//Beginning windows onload
+    var etopics = topics.value.split(",");
+    var eformat = is_a.value.split()[0];
+    var ldata = {{ldata}};
+    handleContentTypeSelection(eformat);
+    getUsingAjax("{{url_for('api.topic.list')}}", {}, initTopicSelectize);
+    getUsingAjax("{{url_for('api.config.supported.lessons')}}", {}, initContentTypeSelectize);
+
+    function initTopicSelectize (res) {
+      var $topics = $("#topics").selectize({
+        delimiter: ',',
+        persist: false,
+        options: res.result, 
+        valueField: "key",
+        sortField: 'name',
+        searchField: ['name', 'description'],
+        render: {
+          item: function(item, escape) {
+              return '<div>' +
+                  (item.name ? '<span class="name">' + escape(item.name) + '</span>' : '')
+              '</div>';
+          },
+          option: function(item, escape) {
+              var label = item.name || item.description;
+              var caption = item.name ? item.description : null;
+              return '<div>' +
+                  '<span class="label">' + escape(label) + ' </span>' +
+                  (caption ? '<span class="caption"> ' + escape(caption) + '</span>' : '') +
+              '</div>';
+          },
+        }
+      })[0];
+      $topics.selectize.addItems(etopics, false);
+      
+    };
+
+    function initContentTypeSelectize (res) {
+      var $is_a = $("#is_a").selectize({
+          delimiter: ',',
+          persist: false,
+          onItemAdd: handleContentTypeSelection,
+          options: res.result,
+          maxItems: 1,
+          valueField: "name",
+          sortField: 'name',
+          searchField: ['name', 'description'],
+          render: {
+            item: function(item, escape) {
+                return '<div>' +
+                    (item.name ? '<span class="name">' + escape(item.name) + '</span>' : '')
+                '</div>';
+            },
+            option: function(item, escape) {
+                var label = item.name || item.description;
+                var caption = item.name ? item.description : null;
+                return '<div>' +
+                    '<span class="label">' + escape(label) + ' </span>' +
+                    (caption ? '<span class="caption"> ' + escape(caption) + '</span>' : '') +
+                '</div>';
+            },
+          }
+      })[0];
+      $is_a.selectize.addItems(eformat);
+    };
+
+    $("#esson-form").submit(function(event) {
+      event.preventDefault();
+      var form = $(this);
+      postUsingAjax(form.attr('action'), form.serialize(), handleFormSuccessPost, handleFormFailurePost);
+    });
+
+    //handlers below here
+    function handleContentTypeSelection (value){
+      //use ajax to call content fields to render
+      if (value.length > 1 && (ldata.version != undefined || ldata.version != {})) {
+        getUsingAjax("/lesson/commons/fields/" + value +"/", {"data": {{ldata}} }).then(function (response) {
+          $("#content-form-field").html(response);
+        });
+      } else if (value.length > 1) {
+        getUsingAjax("/lesson/commons/fields/" + value +"/", {"data": {}}).then(function (response) {
+          $("#content-form-field").html(response);
+        });
+      };
+    };
+
+
+    function handleFormSuccessPost (res) {
+      var nexStep="<p>"+res.result.message+"</p>";
+          var nexStepBtn= "<div class='row'><a href='"+ res.result.view_url + "' class='btn btn-primary'>"+"View lesson"+"</a><a href='#' class='btn btn-primary'>"+"Make a quiz for lesson. (not yet handled)"+"</a></div>";
+          $("#lesson-form-container").html(nexStep+nexStepBtn);
+          console.log(res);
+    };
+
+    function handleFormFailurePost (res) {
+      $("#notifications").html("<div class='alert alert-dismissable alert-danger'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>"+ "Failed to submit form" +"</div>");
+      $("#submit-form-btn").html("Retry").removeClass("disabled").removeAttr("disabled");
+    };
+
+//End of Winloads onload 
+};
+</script>

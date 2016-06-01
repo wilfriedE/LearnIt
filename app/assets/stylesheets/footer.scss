@@ -1,0 +1,27 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 200px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  display: table;
+  width: 100%;
+  height: $footer-height;
+  border-top: 2px solid #63A1A1;
+  color: $text-muted;
+  background-color: $well-bg;
+  text-align: center;
+  & > .container {
+    display: table-cell;
+    vertical-align: middle;
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,48 @@
+body {
+  padding-top: 0;
+  > .container {
+    padding-top: floor($line-height-computed / 2);
+    padding-bottom: $line-height-computed * 2;
+  }
+}
+
+.alert-announcement {
+  display: none;
+  &.container {
+    border-radius: 0;
+    margin-bottom: 0;
+    padding: $alert-padding;
+  }
+  > .close {
+    right: 0;
+  }
+}
+
+.img-error {
+  max-width: 100%;
+  margin: auto;
+  display: block;
+}
+
+.anchor {
+  display: block;
+  position: relative;
+  top: -$navbar-height;
+  visibility: hidden;
+}
+
+.dotted-box {
+  border: 1px dotted rgba(0, 0, 0, 0.84);
+}
+.recaptcha {
+  min-height: 78px;
+}
+
+.primaryhover {
+    cursor:pointer;
+}
+
+.primaryhover:hover, .primaryActive, .primaryActive:hover {
+    background:#f5f5f5;
+    color:#00b0ff  !important;
+}

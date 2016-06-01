@@ -1,4 +1,8 @@
 # A sample Bowerfile
 # Check out https://github.com/42dev/bower-rails#ruby-dsl-configuration for more options
 
-# asset 'bootstrap'
+asset "font-awesome", "~4"
+asset "bootstrap-material-design", "~0.5"
+asset "bootstrap-horizon", "~0.1"
+asset "bluebird", "~2.10.2"
+asset "perfect-scrollbar", "~0.6"

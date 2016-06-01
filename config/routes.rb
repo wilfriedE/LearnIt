@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   #welcome pages
-  get 'library' => 'welcome#index'
+  get 'library' => 'welcome#library'
   get 'contribute' => 'welcome#contribute'
   get 'about'  => 'welcome#about'
 

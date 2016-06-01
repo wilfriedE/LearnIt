@@ -13,4 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap-sprockets
+//
+//Bower Comonents
+//= require bluebird/js/browser/bluebird
+//= require bootstrap-material-design/scripts/material
+//= require bootstrap-material-design/scripts/ripples
+//= require perfect-scrollbar/js/perfect-scrollbar.jquery
+//
 //= require_tree .

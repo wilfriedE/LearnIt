@@ -1,0 +1,7 @@
+<h1>Lessons#index</h1>
+<p>Find me in app/views/lessons/index.html.erb</p>
+<% @lessons.each do |lesson| %>
+  <tr>
+    <%= lesson_card(lesson).html_safe %>
+  </tr>
+<% end %>

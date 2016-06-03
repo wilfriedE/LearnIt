@@ -6,6 +6,26 @@ Rails.application.routes.draw do
   get 'contribute' => 'welcome#contribute'
   get 'about'  => 'welcome#about'
 
+  #lesson pages
+  get 'lesson/:id' => 'lessons#show'
+  get 'lessons/new' => 'lesson_versions#new'
+  get 'lessons/:id/edit' => 'lessons#propose_update'
+  resources :lessons do
+    member do
+      get 'propose_update'
+      #other lesson specific actions here
+    end
+  end
+
+  #lesson_version pages
+  get 'lesson_versions/' => 'lessons#index'
+  get 'lesson_versions/index' => 'lessons#index'
+  resources :lesson_versions do
+    member do
+      #other actions here
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

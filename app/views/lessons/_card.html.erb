@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="well well-sm">
+   <div class="media">
+
+    <div class="media-left media-middle">
+      <a href="<%=url_for(lesson) %>" style="color:<%=lesson.color%>"><i class="material-icons" style="font-size: 60pt;">play_circle_outline</i></a>
+    </div>
+
+    <div class="media-body">
+      <h3 class="title"><%=lesson.name %></h3>
+	  <p class="desc"><%=truncate(lesson.description, :length => 50) %></p>
+	  <!-- Versions modal trigger -->
+    <a class="btn btn-sm btn-primary btn-raised"  href="<%=url_for(propose_update_lesson_path(lesson)) %>" >
+      <span class="fa fa-fw fa-plus"></span>Propose an update
+    </a>
+	  <button class="btn" data-toggle="collapse" data-target="#collapseVersions-<%= lesson.id%>" aria-expanded="false" aria-controls="collapseVersions-<%=lesson.id %>"><i class="material-icons">view_list</i> View Versions </button>
+    </div>
+
+    <!--Versions -->
+    <div  class="collapse" id="collapseVersions-<%= lesson.id%>">
+      <!--<b>All versions:</b>-->
+      <% lesson.versions.each do |version| %>
+        <div class="media" style="border-left: 0.25em solid #03a9f4">
+          <div class="media-left media-middle">
+            <a href="<%=url_for(version) %>">
+             <i class="material-icons" style="font-size: 50pt;">play_circle_outline</i>
+            </a>
+          </div>
+          <div class="media-body">
+            <h5 class="media-heading"><b><%= lesson.name%></b></h5>
+            <p class="desc"><%=version.description%></p>
+          </div>
+        </div>
+      <% end  %>
+    </div>
+
+   </div>
+  </div>
+</div>

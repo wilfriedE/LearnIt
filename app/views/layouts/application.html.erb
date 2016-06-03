@@ -18,7 +18,9 @@
             <%= render partial: "shared/hamburger" %>
             <div id="page-content-wrapper">
                 <div class="container">
-                    <%= yield %>
+                  <div class="row">
+                    <%= ((render "layouts/#{controller_name}" rescue nil)|| yield ) %>
+                  </div>
                 </div>
             </div>
             <%= render partial: "shared/footer" %>

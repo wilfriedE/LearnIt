@@ -1,13 +1,3 @@
-body {
-  position: relative;
-  overflow-x: hidden;
-  height: 100%;
-}
-
-html {
-  height: 100%;
-}
-
 .nav .open > a {
   background-color: transparent;
   &:hover, &:focus {

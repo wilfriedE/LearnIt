@@ -1,2 +1,206 @@
-<%= media.video_url %>
-<%= media.youtube_id %>
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe id="player" type="text/html"  class="embed-responsive-item"
+    src="https://www.youtube.com/embed/<%= media.youtube_id %>?enablejsapi=1&controls=0&modestbranding=1&cc_load_policy=1&rel=0&showinfo=0"  webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  </div>
+<br/>
+<%= render partial: "media_contents/players/beautiful_player", :locals => {:media => media} %>
+<script>
+  // 2. This code loads the IFrame Player API code asynchronously.
+  var tag = document.createElement('script');
+  var playbutton = $("#player-play-btn");
+  var fullScreenButton = $("#player-fullscreen-btn");
+  var seekerButton = $("#player-seeker-btn");
+  var volSeekerButton = $("#player-volseeker-btn");
+  var muteButton = $("#player-mute-btn");
+  var captionButton = $("#player-captionbutton-btn");
+  var speedTimes2Button = $("#play-speed-x2");
+  var speedTimes1andhalfButton = $("#play-speed-x1-5");
+  var speedNormalButton = $("#play-speed-x1");
+  var speedHalfButton = $("#play-speed-x0-5");
+  var speedQuaterButton = $("#play-speed-x0-25");
+  var currentSpeedButton = $("#play-speed-x1");
+  var playablestate = "material-icons playablestate";
+  var pausablestate = "material-icons pausablestate";
+  var replayablestate = "material-icons playablestate";
+  var hovererable = " primaryhover";
+  var totalTime;
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  // 3. This function creates an <iframe> (and YouTube player)
+  //    after the API code downloads.
+  var player;
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      videoId: '<%= media.youtube_id %>',
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
+
+  // 4. The API will call this function when the video player is ready.
+  function onPlayerReady(event) {
+    event.target.playVideo();
+    setPlayerTimeVariables(event);
+    setUiSliderInMotion();
+    evaluatePlayButtonStatus(event);
+  }
+
+  function setPlayerTimeVariables(event) {
+  	totalTime = player.getDuration();
+  	player.setVolume(50);
+  }
+  // 5. The API calls this function when the player's state changes.
+  //    The function indicates that when playing a video (state=1),
+  //    the player should play for six seconds and then stop.
+  function onPlayerStateChange(event) {
+  	evaluatePlayButtonStatus(event);
+  }
+
+  /// Controlling VideoPlayer Actions
+  //Play video and pause it
+  playbutton.click(function() {
+  if ( $(this).hasClass(playablestate)){
+  		player.playVideo();
+    }
+    if ( $(this).hasClass(pausablestate)){
+  		player.pauseVideo();
+    }
+  });
+
+  // Seeking the video
+  seekerButton.on('slide', function(){
+  player.seekTo($(this).val());
+  seekSlider.cancel();
+  });
+
+  // Control Volume
+  volSeekerButton.on('slide', function(){
+  player.unMute();
+  player.setVolume($(this).val());
+  recordVolumeState('notmuted');
+  $(".volume-count-display").text( $(this).val() + "%");
+  });
+
+  muteButton.click(function() {
+  player.mute();
+  volSeekerButton.val(0);
+  recordVolumeState('muted');
+  $(".volume-count-display").text("0%");
+  });
+  //While The video is playing, set seeker button
+
+  var seekSlider = {
+  seek: function(event) {
+  seekerButton.val(player.getCurrentTime());
+  delete this.timeoutID;
+  this.updateTimer();
+  },
+
+  setup: function() {
+  this.cancel();
+  var self = this;
+  this.timeoutID = window.setInterval(function(event) {self.seek(event);}, 1000);
+  this.updateTimer();
+  },
+
+  cancel: function() {
+  if(typeof this.timeoutID == "number") {
+    window.clearInterval(this.timeoutID);
+    delete this.timeoutID;
+  }
+  this.updateTimer();
+  },
+
+  updateTimer: function() {
+  $(".timeDisplay").html(secondsToString(player.getCurrentTime()) + " | " + secondsToString(totalTime));
+  }
+  };
+
+  function recordVolumeState(state) {
+  if (state == 'muted') {
+  	$(".volumeStateDisplay").text("volume_off");
+  };
+  if(state == 'notmuted'){
+  	$(".volumeStateDisplay").text("volume_up");
+  };
+  }
+
+  //Controlling video speed
+  speedTimes2Button.click(function() {player.setPlaybackRate(2); evlauteSpeedDisplay($(this));});
+
+  speedTimes1andhalfButton.click(function() {player.setPlaybackRate(1.5); evlauteSpeedDisplay($(this));});
+  speedNormalButton.click(function() {player.setPlaybackRate(1); evlauteSpeedDisplay($(this));});
+  speedHalfButton.click(function() {player.setPlaybackRate(0.5); evlauteSpeedDisplay($(this));});
+  speedQuaterButton.click(function() {player.setPlaybackRate(0.25); evlauteSpeedDisplay($(this));});
+
+
+  function evlauteSpeedDisplay(el) {
+  currentSpeedButton.removeClass("primaryActive");
+  currentSpeedButton = el;
+  currentSpeedButton.addClass("primaryActive");
+  }
+  //Enable Close Captioning --Temporary Disabled
+  /**
+  var captionsize = 0;
+  captionButton.click(function () {
+  	if ($(this).hasClass('btn-material-light-blue-A400' && captionsize <= 3) ){
+  		captionsize += 1;
+    		player.setOption('captions', 'fontSize', captionsize);
+      }
+      else{
+    		player.setOption('captions', 'fontSize', -1);
+      }
+  });
+  **/
+
+  //Make Video Full Screen
+  var target = $('#player')[0]; // Video Player Iframe
+  fullScreenButton.click(function () {
+    if (screenfull.enabled) {
+        screenfull.request(target);
+    }
+  });
+
+
+  /// Controlling UI Controller displays
+  function evaluatePlayButtonStatus(event) {
+  	//IF the button is currently playing and video is playing show the pause button,
+  	if (playbutton.hasClass(playablestate) && event.data == YT.PlayerState.PLAYING ) {
+  		playbutton.removeClass(playablestate).addClass(pausablestate);
+      playbutton.text("pause");
+  		//start seeking the slider
+  		seekSlider.setup();
+    } //IF the video is playing however the button must display as pausable,
+    else if (event.data == YT.PlayerState.PLAYING) {
+    	playbutton.removeClass().addClass(pausablestate + hovererable);
+      playbutton.text("pause");
+    	//start seeking the slider
+    	seekSlider.setup();
+  }
+   	//IF the button is currently paused and video is also paused show the play button,
+    if (playbutton.hasClass(pausablestate) && event.data == YT.PlayerState.PAUSED) {
+  		playbutton.removeClass(pausablestate).addClass(playablestate);
+      playbutton.text("play_arrow");
+  		//stop seeking the slider
+  		seekSlider.cancel();
+    } //IF the video is paused however the button must display as playable,
+    else if (event.data == YT.PlayerState.PAUSED) {
+    	playbutton.removeClass().addClass(playablestate + hovererable);
+      playbutton.text("play_arrow");
+    	//stop seeking the slider
+    	seekSlider.cancel();
+  }
+  //IF video ended then allow for replay- show replay button,
+  if ( event.data == YT.PlayerState.ENDED) {
+  		playbutton.removeClass().addClass(replayablestate + hovererable);
+      playbutton.text("replay");
+  		//stop seeking the slider
+  		seekSlider.cancel();
+    }
+
+  }
+</script>

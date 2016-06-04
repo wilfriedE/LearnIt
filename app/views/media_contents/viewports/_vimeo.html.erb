@@ -1,2 +1,169 @@
-<%= media.video_url %>
-<%= media.vimeo_id %>
+<!-- <script src="//f.vimeocdn.com/js/froogaloop2.min.js"></script> -->
+<div class="embed-responsive embed-responsive-16by9">
+<iframe id="player" class="embed-responsive-item"  src="//player.vimeo.com/video/<%= media.vimeo_id %>?api=1&player_id=player&autoplay=1&byline=0&badge=0&title=0&color=ff1744" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+
+<script>
+/**  Not using beautiful player bar for the Vimeo embeds because the vimeo api does not offer enough capabilities. And the way the controller works for the video makes it unnessary to have the beautiful player bar. Any opinions on this is welcome.
+$(function() {
+
+    var iframe = $('#player')[0];
+    var player = $f(iframe);
+	var playbutton = $("#player-play-btn");
+    var fullScreenButton = $("#player-fullscreen-btn");
+    var seekerButton = $("#player-seeker-btn");
+    var volSeekerButton = $("#player-volseeker-btn");
+    var muteButton = $("#player-mute-btn");
+    var captionButton = $("#player-captionbutton-btn");
+    var speedTimes2Button = $("#play-speed-x2");
+	var speedTimes1andhalfButton = $("#play-speed-x1-5");
+	var speedNormalButton = $("#play-speed-x1");
+	var speedHalfButton = $("#play-speed-x0-5");
+	var speedQuaterButton = $("#play-speed-x0-25");
+	var currentSpeedButton = $("#play-speed-x1");
+    var playablestate = "mdi-av-play-circle-outline";
+    var pausablestate = "mdi-av-pause-circle-fill mdi-material-red-A400";
+    var replayablestate = "mdi-av-replay mdi-material-light-blue-A700";
+    var hovererable = " primaryhover";
+    var totalTime;
+
+    // When the player is ready, add listeners for play, pause, finish, and playProgress
+    player.addEvent('ready', function() {
+        onPlayerReady;
+        player.addEvent('play', whenPlayingVideo); // Namings are weird, but open to alternatives
+        player.addEvent('pause', whenPausedVideo);
+        player.addEvent('finish', whenFinishedVideo);
+        player.addEvent('playProgress', onPlayProgress);
+    });
+
+    // Call the API when a button is pressed
+
+      //The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        player.api('play');
+        setPlayerTimeVariables(event);
+        setUiSliderInMotion(); //This is to enable noUISlider from the player bar html file
+        whenPlayingVideo(event);//This is to make sure it knows it's playing
+      }
+
+      function setPlayerTimeVariables(event) {
+      	totalTime = player.api('getDuration');
+      	player.api('setVolume', 50);
+      }
+
+
+ 	  /// Controlling VideoPlayer Actions
+ 	  //Play video and pause it
+	  playbutton.click(function() {
+	  	if ( $(this).hasClass(playablestate)){
+      		player.api('pause');
+        }
+        if ( $(this).hasClass(pausablestate)){
+      		player.api('play');
+        }
+	   });
+
+	  // Seeking the video
+	  seekerButton.on('slide', function(){
+			player.api('seekTo', $(this).val());
+	  });
+
+	  // Control Volume
+	  volSeekerButton.on('slide', function(){
+		player.api('setVolume', ($(this).val() / 100) );
+		$(".volume-count-display").text( $(this).val() + "%");
+
+		if (player.api('getVolume') === 0) {
+			recordVolumeState('muted');
+	  	} else{
+	  		recordVolumeState('notmuted');
+	  	};
+
+	  });
+
+	  muteButton.click(function() {
+	  	player.api('setVolume', 0);
+	  	volSeekerButton.val(0);
+		recordVolumeState('muted');
+		$(".volume-count-display").text("0%");
+	  });
+
+	//While The video is playing, set seeker button
+
+  	function seekSlider(event) {
+  		seekerButton.val(player.api('getCurrentTime'));
+  		$(".timeDisplay").html(secondsToString(player.api('getCurrentTime')) + " | " + secondsToString(totalTime));
+	};
+
+    function recordVolumeState(state) {
+    	if (state == 'muted') {
+    		$(".volumeStateDisplay").addClass("mdi-av-volume-off").removeClass("mdi-av-volume-up");
+    	};
+    	if(state == 'notmuted'){
+    		$(".volumeStateDisplay").addClass("mdi-av-volume-up").removeClass("mdi-av-volume-off");
+    	};
+	}
+
+	//Controlling video speed -Playbackspeed is not supported by vimeo there for now commented out.
+	/** speedTimes2Button.click(function() {player.setPlaybackRate(2); evlauteSpeedDisplay($(this));});
+
+	speedTimes1andhalfButton.click(function() {player.setPlaybackRate(1.5); evlauteSpeedDisplay($(this));});
+ 	speedNormalButton.click(function() {player.setPlaybackRate(1); evlauteSpeedDisplay($(this));});
+	speedHalfButton.click(function() {player.setPlaybackRate(0.5); evlauteSpeedDisplay($(this));});
+	speedQuaterButton.click(function() {player.setPlaybackRate(0.25); evlauteSpeedDisplay($(this));});
+
+
+	function evlauteSpeedDisplay(el) {
+		currentSpeedButton.removeClass("primaryActive");
+		currentSpeedButton = el;
+		currentSpeedButton.addClass("primaryActive");
+	}
+	**/
+
+	  //Enable Close Captioning --Temporary Disabled
+	  /**
+	    var captionsize = 0;
+	    captionButton.click(function () {
+		  	if ($(this).hasClass('btn-material-light-blue-A400' && captionsize <= 3) ){
+		  		captionsize += 1;
+	      		player.setOption('captions', 'fontSize', captionsize);
+	        }
+	        else{
+	      		player.setOption('captions', 'fontSize', -1);
+	        }
+		});
+	  **/
+/**
+	  //Make Video Full Screen
+	  var target = $('#player')[0]; // Video Player Iframe
+	  fullScreenButton.click(function () {
+		    if (screenfull.enabled) {
+		        screenfull.request(target);
+		    }
+		});
+
+
+      /// Controlling UI Controller displays
+	  function whenPlayingVideo(event) {
+	  	//Actions to take when the video is playing - Show pause button
+	  	playbutton.removeClass().addClass(pausablestate + hovererable);
+	  }
+      function whenPausedVideo(event) {
+       	//Actions to take when the video is paused - show play button
+        playbutton.removeClass(pausablestate).addClass(playablestate);
+      }
+      function whenFinishedVideo(event) {
+      	//Actions to take when the video ends- show replay button,
+      	playbutton.removeClass().addClass(replayablestate + hovererable);
+      }
+
+
+
+    function onPlayProgress(data, id) {
+       seekSlider(data);
+    }
+
+
+});
+**/
+</script>

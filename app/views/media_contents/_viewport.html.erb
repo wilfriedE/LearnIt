@@ -1,0 +1,8 @@
+<div class="well well-lg">
+<% if media.type ==  YoutubeContent.to_s %>
+  <%= render partial: "media_contents/viewports/youtube", :locals => {:media => media} %>
+<% elsif media.type == VimeoContent.to_s %>
+  <%= render partial: "media_contents/viewports/vimeo", :locals => {:media => media} %>
+<!-- add other supported fields below -->
+<% end %>
+</div>

@@ -1,25 +1,14 @@
-<%= form_for @lesson_version do |f| %>
-  <% if @lesson_version.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@lesson_version.errors.count, "error") %> prohibited this lesson from being saved:</h2>
-
-      <ul>
-      <% @lesson_version.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+<%= simple_form_for @lesson_version do |f| %>
+  <%= f.input :lesson_id, as: :hidden %>
+  <%= f.input :name, label: 'Lesson Name', error: 'Lesson name is mandatory, please specify one' %>
+  <%= f.input :description, label: 'Lesson description', hint: 'Write a brief summary of the lesson.'  %>
+  <%= f.simple_fields_for :media do |ff| %>
+      <%= ff.input :type,  collection: MediaContent.types, selected: @lesson_version.media.type , label: 'Content Type', prompt: "Select your Content Type", input_html: { id: "media_type_selector",data: {"lesson-version-id" => @lesson_version.id || 0} }%>
+      <div id='media_content_field'>
+        <% if @lesson_version.media.type %>
+          <%= render partial: "media_contents/fields", :locals => {:media => @lesson_version.media} %>
+        <% end %>
+      </div>
   <% end %>
-
-  <div class="form-group">
-  <%= f.text_field :name, :class => "form-control" %>
-  </div>
-
-  <div class="form-group">
-  <%= f.text_area :description, :class => "form-control" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Continue", :class => "btn btn-primary btn-raised btn-lg btn-block btn-loading"  %>
-  </div>
+  <%= f.button :submit, value: 'Continue' , class: 'btn btn-primary btn-raised btn-lg btn-block' %>
 <% end %>

@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <% if lesson %>
+    <a class="btn btn-sm btn-primary btn-raised" href="<%=url_for(propose_update_lesson_path(lesson)) %>" >
+      <span class="fa fa-fw fa-plus"></span>Propose an update
+    </a>
+    <% end %>
+    <a class="btn btn-sm btn-primary btn-raised" href="#">
+      <span class="fa fa-fw fa-map-pin"></span> Pin This
+    </a>
+    
+    <% if lesson %>
+    <p class="desc">
+      <ul class="list-inline">
+        <li><strong> Total Votes:</strong> total |  up_vote_count - down_vote_count  </li>
+        <li ><a class="btn btn-sm" title="Up Vote">
+          <span class="fa fa-thumbs-o-up"></span>Up Vote</a>
+        </li>
+        <li ><a class="btn btn-sm " title="Down Vote">
+          <span class="fa fa-thumbs-o-down"></span>Down Vote
+        </a></li>
+        <li>More votes will help this Lesson version to be considered primary version for the main Lesson.</li>
+      </ul>
+    </p>
+    <% end %>
+
+  </div>
+</div>

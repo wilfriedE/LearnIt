@@ -1,2 +1,48 @@
-<h1>LessonVersions#show</h1>
-<p>Find me in app/views/lesson_versions/show.html.erb</p>
+<div class="col-lg-9">
+  <div class="bs-component" >
+    <%= render partial: "lesson_versions/buttons", :locals => {:lesson => @lesson, :version => @lesson_version} %>
+  <div id="viewport"><%= load_media_viewport(@lesson_version.media) %></div>
+
+  <div class="well well-sm">
+  <p class="desc"><strong>Description:</strong> <%= @lesson_version.description %></p>
+  <p class="desc"><ul class="list-inline">
+      <li><strong>Topics:</strong></li>
+        <li style=""><a href="#">topic</a></li>
+    </ul></p>
+
+  <% if @lesson %>
+  <strong>Available Versions:</strong>
+  <div class="row row-horizon  scrollable" >
+      <% @lesson.versions.each do |version| %>
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-7">
+          <%= lesson_version_card(version).html_safe %>
+        </div>
+      <% end %>
+  </div>
+  <% end %>
+
+  <strong>Contributors:</strong>
+  <div class="row row-horizon scrollable">
+      <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+       contributor_card
+      </div>
+  </div>
+
+  </div>
+
+  </div>
+    - Forum Discussion Thread Here -
+</div>
+
+<div class="col-lg-3">
+  <div class="bs-component">
+  <div class="well well-lg" id="side-result-view">
+    <% if @lesson %>
+      <h3>Lesson: <%= @lesson.name %></h3>
+    <% else %>
+      <h3>A version of: <i><%= link_to @lesson_version.lesson.name, lesson_path(@lesson_version.lesson) %></i> </h3>
+      <i>Contributed by: ~</i>
+    <% end %>
+  </div>
+  </div>
+</div>

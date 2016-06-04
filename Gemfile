@@ -27,6 +27,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 
 gem "bower-rails", "~> 0.10.0"
 
+gem 'simple_form'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

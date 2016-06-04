@@ -5,6 +5,20 @@ class LessonsController < ApplicationController
 
   def show
     @lesson = Lesson.find(params[:id])
+    @lesson_version = @lesson.active_version
+    render :template => 'lesson_versions/show'
+  end
+
+  def new
+    @lesson = nil
+    @lesson_version = LessonVersion.new()
+    @lesson_version.media = MediaContent.new()
+    render :template => 'lesson_versions/new'
+  end
+
+  def edit
+    @lesson = Lesson.find(params[:id])
+    redirect_to propose_update_lesson_path(@lesson)
   end
 
   def propose_update

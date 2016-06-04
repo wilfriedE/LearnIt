@@ -1,5 +1,3 @@
-<h1>LessonVersions#new</h1>
-<p>Find me in app/views/lesson_versions/new.html.erb</p>
 <div class="col-lg-8">
   <div class="bs-component">
   <div class="well well-lg">
@@ -11,6 +9,11 @@
 <div class="col-lg-3">
   <div class="bs-component">
   <div class="well well-lg" id="side-result-view">
+    <% if @lesson %>
+      <h3>Lesson Update Proposal</h3>
+    <% else %>
+      <h3>Create New Lesson</h3>
+    <% end %>
     Thanks for contributing to the Community.
   </div>
   </div>

@@ -8,8 +8,6 @@ Rails.application.routes.draw do
 
   #lesson pages
   get 'lesson/:id' => 'lessons#show'
-  get 'lessons/new' => 'lesson_versions#new'
-  get 'lessons/:id/edit' => 'lessons#propose_update'
   resources :lessons do
     member do
       get 'propose_update'
@@ -18,13 +16,16 @@ Rails.application.routes.draw do
   end
 
   #lesson_version pages
-  get 'lesson_versions/' => 'lessons#index'
-  get 'lesson_versions/index' => 'lessons#index'
   resources :lesson_versions do
     member do
       #other actions here
     end
   end
+
+  #media_content pages
+  get 'media_contents' => 'media_contents#index'
+  #helper for managing different field types
+  get 'media_contents/fields/:type' =>  'media_contents#fields'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

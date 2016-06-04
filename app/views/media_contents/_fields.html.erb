@@ -1,0 +1,6 @@
+<% if media.type ==  YoutubeContent.to_s %>
+  <%= render partial: "media_contents/fields/youtube_fields", :locals => {:media => media} %>
+<% elsif media.type == VimeoContent.to_s %>
+  <%= render partial: "media_contents/fields/vimeo_fields", :locals => {:media => media} %>
+<!-- add other supported fields below -->
+<% end %>

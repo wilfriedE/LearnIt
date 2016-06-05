@@ -22,5 +22,9 @@
 //= require perfect-scrollbar/js/perfect-scrollbar.jquery
 //
 //= require_tree .
-$.material.init();
-$('.scrollable').perfectScrollbar();
+$(document).on('page:change', function() {
+  //make init calls and such here
+  $.material.init();
+  $('.scrollable').perfectScrollbar();
+
+});

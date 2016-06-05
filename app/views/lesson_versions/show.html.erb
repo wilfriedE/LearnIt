@@ -12,7 +12,7 @@
 
   <% if @lesson %>
   <strong>Available Versions:</strong>
-  <div class="row row-horizon  scrollable" >
+  <div class="row-horizon scrollable" >
       <% @lesson.versions.each do |version| %>
         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-7">
           <%= lesson_version_card(version).html_safe %>

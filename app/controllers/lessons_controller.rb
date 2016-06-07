@@ -1,9 +1,20 @@
 class LessonsController < ApplicationController
   def index
-    @lessons = Lesson.offset(params[:page].to_i).first(10)
+    #if there is a search query, properly handle rendering them
+    if params[:q]
+      @lessons = Lesson.search(params[:q]).order("created_at ASC")
+    else
+      limit = 10
+      @lessons = Lesson.offset(params[:page].to_i * limit).first(limit)
+    end
+    respond_to do |format|
+      format.html
+      format.json { render json: @lessons }
+    end
   end
 
   def show
+    @course =  nil
     @lesson = Lesson.find(params[:id])
     @lesson_version = @lesson.active_version
     render :template => 'lesson_versions/show'

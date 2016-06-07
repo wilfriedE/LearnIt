@@ -1,0 +1,32 @@
+<%= simple_form_for @course do |f| %>
+  <%= f.input :name, label: 'Course Name', error: 'Course name is mandatory, please specify one' %>
+  <%= f.input :description, label: 'Course description', hint: 'Write a brief summary of the course.'  %>
+  <h3>Lessons</h3>
+  <div id='course_lessons'>
+    <div class='links'>
+      <%= link_to_add_association 'Add lesson to course', f, :course_lessons %>
+    </div>
+    <div class="lesson_fields">
+      <%= f.simple_fields_for  :course_lessons do |course_lesson| %>
+        <%= render 'course_lesson_fields', :f => course_lesson %>
+      <% end %>
+    </div>
+  </div>
+  <%= f.button :submit, value: 'Continue' , class: 'btn btn-primary btn-raised btn-lg btn-block' %>
+<% end %>
+
+<script type="text/javascript">
+$(document).on('page:change', function() {
+  $("#course_lessons").on('cocoon:after-insert', function(e, insertedItem){
+    //call function with this insertedItem.clone();
+    // then remove
+    var template = `<%= load_course_lesson_form_view(nil) %>`
+
+    function reorder(){alert("reordering")};
+    searchable_input(insertedItem.clone(), "#course_lessons .lesson_fields", "<%= url_for lessons_path(:format => :json) %>",
+                      {content : template,
+                      values: ["id", "name", "description","color"]}, {filters: [], callback: reorder});
+    insertedItem.remove();
+  });
+});
+</script>

@@ -1,0 +1,8 @@
+<div class='nested-fields'>
+    <%= f.input :position, :as => :hidden %>
+    <%= f.input :lesson_id, :as => :hidden%>
+    <% if f.object.attributes['lesson_id'] %>
+      <%= load_course_lesson_form_view(Lesson.find(f.object.attributes['lesson_id'])) %>
+    <% end %>
+    <%= link_to_remove_association "Remove lesson from course", f, :class => "btn btn-danger btn-raised"%>
+</div>

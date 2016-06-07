@@ -5,6 +5,7 @@ class LessonVersionsController < ApplicationController
   end
 
   def show
+    @course = nil
     @lesson = nil
     @lesson_version = LessonVersion.find(params[:id])
   end

@@ -20,6 +20,8 @@
 //= require bootstrap-material-design/scripts/material
 //= require bootstrap-material-design/scripts/ripples
 //= require perfect-scrollbar/js/perfect-scrollbar.jquery
+//= require mustache/mustache
+//= require cocoon
 //
 //= require_tree .
 $(document).on('page:change', function() {

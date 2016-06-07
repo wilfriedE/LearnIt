@@ -24,8 +24,16 @@ Rails.application.routes.draw do
 
   #media_content pages
   get 'media_contents' => 'media_contents#index'
-  #helper for managing different field types
+    #helper for managing different field types
   get 'media_contents/fields/:type' =>  'media_contents#fields'
+
+  #course pages
+  resources :courses do
+    member do
+      get 'viewing/:position', action: :viewing, as: :viewing
+      #other actions here
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

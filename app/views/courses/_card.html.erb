@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="well well-sm" >
+   <div class="media" >
+
+    <div class="media-left media-middle">
+        <a href="<%= url_for course_path(course) %>"><i class="material-icons" style="font-size: 60pt;">book</i></a>
+    </div>
+    <div class="media-body" >
+      <h3 class="title"><%= course.name%></h3>
+      <p class="desc"><ul class="list-inline">
+        <li><strong>Topics:</strong></li>
+
+          <li style=""><a href="#topic_path">topics</a></li>
+      </ul></p>
+      <a class="btn btn-info" href="<%= url_for viewing_course_path(course, 0) %>"><i class="material-icons">video_library</i> Start Course</a>
+      <button class="btn btn-primary"  data-toggle="collapse" data-target="#collapseLessons-<%= course.id %>" aria-expanded="false" aria-controls="collapseLessons-<%= course.id %>"><i class="material-icons">view_list</i> View Lessons</button>
+    </div>
+
+    <div  class="collapse" id="collapseLessons-<%= course.id %>">
+      <% course.course_lessons.each do |course_lesson| %>
+      <% lesson = course_lesson.lesson %>
+      <div class="media" style="border-left: 0.25em solid <%= lesson.color %>">
+        <div class="media-left media-middle">
+          <a href="<%= url_for viewing_course_path(course, course_lesson.position) %>">
+           <i class="material-icons" style="font-size: 50pt;">play_circle_outline</i>
+          </a>
+        </div>
+        <div class="media-body">
+          <h5 class="media-heading"><b><%= lesson.name %></b></h5>
+          <p class="desc"><%= lesson.description %></p>
+        </div>
+      </div>
+      <% end %>
+    </div>
+
+   </div>
+  </div>
+</div>

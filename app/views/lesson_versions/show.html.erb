@@ -37,6 +37,17 @@
 <div class="col-lg-3">
   <div class="bs-component">
   <div class="well well-lg" id="side-result-view">
+    <% if @course %>
+      <h3>Course: <%= @course.name %></h3>
+      <% if @course.course_lessons.count > 1 %>
+        <% if @course_lesson.position > 0 %>
+          <%= link_to "Previous", viewing_course_path(@course, @course_lesson.position - 1) %>
+        <% end %>
+        <% if @course_lesson.position < (@course.course_lessons.count-1)%>
+          <%= link_to "Next", viewing_course_path(@course, @course_lesson.position + 1) %>
+        <% end %>
+      <% end %>
+    <% end %>
     <% if @lesson %>
       <h3>Lesson: <%= @lesson.name %></h3>
     <% else %>

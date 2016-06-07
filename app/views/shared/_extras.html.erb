@@ -1,0 +1,48 @@
+<!-- Searchable Input Modal -->
+<div class="modal fade" id="searchable-input-modal" tabindex="-1" role="dialog" aria-labelledby="searchable-input">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header silent-form">
+        <div >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="searchable-input">Seach and Insert</h4>
+      </div>
+        <form method="#" action="#"  novalidate id="searchable-input-form">
+          <ul class="row list-inline" >
+              <li class="form-group col-xs-9">
+                <input class="form-control" type="text"  name="search" id="searchable-input-search" value="" placeholder="Search">
+              </li>
+              <li class="col-xs-3"><button type="submit" class="btn btn-primary btn-raised" id="searchable-input-submit">
+               <i  class="material-icons" >search</i>Search</button></li>
+          </ul>
+          <div class="row-horizon scrollable" >
+            <ul class="list-inline" id="searchable-input-filters"></ul>
+          </div>
+        </form>
+
+        </div>
+
+      <div class="modal-body">
+        <div class="table-responsive" >
+          <table class="table table-hover">
+            <thead>
+              <tr class="text-nowrap">
+                <th class="col-xs-2">Select</th>
+                <th class="col-xs-8">Preview</th>
+                <th class="col-xs-2">Insert<br><small>Item</small></th>
+              </tr>
+            </thead>
+            <tbody id="searchable-input-body">
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-raised" id="searchable-input-bulk-insert">Insert Selected</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end Searchable Input Modal -->

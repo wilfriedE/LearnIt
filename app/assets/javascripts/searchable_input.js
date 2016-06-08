@@ -20,7 +20,7 @@ template => templating to be rendered in previews as well as output
 |---------- :values => attributes to retrieve from *data to substitute into template
 |---------------------  present accepts ['template_name/data_attribute', ...]
 |---------------------  future possible ({'template_name' : 'data_attribute'})
-|---------- by default the input is substituted into a {{input}}.
+|---------- by default the input is substituted into a {{{input}}} .
 options => optional features
 |---------- :filters => specific property filters for *data.
 |----------------------- filters are sent as a parameter containing various filters
@@ -32,6 +32,9 @@ options => optional features
 |----------------------- :name is then used for the selectize value as well for render.
 |--------- :callback => a function that is called after the searchchable model inserts
 |---------------------- finalized content.
+
+NOTE: All variables are HTML-escaped by default. If you want to render unescaped HTML,
+      use the triple mustache: {{{name}}}. You can also use & to unescape a variable.
 */
 // Listen for filter changes
 var searchable_input = function (input, output, resource, template={}, options={}) {
@@ -61,11 +64,10 @@ var searchable_input = function (input, output, resource, template={}, options={
         for (var i in response){
             var view = {};
             function formatInput(r_template) {
-              r_template = `${r_template}`
               epoch_time += 1;
               var ep = r_template.match(/\[([0-9]+)\]/);
               var r_template = replaceAll(r_template, ep[1], epoch_time);
-              return unescape(r_template);
+              return r_template;
             }
 
             view['input'] = formatInput(input.html());
@@ -94,9 +96,10 @@ var searchable_input = function (input, output, resource, template={}, options={
         var item_field = $(this).closest("tr").children(".search-field-item");
         $(output).prepend(item_field.children(".nested-fields"));
         $(this).closest("tr").remove();
-        callback();
+        if (options["callback"]) {
+          options["callback"]();
+        }
       });
-
       $(bulk_insert_btn).click(function(){
         $(searchmodalbody + ' > tr').each(function(){
               if ($(this).find('.item-selector').is(':checked')) {
@@ -105,7 +108,9 @@ var searchable_input = function (input, output, resource, template={}, options={
                   $(this).closest("tr").remove();
               };
         });
-        callback();
+        if (options["callback"]) {
+          options["callback"]();
+        };
       });
   };
 

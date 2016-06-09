@@ -20,6 +20,7 @@
 //= require bootstrap-material-design/scripts/material
 //= require bootstrap-material-design/scripts/ripples
 //= require perfect-scrollbar/js/perfect-scrollbar.jquery
+//= require html.sortable/dist/html.sortable
 //= require mustache/mustache
 //= require cocoon
 //

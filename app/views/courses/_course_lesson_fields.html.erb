@@ -1,4 +1,4 @@
-<div class='nested-fields'>
+<div class='nested-fields' <%= if f.object.attributes['lesson_id']; "data-id=#{f.object.attributes['lesson_id']}"; end %> >
     <%= f.input :position, :as => :hidden %>
     <%= f.input :lesson_id, :as => :hidden%>
     <% if f.object.attributes['lesson_id'] %>

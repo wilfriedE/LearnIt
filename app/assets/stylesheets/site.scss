@@ -44,3 +44,17 @@ a:hover, a:focus {
 #searchable-input-body .remove_fields {
 	visibility: hidden;
 }
+
+.sortable-placeholder {
+  border: 1px dashed #CCC;
+  background-color: #f9f9f9;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.sortable-item-hover {
+	cursor: move;
+	border: 1px dotted #82AF92;
+	padding: 0.8em;
+	background: #F5F5F5;
+}

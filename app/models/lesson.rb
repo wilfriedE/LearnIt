@@ -1,6 +1,6 @@
 class Lesson < ActiveRecord::Base
   ActiveRecord::Base.include_root_in_json = false
-  has_many :versions, foreign_key: :lesson_id, :class_name => "LessonVersion"
+  has_many :versions, -> { distinct }, foreign_key: :lesson_id, :class_name => "LessonVersion"
   belongs_to :active_version, class_name: "LessonVersion", foreign_key: "active_version_id"
   validates :active_version_id, presence: true
   has_many :course_lessons
@@ -23,15 +23,14 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.search(search)
-    where("name LIKE ?", "%#{search}%")
-    where("description LIKE ?", "%#{search}%")
+    joins(:active_version).where("lesson_versions.name LIKE ? OR lesson_versions.description LIKE ?", "%#{search}%", "%#{search}%").distinct
   end
 
   def as_json(options={})
     super(:only => [:id],
           :methods => [:name, :description, :color],
           :include => {
-            :versions => {:only => [:id]}
+            :versions => {:only => [:id, :name, :description]}
           }
     )
   end

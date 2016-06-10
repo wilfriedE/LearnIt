@@ -55,8 +55,15 @@ var searchable_input = function (input, output, resource, template={}, options={
     }
   }
 
+  /**
+  Creates a request url based on the search value and filters
+  */
+  function formulateRequestToResource() {
+    var query = $("input#searchable-input-search").val();
+    return resource + "?q="+query;
+  }
   function processRequest() {
-    getUsingAjax(resource, {}).then(
+    getUsingAjax(formulateRequestToResource(), {}).then(
       function(response) {
         $(searchmodalbody).empty();
         var content = template['content'];
@@ -111,6 +118,10 @@ var searchable_input = function (input, output, resource, template={}, options={
         if (options["callback"]) {
           options["callback"]();
         };
+      });
+      $("#searchable-input-submit").click(function(e){
+        e.preventDefault();
+        processRequest();
       });
   };
 

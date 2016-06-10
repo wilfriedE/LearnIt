@@ -39,12 +39,12 @@ NOTE: All variables are HTML-escaped by default. If you want to render unescaped
 // Listen for filter changes
 var searchable_input = function (input, output, resource, template={}, options={}) {
   $(searchmodal).modal();
-  if (options["filters"]) {
+  if (options["filters"] && options["filters"].length > 0) {
     $(filterscontainer).empty();
     $(filterscontainer).append("<li><strong>Filters : </strong></li");
     for (var i in options["filters"]) {
         var filter = options["filters"][i];
-        var filter_label = "<li class='form-group form-inline'><label for='{{filter_name}}'>{{filter}}</label>";
+        var filter_label = "<li class='form-group form-inline filter'><label for='{{filter_name}}'>{{filter}}</label>";
         var filter_field = "<input class='form-control' type='text'  name='{{filter_name}}' id='filter-{{filter_name}}'></li>";
         var view = {
           "filter": Object.keys(filter)[0],
@@ -62,8 +62,21 @@ var searchable_input = function (input, output, resource, template={}, options={
     var query = $("input#searchable-input-search").val();
     return resource + "?q="+query;
   }
+  /**
+  processes the filters and sends a specific filter
+  */
+  function getFilters() {
+    var filter_query = {'filters': []};
+    $(filterscontainer + " li.filter").each(function(){
+        var filter_hash = {};
+        filter_hash[$(this).find("input").attr("name")] = $(this).find("input").val();
+        filter_query['filters'].push(filter_hash);
+        //console.log(filter_query);
+    });
+    return filter_query;
+  }
   function processRequest() {
-    getUsingAjax(formulateRequestToResource(), {}).then(
+    getUsingAjax(formulateRequestToResource(), getFilters()).then(
       function(response) {
         $(searchmodalbody).empty();
         var content = template['content'];

@@ -12,8 +12,8 @@
 
           <li style=""><a href="#topic_path">topics</a></li>
       </ul></p>
-      <a class="btn btn-info" href="<%= url_for viewing_course_path(course, 0) %>"><i class="material-icons">video_library</i> Start Course</a>
-      <button class="btn btn-primary"  data-toggle="collapse" data-target="#collapseLessons-<%= course.id %>" aria-expanded="false" aria-controls="collapseLessons-<%= course.id %>"><i class="material-icons">view_list</i> View Lessons</button>
+      <a class="btn btn-info btn-raised" href="<%= url_for viewing_course_path(course, 0) %>"><i class="material-icons">video_library</i> Start Course</a>
+      <button class="btn btn-primar btn-raised"  data-toggle="collapse" data-target="#collapseLessons-<%= course.id %>" aria-expanded="false" aria-controls="collapseLessons-<%= course.id %>"><i class="material-icons">view_list</i> View Lessons</button>
     </div>
 
     <div  class="collapse" id="collapseLessons-<%= course.id %>">

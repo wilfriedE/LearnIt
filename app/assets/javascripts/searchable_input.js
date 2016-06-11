@@ -98,7 +98,8 @@ var searchable_input = function (input, output, resource, template={}, options={
             };
             var checkbox = "<div class=\"checkbox\"><label><input class=\"item-selector\" value="+ item["id"] +" type=\"checkbox\"></label></div>";
             var add_btn = "<td><button class=\"btn btn-primary btn-sm btn-raised search_n_add\" ><i  class=\"material-icons\" >plus</i>ADD</button></td>"
-            var itemrow = "<tr><td>" + checkbox +"</td><td class='search-field-item'><div data-id='"+ item["id"] +"' class='nested-fields'>" + render_template(content, view) +"</div></td>" + add_btn + "</tr>";
+            var itemrow = $("<tr><td>" + checkbox +"</td><td class='search-field-item'><div data-id='"+ item["id"] +"' class='nested-fields'>" + render_template(content, view) +"</div></td>" + add_btn + "</tr>");
+            itemrow.find(".course_course_lessons_lesson_id input").val(item["id"]);
             $(searchmodalbody).append(itemrow);
         };
       }).then(function(){

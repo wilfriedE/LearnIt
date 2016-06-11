@@ -35,6 +35,14 @@ Rails.application.routes.draw do
     end
   end
 
+  #tracks pages
+  resources :tracks do
+    member do
+      get 'viewing/:position', action: :viewing, as: :viewing
+      #other actions here
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

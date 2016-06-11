@@ -1,0 +1,32 @@
+<h1>Tracks#show</h1>
+<p>Find me in app/views/tracks/show.html.erb</p>
+<div class="well well-lg">
+  <div class="row media" >
+  <div class="media-left media-top">
+    <i class="material-icons"  style="font-size: 50pt;padding-top:20px;color:#0fb2fc;">library_books</i>
+  </div>
+  <div class="media-body">
+    <h3 class="title"><%= @track.name %></h3>
+    <p class="desc"><ul class="list-inline">
+        <li><strong>Topics:</strong></li>
+          <li style="#"><a href="#">topic</a></li>
+      </ul></p>
+    <a class="btn btn-info btn-raised" href="<%= url_for viewing_track_path(@track, 0) %>" ><i class="material-icons">video_library</i> Start</a>
+    <% @track.track_courses.each do |track_course| %>
+    <% course =  track_course.course %>
+    <div class="media" style="border-left: 0.25em solid <%= course.color %>">
+      <div class="media-left media-middle">
+        <a href="<%= url_for viewing_course_path(course, 0) %>">
+         <i class="material-icons" style="font-size: 50pt;">play_circle_outline</i>
+        </a>
+      </div>
+      <div class="media-body">
+        <h5 class="media-heading"><b><%= course.name %></b></h5>
+        <p class="desc"><%= course.description %></p>
+      </div>
+    </div>
+    <% end %>
+
+  </div>
+  </div>
+</div>

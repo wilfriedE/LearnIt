@@ -1,0 +1,90 @@
+<%= simple_form_for @track do |f| %>
+  <%= f.input :name, label: 'Track Name', error: 'Track name is mandatory, please specify one' %>
+  <%= f.input :description, label: 'Track description', hint: 'Write a brief summary of the track.'  %>
+  <div id='track_courses' >
+    <div class='links'>
+      <%= link_to_add_association 'Add Course to Track', f, :track_courses, :class => "btn btn-raised" %>
+    </div>
+    <h4>Courses:</h4>
+    <div class="course_fields sortable">
+      <%= f.simple_fields_for  :track_courses do |track_course| %>
+        <%= render 'track_course_fields', :f => track_course %>
+      <% end %>
+    </div>
+  </div>
+  <%= f.button :submit, value: 'Continue' , class: 'btn btn-primary btn-raised btn-lg btn-block' %>
+<% end %>
+
+<script type="text/javascript">
+$(document).on('page:change', function() {
+  var set_positions = function(){
+      // loop through and give each task a data-pos
+      // attribute that holds its position in the DOM
+      $('#track_courses .nested-fields').each(function(i){
+          $(this).attr("data-pos", "");
+          $(this).attr("data-pos", i);
+          //console.log("data: ", $(this).attr("data-pos"));
+          $(this).find(".track_track_courses_position input").val(i);
+          //console.log("INput val: ", $(this).find(".course_course_lessons_position").html());
+          //console.log(i);
+          i+1;
+      });
+  };
+
+  var updateNestedfields = function(){
+    var found = {};
+    $('#track_courses .nested-fields').each(function(){
+        if(found[$(this).data('id')]){
+            $(this).remove();
+        }
+        else{
+            found[$(this).data('id')] = true;
+        }
+    });
+    set_positions();
+  };
+
+  var track_courses_sort = $('#track_courses .sortable')
+  track_courses_sort.sortable({
+    items: ".nested-fields",
+    hoverClass: 'sortable-item-hover'
+  }).bind('sortupdate', function(e, ui) {
+      /*
+
+      This event is triggered when the user stopped sorting and the DOM position has changed.
+
+      ui.item contains the current dragged element.
+      ui.index contains the new index of the dragged element (considering only list items)
+      ui.oldindex contains the old index of the dragged element (considering only list items)
+      ui.elementIndex contains the new index of the dragged element (considering all items within sortable)
+      ui.oldElementIndex contains the old index of the dragged element (considering all items within sortable)
+      ui.startparent contains the element that the dragged item comes from
+      ui.endparent contains the element that the dragged item was added to (new parent)
+
+      */
+      updateNestedfields();
+  });
+  set_positions();
+
+  $("#track_courses").on('cocoon:after-insert', function(e, insertedItem){
+    //call function with this insertedItem.clone();
+    // then remove
+    var template = `<%= load_track_course_form_view(nil) %>`;
+    function reorder(){
+      track_courses_sort.sortable();
+      updateNestedfields();
+    };
+    searchable_input(insertedItem.clone(), "#track_courses .course_fields",
+                      ".track_track_courses_course_id input",
+                      "<%= url_for courses_path(:format => :json) %>",
+                      { content : template,
+                        values: ["id", "name", "description","color"]
+                      },
+                      {
+                        filters: [], callback: reorder
+                      });
+    insertedItem.remove()
+  });
+
+});
+</script>

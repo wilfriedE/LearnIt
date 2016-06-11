@@ -1,0 +1,8 @@
+<div class='nested-fields' <%= if f.object.attributes['course_id']; "data-id=#{f.object.attributes['course_id']}"; end %> >
+    <%= f.input :position, :as => :hidden %>
+    <%= f.input :course_id, :as => :hidden%>
+    <% if f.object.attributes['course_id'] %>
+      <%= load_track_course_form_view(Course.find(f.object.attributes['course_id'])) %>
+    <% end %>
+    <%= link_to_remove_association "Remove course from Track", f, :class => "btn btn-danger btn-raised btn-xs"%>
+</div>

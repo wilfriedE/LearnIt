@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160605030135) do
+ActiveRecord::Schema.define(version: 20160611190152) do
 
   create_table "course_lessons", force: :cascade do |t|
     t.integer  "position"
@@ -59,6 +59,55 @@ ActiveRecord::Schema.define(version: 20160605030135) do
     t.string   "pdf_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "programs", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "cover_image_url"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "topic_items", force: :cascade do |t|
+    t.integer  "topic_id"
+    t.integer  "topicable_id"
+    t.string   "topicable_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "topic_items", ["topic_id"], name: "index_topic_items_on_topic_id"
+  add_index "topic_items", ["topicable_type", "topicable_id"], name: "index_topic_items_on_topicable_type_and_topicable_id"
+
+  create_table "topics", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "color"
+    t.boolean  "approved"
+    t.string   "cover_image_url"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "track_courses", force: :cascade do |t|
+    t.integer  "position"
+    t.integer  "track_id"
+    t.integer  "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "track_courses", ["course_id"], name: "index_track_courses_on_course_id"
+  add_index "track_courses", ["track_id"], name: "index_track_courses_on_track_id"
+
+  create_table "tracks", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.boolean  "approved"
+    t.string   "color"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end

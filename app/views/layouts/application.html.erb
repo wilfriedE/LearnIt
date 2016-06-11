@@ -12,13 +12,14 @@
         <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
         <%= csrf_meta_tags %>
     </head>
-    <body>
+    <body  <%= yield(:body_attributes) %>>
         <div id="wrapper">
             <div class="overlay"></div>
             <%= render partial: "shared/hamburger" %>
             <div id="page-content-wrapper">
                 <div class="container">
                   <div class="row">
+
                     <%= ((render "layouts/#{controller_name}" rescue nil)|| yield ) %>
                   </div>
                 </div>

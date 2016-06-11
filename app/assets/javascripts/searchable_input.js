@@ -13,6 +13,7 @@ var bulk_insert_btn = "#searchable-input-bulk-insert";
 /**
 input => cocoon generated item to be inserted
 output => selector for where to output the finalized template
+data_id_input => selector for where to input the id value received from resource
 resource => Path to resource. A query will be made to this path to get *data
 template => templating to be rendered in previews as well as output
 |---------- expects {content: "content_here", values: ['name', 'description']}
@@ -37,7 +38,7 @@ NOTE: All variables are HTML-escaped by default. If you want to render unescaped
       use the triple mustache: {{{name}}}. You can also use & to unescape a variable.
 */
 // Listen for filter changes
-var searchable_input = function (input, output, resource, template={}, options={}) {
+var searchable_input = function (input, output, data_id_input, resource, template={}, options={}) {
   $(searchmodal).modal();
   if (options["filters"] && options["filters"].length > 0) {
     $(filterscontainer).empty();
@@ -99,7 +100,7 @@ var searchable_input = function (input, output, resource, template={}, options={
             var checkbox = "<div class=\"checkbox\"><label><input class=\"item-selector\" value="+ item["id"] +" type=\"checkbox\"></label></div>";
             var add_btn = "<td><button class=\"btn btn-primary btn-sm btn-raised search_n_add\" ><i  class=\"material-icons\" >plus</i>ADD</button></td>"
             var itemrow = $("<tr><td>" + checkbox +"</td><td class='search-field-item'><div data-id='"+ item["id"] +"' class='nested-fields'>" + render_template(content, view) +"</div></td>" + add_btn + "</tr>");
-            itemrow.find(".course_course_lessons_lesson_id input").val(item["id"]);
+            itemrow.find(data_id_input).val(item["id"]);
             $(searchmodalbody).append(itemrow);
         };
       }).then(function(){

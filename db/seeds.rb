@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Program.create(name: 'FRC', description: "The FIRST Robotics Competition")
+Program.create(name: 'FTC', description: "The FIRST Tech Challenge")
+Program.create(name: 'FLL', description: "The FIRST LEGO League")
+Program.create(name: 'FLLJr', description: "The FIRST LEGO League Jr.")
+Program.create(name: 'General', description: "General Program Material")

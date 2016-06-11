@@ -2,7 +2,7 @@ class LessonsController < ApplicationController
   def index
     #if there is a search query, properly handle rendering them
     if params[:q]
-      @lessons = Lesson.search(params[:q]).order("created_at ASC")
+      @lessons = Lesson.search(params[:q]).order("created_at DESC")
     else
       limit = 10
       @lessons = Lesson.offset(params[:page].to_i * limit).first(limit)

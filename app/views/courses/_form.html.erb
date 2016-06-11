@@ -74,9 +74,16 @@ $(document).on('page:change', function() {
       course_lessons_sort.sortable();
       updateNestedfields();
     };
-    searchable_input(insertedItem.clone(), "#course_lessons .lesson_fields", "<%= url_for lessons_path(:format => :json) %>",
-                      {content : template,
-                      values: ["id", "name", "description","color"]}, {filters: [], callback: reorder});
+    searchable_input(insertedItem.clone(),
+                    "#course_lessons .lesson_fields",
+                    ".course_course_lessons_lesson_id input",
+                    "<%= url_for lessons_path(:format => :json) %>",
+                    { content : template,
+                      values: ["id", "name", "description","color"]
+                    },
+                    {
+                      filters: [], callback: reorder
+                    });
     insertedItem.remove()
   });
 

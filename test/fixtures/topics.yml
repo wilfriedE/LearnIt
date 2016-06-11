@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  color: MyString
+  approved: false
+  cover_image_url: MyString
+
+two:
+  name: MyString
+  description: MyText
+  color: MyString
+  approved: false
+  cover_image_url: MyString

@@ -14,10 +14,13 @@
  */
 
  @import "bootstrap-sprockets";
- @import "bootstrap-horizon/bootstrap-horizon";
+
  @import "perfect-scrollbar/css/perfect-scrollbar";
+ @import "bootstrap-horizon/bootstrap-horizon";
  @import "bootstrap-material-design/sass/bootstrap-material-design";
  @import "bootstrap-material-design/sass/ripples";
+ @import "selectize/dist/css/selectize";
+ @import "selectize/dist/css/selectize.bootstrap3";
  @import "bootstrap";
  @import "base";
  @import "variables";

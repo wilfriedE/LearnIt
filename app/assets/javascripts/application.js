@@ -22,6 +22,7 @@
 //= require perfect-scrollbar/js/perfect-scrollbar.jquery
 //= require html.sortable/dist/html.sortable
 //= require mustache/mustache
+//= require selectize/dist/js/standalone/selectize
 //= require cocoon
 //
 //= require_tree .

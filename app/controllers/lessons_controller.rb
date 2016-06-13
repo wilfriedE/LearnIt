@@ -35,8 +35,10 @@ class LessonsController < ApplicationController
   def propose_update
     @lesson = Lesson.find(params[:id])
     if @lesson
-      @lesson_version = LessonVersion.new(@lesson.active_version.attributes.merge({:approved => false}))
-      @lesson_version.media.id = nil
+      @lesson_version = LessonVersion.new(@lesson.active_version.attributes.merge({id: nil, approved: false}))
+      @lesson_version.media = MediaContent.new(@lesson.active_version.media.attributes.merge({id: nil}))
+      @lesson_version.topic_items = @lesson.active_version.topic_items.each { |topic_item|
+        TopicItem.new(topic_item.attributes.merge({topicable_id: nil})) }
     end
     #create a new lesson version with new data
     render :template => 'lesson_versions/new'

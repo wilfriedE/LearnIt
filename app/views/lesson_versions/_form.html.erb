@@ -8,6 +8,7 @@
     <% end %>
     <ul class="list-inline topic_fields sortable">
       <%= f.simple_fields_for :topic_items do |f| %>
+        <%= f.input :id, as: :hidden, input_html: { value: ""}  %>
         <%= render 'topics/topic_item_fields', :f => f %>
       <% end %>
     </ul>
@@ -41,7 +42,7 @@ $('#addTopicInput').selectize({
       topic_template = replaceAll(topic_template, "_0_", getEpoch());
       var view = {topic_name: value};
       var output = Mustache.render(topic_template, view);
-      console.log($item);
+      //console.log($item);
       this.clear();
       var found = {};
       $('#topic_items .topic_fields').append(output);

@@ -7,7 +7,9 @@
   <p class="desc"><strong>Description:</strong> <%= @lesson_version.description %></p>
   <p class="desc"><ul class="list-inline">
       <li><strong>Topics:</strong></li>
-        <li style=""><a href="#">topic</a></li>
+        <% @lesson_version.topics.each do |topic| %>
+        <li style=""><%= link_to topic.name, topic_path(topic) %></li>
+        <%  end %>
     </ul></p>
 
   <% if @lesson %>

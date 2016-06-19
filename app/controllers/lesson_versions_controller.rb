@@ -36,7 +36,7 @@ class LessonVersionsController < ApplicationController
         format.html { redirect_to @lesson_version, notice: 'Lesson was successfully created.' }
         format.json { render :show, status: :created, location: @lesson_version }
       else
-        format.html { render :new }
+        format.html { redirect_to propose_update_lesson_url }
         format.json { render json: @lesson_version.errors, status: :unprocessable_entity }
       end
     end
@@ -62,8 +62,10 @@ class LessonVersionsController < ApplicationController
 
   private
   def lesson_version_params
-    params.require(:lesson_version).permit(:name, :description, :lesson_id, :media_attributes => [:type, :video_url
-      ])
+    params.require(:lesson_version).permit(:name, :description, :lesson_id,
+            :media_attributes => [:type, :video_url],
+            :topic_items_attributes => [:id, :_destroy, :topic_id,
+              :topic_attributes => [:id, :name]])
   end
 
   def youtube_content_params

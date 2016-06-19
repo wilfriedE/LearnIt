@@ -1,0 +1,15 @@
+<li>
+<div class='nested-fields' <%= if f.object.attributes['topic_id']; "data-id=#{f.object.attributes['topic_id']}"; end %> >
+    <%= f.input :topic_id, :as => :hidden%>
+    <% if f.object.attributes['topic_id'] %>
+      <span class="btn btn-info btn-raised btn-sm ">
+            <%= topic_name = Topic.find(f.object.attributes['topic_id']).name %>
+            <% a =  link_to_remove_association("", f, :class => "fa fa-times")%>
+           <span class="badge"><%= a %></span>
+           <%= f.simple_fields_for :topic do |ff| %>
+               <%= ff.input :name, :as => :hidden , :hint => 'Name of the Topic', label: false , input_html: { value: topic_name, class: 'topic_field' }%>
+           <% end %>
+       </span>
+    <% end %>
+</div>
+</li>

@@ -2,6 +2,16 @@
   <%= f.input :lesson_id, as: :hidden %>
   <%= f.input :name, label: 'Lesson Name', error: 'Lesson name is mandatory, please specify one' %>
   <%= f.input :description, label: 'Lesson description', hint: 'Write a brief summary of the lesson.'  %>
+  <div id='topic_items'  class="form-inline">
+    <%= simple_fields_for :addTopics do |ff| %>
+      <h4>Add Topics: <%= ff.input :addTopic, label: false, input_html: { id: "addTopicInput"} %></h4>
+    <% end %>
+    <ul class="list-inline topic_fields sortable">
+      <%= f.simple_fields_for :topic_items do |f| %>
+        <%= render 'topics/topic_item_fields', :f => f %>
+      <% end %>
+    </ul>
+  </div>
   <%= f.simple_fields_for :media do |ff| %>
       <%= ff.input :type,  collection: MediaContent.types, selected: @lesson_version.media.type , label: 'Content Type', prompt: "Select your Content Type", input_html: { id: "media_type_selector",data: {"lesson-version-id" => @lesson_version.id || 0} }%>
       <div id='media_content_field'>
@@ -12,3 +22,60 @@
   <% end %>
   <%= f.button :submit, value: 'Continue' , class: 'btn btn-primary btn-raised btn-lg btn-block' %>
 <% end %>
+<script  type="text/javascript">
+$(document).ready(function() {
+  $("#topic_items a.add_fields").
+    data("association-insertion-method", 'append').
+    data("association-insertion-node", '#topic_items .topic_fields');
+});
+$('#addTopicInput').selectize({
+		valueField: 'name',
+		labelField: 'name',
+		searchField: ['name', 'description'],
+		options: [],
+    maxItems: 1,
+		create: true,
+    onItemAdd: function functionName(value, $item) {
+      var topic_template = `<%= render 'topics/topic_item_form', :lesson_version => LessonVersion.new(@lesson_version.attributes.merge({topic_items: [TopicItem.new({topic: Topic.new()})]})) %>`;
+      topic_template = replaceAll(topic_template, "[0]", getEpoch());
+      topic_template = replaceAll(topic_template, "_0_", getEpoch());
+      var view = {topic_name: value};
+      var output = Mustache.render(topic_template, view);
+      console.log($item);
+      this.clear();
+      var found = {};
+      $('#topic_items .topic_fields').append(output);
+      $('#topic_items .topic_fields li').each(function(){
+          if(found[$(this).find('.topic_field').val()] ){
+              $(this).remove();
+          }
+          else{
+              found[$(this).find('.topic_field').val()] = true;
+          }
+      });
+    },
+		render: {
+			option: function(item, escape) {
+				return '<div>' +
+					'<span class="title">' +
+						'<strong class="name">' + escape(item.name) + '</strong>' +
+					'</span> <br/>' +
+					'<i class="desc">' + escape(( item.description == null ? "" : item.description)) + '</i>' +
+				'</div>';
+			}
+		},
+		load: function(query, callback) {
+			if (!query.length) return callback();
+			$.ajax({
+				url: '<%= url_for topics_path(:format => :json) %>?q=' + encodeURIComponent(query),
+				type: 'GET',
+				error: function() {
+					callback();
+				},
+				success: function(res) {
+					callback(res);
+				}
+			});
+		}
+	});
+</script>

@@ -30,5 +30,10 @@ $(document).on('page:change', function() {
   //make init calls and such here
   $.material.init();
   $('.scrollable').perfectScrollbar();
-
+  $(document).on('click', '.nested_removable', function(e){
+    e.preventDefault();
+    var parent =  $(this).attr("data-remove");
+    var item_field = $(this).closest(parent);
+    item_field.remove();
+  });
 });

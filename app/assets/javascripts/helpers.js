@@ -7,3 +7,8 @@ function htmlDecode(input){
   e.innerHTML = input;
   return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
 }
+
+var thatEpoch = (new Date).getTime();
+function getEpoch() {
+  return thatEpoch+=1;
+}

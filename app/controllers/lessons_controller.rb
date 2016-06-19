@@ -36,6 +36,7 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
     if @lesson
       @lesson_version = LessonVersion.new(@lesson.active_version.attributes.merge({:approved => false}))
+      @lesson_version.media.id = nil
     end
     #create a new lesson version with new data
     render :template => 'lesson_versions/new'

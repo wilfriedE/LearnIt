@@ -47,6 +47,8 @@ class TracksController < ApplicationController
 
   def update
     @track = Track.find(params[:id])
+    @track.topic_items = @track.topic_items.each { |topic_item|
+      TopicItem.new(topic_item.attributes.merge({topicable_id: nil}))}
     respond_to do |format|
       if @track.update_attributes(track_params)
         format.html { redirect_to @track, notice: 'Track was successfully update.' }
@@ -61,6 +63,8 @@ class TracksController < ApplicationController
   private
   def track_params
     params.require(:track).permit(:name, :description,
-        :track_courses_attributes => [:id, :_destroy, :position, :course_id])
+        :track_courses_attributes => [:id, :_destroy, :position, :course_id],
+        :topic_items_attributes => [:id, :_destroy, :topic_id,
+          :topic_attributes => [:id, :name]])
   end
 end

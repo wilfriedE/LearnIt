@@ -1,0 +1,12 @@
+<li><div class='nested-fields' >
+  <%= simple_fields_for track do |f| %>
+    <%= f.simple_fields_for :topic_items do |ff| %>
+      <span class="btn btn-info btn-raised btn-sm ">
+        <%= ff.simple_fields_for :topic do |fff| %>
+            {{topic_name}}<%= fff.input :name, :as => :hidden, :hint => 'Name of the Topic', label: false , input_html: { value: "{{topic_name}}", class: 'topic_field' } %>
+        <% end %>
+        <span class="badge"><a href="#" data-remove="li" class="fa fa-times nested_removable" ></a></span>
+      </span>
+    <% end %>
+  <% end %>
+</div></li>

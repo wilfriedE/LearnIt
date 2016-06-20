@@ -9,7 +9,7 @@
       <li><strong>Topics:</strong></li>
         <% @lesson_version.topics.each do |topic| %>
         <li style=""><%= link_to topic.name, topic_path(topic) %></li>
-        <%  end %>
+        <% end %>
     </ul></p>
 
   <% if @lesson %>

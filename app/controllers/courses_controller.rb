@@ -49,6 +49,8 @@ class CoursesController < ApplicationController
 
   def update
     @course = Course.find(params[:id])
+    @course.topic_items = @course.topic_items.each { |topic_item|
+      TopicItem.new(topic_item.attributes.merge({topicable_id: nil}))}
     respond_to do |format|
       if @course.update_attributes(course_params)
         format.html { redirect_to @course, notice: 'Course was successfully update.' }
@@ -63,7 +65,9 @@ class CoursesController < ApplicationController
   private
   def course_params
     params.require(:course).permit(:name, :description,
-        :course_lessons_attributes => [:id, :_destroy, :position, :lesson_id])
+        :course_lessons_attributes => [:id, :_destroy, :position, :lesson_id],
+        :topic_items_attributes => [:id, :_destroy, :topic_id,
+          :topic_attributes => [:id, :name]])
   end
 
 end

@@ -9,15 +9,15 @@ class Course < ActiveRecord::Base
   accepts_nested_attributes_for :topic_items, :reject_if => :all_blank, :allow_destroy => true
   validates :name, presence: true
 
-  def self.search(search)
-    Course.where("name LIKE ? OR description LIKE ?", "%#{search}%", "%#{search}%").distinct
-  end
-
   def as_json(options={})
     super(:only => [:id, :name, :description],
           :include => {
             :lessons => {:only => [:id, :name, :description]}
           }
     )
+  end
+  
+  def self.search(search)
+    Course.where("name LIKE ? OR description LIKE ?", "%#{search}%", "%#{search}%").distinct
   end
 end

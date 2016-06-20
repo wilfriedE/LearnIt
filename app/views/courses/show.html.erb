@@ -30,7 +30,9 @@
     <p class="desc"><strong>Description:</strong><%= @course.description %></p>
     <p class="desc"><ul class="list-inline">
         <li><strong>Topics:</strong></li>
-          <li style=""><a href="#">topics</a></li>
+        <% @course.topics.each do |topic| %>
+          <li style=""><%= link_to topic.name, topic_path(topic) %></li>
+        <% end %>
       </ul></p>
 
     <a class="btn btn-info btn-raised" href="<%= url_for viewing_course_path(@course, 0)%>"><i class="material-icons">video_library</i> Start Course</a>

@@ -25,10 +25,10 @@
 <% end %>
 <script  type="text/javascript">
 $(document).ready(function() {
-  $("#topic_items a.add_fields").
-    data("association-insertion-method", 'append').
-    data("association-insertion-node", '#topic_items .topic_fields');
-});
+  /*  $("#topic_items a.add_fields").
+        data("association-insertion-method", 'append').
+        data("association-insertion-node", '#topic_items .topic_fields');
+    });*/
 $('#addTopicInput').selectize({
 		valueField: 'name',
 		labelField: 'name',
@@ -37,7 +37,7 @@ $('#addTopicInput').selectize({
     maxItems: 1,
 		create: true,
     onItemAdd: function functionName(value, $item) {
-      var topic_template = `<%= render 'topics/topic_item_form', :lesson_version => LessonVersion.new(@lesson_version.attributes.merge({topic_items: [TopicItem.new({topic: Topic.new()})]})) %>`;
+      var topic_template = `<%= render 'topics/topic_item_form_for_lesson_version', :lesson_version => LessonVersion.new(@lesson_version.attributes.merge({topic_items: [TopicItem.new({topic: Topic.new()})]})) %>`;
       topic_template = replaceAll(topic_template, "[0]", getEpoch());
       topic_template = replaceAll(topic_template, "_0_", getEpoch());
       var view = {topic_name: value};
@@ -79,4 +79,5 @@ $('#addTopicInput').selectize({
 			});
 		}
 	});
+});
 </script>

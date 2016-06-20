@@ -9,8 +9,9 @@
       <h3 class="title"><%= course.name%></h3>
       <p class="desc"><ul class="list-inline">
         <li><strong>Topics:</strong></li>
-
-          <li style=""><a href="#topic_path">topics</a></li>
+        <% course.topics.each do |topic| %>
+          <li style=""><%= link_to topic.name, topic_path(topic) %></li>
+        <% end %>
       </ul></p>
       <a class="btn btn-info btn-raised" href="<%= url_for viewing_course_path(course, 0) %>"><i class="material-icons">video_library</i> Start Course</a>
       <button class="btn btn-primar btn-raised"  data-toggle="collapse" data-target="#collapseLessons-<%= course.id %>" aria-expanded="false" aria-controls="collapseLessons-<%= course.id %>"><i class="material-icons">view_list</i> View Lessons</button>

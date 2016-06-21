@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root 'welcome#index'
 
   #welcome pages
@@ -8,7 +9,7 @@ Rails.application.routes.draw do
 
   #lesson pages
   get 'lesson/:id' => 'lessons#show'
-  resources :lessons do
+  resources :lessons, except: [:update, :create, :destroy] do
     member do
       get 'propose_update'
       #other lesson specific actions here
@@ -44,7 +45,10 @@ Rails.application.routes.draw do
   end
 
   #topics pages
-  resources :topics
+  resources :topics, only: [:index, :show]
+
+  #topics pages
+  resources :programs, only: [:show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

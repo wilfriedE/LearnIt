@@ -1,2 +1,35 @@
-<h1>Topics#show</h1>
-<p>Find me in app/views/topics/show.html.erb</p>
+<div class="row well well-sm col-sm-offset-1" >
+  <h3  style="text-align: center">Displaying contents with the topic: <%= @topic.name %></h3>
+</div>
+<% if @topic.lessons.count > 0 %>
+<h1 style="text-align: center">Lesson</h1>
+<div class="row">
+  <% @topic.lessons.each do |lesson| %>
+    <div class="col-lg-5 col-lg-offset-1">
+          <%= lesson_card(lesson) %>
+    </div>
+  <%end %>
+</div>
+<% end %>
+
+<% if @topic.courses.count > 0 %>
+<h1 style="text-align: center">Course</h1>
+<div class="row">
+  <% @topic.courses.each do |course| %>
+    <div class="col-lg-5 col-lg-offset-1">
+          <%= course_card(course) %>
+    </div>
+  <%end %>
+</div>
+<% end %>
+
+<% if @topic.tracks.count > 0 %>
+<h1 style="text-align: center">Track</h1>
+<div class="row">
+  <% @topic.tracks.each do |track| %>
+    <div class="col-lg-5 col-lg-offset-1">
+          <%= track_card(track) %>
+    </div>
+  <%end %>
+</div>
+<% end %>

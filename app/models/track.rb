@@ -1,4 +1,5 @@
 class Track < ActiveRecord::Base
+  default_scope { order('updated_at ASC') }
   has_many :track_courses
   has_many :courses, -> { distinct }, through: :track_courses
   has_many :topic_items, as: :topicable

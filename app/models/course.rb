@@ -1,4 +1,5 @@
 class Course < ActiveRecord::Base
+  default_scope { order('updated_at ASC') }
   has_many :track_courses
   has_many :tracks, -> { distinct }, through: :track_courses
   has_many :course_lessons, -> { distinct }
@@ -16,7 +17,7 @@ class Course < ActiveRecord::Base
           }
     )
   end
-  
+
   def self.search(search)
     Course.where("name LIKE ? OR description LIKE ?", "%#{search}%", "%#{search}%").distinct
   end

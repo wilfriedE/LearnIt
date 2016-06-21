@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160611190152) do
+ActiveRecord::Schema.define(version: 20160620022634) do
 
   create_table "course_lessons", force: :cascade do |t|
     t.integer  "position"
@@ -29,6 +29,17 @@ ActiveRecord::Schema.define(version: 20160611190152) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "curated_items", force: :cascade do |t|
+    t.integer  "program_id"
+    t.integer  "curatable_id"
+    t.string   "curatable_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "curated_items", ["curatable_type", "curatable_id"], name: "index_curated_items_on_curatable_type_and_curatable_id"
+  add_index "curated_items", ["program_id"], name: "index_curated_items_on_program_id"
 
   create_table "lesson_versions", force: :cascade do |t|
     t.string   "name"

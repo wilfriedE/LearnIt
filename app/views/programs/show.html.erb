@@ -1,0 +1,17 @@
+<% curation_type = "" %>
+<% @program.curated_items.each do |curated_item| %>
+<% if curated_item.curatable_type != curation_type %>
+  <% if curation_type != "" %>
+    </div>
+  <% end %>
+  <% curation_type = curated_item.curatable_type %>
+  <h1 style="text-align: center"><%= curation_type %></h1>
+  <div class="row">
+<%end %>
+  <div class="col-lg-5 col-lg-offset-1">
+        <%= curated_item_card(curated_item) %>
+  </div>
+<% end %>
+<% if curation_type != "" %>
+  </div>
+<% end %>

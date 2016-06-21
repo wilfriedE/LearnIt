@@ -1,0 +1,12 @@
+<div class="bs-component">
+  <div class="well well-lg highlight_card">
+    <a href="<%= url_for program_path(program) %>">
+      <% if program.cover_image_url %>
+        <%= image_tag "#{program.cover_image_url}", class: "topic_img"%>
+      <% else %>
+        <h1><%= program.name %></h1>
+      <% end %>
+       <!--<img class="topic_img" src="/p/img/old/frc.gif">--></a>
+    <p><%= program.description %></p>
+  </div>
+</div>

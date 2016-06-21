@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  program_id: 
+  curatable_id: 
+  curatable_type: Curatable
+
+two:
+  program_id: 
+  curatable_id: 
+  curatable_type: Curatable

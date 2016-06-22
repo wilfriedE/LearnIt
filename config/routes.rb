@@ -47,8 +47,12 @@ Rails.application.routes.draw do
   #topics pages
   resources :topics, only: [:index, :show]
 
-  #topics pages
+  #programs pages
   resources :programs, only: [:show]
+
+
+  #teams pages
+  resources :teams, only: [:index, :show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,2 @@
+module Moderate::LessonVersionsHelper
+end

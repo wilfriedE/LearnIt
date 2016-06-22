@@ -1,0 +1,2 @@
+module Moderate::TracksHelper
+end

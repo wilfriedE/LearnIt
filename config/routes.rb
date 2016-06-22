@@ -54,6 +54,20 @@ Rails.application.routes.draw do
   #teams pages
   resources :teams, only: [:index, :show]
 
+
+  #moderate namespace
+  namespace :moderate do
+    get '/' => 'moderations#dashboard'
+    get 'activities' => 'moderations#activities'
+    get 'lessons' => 'lessons#index'
+    get 'programs' => 'programs#index'
+    get 'teams' => 'teams#index'
+    get 'topics' => 'topics#index'
+    get 'lesson_versions' => 'lesson_versions#index'
+    get 'tracks' => 'tracks#index'
+    get 'courses' => 'courses#index'
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

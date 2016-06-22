@@ -5,8 +5,8 @@
     </div>
   <% end %>
   <% curation_type = curated_item.curatable_type %>
-  <h1 style="text-align: center"><%= curation_type %></h1>
   <div class="row">
+      <h1 style="text-align: center" class="col-lg-offset-1"><%= curation_type %></h1>
 <%end %>
   <div class="col-lg-5 col-lg-offset-1">
         <%= curated_item_card(curated_item) %>

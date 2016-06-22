@@ -1,9 +1,11 @@
-<div class="row well well-sm col-sm-offset-1" >
-  <h3  style="text-align: center">Displaying contents with the topic: <%= @topic.name %></h3>
+<div class="row">
+  <div class="well well-sm col-lg-offset-1" >
+    <h3  style="text-align: center" >Displaying contents with the topic: <%= @topic.name %></h3>
+  </div>
 </div>
 <% if @topic.lessons.count > 0 %>
-<h1 style="text-align: center">Lesson</h1>
 <div class="row">
+  <h1 style="text-align: center"  class="col-lg-offset-1">Lesson</h1>
   <% @topic.lessons.each do |lesson| %>
     <div class="col-lg-5 col-lg-offset-1">
           <%= lesson_card(lesson) %>
@@ -13,8 +15,8 @@
 <% end %>
 
 <% if @topic.courses.count > 0 %>
-<h1 style="text-align: center">Course</h1>
 <div class="row">
+  <h1 style="text-align: center"  class="col-lg-offset-1">Course</h1>
   <% @topic.courses.each do |course| %>
     <div class="col-lg-5 col-lg-offset-1">
           <%= course_card(course) %>
@@ -24,8 +26,8 @@
 <% end %>
 
 <% if @topic.tracks.count > 0 %>
-<h1 style="text-align: center">Track</h1>
 <div class="row">
+  <h1 style="text-align: center"  class="col-lg-offset-1">Track</h1>
   <% @topic.tracks.each do |track| %>
     <div class="col-lg-5 col-lg-offset-1">
           <%= track_card(track) %>

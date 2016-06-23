@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   namespace :moderate do
     get '/' => 'moderations#dashboard'
     get 'activities' => 'moderations#activities'
+    get 'guides' => 'moderations#guides'
     get 'lessons' => 'lessons#index'
     get 'programs' => 'programs#index'
     get 'teams' => 'teams#index'

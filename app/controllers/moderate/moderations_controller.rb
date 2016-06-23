@@ -4,4 +4,7 @@ class Moderate::ModerationsController < ApplicationController
 
   def activities
   end
+
+  def guides
+  end
 end

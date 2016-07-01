@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  devise_for :users, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', registration: 'register' }
   root 'welcome#index'
 
   #welcome pages
@@ -69,6 +68,10 @@ Rails.application.routes.draw do
     get 'tracks' => 'tracks#index'
     get 'courses' => 'courses#index'
   end
+
+
+  #users authentication area
+  devise_for :users, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', registration: 'register' }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

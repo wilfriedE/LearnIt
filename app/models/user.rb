@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
 
+  has_many :contributions, as: :contributor
+
   def is_current_user(user)
     if self.id == user.id
       return true

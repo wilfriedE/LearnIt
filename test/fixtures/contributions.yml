@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  contributor_id: 
+  contributor_type: Contributor
+  contribution_id: 
+  contribution_type: Contribution
+
+two:
+  contributor_id: 
+  contributor_type: Contributor
+  contribution_id: 
+  contribution_type: Contribution

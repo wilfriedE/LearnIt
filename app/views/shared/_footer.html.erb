@@ -17,12 +17,15 @@
       <div class="bs-component">
       <ul class="nav navbar-nav navbar-right">
 
-      <!--<li><a class="btn btn-danger btn-raised" href="{{url_for('signout')}}"><span class="fa fa-fw fa-sign-out"></span> Sign out</a></li>-->
-
-      <li><a class="btn btn-primary btn-raised" href="#"><span class="fa fa-fw fa-sign-in"></span> Sign in</a></li>
-      <li class="divider"></li>
-      <li><a class="btn btn-info btn-raised" href="#"><span class="fa fa-fw fa-chevron-up"></span> Sign up</a> </li>
-
+      <% if user_signed_in? %>
+        <li><%= link_to raw("<span class='fa fa-fw fa-sign-out' ></span> Sign out"),
+              destroy_user_session_path,
+              :method => :delete, class: "btn btn-danger btn-raised"%></li>
+      <% else %>
+        <li><a class="btn btn-primary btn-raised" href="<%= url_for new_user_session_path %>"><span class="fa fa-fw fa-sign-in"></span> Sign in</a></li>
+        <li class="divider"></li>
+        <li><a class="btn btn-info btn-raised" href="<%= new_user_registration_path %>"><span class="fa fa-fw fa-chevron-up"></span> Sign up</a> </li>
+      <% end %>
       </ul>
       </div>
     </div>

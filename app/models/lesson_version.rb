@@ -8,6 +8,7 @@ class LessonVersion < ActiveRecord::Base
   validates_presence_of :name, :media
   accepts_nested_attributes_for :media, allow_destroy: true
   accepts_nested_attributes_for :topic_items, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :contributions, :reject_if => :all_blank, :allow_destroy => true
 
   def contributors
     return self.user_contributors

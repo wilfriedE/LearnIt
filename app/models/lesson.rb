@@ -26,6 +26,10 @@ class Lesson < ActiveRecord::Base
     self.active_version.topics
   end
 
+  def contributors
+    self.active_version.contributors
+  end
+
   def self.search(search)
     joins(:active_version).where("lesson_versions.name LIKE ? OR lesson_versions.description LIKE ?", "%#{search}%", "%#{search}%").distinct
   end

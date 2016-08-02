@@ -10,12 +10,13 @@ class Course < ActiveRecord::Base
   has_many :user_contributors, through: :contributions, source: :contributor, :source_type => 'User'
   accepts_nested_attributes_for :course_lessons, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :topic_items, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :contributions, :reject_if => :all_blank, :allow_destroy => true
   validates :name, presence: true
 
   def contributors
     return self.user_contributors
   end
-  
+
   def as_json(options={})
     super(:only => [:id, :name, :description],
           :include => {

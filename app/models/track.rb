@@ -8,12 +8,13 @@ class Track < ActiveRecord::Base
   has_many :user_contributors, through: :contributions, source: :contributor, :source_type => 'User'
   accepts_nested_attributes_for :track_courses, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :topic_items, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :contributions, :reject_if => :all_blank, :allow_destroy => true
   validates :name, presence: true
 
   def contributors
     return self.user_contributors
   end
-  
+
   def self.search(search)
     Track.where("name LIKE ? OR description LIKE ?", "%#{search}%", "%#{search}%").distinct
   end

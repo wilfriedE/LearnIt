@@ -1,8 +1,20 @@
-<h1>Profile#show</h1>
-<p>Find me in app/views/profile/show.html.erb</p>
+<h1><%= @user.email %></h1>
 
 <% if @user.is_current_user(current_user) %>
 Is current User
 <% else %>
 Is not current User
 <% end %>
+<div class="row">
+  <div class="well well-sm col-lg-offset-1" >
+    <h3  style="text-align: center" >Contributions</h3>
+  </div>
+</div>
+
+<div class="row">
+  <% @user.contributions.each do |contribution| %>
+  <div class="col-lg-5 col-lg-offset-1">
+        <%= contribution_card(contribution) %>
+  </div>
+  <%end %>
+</div>

@@ -4,4 +4,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
+
+  def is_current_user(user)
+    if self.id == user.id
+      return true
+    end
+    return false
+  end
 end

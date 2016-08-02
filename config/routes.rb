@@ -73,6 +73,8 @@ Rails.application.routes.draw do
   #users authentication area
   devise_for :users, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', registration: 'register' }
 
+  #user profile
+  get 'profile/:user_id' => 'profile#show', as: :user_profile
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -18,6 +18,8 @@
       <ul class="nav navbar-nav navbar-right">
 
       <% if user_signed_in? %>
+        <li><%= link_to raw("<span class='fa fa-fw fa-user' ></span> Profile"),
+                  user_profile_path(current_user.id), class: "btn btn-info btn-raised"%></li>
         <li><%= link_to raw("<span class='fa fa-fw fa-sign-out' ></span> Sign out"),
               destroy_user_session_path,
               :method => :delete, class: "btn btn-danger btn-raised"%></li>

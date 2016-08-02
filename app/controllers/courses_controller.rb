@@ -1,4 +1,6 @@
 class CoursesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show, :viewing]
+
   def index
     #if there is a search query, properly handle rendering them
     if params[:q]

@@ -13,22 +13,33 @@
     </ul></p>
 
   <% if @lesson %>
-  <strong>Available Versions:</strong>
-  <div class="row-horizon scrollable" >
-      <% @lesson.versions.each do |version| %>
-        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-7">
-          <%= lesson_version_card(version).html_safe %>
-        </div>
-      <% end %>
-  </div>
-  <% end %>
+    <strong>Available Versions:</strong>
+    <div class="row-horizon scrollable" >
+        <% @lesson.versions.each do |version| %>
+          <div class="col-xs-10 col-sm-10 col-md-10 col-lg-7">
+            <%= lesson_version_card(version).html_safe %>
+          </div>
+        <% end %>
+    </div>
 
-  <strong>Contributors:</strong>
-  <div class="row row-horizon scrollable">
-      <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-       contributor_card
-      </div>
-  </div>
+    <strong>Contributors:</strong>
+    <div class="row row-horizon scrollable">
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-7">
+         <% @lesson.contributors.each do |contributor| %>
+          <%= contributor_card(contributor) %>
+         <% end %>
+        </div>
+    </div>
+  <% else %>
+    <strong>Contributors:</strong>
+    <div class="row row-horizon scrollable">
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-7">
+         <% @lesson_version.contributors.each do |contributor| %>
+          <%= contributor_card(contributor) %>
+         <% end %>
+        </div>
+    </div>
+  <% end %>
 
   </div>
 

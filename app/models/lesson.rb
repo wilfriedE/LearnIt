@@ -27,7 +27,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def contributors
-    self.active_version.contributors
+    self.versions.map { |v| v.contributors if (!v.contributors.empty? || !v.contributors.nil? )}.uniq.flatten
   end
 
   def self.search(search)

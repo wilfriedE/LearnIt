@@ -12,7 +12,7 @@ class Track < ActiveRecord::Base
   validates :name, presence: true
 
   def contributors
-    return self.user_contributors
+    return self.user_contributors.uniq
   end
 
   def self.search(search)

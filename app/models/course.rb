@@ -14,7 +14,7 @@ class Course < ActiveRecord::Base
   validates :name, presence: true
 
   def contributors
-    return self.user_contributors
+    return self.user_contributors.uniq
   end
 
   def as_json(options={})

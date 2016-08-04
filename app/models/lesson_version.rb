@@ -11,6 +11,6 @@ class LessonVersion < ActiveRecord::Base
   accepts_nested_attributes_for :contributions, :reject_if => :all_blank, :allow_destroy => true
 
   def contributors
-    return self.user_contributors
+    self.user_contributors.uniq.flatten
   end
 end

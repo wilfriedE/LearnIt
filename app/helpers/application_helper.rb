@@ -1,8 +1,4 @@
 module ApplicationHelper
-    def contribution_card(contribution)
-      generalized_card(contribution.contribution, contribution.contribution_type)
-    end
-
     def generalized_card(item, item_type)
       case item_type
       when "Lesson"
@@ -13,6 +9,8 @@ module ApplicationHelper
         course_card(item)
       when "Track"
         track_card(item)
+      when "User"
+        user_card(item)
       else
         "Unsuported item_type: " + item_type
       end

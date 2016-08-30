@@ -19,8 +19,7 @@
             <div id="page-content-wrapper">
                 <div class="container">
                   <div class="row">
-
-                    <%= ((render "layouts/#{controller_name}" rescue nil)|| yield ) %>
+                    <%= ((render "layouts/#{yield_hierarchically(controller.class.name)}" rescue nil)|| yield ) %>
                   </div>
                 </div>
             </div>

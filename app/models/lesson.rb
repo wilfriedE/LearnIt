@@ -3,7 +3,7 @@ class Lesson < ActiveRecord::Base
   has_many :versions, -> { distinct }, foreign_key: :lesson_id, :class_name => "LessonVersion"
   belongs_to :active_version, class_name: "LessonVersion", foreign_key: "active_version_id"
   validates :active_version_id, presence: true
-  has_many :course_lessons
+  has_many :course_lessons, dependent: :destroy
   has_many :courses, -> { distinct }, through: :course_lessons
 
   def name

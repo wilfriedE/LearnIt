@@ -39,7 +39,8 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     respond_to do |format|
-      if @course.save
+      if @course.save && (@course.user_contributors += [current_user])
+        new_course_activity(@course)
         format.html { redirect_to @course, notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else
@@ -55,6 +56,10 @@ class CoursesController < ApplicationController
       TopicItem.new(topic_item.attributes.merge({topicable_id: nil}))}
     respond_to do |format|
       if @course.update_attributes(course_params)
+        if !@course.contributors.include?(current_user)
+          @course.user_contributors += [current_user]
+        end
+        updated_course_activity(@course)
         format.html { redirect_to @course, notice: 'Course was successfully update.' }
         format.json { render :show, status: :updated, location: @course }
       else
@@ -71,5 +76,26 @@ class CoursesController < ApplicationController
         :topic_items_attributes => [:id, :_destroy, :topic_id,
           :topic_attributes => [:id, :name]])
   end
+
+
+    def new_course_activity(course)
+      ModTicketActivity.create_ticket("New Course: ##{course.id} available.",
+       "#{course.name} was recently created awaiting approval",
+        [course])
+      UserFeedActivity.create_user_notification(current_user, "New Course: ##{course.id} submitted for approval.",
+       "Thank you for contributing #{course.name}. It has been submitted for review by moderators.",
+        [course])
+    end
+
+    def updated_course_activity(course)
+      ModTicketActivity.create_ticket("Course: ##{course.id} updated.",
+       "#{course.name} was recently updated by #{current_user.nickname}",
+        [course])
+      course.contributions.each do |contributor|
+        UserFeedActivity.create_user_notification(contributor, "Course: ##{course.id} was recently updated.",
+         "#{course.name}, has recently been updated.",
+          [course])
+      end
+    end
 
 end

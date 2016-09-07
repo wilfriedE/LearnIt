@@ -1,0 +1,6 @@
+<div class="row well well-md ">
+  Search and Filter Tickets
+</div>
+<% @tickets.each do |ticket| %>
+    <%= ticket_card(ticket) %>
+<% end %>

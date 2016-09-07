@@ -1,28 +1,32 @@
-== README
+FIRSTMastery
+============
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A centralized training resource for the [FIRST](http://www.usfirst.org/) Robotics community.
 
-Things you may want to cover:
+## Running instances
+* Alpha Server: [Link](http://alpha.firstmastery.com/) [Migrated to Rails]
+* Dev Server: [Link](http://dev.firstmastery.com/) [Still running Flask implementation]
 
-* Ruby version
+Running the Development Environment
+-----------------------------------
 
-* System dependencies
+```bash
+$ rails s
+```
 
-* Configuration
+To test it visit `http://localhost:3000/` in your browser.
 
-* Database creation
+Development
+-----------
+For Design references look at [Bootstrap Material](https://github.com/FezVrasta/bootstrap-material-design#getting-started) & [Bootstrap Elements](http://fezvrasta.github.io/bootstrap-material-design/bootstrap-elements.html)
 
-* Database initialization
+Have questions? Submit an [issue](https://github.com/wilfriedE/FIRSTMastery/issues/new).
 
-* How to run the test suite
+Goals and Objectives :
+---------------------
+- Build the best learning platform for the FIRST community.
+- Make the platform as collaborative and community central as possible.
+- Make the project modular and understandable so anyone can contribute.
+- *become a contributor and introduce your goals...
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+All Contributions are welcome.

@@ -1,0 +1,12 @@
+<ul class="list-group">
+  <h1>User Notifications</h1>
+  <% current_user.user_feed_activities.last(5).each do |notification| %>
+    <li class="list-group-item"><%= notification_card(notification) %></li>
+  <% end %>
+  <li role="separator" class="list-group-item divider"></li>
+  <!-- General Notifications after this point -->
+  <h1>General Feed Notifications</h1>
+  <% current_user.general_feed_activities.last(5).each do |notification| %>
+    <li class="list-group-item"><%= general_notification_card(notification) %></li>
+  <% end %>
+</ul>

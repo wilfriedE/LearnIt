@@ -1,0 +1,13 @@
+<div class="dropup">
+<a href="#" class="btn btn-success col-lg-12 btn-raised dropdown-toggle"
+  id="statusMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+  <i class="fa fa-exclamation-circle" ></i> State</a>
+<ul class="dropdown-menu dropdown-menu-left shadowless "  style="position:inherit"aria-labelledby="statusMenu">
+    <li><strong>Mark as</strong></li>
+    <li role="separator" class="divider"></li>
+    <% ModTicketActivity.states.each do |state| %>
+      <li><%= link_to state, change_ticket_status_path(@ticket.id, state),
+       :method => :post, class: "btn col-lg-12"%> </li>
+    <% end %>
+</ul>
+</div>

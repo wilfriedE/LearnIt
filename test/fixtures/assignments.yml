@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  assignable_id: 
+  assignable_type: Assignable
+  claimer_id: 
+  claimer_type: Claimer
+
+two:
+  assignable_id: 
+  assignable_type: Assignable
+  claimer_id: 
+  claimer_type: Claimer

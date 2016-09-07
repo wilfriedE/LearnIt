@@ -1,5 +1,5 @@
 class Topic < ActiveRecord::Base
-  has_many :topic_items
+  has_many :topic_items, dependent: :destroy
   has_many :courses, -> { distinct }, through: :topic_items, source: :topicable, :source_type => 'Course'
   has_many :tracks, -> { distinct }, through: :topic_items, source: :topicable, :source_type => 'Track'
   has_many :lesson_versions, -> { distinct }, through: :topic_items, source: :topicable, :source_type => 'LessonVersion'

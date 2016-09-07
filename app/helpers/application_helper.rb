@@ -11,9 +11,19 @@ module ApplicationHelper
         track_card(item)
       when "User"
         user_card(item)
+      when "ModTicketActivity"
+        ticket_card(item)
+      when "UserFeeedActivity"
+        notification_card(item)
+      when "GeneralFeedActivity"
+        general_notification_card(item)
       else
         "Unsuported item_type: " + item_type
       end
+    end
+
+    def general_notification_card(notification)
+      render partial: "shared/notification_card", locals: { notification: notification }
     end
 
     def yield_hierarchically(kontroller_name)

@@ -11,7 +11,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160701035134) do
+ActiveRecord::Schema.define(version: 20160902171807) do
+
+  create_table "activities", force: :cascade do |t|
+    t.string   "type"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "status"
+  end
+
+  create_table "assignments", force: :cascade do |t|
+    t.integer  "assignable_id"
+    t.string   "assignable_type"
+    t.integer  "claimer_id"
+    t.string   "claimer_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "assignments", ["assignable_type", "assignable_id"], name: "index_assignments_on_assignable_type_and_assignable_id"
+  add_index "assignments", ["claimer_type", "claimer_id"], name: "index_assignments_on_claimer_type_and_claimer_id"
+
+  create_table "contributions", force: :cascade do |t|
+    t.integer  "contributor_id"
+    t.string   "contributor_type"
+    t.integer  "contribution_id"
+    t.string   "contribution_type"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "contributions", ["contribution_type", "contribution_id"], name: "index_contributions_on_contribution_type_and_contribution_id"
+  add_index "contributions", ["contributor_type", "contributor_id"], name: "index_contributions_on_contributor_type_and_contributor_id"
 
   create_table "course_lessons", force: :cascade do |t|
     t.integer  "position"
@@ -50,6 +83,7 @@ ActiveRecord::Schema.define(version: 20160701035134) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "media_id"
+    t.text     "reason"
   end
 
   add_index "lesson_versions", ["lesson_id"], name: "index_lesson_versions_on_lesson_id"
@@ -72,6 +106,20 @@ ActiveRecord::Schema.define(version: 20160701035134) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "media_outlets", force: :cascade do |t|
+    t.integer  "media_content_id"
+    t.integer  "outlet_id"
+    t.string   "outlet_type"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "content_id"
+    t.string   "content_type"
+  end
+
+  add_index "media_outlets", ["content_type", "content_id"], name: "index_media_outlets_on_content_type_and_content_id"
+  add_index "media_outlets", ["media_content_id"], name: "index_media_outlets_on_media_content_id"
+  add_index "media_outlets", ["outlet_type", "outlet_id"], name: "index_media_outlets_on_outlet_type_and_outlet_id"
+
   create_table "programs", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
@@ -79,6 +127,19 @@ ActiveRecord::Schema.define(version: 20160701035134) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer  "subscription_id"
+    t.string   "subscription_type"
+    t.integer  "subscriber_id"
+    t.string   "subscriber_type"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "marking"
+  end
+
+  add_index "subscriptions", ["subscriber_type", "subscriber_id"], name: "index_subscriptions_on_subscriber_type_and_subscriber_id"
+  add_index "subscriptions", ["subscription_type", "subscription_id"], name: "index_subscriptions_on_subscription_type_and_subscription_id"
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
@@ -156,6 +217,9 @@ ActiveRecord::Schema.define(version: 20160701035134) do
     t.datetime "locked_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "nickname"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

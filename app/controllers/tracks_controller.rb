@@ -37,7 +37,8 @@ class TracksController < ApplicationController
   def create
     @track = Track.new(track_params)
     respond_to do |format|
-      if @track.save
+      if @track.save && (@track.user_contributors += [current_user])
+        new_track_activity(@track)
         format.html { redirect_to @track, notice: 'Track was successfully created.' }
         format.json { render :show, status: :created, location: @track }
       else
@@ -53,6 +54,10 @@ class TracksController < ApplicationController
       TopicItem.new(topic_item.attributes.merge({topicable_id: nil}))}
     respond_to do |format|
       if @track.update_attributes(track_params)
+        if !@track.contributors.include?(current_user)
+          @track.user_contributors += [current_user]
+        end
+        updated_track_activity(@track)
         format.html { redirect_to @track, notice: 'Track was successfully update.' }
         format.json { render :show, status: :updated, location: @track }
       else
@@ -69,4 +74,25 @@ class TracksController < ApplicationController
         :topic_items_attributes => [:id, :_destroy, :topic_id,
           :topic_attributes => [:id, :name]])
   end
+
+  def new_track_activity(track)
+    ModTicketActivity.create_ticket("New Track: ##{track.id} available.",
+     "#{track.name} was recently created awaiting approval",
+      [track])
+    UserFeedActivity.create_user_notification(current_user, "New Track: ##{track.id} submitted for approval.",
+     "Thank you for contributing #{track.name}. It has been submitted for review by moderators.",
+      [track])
+  end
+
+  def updated_track_activity(track)
+    ModTicketActivity.create_ticket("Track: ##{track.id} updated.",
+     "#{track.name} was recently updated by #{current_user.nickname}",
+      [track])
+    track.contributions.each do |contributor|
+      UserFeedActivity.create_user_notification(contributor, "Track: ##{track.id} was recently updated.",
+       "#{track.name}, has recently been updated.",
+        [track])
+    end
+  end
+
 end

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  media_content_id: 
+  outlet_id: 
+  outlet_type: Outlet
+
+two:
+  media_content_id: 
+  outlet_id: 
+  outlet_type: Outlet

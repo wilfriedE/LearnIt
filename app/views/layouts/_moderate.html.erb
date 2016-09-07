@@ -1,0 +1,9 @@
+<ul class="nav nav-pills nav-justified well well-sm">
+  <li role="presentation" class="<%= @dashboard_active %>"><%= link_to "Dashboard", moderate_path %></li>
+  <li role="presentation" class="<%= @mytickets_active %>"><%= link_to "My Tickets", moderate_mytickets_path%></li>
+  <li role="presentation" class="<%= @alltickets_active %>"><%= link_to "Tickets", moderate_tickets_path%></li>
+  <li role="presentation" class="<%= @guides_active %>"><%= link_to "Guides", moderate_guides_path%></li>
+</ul>
+<div class="container">
+<%=   yield  %>
+</div>

@@ -1,2 +1,11 @@
-<h1>Moderate::Moderations#dashboard</h1>
-<p>Find me in app/views/moderate/moderations/dashboard.html.erb</p>
+<h1>Hi there Moderator, below are the latest activities on FIRSTMastery.</h1>
+<div class="row">
+  <div class="well well-md col-sm-12">
+    STATS
+  </div>
+  <div class="col-lg-12">
+    <% @tickets.each do |ticket| %>
+      <%= ticket_card(ticket) %>
+    <% end %>
+  </div>
+</div>

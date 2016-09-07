@@ -18,6 +18,27 @@
       <ul class="nav navbar-nav navbar-right">
 
       <% if user_signed_in? %>
+        <li class="dropup"><a href="#" class="btn btn-warning btn-raised dropdown-toggle"
+          id="notificationsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+          <span class='material-icons'>notifications</span></a>
+          <ul class="dropdown-menu dropdown-menu-left shadowless " style="width:300px" aria-labelledby="notificationsMenue">
+            <% current_user.user_feed_activities.last(5).each do |notification| %>
+              <li><%= notification_card(notification) %></li>
+            <% end %>
+            <li role="separator" class="divider"></li>
+            <!-- General Notifications after this point -->
+            <!-- TODO GROUP BY NOTIFICATION TYPE -->
+            <% current_user.general_feed_activities.last(5).each do |notification| %>
+              <li><%= general_notification_card(notification) %></li>
+            <% end %>
+            <li role="separator" class="divider"></li>
+            <li><%= link_to "See All", user_notifications_path(current_user) %></li>
+          </ul>
+        </li>
+        <!-- if moderator -->
+        <li><%= link_to raw("<span class='material-icons'>confirmation_number</span> Moderate"),
+                moderate_path, class: "btn btn-info btn-raised" %></li>
+        <!-- -->
         <li><%= link_to raw("<span class='fa fa-fw fa-user' ></span> Profile"),
                   user_profile_path(current_user.id), class: "btn btn-info btn-raised"%></li>
         <li><%= link_to raw("<span class='fa fa-fw fa-sign-out' ></span> Sign out"),

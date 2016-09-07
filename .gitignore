@@ -46,3 +46,6 @@ bower.json
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore project notes
+.notes.md

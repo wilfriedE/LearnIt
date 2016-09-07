@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   root 'welcome#index'
 
   #welcome pages
@@ -58,7 +57,7 @@ Rails.application.routes.draw do
   #moderate namespace
   namespace :moderate do
     get '/' => 'moderations#dashboard'
-    get 'activities' => 'moderations#activities'
+    get 'mytickets' => 'moderations#mytickets'
     get 'guides' => 'moderations#guides'
     get 'lessons' => 'lessons#index'
     get 'programs' => 'programs#index'
@@ -67,14 +66,23 @@ Rails.application.routes.draw do
     get 'lesson_versions' => 'lesson_versions#index'
     get 'tracks' => 'tracks#index'
     get 'courses' => 'courses#index'
+    get 'tickets' => 'tickets#index'
+    get 'tickets/:id' => 'tickets#show', as: :ticket
   end
+  post 'tickets/:id/claim' => 'moderate/tickets#claim', as: :claim_ticket
+  post 'tickets/:id/unclaim' => 'moderate/tickets#unclaim', as: :unclaim_ticket
+  post 'tickets/:id/subscribe' => 'moderate/tickets#subscribe', as: :subscribe_to_ticket
+  post 'tickets/:id/unsubscribe' => 'moderate/tickets#unsubscribe', as: :unsubscribe_to_ticket
+  post 'tickets/:id/assign_to/:user_id' => 'moderate/tickets#assign_to', as: :assign_ticket
+  post 'tickets/:id/change_status/:state' => 'moderate/tickets#change_status', as: :change_ticket_status
 
 
   #users authentication area
-  devise_for :users, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', registration: 'register' }
+  devise_for :users, path: 'auth', :controllers => { registrations: 'registrations' } , path_names: { sign_in: 'login', sign_out: 'logout', registration: 'register' }
 
   #user profile
-  get 'profile/:user_id' => 'profile#show', as: :user_profile
+  get 'profile/:id' => 'profile#show', as: :user_profile
+  get 'profile/:id/notifications' => 'profile#notifications', as: :user_notifications
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

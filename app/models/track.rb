@@ -1,10 +1,10 @@
 class Track < ActiveRecord::Base
   default_scope { order('updated_at ASC') }
-  has_many :track_courses
+  has_many :track_courses, dependent: :destroy
   has_many :courses, -> { distinct }, through: :track_courses
-  has_many :topic_items, as: :topicable
+  has_many :topic_items, as: :topicable, dependent: :destroy
   has_many :topics, -> { distinct }, through: :topic_items
-  has_many :contributions, as: :contribution
+  has_many :contributions, as: :contribution, dependent: :destroy
   has_many :user_contributors, through: :contributions, source: :contributor, :source_type => 'User'
   accepts_nested_attributes_for :track_courses, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :topic_items, :reject_if => :all_blank, :allow_destroy => true

@@ -1,0 +1,51 @@
+<div class="row media well" >
+  <div class="media-body media-middle">
+    <h4><strong>Ticket:</strong> <%= @ticket.name %> </h4>
+    <p><strong>Description:</strong> <%= @ticket.description %></p>
+    <div>
+      <p><strong>Status:</strong> <%= @ticket.status || "N/A" %> | <strong>Claimed by:</strong> <%= @ticket.owner.nickname rescue "No one" %> </p>
+    </div>
+    <h4>Contents </h4>
+    <div class="row">
+      <!--Medias -->
+      <div >
+        <% @ticket.contents.each do |content|%>
+        <div class="col-lg-5 col-lg-offset-1 shadowless">
+              <%= generalized_card(content, content.class.name) %>
+        </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+  <div class="media-right media-middle">
+    <%= render partial: "change_state" %>
+    <% if current_user != @ticket.claimer %>
+      <%= link_to "Claim", claim_ticket_path(@ticket.id), :method => :post, class: "btn btn-primary btn-raised col-lg-12"%>
+    <% else %>
+      <%= link_to "Un-claim", unclaim_ticket_path(@ticket.id), :method => :post, class: "btn btn-warning btn-raised col-lg-12"%>
+    <% end %>
+    <% if @ticket.subscribers.include?(current_user) %>
+      <%= link_to "Un-Subscribe", unsubscribe_to_ticket_path(@ticket.id), :method => :post, class: "btn btn-warning btn-raised col-lg-12"%>
+    <% else %>
+      <%= link_to "Subscribe", subscribe_to_ticket_path(@ticket.id), :method => :post, class: "btn btn-info btn-raised col-lg-12"%>
+    <% end %>
+  </div>
+
+  <!--Medias -->
+  <% if @ticket.media_contents.size > 0 %>
+    <h4>Attached Media</h4>
+  <% end %>
+  <div  class="row">
+    <!-- render Media Here -->
+    <% @ticket.media_contents.each do |media|%>
+    <div class="col-lg-5 col-lg-offset-1 shadowless">
+          <%= load_media_viewport(media) %>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- TODO: Addd ticket specific discussion below here. -->
+<!-- SHOULD WE USE Disqus for handling discussion? or roll out a commenting
+     system to handle the comments? What is the best approach? -->

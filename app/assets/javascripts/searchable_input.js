@@ -38,7 +38,7 @@ NOTE: All variables are HTML-escaped by default. If you want to render unescaped
       use the triple mustache: {{{name}}}. You can also use & to unescape a variable.
 */
 // Listen for filter changes
-var searchable_input = function (input, output, data_id_input, resource, template={}, options={}) {
+var searchable_input = function (input, output, data_id_input, resource, template, options) {
   $(searchmodal).modal();
   if (options["filters"] && options["filters"].length > 0) {
     $(filterscontainer).empty();

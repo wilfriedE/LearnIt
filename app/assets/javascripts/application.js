@@ -13,16 +13,17 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap-sprockets
 //
-//Bower Comonents
-//= require bluebird/js/browser/bluebird
-//= require bootstrap-material-design/scripts/material
-//= require bootstrap-material-design/scripts/ripples
-//= require perfect-scrollbar/js/perfect-scrollbar.jquery
-//= require html.sortable/dist/html.sortable
-//= require mustache/mustache
-//= require selectize/dist/js/standalone/selectize
+//Rails Comonents
+//= require bootstrap-sass
+//= require bootstrap-material-design
+//= require bluebird
+//= require perfect-scrollbar
+//= require mustache
+//= require html.sortable
+//= require sifter
+//= require microplugin
+//= require selectize
 //= require cocoon
 //
 //= require_tree .

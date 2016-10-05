@@ -23,8 +23,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'bootstrap-sass', '~> 3.3.6'
 
-gem "bower-rails", "~> 0.10.0"
-
 gem 'devise'
 
 gem 'cocoon'
@@ -52,4 +50,17 @@ group :development do
   gem 'railroady'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+end
+
+#Assets management with rails-assets
+source 'https://rails-assets.org' do
+  gem 'rails-assets-font-awesome', '~> 4.3.0'
+  gem 'rails-assets-bootstrap-sass'
+  gem 'rails-assets-bootstrap-material-design'
+  gem 'rails-assets-bluebird'
+  gem 'rails-assets-perfect-scrollbar', '~> 0.6'
+  gem 'rails-assets-bootstrap-horizon', '~> 0.1'
+  gem 'rails-assets-mustache'
+  gem 'rails-assets-html.sortable'
+  gem 'rails-assets-selectize'
 end

@@ -10,17 +10,16 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *=require font-awesome/scss/font-awesome
  */
 
- @import "bootstrap-sprockets";
-
- @import "perfect-scrollbar/css/perfect-scrollbar";
- @import "bootstrap-horizon/bootstrap-horizon";
- @import "bootstrap-material-design/sass/bootstrap-material-design";
- @import "bootstrap-material-design/sass/ripples";
- @import "selectize/dist/css/selectize";
- @import "bootstrap";
+ @import "font-awesome";
+ @import "bootstrap-sass";
+ @import "perfect-scrollbar";
+ @import "bootstrap-horizon";
+ @import "bootstrap-material-design/material";
+ @import "bootstrap-material-design/material-wfont";
+ @import "bootstrap-material-design/ripples.min";
+ @import "selectize";
  @import "base";
  @import "variables";
  @import "mixins";

@@ -1,5 +1,6 @@
 GEM
   remote: https://rubygems.org/
+  remote: https://rails-assets.org/
   specs:
     actionmailer (4.2.6)
       actionpack (= 4.2.6)
@@ -45,7 +46,6 @@ GEM
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
-    bower-rails (0.10.0)
     builder (3.2.2)
     byebug (9.0.5)
     cocoon (1.2.9)
@@ -88,12 +88,14 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mini_portile2 (2.0.0)
-    minitest (5.9.0)
+    mini_portile2 (2.1.0)
+    minitest (5.9.1)
     multi_json (1.12.1)
-    nokogiri (1.6.7.2)
-      mini_portile2 (~> 2.0.0.rc2)
+    nokogiri (1.6.8)
+      mini_portile2 (~> 2.1.0)
+      pkg-config (~> 1.1.7)
     orm_adapter (0.5.0)
+    pkg-config (1.1.7)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -109,6 +111,22 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.6)
       sprockets-rails
+    rails-assets-bluebird (3.4.6)
+    rails-assets-bootstrap-horizon (0.1.0)
+    rails-assets-bootstrap-material-design (0.1.5)
+    rails-assets-bootstrap-sass (3.3.7)
+      rails-assets-jquery (>= 1.9.1, < 4)
+    rails-assets-font-awesome (4.3.0)
+    rails-assets-html.sortable (0.4.2)
+    rails-assets-jquery (3.1.1)
+    rails-assets-microplugin (0.0.3)
+    rails-assets-mustache (2.2.1)
+    rails-assets-perfect-scrollbar (0.6.12)
+    rails-assets-selectize (0.12.3)
+      rails-assets-jquery (>= 1.7.0)
+      rails-assets-microplugin (~> 0.0.0)
+      rails-assets-sifter (~> 0.5.0)
+    rails-assets-sifter (0.5.2)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -141,10 +159,10 @@ GEM
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
     spring (1.7.1)
-    sprockets (3.6.0)
+    sprockets (3.7.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.0.4)
+    sprockets-rails (3.2.0)
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
@@ -171,7 +189,6 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass (~> 3.3.6)
-  bower-rails (~> 0.10.0)
   byebug
   cocoon
   coffee-rails (~> 4.1.0)
@@ -181,6 +198,15 @@ DEPENDENCIES
   jquery-rails
   railroady
   rails (= 4.2.6)
+  rails-assets-bluebird!
+  rails-assets-bootstrap-horizon (~> 0.1)!
+  rails-assets-bootstrap-material-design!
+  rails-assets-bootstrap-sass!
+  rails-assets-font-awesome (~> 4.3.0)!
+  rails-assets-html.sortable!
+  rails-assets-mustache!
+  rails-assets-perfect-scrollbar (~> 0.6)!
+  rails-assets-selectize!
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   simple_form
@@ -191,4 +217,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.12.5
+   1.13.1

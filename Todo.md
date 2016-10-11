@@ -1,3 +1,4 @@
+Moving to Rails for LearnIt
 * Add docstrings to classes and functions
   *Backend Branch (Models and Controllers)
   *APIs Branch 

@@ -13,10 +13,8 @@ import config
 
 class Team(model.Base):
   name = ndb.StringProperty(required=True)
-  number = ndb.IntegerProperty(required=True)
   email = ndb.StringProperty(required=True)
   website = ndb.StringProperty(default='')
-  program = ndb.KeyProperty(required=True)
   pins = ndb.KeyProperty(repeated=True)
   admins = ndb.KeyProperty(repeated=True)
 

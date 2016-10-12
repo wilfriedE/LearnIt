@@ -3,7 +3,7 @@
     <ul class="nav sidebar-nav">
         <li class="sidebar-brand">
             <a href="#">
-                FIRSTMastery
+                <%= Rails.configuration.platform["name"] %>
             </a>
         </li>
         <li>
@@ -28,9 +28,9 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Social<span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li class="dropdown-header">FIRSTMastery on the web</li>
+                <li class="dropdown-header"><%= Rails.configuration.platform["name"] %> on the web</li>
                 <li>
-                    <a style="padding: 2px 16px;" href="https://github.com/wilfriedE/FIRSTMastery">Github</a>
+                    <a style="padding: 2px 16px;" href="https://github.com/wilfriedE/LearnIt">Github</a>
                 </li>
                 <!--<li><a style="padding: 2px 16px;" href="#">Twitter</a></li>
            <li><a style="padding: 2px 16px;" href="#">Facebook</a></li>

@@ -3,13 +3,13 @@
 
     <div class="col-lg-4">
       <div class="bs-component">
-         <p>An open learning platform,<br/> for all things <a class='api-url' href="#learnit" target="_blank" >LearnIt</a></p>
+         <p>An open learning platform,<br/> for all things <a class='api-url' href="#learnit" target="_blank" ><%= Rails.configuration.platform["name"] %></a></p>
       </div>
     </div>
 
     <div class="col-lg-4">
       <div class="bs-component">
-      <p>&copy; 2015 - FIRSTMastery </p>
+      <p>&copy; 2015 - <%= Rails.configuration.platform["name"] %> </p>
       </div>
     </div>
 

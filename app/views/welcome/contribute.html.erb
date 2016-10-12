@@ -4,7 +4,7 @@
     <div class="bs-component">
       <div class="well well-lg highlight_card">
         <h2><a href="<%= url_for new_lesson_path %>"> Create a Lesson</a></h2>
-        <p>Share a lesson with the FIRST community. An example lesson is "Using a clamp". (Try to make them short and to the point. If it needs more time we recommend creating a course and adding the various lessons as part of one course.) </p>
+        <p>Share a lesson with the <%= Rails.configuration.platform["name"] %> community. </p>
       </div>
     </div>
   </div>
@@ -13,7 +13,7 @@
     <div class="bs-component">
       <div class="well well-lg highlight_card">
         <h2><a href="<%= url_for new_course_path %>">Create a Course</a></h2>
-        <p>Agregate lessons to create a course. This would enable users to have good understanding of a good concept. Example of a course is "FTC Robot Parts"</p>
+        <p>Agregate lessons to create a course. This would enable users to have good understanding of a good concept.</p>
       </div>
     </div>
   </div>
@@ -22,7 +22,7 @@
     <div class="bs-component">
       <div class="well well-lg highlight_card">
         <h2><a href="<%= url_for new_track_path %>">Create a Track</a></h2>
-        <p>Create a course track. Example of a track is 'Programming an FRC Robot'</p>
+        <p>Create a course track.</p>
       </div>
     </div>
   </div>
@@ -44,7 +44,7 @@
     <div class="bs-component">
       <div class="well well-lg highlight_card">
         <h2>Contribute on github :)</h2>
-        <p>Help maintain the <a href="https://github.com/wilfriedE/FIRSTMastery">source code</a> and make this a better platform.</p>
+        <p>Help maintain the <a href="https://github.com/wilfriedE/LearnIt">source code</a> and make this a better platform.</p>
       </div>
     </div>
   </div>
@@ -52,8 +52,8 @@
   <div class="col-lg-4">
     <div class="bs-component">
       <div class="well well-lg highlight_card">
-        <h2>TBD</h2>
-        <p>TBD</p>
+        <h2>Your Contribution Type</h2>
+        <p>Your contribution description</p>
       </div>
     </div>
   </div>

@@ -1,0 +1,11 @@
+development:
+  name: LearnIt
+  description: A general purpose learning Platform
+
+test:
+  name: LearnIt
+  description: A general purpose learning Platform
+
+production:
+  name: LearnIt
+  description: A general purpose learning Platform

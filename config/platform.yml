@@ -1,11 +1,23 @@
 development:
   name: LearnIt
   description: A general purpose learning Platform
+  websites:
+    github:
+      name: Github
+      link: https://github.com/wilfriedE/LearnIt
 
 test:
   name: LearnIt
   description: A general purpose learning Platform
+  websites:
+    github:
+      name: Github
+      link: https://github.com/wilfriedE/LearnIt
 
 production:
   name: LearnIt
   description: A general purpose learning Platform
+  websites:
+    github:
+      name: Github
+      link: https://github.com/wilfriedE/LearnIt

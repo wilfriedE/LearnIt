@@ -29,9 +29,13 @@
             </a>
             <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-header"><%= Rails.configuration.platform["name"] %> on the web</li>
+                <% Rails.configuration.platform["websites"].keys.each do |key| %>
                 <li>
-                    <a style="padding: 2px 16px;" href="https://github.com/wilfriedE/LearnIt">Github</a>
+                    <a style="padding: 2px 16px;"
+                    href="<%= Rails.configuration.platform["websites"]["#{key}"]["link"] %>">
+                    <%= Rails.configuration.platform["websites"]["#{key}"]["name"] %></a>
                 </li>
+                <% end %>
                 <!--<li><a style="padding: 2px 16px;" href="#">Twitter</a></li>
            <li><a style="padding: 2px 16px;" href="#">Facebook</a></li>
            <li><a style="padding: 2px 16px;" href="#">G+</a></li>

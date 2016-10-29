@@ -14,7 +14,7 @@
   </div>
   <div id='track_courses' >
     <div class='links'>
-      <%= link_to_add_association 'Add Course to Track', f, :track_courses, :class => "btn btn-raised" %>
+      <%= link_to_add_association 'Add Course to Track', f, :track_courses, :class => "btn" %>
     </div>
     <h4>Courses:</h4>
     <div class="course_fields sortable">
@@ -55,24 +55,12 @@ $(document).on('page:change', function() {
     set_positions();
   };
 
-  var track_courses_sort = $('#track_courses .sortable')
-  track_courses_sort.sortable({
+  var track_courses_sort = '#track_courses .sortable';
+
+  sortable(track_courses_sort, {
     items: ".nested-fields",
     hoverClass: 'sortable-item-hover'
-  }).bind('sortupdate', function(e, ui) {
-      /*
-
-      This event is triggered when the user stopped sorting and the DOM position has changed.
-
-      ui.item contains the current dragged element.
-      ui.index contains the new index of the dragged element (considering only list items)
-      ui.oldindex contains the old index of the dragged element (considering only list items)
-      ui.elementIndex contains the new index of the dragged element (considering all items within sortable)
-      ui.oldElementIndex contains the old index of the dragged element (considering all items within sortable)
-      ui.startparent contains the element that the dragged item comes from
-      ui.endparent contains the element that the dragged item was added to (new parent)
-
-      */
+  })[0].addEventListener('sortupdate', function(e) {
       updateNestedfields();
   });
   set_positions();
@@ -82,7 +70,7 @@ $(document).on('page:change', function() {
     // then remove
     var template = `<%= load_track_course_form_view(nil) %>`;
     function reorder(){
-      track_courses_sort.sortable();
+      sortable(track_courses_sort);
       updateNestedfields();
     };
     searchable_input(insertedItem.clone(), "#track_courses .course_fields",

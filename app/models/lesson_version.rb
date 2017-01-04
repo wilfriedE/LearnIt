@@ -1,4 +1,4 @@
-class LessonVersion < ActiveRecord::Base
+class LessonVersion < ApplicationRecord
   belongs_to :lesson
   belongs_to :media, class_name: "MediaContent", foreign_key: "media_id", :dependent => :destroy
   has_many :topic_items, as: :topicable, dependent: :destroy

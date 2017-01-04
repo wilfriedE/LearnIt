@@ -1,4 +1,4 @@
-class CourseLesson < ActiveRecord::Base
+class CourseLesson < ApplicationRecord
   before_save :check_for_existing
   default_scope { order('position ASC') }
   belongs_to :course

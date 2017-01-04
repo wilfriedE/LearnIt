@@ -1,4 +1,4 @@
-class Topic < ActiveRecord::Base
+class Topic < ApplicationRecord
   has_many :topic_items, dependent: :destroy
   has_many :courses, -> { distinct }, through: :topic_items, source: :topicable, :source_type => 'Course'
   has_many :tracks, -> { distinct }, through: :topic_items, source: :topicable, :source_type => 'Track'

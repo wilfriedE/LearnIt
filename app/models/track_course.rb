@@ -1,4 +1,4 @@
-class TrackCourse < ActiveRecord::Base
+class TrackCourse < ApplicationRecord
   before_save :check_for_existing
   default_scope { order('position ASC') }
   belongs_to :track

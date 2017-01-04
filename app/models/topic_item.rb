@@ -1,4 +1,4 @@
-class TopicItem < ActiveRecord::Base
+class TopicItem < ApplicationRecord
   belongs_to :topic, :autosave => true
   belongs_to :topicable, polymorphic: true
   accepts_nested_attributes_for :topic

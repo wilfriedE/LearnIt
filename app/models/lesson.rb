@@ -1,4 +1,4 @@
-class Lesson < ActiveRecord::Base
+class Lesson < ApplicationRecord
   default_scope { order('updated_at ASC') }
   has_many :versions, -> { distinct }, foreign_key: :lesson_id, :class_name => "LessonVersion"
   belongs_to :active_version, class_name: "LessonVersion", foreign_key: "active_version_id"

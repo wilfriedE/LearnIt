@@ -1,4 +1,4 @@
-class Course < ActiveRecord::Base
+class Course < ApplicationRecord
   default_scope { order('updated_at ASC') }
   has_many :track_courses, dependent: :destroy
   has_many :tracks, -> { distinct }, through: :track_courses

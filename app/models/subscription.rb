@@ -1,4 +1,4 @@
-class Subscription < ActiveRecord::Base
+class Subscription < ApplicationRecord
   belongs_to :subscription, polymorphic: true
   belongs_to :subscriber, polymorphic: true
   validates_uniqueness_of :subscriber_id, :scope => [:subscriber_type, :subscription_type, :subscription_id]

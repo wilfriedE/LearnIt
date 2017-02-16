@@ -3,7 +3,7 @@
     <ul class="nav sidebar-nav">
         <li class="sidebar-brand">
             <a href="#">
-                <%= Rails.configuration.platform["name"] %>
+              -- platform name --
             </a>
         </li>
         <li>
@@ -28,14 +28,8 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Social<span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li class="dropdown-header"><%= Rails.configuration.platform["name"] %> on the web</li>
-                <% Rails.configuration.platform["websites"].keys.each do |key| %>
-                <li>
-                    <a style="padding: 2px 16px;"
-                    href="<%= Rails.configuration.platform["websites"]["#{key}"]["link"] %>">
-                    <%= Rails.configuration.platform["websites"]["#{key}"]["name"] %></a>
-                </li>
-                <% end %>
+                <li class="dropdown-header">-- platform name -- on the web</li>
+                -- platform sites --
                 <!--<li><a style="padding: 2px 16px;" href="#">Twitter</a></li>
            <li><a style="padding: 2px 16px;" href="#">Facebook</a></li>
            <li><a style="padding: 2px 16px;" href="#">G+</a></li>

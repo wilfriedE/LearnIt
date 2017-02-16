@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160902171807) do
+ActiveRecord::Schema.define(version: 20170104070107) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "type"
@@ -29,10 +28,9 @@ ActiveRecord::Schema.define(version: 20160902171807) do
     t.string   "claimer_type"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.index ["assignable_type", "assignable_id"], name: "index_assignments_on_assignable_type_and_assignable_id"
+    t.index ["claimer_type", "claimer_id"], name: "index_assignments_on_claimer_type_and_claimer_id"
   end
-
-  add_index "assignments", ["assignable_type", "assignable_id"], name: "index_assignments_on_assignable_type_and_assignable_id"
-  add_index "assignments", ["claimer_type", "claimer_id"], name: "index_assignments_on_claimer_type_and_claimer_id"
 
   create_table "contributions", force: :cascade do |t|
     t.integer  "contributor_id"
@@ -41,10 +39,9 @@ ActiveRecord::Schema.define(version: 20160902171807) do
     t.string   "contribution_type"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.index ["contribution_type", "contribution_id"], name: "index_contributions_on_contribution_type_and_contribution_id"
+    t.index ["contributor_type", "contributor_id"], name: "index_contributions_on_contributor_type_and_contributor_id"
   end
-
-  add_index "contributions", ["contribution_type", "contribution_id"], name: "index_contributions_on_contribution_type_and_contribution_id"
-  add_index "contributions", ["contributor_type", "contributor_id"], name: "index_contributions_on_contributor_type_and_contributor_id"
 
   create_table "course_lessons", force: :cascade do |t|
     t.integer  "position"
@@ -69,10 +66,9 @@ ActiveRecord::Schema.define(version: 20160902171807) do
     t.string   "curatable_type"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.index ["curatable_type", "curatable_id"], name: "index_curated_items_on_curatable_type_and_curatable_id"
+    t.index ["program_id"], name: "index_curated_items_on_program_id"
   end
-
-  add_index "curated_items", ["curatable_type", "curatable_id"], name: "index_curated_items_on_curatable_type_and_curatable_id"
-  add_index "curated_items", ["program_id"], name: "index_curated_items_on_program_id"
 
   create_table "lesson_versions", force: :cascade do |t|
     t.string   "name"
@@ -84,19 +80,17 @@ ActiveRecord::Schema.define(version: 20160902171807) do
     t.datetime "updated_at",  null: false
     t.integer  "media_id"
     t.text     "reason"
+    t.index ["lesson_id"], name: "index_lesson_versions_on_lesson_id"
+    t.index ["media_id"], name: "index_lesson_versions_on_media_id"
   end
-
-  add_index "lesson_versions", ["lesson_id"], name: "index_lesson_versions_on_lesson_id"
-  add_index "lesson_versions", ["media_id"], name: "index_lesson_versions_on_media_id"
 
   create_table "lessons", force: :cascade do |t|
     t.integer  "active_version_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.boolean  "approved"
+    t.index ["active_version_id"], name: "index_lessons_on_active_version_id"
   end
-
-  add_index "lessons", ["active_version_id"], name: "index_lessons_on_active_version_id"
 
   create_table "media_contents", force: :cascade do |t|
     t.string   "type"
@@ -114,11 +108,31 @@ ActiveRecord::Schema.define(version: 20160902171807) do
     t.datetime "updated_at",       null: false
     t.integer  "content_id"
     t.string   "content_type"
+    t.index ["content_type", "content_id"], name: "index_media_outlets_on_content_type_and_content_id"
+    t.index ["media_content_id"], name: "index_media_outlets_on_media_content_id"
+    t.index ["outlet_type", "outlet_id"], name: "index_media_outlets_on_outlet_type_and_outlet_id"
   end
 
-  add_index "media_outlets", ["content_type", "content_id"], name: "index_media_outlets_on_content_type_and_content_id"
-  add_index "media_outlets", ["media_content_id"], name: "index_media_outlets_on_media_content_id"
-  add_index "media_outlets", ["outlet_type", "outlet_id"], name: "index_media_outlets_on_outlet_type_and_outlet_id"
+  create_table "platform_preferences", force: :cascade do |t|
+    t.string   "name"
+    t.string   "preftype"
+    t.string   "string_field"
+    t.text     "text_field"
+    t.boolean  "bool_field"
+    t.integer  "integer_field"
+    t.float    "float_field"
+    t.decimal  "decimal_field"
+    t.datetime "datetime_field"
+    t.datetime "timestamp_field"
+    t.time     "time_field"
+    t.date     "date_field"
+    t.binary   "binary_field"
+    t.string   "ref_field_type"
+    t.integer  "ref_field_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["ref_field_type", "ref_field_id"], name: "index_platform_preferences_on_ref_field_type_and_ref_field_id"
+  end
 
   create_table "programs", force: :cascade do |t|
     t.string   "name"
@@ -136,10 +150,9 @@ ActiveRecord::Schema.define(version: 20160902171807) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.string   "marking"
+    t.index ["subscriber_type", "subscriber_id"], name: "index_subscriptions_on_subscriber_type_and_subscriber_id"
+    t.index ["subscription_type", "subscription_id"], name: "index_subscriptions_on_subscription_type_and_subscription_id"
   end
-
-  add_index "subscriptions", ["subscriber_type", "subscriber_id"], name: "index_subscriptions_on_subscriber_type_and_subscriber_id"
-  add_index "subscriptions", ["subscription_type", "subscription_id"], name: "index_subscriptions_on_subscription_type_and_subscription_id"
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
@@ -151,10 +164,9 @@ ActiveRecord::Schema.define(version: 20160902171807) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "cover_image_url"
+    t.index ["number"], name: "index_teams_on_number"
+    t.index ["program_id"], name: "index_teams_on_program_id"
   end
-
-  add_index "teams", ["number"], name: "index_teams_on_number"
-  add_index "teams", ["program_id"], name: "index_teams_on_program_id"
 
   create_table "topic_items", force: :cascade do |t|
     t.integer  "topic_id"
@@ -162,10 +174,9 @@ ActiveRecord::Schema.define(version: 20160902171807) do
     t.string   "topicable_type"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.index ["topic_id"], name: "index_topic_items_on_topic_id"
+    t.index ["topicable_type", "topicable_id"], name: "index_topic_items_on_topicable_type_and_topicable_id"
   end
-
-  add_index "topic_items", ["topic_id"], name: "index_topic_items_on_topic_id"
-  add_index "topic_items", ["topicable_type", "topicable_id"], name: "index_topic_items_on_topicable_type_and_topicable_id"
 
   create_table "topics", force: :cascade do |t|
     t.string   "name"
@@ -183,10 +194,9 @@ ActiveRecord::Schema.define(version: 20160902171807) do
     t.integer  "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_track_courses_on_course_id"
+    t.index ["track_id"], name: "index_track_courses_on_track_id"
   end
-
-  add_index "track_courses", ["course_id"], name: "index_track_courses_on_course_id"
-  add_index "track_courses", ["track_id"], name: "index_track_courses_on_track_id"
 
   create_table "tracks", force: :cascade do |t|
     t.string   "name"
@@ -220,11 +230,10 @@ ActiveRecord::Schema.define(version: 20160902171807) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "nickname"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
-
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
 
 end

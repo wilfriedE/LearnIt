@@ -4,7 +4,7 @@ class Topic < ApplicationRecord
   has_many :tracks, -> { distinct }, through: :topic_items, source: :topicable, :source_type => 'Track'
   has_many :lesson_versions, -> { distinct }, through: :topic_items, source: :topicable, :source_type => 'LessonVersion'
   has_many :lessons, -> { distinct }, through: :lesson_versions
-  validates :name, presence: true, :uniqueness => {:case_sensitive => false}
+  validates :name, presence: true, uniqueness: true
 
   def as_json(options={})
     super(:only => [:id, :name, :description]

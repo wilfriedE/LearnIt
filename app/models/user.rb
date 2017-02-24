@@ -5,6 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
 
+  ROLES_T = {0 => 'USER', 1 => 'MOD', 2 => 'ADMIN'}
+  ROLES = {ROLES_T[0].to_sym => 'User', ROLES_T[1].to_sym => 'Moderator', ROLES_T[2].to_sym => 'Administrator'}
+
   has_many :contributions, as: :contributor, dependent: :destroy
   has_many :subscriptions, as: :subscriber, dependent: :destroy
   has_many :assignments, as: :claimer, dependent: :destroy
@@ -26,5 +29,23 @@ class User < ApplicationRecord
       return true
     end
     return false
+  end
+
+  def make_moderator
+    return if self.moderator?
+    self.role = ROLES_T[1]
+  end
+
+  def moderator?
+    self.role == ROLES_T[1]
+  end
+
+  def make_admin
+    return if self.admin?
+    self.role = ROLES_T[2]
+  end
+
+  def admin?
+    self.role == ROLES_T[2]
   end
 end

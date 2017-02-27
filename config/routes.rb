@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
+  namespace :administrate do
+    get '/' => 'platform#index'
+  end
+
   root 'welcome#index'
-  
+
   #welcome pages
   get 'library' => 'welcome#library'
   get 'contribute' => 'welcome#contribute'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220191236) do
+ActiveRecord::Schema.define(version: 20170227192409) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "type"
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 20170220191236) do
     t.integer  "ref_field_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.text     "rich_text_field"
     t.index ["ref_field_type", "ref_field_id"], name: "index_platform_preferences_on_ref_field_type_and_ref_field_id"
   end
 

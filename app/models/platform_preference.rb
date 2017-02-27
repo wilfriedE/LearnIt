@@ -1,7 +1,7 @@
 class PlatformPreference < ApplicationRecord
   PREFTYPES = { STRING: "String",  TEXT: "Text", BOOL: "Boolean", INTERGER: "Integer",
                 FLOAT: "Float", DECIMAL: "Decimal", DATETIME: "Datetime", TIMESTAMP: "Timestamp",
-                TIME: "Time", DATE: "Date", BINARY: "Binary", REF: "Reference",
+                TIME: "Time", DATE: "Date", BINARY: "Binary", REF: "Reference", RICH_TEXT: "Rich Text",
                 UNKNOWN: "Unknown preference type"}
 
   belongs_to :ref_field, polymorphic: true
@@ -34,6 +34,8 @@ class PlatformPreference < ApplicationRecord
       return binary_field
     when PREFTYPES[:REF]
       return ref_field
+    when PREFTYPES[:RICH_TEXT]
+      return rich_text_field
     else
       return PREFTYPES[:UNKNOWN]
     end

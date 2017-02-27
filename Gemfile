@@ -25,6 +25,9 @@ gem 'bootstrap-sass', '~> 3.3.6'
 
 gem 'devise'
 
+#Use pundit for authorization
+gem "pundit"
+
 gem 'cocoon'
 gem 'simple_form'
 # Use ActiveModel has_secure_password
@@ -57,6 +60,9 @@ group :development do
   gem 'spring'
 end
 
+group :test do
+   gem 'pundit-matchers', '~> 1.1.0'
+end
 #Assets management with rails-assets
 source 'https://rails-assets.org' do
   gem 'rails-assets-font-awesome', '~> 4.3.0'

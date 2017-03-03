@@ -18,7 +18,7 @@
 //= require bootstrap-sass
 //= require bootstrap-material-design
 //= require bluebird
-//= require perfect-scrollbar
+//= require perfect-scrollbar/perfect-scrollbar.jquery
 //= require mustache
 //= require html.sortable
 //= require sifter
@@ -27,7 +27,7 @@
 //= require cocoon
 //
 //= require_tree .
-$(document).on('page:change', function() {
+$( document ).on('turbolinks:load', function() {
   //make init calls and such here
   $.material.init();
   $('.scrollable').perfectScrollbar();

@@ -37,7 +37,6 @@ gem 'devise'
 #Use pundit for authorization
 gem "pundit"
 
-gem 'cocoon'
 gem 'simple_form'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -47,6 +46,7 @@ gem 'simple_form'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'webpacker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -77,19 +77,6 @@ end
 
 group :test do
    gem 'pundit-matchers', '~> 1.1.0'
-end
-
-#Assets management with rails-assets
-source 'https://rails-assets.org' do
-  gem 'rails-assets-font-awesome', '~> 4.3.0'
-  gem 'rails-assets-bootstrap-sass'
-  gem 'rails-assets-bootstrap-material-design'
-  gem 'rails-assets-bluebird'
-  gem 'rails-assets-perfect-scrollbar', '~> 0.6'
-  gem 'rails-assets-bootstrap-horizon', '~> 0.1'
-  gem 'rails-assets-mustache'
-  gem 'rails-assets-html.sortable'
-  gem 'rails-assets-selectize'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

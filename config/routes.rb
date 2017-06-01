@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  namespace :administrate do
-    get '/' => 'platform#index'
-  end
-
   root 'welcome#index'
 
   #welcome pages
@@ -88,5 +84,8 @@ Rails.application.routes.draw do
   get 'profile/:id' => 'profile#show', as: :user_profile
   get 'profile/:id/notifications' => 'profile#notifications', as: :user_notifications
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  #administrate namespace
+  namespace :administrate do
+    get '/' => 'platform#index'
+  end
 end

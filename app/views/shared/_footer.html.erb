@@ -1,13 +1,28 @@
-<footer class="footer" role="contentinfo">
-  <div class="row">
-
-    <div class="col-sm-6">
+<div id="show-footer-btn" class="btn-group text-center" title="Show Footer">
+  <h3 type="button" class="btn btn-info btn-raised">
+    <span class="fa fa-long-arrow-up" aria-hidden="true"></span>
+  </h3>
+  <h3 type="button" class="btn btn-info btn-raised">Show Footer</h3>
+</div>
+<footer id="main-footer" class="navbar-fixed-bottom" role="contentinfo">
+  <div class="container-fluid">
+    <div class="col-lg-2">
+      <div class="bs-component">
+        <div id="hide-footer-btn" class="btn-group text-center" title="Hide Footer">
+          <h3 type="button" class="btn btn-info btn-raised">
+            <span class="fa fa-long-arrow-down" aria-hidden="true"></span>
+          </h3>
+          <h3 type="button" class="btn btn-info btn-raised">Hide Footer</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5">
       <div class="bs-component">
         <p><%= Platform.footer %></p>
       </div>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-lg-5">
       <div class="bs-component">
         <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>

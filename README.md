@@ -3,6 +3,8 @@ LearnIt
 
 A centralized training resource for the Your learning needs.
 
+LearnIt helps you organize your tutorials/lessons/talks.
+
 ## Example Projects:
 * FIRSTMastery: [Link](http://github.com/wilfriede/firstmastery/)
 

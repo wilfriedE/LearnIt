@@ -10,17 +10,16 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
+//= require rails-ujs
 //= require turbolinks
 //
 //Rails Comonents
+//= require jquery
 //= require bootstrap-sass
 //= require bootstrap-material-design
 //= require bluebird
 //= require perfect-scrollbar/perfect-scrollbar.jquery
 //= require mustache
-//= require html.sortable
 //= require sifter
 //= require microplugin
 //= require selectize

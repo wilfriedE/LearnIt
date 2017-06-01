@@ -2,9 +2,9 @@
    <div class="media">
     <div class="media-left media-middle">
       <% if course %>
-        <a href="<%= url_for(course) %>" style="color:<%= course.color %>"><i class="material-icons" style="font-size: 60pt;">book</i></a>
+        <a href="<%= url_for(course) %>" style="color:<%= course.color %>"><i class="fa fa-book" style="font-size: 60pt;"></i></a>
       <% else %>
-        <a href='/courses/{{id}}' style='color:{{color}}'><i class='material-icons' style='font-size: 60pt;'>book</i></a>
+        <a href='/courses/{{id}}' style='color:{{color}}'><i class='fa fa-book' style='font-size: 60pt;'>book</i></a>
       <% end %>
     </div>
     <div class="media-body">

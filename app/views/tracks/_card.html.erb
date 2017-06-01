@@ -1,9 +1,9 @@
 <div class="row">
-  <div class="well well-sm " >
+  <div class="panel panel-defaultpanel-sm " >
     <div class="media" >
 
     <div class="media-left media-middle">
-      <a  href="<%= url_for track_path(track) %>" ><i class="material-icons" style="font-size: 60pt;">library_books</i></a>
+      <a  href="<%= url_for track_path(track) %>" ><i class="fa fa-list" style="font-size: 60pt;"></i></a>
     </div>
     <div class="media-body" >
       <h3 class="title"><%= track.name %></h3>
@@ -13,8 +13,8 @@
           <li style=""><%= link_to topic.name, topic_path(topic) %></li>
         <% end %>
       </ul></p>
-      <a class="btn btn-info btn-raised" href="<%= url_for viewing_track_path(track, 0) %>" ><i class="material-icons">video_library</i> Start Track</a>
-      <button class="btn btn-primary btn-raised"  data-toggle="collapse" data-target="#collapseCourses-<%= track.id %>" aria-expanded="false" aria-controls="collapseCourses-<%= track.id %>"><i class="material-icons">view_list</i> View Courses</button>
+      <a class="btn btn-info " href="<%= url_for viewing_track_path(track, 0) %>" ><i class="fa fa-play"></i> Start Track</a>
+      <button class="btn btn-primary "  data-toggle="collapse" data-target="#collapseCourses-<%= track.id %>" aria-expanded="false" aria-controls="collapseCourses-<%= track.id %>"><i class="fa fa-list" ></i> View Courses</button>
     </div>
 
     <div  class="collapse" id="collapseCourses-<%= track.id %>">
@@ -23,7 +23,7 @@
       <div class="media" style="border-left: 0.25em solid {{course.color}}">
         <div class="media-left media-middle">
           <a href="<%= url_for viewing_course_path(course, 0) %>">
-           <i class="material-icons" style="font-size: 50pt;">play_circle_outline</i>
+           <i class="fa fa-play-circle" style="font-size: 50pt;"></i>
           </a>
         </div>
         <div class="media-body">

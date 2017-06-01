@@ -49,3 +49,5 @@ bower.json
 
 # Ignore project notes
 .notes.md
+/public/packs
+/node_modules

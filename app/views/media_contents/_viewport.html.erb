@@ -1,4 +1,4 @@
-<div class="well well-lg">
+<div class="panel panel-defaultpanel-lg">
 <% if media.type ==  YoutubeContent.to_s %>
   <%= content_for(:body_attributes) do %>data-no-turbolink<% end %>
   <%= render partial: "media_contents/viewports/youtube", :locals => {:media => media} %>

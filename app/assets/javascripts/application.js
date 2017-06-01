@@ -13,27 +13,5 @@
 //= require rails-ujs
 //= require turbolinks
 //
-//Rails Comonents
-//= require jquery
-//= require bootstrap-sass
-//= require bootstrap-material-design
-//= require bluebird
-//= require perfect-scrollbar/perfect-scrollbar.jquery
-//= require mustache
-//= require sifter
-//= require microplugin
-//= require selectize
-//= require cocoon
 //
 //= require_tree .
-$( document ).on('turbolinks:load', function() {
-  //make init calls and such here
-  $.material.init();
-  $('.scrollable').perfectScrollbar();
-  $(document).on('click', '.nested_removable', function(e){
-    e.preventDefault();
-    var parent =  $(this).attr("data-remove");
-    var item_field = $(this).closest(parent);
-    item_field.remove();
-  });
-});

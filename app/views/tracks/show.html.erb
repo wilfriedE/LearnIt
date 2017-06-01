@@ -1,9 +1,9 @@
 <h1>Tracks#show</h1>
 <p>Find me in app/views/tracks/show.html.erb</p>
-<div class="well well-lg">
+<div class="panel panel-defaultpanel-lg">
   <div class="row media" >
   <div class="media-left media-top">
-    <i class="material-icons"  style="font-size: 50pt;padding-top:20px;color:#0fb2fc;">library_books</i>
+    <i class="fa fa-list-alt" style="font-size: 60pt;"></i>
   </div>
   <div class="media-body">
     <h3 class="title"><%= @track.name %></h3>
@@ -13,13 +13,13 @@
           <li style=""><%= link_to topic.name, topic_path(topic) %></li>
         <% end %>
       </ul></p>
-    <a class="btn btn-info btn-raised" href="<%= url_for viewing_track_path(@track, 0) %>" ><i class="material-icons">video_library</i> Start</a>
+    <a class="btn btn-info " href="<%= url_for viewing_track_path(@track, 0) %>" ><i class="fa fa-play"></i> Start</a>
     <% @track.track_courses.each do |track_course| %>
     <% course =  track_course.course %>
     <div class="media" style="border-left: 0.25em solid <%= course.color %>">
       <div class="media-left media-middle">
         <a href="<%= url_for viewing_course_path(course, 0) %>">
-         <i class="material-icons" style="font-size: 50pt;">play_circle_outline</i>
+         <i class="fa fa-play-circle" style="font-size: 50pt;"></i>
         </a>
       </div>
       <div class="media-body">

@@ -3,7 +3,7 @@
     <%= render partial: "lesson_versions/buttons", :locals => {:lesson => @lesson, :version => @lesson_version} %>
   <div id="viewport"><%= load_media_viewport(@lesson_version.media) %></div>
 
-  <div class="well well-sm">
+  <div class="panel panel-defaultpanel-sm">
   <p class="desc"><strong>Description:</strong> <%= @lesson_version.description %></p>
   <p class="desc"><ul class="list-inline">
       <li><strong>Topics:</strong></li>
@@ -49,7 +49,7 @@
 
 <div class="col-lg-3">
   <div class="bs-component">
-  <div class="well well-lg" id="side-result-view">
+  <div class="panel panel-defaultpanel-lg" id="side-result-view">
     <% if @course %>
       <h3>Course: <%= @course.name %></h3>
       <% if @course.course_lessons.count > 1 %>

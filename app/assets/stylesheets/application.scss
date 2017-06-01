@@ -10,17 +10,5 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require bootstrap-material-design
- *= require font-awesome
  */
-
- @import "bootstrap-sass";
- @import "perfect-scrollbar";
- @import "bootstrap-horizon";
- @import "selectize";
- @import "base";
- @import "variables";
- @import "mixins";
- @import "menu";
- @import "footer";
  @import "site";

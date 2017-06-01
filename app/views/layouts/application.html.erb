@@ -5,9 +5,9 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <title><%= Platform.platform_name %></title>
+        <%= javascript_pack_tag 'application' %>
+        <%= stylesheet_pack_tag 'application' %>
         <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
         <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
         <%= csrf_meta_tags %>
@@ -15,7 +15,7 @@
     <body  <%= yield(:body_attributes) %>>
         <div id="wrapper">
             <div class="overlay"></div>
-            <%= render partial: "shared/menu" %>
+            <%= render partial: "shared/header" %>
             <div id="page-content-wrapper">
                 <div class="container">
                   <div class="row">
@@ -23,8 +23,8 @@
                   </div>
                 </div>
             </div>
-            <%= render partial: "shared/footer" %>
         </div>
+        <%= render partial: "shared/footer" %>
         <%= render partial: "shared/extras" %>
 
     </body>

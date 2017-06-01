@@ -1,12 +1,12 @@
 
-<div class="row media well"  style="border-left: 0.25em solid #03a9f4">
+<div class="row media panel"  style="border-left: 0.25em solid #03a9f4">
   <div class="media-body media-middle">
     <h4><strong>Ticket:</strong> <%= ticket.name %> </h4>
     <p><strong>Description:</strong> <%= ticket.description %></p>
 
     <h4>Contents: <button class="btn" data-toggle="collapse" data-target="#collapseTicketContent-<%= ticket.id%>"
        aria-expanded="false" aria-controls="collapseTicketContent-<%=ticket.id %>">
-       <i class="material-icons">keyboard_arrow_down</i> View</button></h4>
+       <i class="fa fa-chevron-down" style="font-size: 60pt;"></i>View</button></h4>
     <div class="row">
       <!--Medias -->
       <div  class="collapse" id="collapseTicketContent-<%= ticket.id%>">
@@ -21,16 +21,16 @@
       <% if ticket.media_contents.size > 0 %>
       <h4>Attached Media: <button class="btn" data-toggle="collapse" data-target="#collapseTicketMedia-<%= ticket.id%>"
        aria-expanded="false" aria-controls="collapseTicketMedia-<%=ticket.id %>">
-       <i class="material-icons">keyboard_arrow_down</i> View</button></h4>
+       <i class="fa fa-chevron-down" style="font-size: 60pt;"></i>View</button></h4>
       <% end %>
   </div>
   <div class="media-right media-middle">
     <% if current_user != ticket.claimer %>
-      <%= link_to "Claim", claim_ticket_path(ticket.id), :method => :post, class: "btn btn-primary btn-raised col-lg-12"%>
+      <%= link_to "Claim", claim_ticket_path(ticket.id), :method => :post, class: "btn btn-primary  col-lg-12"%>
     <% else %>
-      <%= link_to "Un-claim", unclaim_ticket_path(ticket.id), :method => :post, class: "btn btn-warning btn-raised col-lg-12"%>
+      <%= link_to "Un-claim", unclaim_ticket_path(ticket.id), :method => :post, class: "btn btn-warning  col-lg-12"%>
     <% end %>
-    <%= link_to "View", moderate_ticket_path(ticket), class: "btn btn-info btn-raised col-lg-12"%>
+    <%= link_to "View", moderate_ticket_path(ticket), class: "btn btn-info  col-lg-12"%>
   </div>
 
   <!--Medias -->

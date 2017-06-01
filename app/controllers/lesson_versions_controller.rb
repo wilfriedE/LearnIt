@@ -16,7 +16,7 @@ class LessonVersionsController < ApplicationController
   end
 
   def edit
-    #only lesson version creator/owner can edit as well as moderators
+    #only lesson version creator/owner can edit as panel as moderators
     #one cannot edit a lesson version if it's currently the active_version of
     # a lesson unless you are a moderator.
   end

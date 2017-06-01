@@ -4,5 +4,5 @@
     <% if f.object.attributes['course_id'] %>
       <%= load_track_course_form_view(Course.find(f.object.attributes['course_id'])) %>
     <% end %>
-    <%= link_to_remove_association "Remove course from Track", f, :class => "btn btn-danger btn-raised btn-xs"%>
+    <%= link_to_remove_association "Remove course from Track", f, :class => "btn btn-danger  btn-xs"%>
 </div>

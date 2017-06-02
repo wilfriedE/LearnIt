@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602185847) do
+ActiveRecord::Schema.define(version: 20170602195654) do
 
   create_table "activities", force: :cascade do |t|
     t.string "type"
@@ -101,6 +101,14 @@ ActiveRecord::Schema.define(version: 20170602185847) do
     t.index ["content_type", "content_id"], name: "index_media_outlets_on_content_type_and_content_id"
     t.index ["media_content_id"], name: "index_media_outlets_on_media_content_id"
     t.index ["outlet_type", "outlet_id"], name: "index_media_outlets_on_outlet_type_and_outlet_id"
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.string "name"
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "platform_preferences", force: :cascade do |t|

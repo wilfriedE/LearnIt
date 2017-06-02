@@ -84,4 +84,8 @@ Rails.application.routes.draw do
   namespace :administrate do
     get '/' => 'platform#index'
   end
+
+  #pages
+  get 'pages' => 'pages#index'
+  get '/:name' => 'pages#show'
 end

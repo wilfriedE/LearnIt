@@ -1,4 +1,8 @@
 module ApplicationHelper
+    def platform
+      return Platform.instance
+    end
+
     def generalized_card(item, item_type)
       case item_type
       when "Lesson"

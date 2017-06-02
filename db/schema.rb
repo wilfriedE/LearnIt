@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170227192409) do
+ActiveRecord::Schema.define(version: 20170602182538) do
 
   create_table "activities", force: :cascade do |t|
     t.string "type"
@@ -58,16 +58,6 @@ ActiveRecord::Schema.define(version: 20170227192409) do
     t.string "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "curated_items", force: :cascade do |t|
-    t.integer "program_id"
-    t.integer "curatable_id"
-    t.string "curatable_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["curatable_type", "curatable_id"], name: "index_curated_items_on_curatable_type_and_curatable_id"
-    t.index ["program_id"], name: "index_curated_items_on_program_id"
   end
 
   create_table "lesson_versions", force: :cascade do |t|
@@ -133,14 +123,6 @@ ActiveRecord::Schema.define(version: 20170227192409) do
     t.datetime "updated_at", null: false
     t.text "rich_text_field"
     t.index ["ref_field_type", "ref_field_id"], name: "index_platform_preferences_on_ref_field_type_and_ref_field_id"
-  end
-
-  create_table "programs", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.string "cover_image_url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "subscriptions", force: :cascade do |t|

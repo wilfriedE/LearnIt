@@ -46,9 +46,6 @@ Rails.application.routes.draw do
   #topics pages
   resources :topics, only: [:index, :show]
 
-  #programs pages
-  resources :programs, only: [:show]
-
 
   #teams pages
   resources :teams, only: [:index, :show]
@@ -60,7 +57,6 @@ Rails.application.routes.draw do
     get 'mytickets' => 'moderations#mytickets'
     get 'guides' => 'moderations#guides'
     get 'lessons' => 'lessons#index'
-    get 'programs' => 'programs#index'
     get 'teams' => 'teams#index'
     get 'topics' => 'topics#index'
     get 'lesson_versions' => 'lesson_versions#index'

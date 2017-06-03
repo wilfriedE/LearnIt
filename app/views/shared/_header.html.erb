@@ -72,13 +72,9 @@
         <% end %>
 
         <% if !user_signed_in? %>
-          <li>
-            <a class="btn btn-primary"  role="button" href="<%= url_for new_user_session_path %>"><i class="fa fa-fw fa-sign-in"></i> Sign in</a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a class="btn btn-info"  role="button" href="<%= new_user_registration_path %>"><i class="fa fa-fw fa-chevron-up"></i> Sign up</a>
-          </li>
+          <a class="btn btn-primary"  role="button" href="<%= url_for new_user_session_path %>"><i class="fa fa-fw fa-sign-in"></i> Sign in</a>
+          <i class="divider"></i>
+          <a class="btn btn-info"  role="button" href="<%= new_user_registration_path %>"><i class="fa fa-fw fa-chevron-up"></i> Sign up</a>
         <% end %>
       </div>
       </div><!-- /.navbar-collapse -->

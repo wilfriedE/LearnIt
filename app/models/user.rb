@@ -48,4 +48,8 @@ class User < ApplicationRecord
   def admin?
     self.role == ROLES_T[2]
   end
+
+  def editor?
+    self.role == ROLES_T[2] #TODO change to support different role model
+  end
 end

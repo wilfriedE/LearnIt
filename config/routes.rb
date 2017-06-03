@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
-
-  #welcome pages
-  get 'library' => 'welcome#library'
-  get 'contribute' => 'welcome#contribute'
-  get 'about'  => 'welcome#about'
+  root 'pages#index'
 
   #lesson pages
   get 'lesson/:id' => 'lessons#show'
@@ -86,6 +81,8 @@ Rails.application.routes.draw do
   end
 
   #pages
-  get 'pages' => 'pages#index'
-  get '/:name' => 'pages#show'
+  get 'library' => 'pages#library'
+  get 'contribute' => 'pages#contribute' #TODO remove
+  get '/:name' => 'pages#show', as: :page
+  get '/:name/edit' => 'pages#edit', as: :edit_page
 end

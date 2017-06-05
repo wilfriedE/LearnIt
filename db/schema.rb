@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602195654) do
+ActiveRecord::Schema.define(version: 20170605004740) do
 
   create_table "activities", force: :cascade do |t|
     t.string "type"
@@ -133,6 +133,22 @@ ActiveRecord::Schema.define(version: 20170602195654) do
     t.index ["ref_field_type", "ref_field_id"], name: "index_platform_preferences_on_ref_field_type_and_ref_field_id"
   end
 
+  create_table "role_users", force: :cascade do |t|
+    t.integer "role_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_role_users_on_role_id"
+    t.index ["user_id"], name: "index_role_users_on_user_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.integer "subscription_id"
     t.string "subscription_type"
@@ -215,7 +231,6 @@ ActiveRecord::Schema.define(version: 20170602195654) do
     t.string "first_name"
     t.string "last_name"
     t.string "nickname"
-    t.string "role", default: "USER"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

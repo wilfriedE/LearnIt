@@ -5,7 +5,7 @@ class PlatformPreference < ApplicationRecord
                 UNKNOWN: "Unknown preference type"}
 
   belongs_to :ref_field, polymorphic: true
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false, allow_blank: true }
   validates :preftype, presence: true
 
   def value

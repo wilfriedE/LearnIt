@@ -2,7 +2,7 @@ require 'singleton'
 class Platform
   include Singleton
 
-  attr_reader :name
+  attr_reader :name, :footer, :description
 
   def initialize()
     @name = PlatformPreference.create_with(preftype: PlatformPreference::PREFTYPES[:STRING],
@@ -11,15 +11,12 @@ class Platform
      rich_text_field: ENV['PLATFORM_FOOTER']).find_or_create_by(name: 'footer').value
   end
 
-  def platform_name
-  end
-
-  def footer
-    @footer
-  end
-
   def preferences
     PlatformPreference.all.map { |pref| {pref.name => pref.value }  }
   end
 
+  def all_contributor?
+    PlatformPreference.create_with(preftype: PlatformPreference::PREFTYPES[:BOOL],
+     bool_field: true).find_or_create_by(name: 'all_contributor').value
+  end
 end

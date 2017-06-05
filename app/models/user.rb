@@ -5,9 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
 
-  ROLES_T = {0 => 'USER', 1 => 'MOD', 2 => 'ADMIN'}
-  ROLES = {ROLES_T[0].to_sym => 'User', ROLES_T[1].to_sym => 'Moderator', ROLES_T[2].to_sym => 'Administrator'}
+  before_create :set_default_role
 
+  has_many :role_users, dependent: :destroy
+  has_many :roles, through: :role_users
   has_many :contributions, as: :contributor, dependent: :destroy
   has_many :subscriptions, as: :subscriber, dependent: :destroy
   has_many :assignments, as: :claimer, dependent: :destroy
@@ -31,25 +32,49 @@ class User < ApplicationRecord
     return false
   end
 
+  def contributor?
+    self.roles.include?(Role.find_by_name(:contributor))
+  end
+
   def make_moderator
     return if self.moderator?
-    self.role = ROLES_T[1]
+    self.roles << Role.find_by_name(:moderator)
   end
 
   def moderator?
-    self.role == ROLES_T[1]
+    self.roles.include?(Role.find_by_name(:moderator))
   end
 
   def make_admin
     return if self.admin?
-    self.role = ROLES_T[2]
+    self.roles << Role.find_by_name(:admin)
   end
 
   def admin?
-    self.role == ROLES_T[2]
+    self.roles.include?(Role.find_by_name(:admin))
+  end
+
+  def make_editor
+    return if self.editor?
+    self.roles << Role.find_by_name(:editor)
   end
 
   def editor?
-    self.role == ROLES_T[2] #TODO change to support different role model
+    self.roles.include?(Role.find_by_name(:editor))
+  end
+
+  def ban
+    return if self.banned?
+    self.roles << Role.find_by_name(:banned)
+  end
+
+  def banned?
+    self.roles.include?(Role.find_by_name(:banned))
+  end
+
+  def set_default_role
+    if Platform.instance.all_contributor? && Role.find_by_name(:contributor)
+      self.roles << Role.find_by_name(:contributor)
+    end
   end
 end

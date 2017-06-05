@@ -6,14 +6,5 @@ FactoryGirl.define do
     sequence(:email) { |n| "person#{n}@example.com" }
     password "password"
     password_confirmation "password"
-    role "USER"
-
-    trait :moderator do
-      role "MOD"
-    end
-
-    trait :admin do
-      role "ADMIN"
-    end
   end
 end

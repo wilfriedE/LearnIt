@@ -7,8 +7,8 @@ RSpec.describe PlatformPreference, type: :model do
     preference2 = create(:platform_preference, preftype: PlatformPreference::PREFTYPES[:INTERGER], name: "courses", integer_field: 20)
     preference3 = create(:platform_preference, preftype: PlatformPreference::PREFTYPES[:STRING], name: "description", string_field: "A learning platform for you!")
 
-    expect(platform.preferences).to include({preference1.name => preference1.value})
-    expect(platform.preferences).to include({preference2.name => preference2.value})
-    expect(platform.preferences).to include({preference3.name => preference3.value})
+    expect(platform.preferences).to include(preference1.name => preference1.value)
+    expect(platform.preferences).to include(preference2.name => preference2.value)
+    expect(platform.preferences).to include(preference3.name => preference3.value)
   end
 end

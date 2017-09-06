@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Administrate::PlatformController, type: :controller do
-
   describe "GET #index" do
     context 'as visitor' do
       it "returns http redirect" do
@@ -42,5 +41,4 @@ RSpec.describe Administrate::PlatformController, type: :controller do
       end
     end
   end
-
 end

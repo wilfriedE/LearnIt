@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
       @teams = Team.search(params[:q]).order("created_at DESC")
     else
       limit = 10
-      @teams = Team.offset(params[:page].to_i * limit ).first(limit)
+      @teams = Team.offset(params[:page].to_i * limit).first(limit)
     end
     respond_to do |format|
       format.html

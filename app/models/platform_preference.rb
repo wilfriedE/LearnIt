@@ -1,8 +1,8 @@
 class PlatformPreference < ApplicationRecord
-  PREFTYPES = { STRING: "String",  TEXT: "Text", BOOL: "Boolean", INTERGER: "Integer",
+  PREFTYPES = { STRING: "String", TEXT: "Text", BOOL: "Boolean", INTERGER: "Integer",
                 FLOAT: "Float", DECIMAL: "Decimal", DATETIME: "Datetime", TIMESTAMP: "Timestamp",
                 TIME: "Time", DATE: "Date", BINARY: "Binary", REF: "Reference", RICH_TEXT: "Rich Text",
-                UNKNOWN: "Unknown preference type"}
+                UNKNOWN: "Unknown preference type" }.freeeze
 
   belongs_to :ref_field, polymorphic: true
   validates :name, presence: true, uniqueness: { case_sensitive: false, allow_blank: true }
@@ -11,33 +11,33 @@ class PlatformPreference < ApplicationRecord
   def value
     case preftype
     when PREFTYPES[:STRING]
-      return string_field
+      string_field
     when PREFTYPES[:TEXT]
-      return text_field
+      text_field
     when PREFTYPES[:BOOL]
-      return bool_field
+      bool_field
     when PREFTYPES[:INTERGER]
-      return integer_field
+      integer_field
     when PREFTYPES[:FLOAT]
-      return float_field
+      float_field
     when PREFTYPES[:DECIMAL]
-      return decimal_field
+      decimal_field
     when PREFTYPES[:DATETIME]
-      return datetime_field
+      datetime_field
     when PREFTYPES[:TIMESTAMP]
-      return timestamp_field
+      timestamp_field
     when PREFTYPES[:TIME]
-      return time_field
+      time_field
     when PREFTYPES[:DATE]
-      return date_field
+      date_field
     when PREFTYPES[:BINARY]
-      return binary_field
+      binary_field
     when PREFTYPES[:REF]
-      return ref_field
+      ref_field
     when PREFTYPES[:RICH_TEXT]
-      return rich_text_field
+      rich_text_field
     else
-      return PREFTYPES[:UNKNOWN]
+      PREFTYPES[:UNKNOWN]
     end
   end
 end

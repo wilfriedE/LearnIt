@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
-  #, :timeoutable and :omniauthable
+  # :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
@@ -12,10 +12,10 @@ class User < ApplicationRecord
   has_many :contributions, as: :contributor, dependent: :destroy
   has_many :subscriptions, as: :subscriber, dependent: :destroy
   has_many :assignments, as: :claimer, dependent: :destroy
-  has_many :mod_ticket_activities, lambda { where(type: 'ModTicketActivity') }, through: :assignments, source: :assignable, source_type: "Activity"
-  has_many :user_feed_activities, lambda { where(type: 'UserFeedActivity') }, through: :subscriptions, source: :subscription, source_type: "Activity"
-  has_many :general_feed_activities, lambda { where(type: 'GeneralFeedActivity') }, through: :subscriptions, source: :subscription, source_type: "Activity"
-  validates_uniqueness_of :nickname
+  has_many :mod_ticket_activities, -> { where(type: 'ModTicketActivity') }, through: :assignments, source: :assignable, source_type: "Activity"
+  has_many :user_feed_activities, -> { where(type: 'UserFeedActivity') }, through: :subscriptions, source: :subscription, source_type: "Activity"
+  has_many :general_feed_activities, -> { where(type: 'GeneralFeedActivity') }, through: :subscriptions, source: :subscription, source_type: "Activity"
+  validates :nickname, uniqueness: true
 
   def tickets
     mod_ticket_activities
@@ -25,56 +25,52 @@ class User < ApplicationRecord
     user_feed_activities + general_feed_activities
   end
 
-  def is_current_user(user)
-    if self.id == user.id
-      return true
-    end
-    return false
+  def current_user?(user)
+    return true if id == user.id
+    false
   end
 
   def contributor?
-    self.roles.include?(Role.find_by_name(:contributor))
+    roles.include?(Role.find_by(name: :contributor))
   end
 
   def make_moderator
-    return if self.moderator?
-    self.roles << Role.find_by_name(:moderator)
+    return if moderator?
+    roles << Role.find_by(name: :moderator)
   end
 
   def moderator?
-    self.roles.include?(Role.find_by_name(:moderator))
+    roles.include?(Role.find_by(name: :moderator))
   end
 
   def make_admin
-    return if self.admin?
-    self.roles << Role.find_by_name(:admin)
+    return if admin?
+    roles << Role.find_by(name: :admin)
   end
 
   def admin?
-    self.roles.include?(Role.find_by_name(:admin))
+    roles.include?(Role.find_by(name: :admin))
   end
 
   def make_editor
-    return if self.editor?
-    self.roles << Role.find_by_name(:editor)
+    return if editor?
+    roles << Role.find_by(name: :editor)
   end
 
   def editor?
-    self.roles.include?(Role.find_by_name(:editor))
+    roles.include?(Role.find_by(name: :editor))
   end
 
   def ban
-    return if self.banned?
-    self.roles << Role.find_by_name(:banned)
+    return if banned?
+    roles << Role.find_by(name: :banned)
   end
 
   def banned?
-    self.roles.include?(Role.find_by_name(:banned))
+    roles.include?(Role.find_by(name: :banned))
   end
 
   def set_default_role
-    if Platform.instance.all_contributor? && Role.find_by_name(:contributor)
-      self.roles << Role.find_by_name(:contributor)
-    end
+    roles << Role.find_by(name: :contributor) if Platform.instance.all_contributor? && Role.find_by(name: :contributor)
   end
 end

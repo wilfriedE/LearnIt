@@ -5,6 +5,7 @@ class Administrate::PlatformController < ApplicationController
   end
 
   private
+
   def verify_access
     authorize :administrate, :access?
   end

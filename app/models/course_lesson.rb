@@ -7,11 +7,10 @@ class CourseLesson < ApplicationRecord
   validates :position, presence: true
 
   private
+
   def check_for_existing
-    CourseLesson.where(lesson_id: self.lesson_id, course_id: self.course_id).each { |course_lesson|
-      if self.id != course_lesson.id
-        course_lesson.destroy()
-      end
-     }
+    CourseLesson.find_each(lesson_id: lesson_id, course_id: course_id).each do |course_lesson|
+      course_lesson.destroy if id != course_lesson.id
+    end
   end
 end

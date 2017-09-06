@@ -7,11 +7,10 @@ class TrackCourse < ApplicationRecord
   validates :position, presence: true
 
   private
+
   def check_for_existing
-    TrackCourse.where(course_id: self.course_id, track_id: self.track_id).each { |track_course|
-      if self.id != track_course.id
-        track_course.destroy()
-      end
-     }
+    TrackCourse.for_each(course_id: course_id, track_id: track_id).each do |track_course|
+      track_course.destroy if id != track_course.id
+    end
   end
 end

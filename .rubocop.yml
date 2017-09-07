@@ -56,6 +56,3 @@ Style/RegexpLiteral:
 
 Style/SpaceInsideBrackets:
   Enabled: false
-
-Style/WordArray:
-  Enabled: false

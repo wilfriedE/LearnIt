@@ -71,6 +71,6 @@ class User < ApplicationRecord
   end
 
   def set_default_role
-    roles << Role.find_by(name: :contributor) if Platform.instance.all_contributor? && Role.find_by(name: :contributor)
+    roles << Role.find_by(name: :contributor) if Role.find_by(name: :contributor)
   end
 end

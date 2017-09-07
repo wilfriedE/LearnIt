@@ -1,7 +1,7 @@
 class Subscription < ApplicationRecord
   belongs_to :subscription, polymorphic: true
   belongs_to :subscriber,   polymorphic: true
-  validates :subscriber_id, uniqueness: true, scope: %i[subscriber_type subscription_type subscription_id]
+  validates :subscriber_id, uniqueness: { scope: %i[subscriber_type subscription_type subscription_id] }
 
   def mark_as_read
     self.marking = markings[0]

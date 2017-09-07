@@ -2,7 +2,7 @@ class PlatformPreference < ApplicationRecord
   PREFTYPES = { STRING: "String", TEXT: "Text", BOOL: "Boolean", INTERGER: "Integer",
                 FLOAT: "Float", DECIMAL: "Decimal", DATETIME: "Datetime", TIMESTAMP: "Timestamp",
                 TIME: "Time", DATE: "Date", BINARY: "Binary", REF: "Reference", RICH_TEXT: "Rich Text",
-                UNKNOWN: "Unknown preference type" }.freeeze
+                UNKNOWN: "Unknown preference type" }.freeze
 
   belongs_to :ref_field, polymorphic: true
   validates :name, presence: true, uniqueness: { case_sensitive: false, allow_blank: true }

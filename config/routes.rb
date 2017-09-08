@@ -78,6 +78,7 @@ Rails.application.routes.draw do
   #administrate namespace
   namespace :administrate do
     get '/' => 'platform#index'
+    get '/settings' => 'platform#settings'
   end
 
   #pages

@@ -15,5 +15,13 @@ user.make_moderator
 user.make_editor
 user.make_admin
 
-Page.create([{name: "home", title: "Home", body: "<h1>Welcome to LearnIt!</h1>"},
-            {name: "about", title: "About", body: "<h1>About LearnIt!</h1>"}])
+Page.create([
+  {name: "home", title: "Home", body: "<h1>Welcome to LearnIt!</h1>"},
+  {name: "about", title: "About", body: "<h1>About LearnIt!</h1>"}
+])
+
+PlatformPreference.create([
+  { name: 'brand', preftype: PlatformPreference::PREFTYPES[:STRING], string_field: "LearnIt" },
+  { name: 'description', preftype: PlatformPreference::PREFTYPES[:RICH_TEXT], rich_text_field: "A centralized collection of resource for the your learning needs." },
+  { name: 'configured', preftype: PlatformPreference::PREFTYPES[:BOOL], bool_field: false }
+])

@@ -1,52 +1,52 @@
 Rails.application.routes.draw do
   root 'pages#index'
 
-  #lesson pages
+  # lesson pages
   get 'lesson/:id' => 'lessons#show'
   resources :lessons, except: [:update, :create, :destroy] do
     member do
       get 'propose_update'
-      #other lesson specific actions here
+      # other lesson specific actions here
     end
   end
 
-  #lesson_version pages
+  # lesson_version pages
   resources :lesson_versions do
     member do
-      #other actions here
+      # other actions here
     end
   end
 
-  #media_content pages
+  # media_content pages
   get 'media_contents' => 'media_contents#index'
-    #helper for managing different field types
-  get 'media_contents/fields/:type' =>  'media_contents#fields'
 
-  #course pages
+  # helper for managing different field types
+
+  get 'media_contents/fields/:type' => 'media_contents#fields'
+
+  # course pages
   resources :courses do
     member do
       get 'viewing/:position', action: :viewing, as: :viewing
-      #other actions here
+      # other actions here
     end
   end
 
-  #tracks pages
+  # tracks pages
   resources :tracks do
     member do
       get 'viewing/:position', action: :viewing, as: :viewing
-      #other actions here
+      # other actions here
     end
   end
 
-  #topics pages
+  # topics pages
   resources :topics, only: [:index, :show]
 
-
-  #teams pages
+  # teams pages
   resources :teams, only: [:index, :show]
 
-
-  #moderate namespace
+  # moderate namespace
   namespace :moderate do
     get '/' => 'moderations#dashboard'
     get 'mytickets' => 'moderations#mytickets'
@@ -67,23 +67,22 @@ Rails.application.routes.draw do
   post 'tickets/:id/assign_to/:user_id' => 'moderate/tickets#assign_to', as: :assign_ticket
   post 'tickets/:id/change_status/:state' => 'moderate/tickets#change_status', as: :change_ticket_status
 
+  # users authentication area
+  devise_for :users, path: 'auth', controllers: { registrations: 'registrations' }, path_names: { sign_in: 'login', sign_out: 'logout', registration: 'register' }
 
-  #users authentication area
-  devise_for :users, path: 'auth', :controllers => { registrations: 'registrations' } , path_names: { sign_in: 'login', sign_out: 'logout', registration: 'register' }
-
-  #user profile
+  # user profile
   get 'profile/:id' => 'profile#show', as: :user_profile
   get 'profile/:id/notifications' => 'profile#notifications', as: :user_notifications
 
-  #administrate namespace
+  # administrate namespace
   namespace :administrate do
     get '/' => 'platform#index'
     get '/settings' => 'platform#settings'
   end
 
-  #pages
+  # pages
   get 'library' => 'pages#library'
-  get 'contribute' => 'pages#contribute' #TODO remove
+  get 'contribute' => 'pages#contribute' # TODO: remove and have contribute as a page
   get '/:name' => 'pages#show', as: :page
   get '/:name/edit' => 'pages#edit', as: :edit_page
 end

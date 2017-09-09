@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170605004740) do
+ActiveRecord::Schema.define(version: 20170909162107) do
 
   create_table "activities", force: :cascade do |t|
     t.string "type"
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 20170605004740) do
 
   create_table "platform_preferences", force: :cascade do |t|
     t.string "name"
-    t.string "preftype"
+    t.integer "preftype", default: 0, null: false
     t.string "string_field"
     t.text "text_field"
     t.boolean "bool_field"

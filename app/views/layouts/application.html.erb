@@ -8,24 +8,18 @@
         <title><%= platform.brand %></title>
         <%= javascript_pack_tag 'application' %>
         <%= stylesheet_pack_tag 'application' %>
-        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+        <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
         <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
         <%= csrf_meta_tags %>
     </head>
     <body  <%= yield(:body_attributes) %>>
-        <div id="wrapper">
-            <div class="overlay"></div>
+        <div id="container-fluid">
             <%= render partial: "shared/header" %>
-            <div id="page-content-wrapper">
-                <div class="container">
-                  <div class="row">
-                    <%= ((render "layouts/#{yield_hierarchically(controller.class.name)}" rescue nil)|| yield ) %>
-                  </div>
-                </div>
+            <div class="container">
+              <%= ((render "layouts/#{yield_hierarchically(controller.class.name)}" rescue nil)|| yield ) %>
             </div>
         </div>
         <%= render partial: "shared/footer" %>
         <%= render partial: "shared/extras" %>
-
     </body>
 </html>

@@ -14,7 +14,7 @@
         <% end %>
       </ul></p>
       <a class="btn btn-info " href="<%= url_for viewing_track_path(track, 0) %>" ><i class="fa fa-play"></i> Start Track</a>
-      <button class="btn btn-primary "  data-toggle="collapse" data-target="#collapseCourses-<%= track.id %>" aria-expanded="false" aria-controls="collapseCourses-<%= track.id %>"><i class="fa fa-list" ></i> View Courses</button>
+      <button class="btn btn-outline-success "  data-toggle="collapse" data-target="#collapseCourses-<%= track.id %>" aria-expanded="false" aria-controls="collapseCourses-<%= track.id %>"><i class="fa fa-list" ></i> View Courses</button>
     </div>
 
     <div  class="collapse" id="collapseCourses-<%= track.id %>">

@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe PlatformPreference, type: :model do
-  let(:platform) { Platform.instance }
+  let(:platform) { Platform.new }
   it "is available through platform module" do
-    preference1 = create(:platform_preference, preftype: PlatformPreference::PREFTYPES[:INTERGER], name: "lessons", integer_field: 100)
-    preference2 = create(:platform_preference, preftype: PlatformPreference::PREFTYPES[:INTERGER], name: "courses", integer_field: 20)
-    preference3 = create(:platform_preference, preftype: PlatformPreference::PREFTYPES[:STRING], name: "description", string_field: "A learning platform for you!")
+    preference1 = create(:platform_preference, preftype: PlatformPreference.preftypes[:integer], name: "lessons", integer_field: 100)
+    preference2 = create(:platform_preference, preftype: PlatformPreference.preftypes[:integer], name: "courses", integer_field: 20)
+    preference3 = create(:platform_preference, preftype: PlatformPreference.preftypes[:string], name: "description", string_field: "A learning platform for you!")
 
-    expect(platform.preferences).to include(preference1.name => preference1.value)
-    expect(platform.preferences).to include(preference2.name => preference2.value)
-    expect(platform.preferences).to include(preference3.name => preference3.value)
+    expect(platform.lessons).to eq(preference1.value)
+    expect(platform.courses).to eq(preference2.value)
+    expect(platform.description).to eq(preference3.value)
   end
 end

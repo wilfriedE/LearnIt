@@ -26,7 +26,7 @@
   </div>
   <div class="media-right media-middle">
     <% if current_user != ticket.claimer %>
-      <%= link_to "Claim", claim_ticket_path(ticket.id), :method => :post, class: "btn btn-primary  col-lg-12"%>
+      <%= link_to "Claim", claim_ticket_path(ticket.id), :method => :post, class: "btn btn-outline-success  col-lg-12"%>
     <% else %>
       <%= link_to "Un-claim", unclaim_ticket_path(ticket.id), :method => :post, class: "btn btn-warning  col-lg-12"%>
     <% end %>

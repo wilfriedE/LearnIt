@@ -75,9 +75,18 @@ Rails.application.routes.draw do
   get 'profile/:id/notifications' => 'profile#notifications', as: :user_notifications
 
   # administrate namespace
-  namespace :administrate do
-    get '/' => 'platform#index'
-    get '/settings' => 'platform#settings'
+  scope :administrate do
+    get '/' => 'platform#index', as: :administrate
+    get '/preferences' => 'platform#preferences', as: :administrate_preferences
+  end
+
+  scope :preferences do
+    get  '/new'             => 'preferences#new_preference', as: :new_preference
+    get  '/edit/:id'        => 'preferences#edit_preference', as: :edit_preference
+    post '/create'          => 'preferences#create_preference', as: :create_preference
+    put  '/update/:id'      => 'preferences#update_preference', as: :update_preference
+    delete '/delete/:id'    => 'preferences#delete_preference', as: :delete_preference
+    get '/preference_field' => 'preferences#preference_field', as: :preference_field
   end
 
   # pages

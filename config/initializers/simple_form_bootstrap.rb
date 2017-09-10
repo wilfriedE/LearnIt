@@ -8,10 +8,11 @@ SimpleForm.setup do |config|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
+    b.optional :minlength
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
-    b.use :label, class: 'control-label'
+    b.use :label, class: 'control-label pr-2'
 
     b.use :input, class: 'form-control'
     b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
@@ -22,8 +23,9 @@ SimpleForm.setup do |config|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
+    b.optional :minlength
     b.optional :readonly
-    b.use :label, class: 'control-label'
+    b.use :label, class: 'control-label pr-2'
 
     b.use :input
     b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
@@ -45,7 +47,7 @@ SimpleForm.setup do |config|
   config.wrappers :vertical_radio_and_checkboxes, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.optional :readonly
-    b.use :label, class: 'control-label'
+    b.use :label, class: 'control-label pr-2'
     b.use :input
     b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
     b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
@@ -55,10 +57,11 @@ SimpleForm.setup do |config|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
+    b.optional :minlength
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
-    b.use :label, class: 'col-sm-3 control-label'
+    b.use :label, class: 'col-sm-3 control-label pr-2'
 
     b.wrapper tag: 'div', class: 'col-sm-9' do |ba|
       ba.use :input, class: 'form-control'
@@ -71,8 +74,9 @@ SimpleForm.setup do |config|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
+    b.optional :minlength
     b.optional :readonly
-    b.use :label, class: 'col-sm-3 control-label'
+    b.use :label, class: 'col-sm-3 control-label pr-2'
 
     b.wrapper tag: 'div', class: 'col-sm-9' do |ba|
       ba.use :input
@@ -99,7 +103,7 @@ SimpleForm.setup do |config|
     b.use :html5
     b.optional :readonly
 
-    b.use :label, class: 'col-sm-3 control-label'
+    b.use :label, class: 'col-sm-3 control-label pr-2'
 
     b.wrapper tag: 'div', class: 'col-sm-9' do |ba|
       ba.use :input
@@ -112,6 +116,7 @@ SimpleForm.setup do |config|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
+    b.optional :minlength
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
@@ -125,7 +130,7 @@ SimpleForm.setup do |config|
   config.wrappers :multi_select, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.optional :readonly
-    b.use :label, class: 'control-label'
+    b.use :label, class: 'control-label pr-2'
     b.wrapper tag: 'div', class: 'form-inline' do |ba|
       ba.use :input, class: 'form-control'
       ba.use :error, wrap_with: { tag: 'span', class: 'help-block' }

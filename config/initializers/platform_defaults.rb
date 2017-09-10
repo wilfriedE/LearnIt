@@ -1,11 +1,18 @@
-module Platform
+class Platform
   REQUIRED_PREFERENCES = %i[brand description configured].freeze
 
-  class << self
-    @preferences ||= PlatformPreference.all
-    @preferences.each do |preference|
-      define_method(:"#{preference.name}") { preference.value }
-      define_method(:"#{preference.name}?") { preference.value } if preference.preftype == PlatformPreference::PREFTYPES[:BOOL]
+  def method_missing(method_name, *arguments, &block)
+    preference = PlatformPreference.find_by(name: method_name.to_s)
+    if preference
+      define_singleton_method(:"#{preference.name.downcase}") { preference.value }
+      define_singleton_method(:"#{preference.name.downcase}?") { preference.value } if preference.bool?
+      preference.value
+    else
+      super
     end
+  end
+
+  def respond_to_missing?(method_name, include_private = false)
+    PlatformPreference.find_by(name: method_name.to_s) || super
   end
 end

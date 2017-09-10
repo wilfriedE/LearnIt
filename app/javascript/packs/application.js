@@ -7,8 +7,7 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-import 'jquery/src/jquery.js'
-import 'bootstrap/dist/js/bootstrap.js'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'font-awesome/scss/font-awesome.scss'
-import 'mustache/mustache.js'
+import 'jquery/src/jquery'
+import 'mustache/mustache'
+import 'bootstrap'
+import '../styles'

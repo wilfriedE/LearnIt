@@ -40,6 +40,6 @@ module ApplicationHelper
   end
 
   def platform
-    Platform
+    @platform ||= Platform.new
   end
 end

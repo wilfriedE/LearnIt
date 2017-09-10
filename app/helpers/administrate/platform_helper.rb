@@ -1,2 +1,0 @@
-module Administrate::PlatformHelper
-end

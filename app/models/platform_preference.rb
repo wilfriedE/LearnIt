@@ -9,4 +9,8 @@ class PlatformPreference < ApplicationRecord
   def value
     send(:"#{preftype}_field")
   end
+
+  def default?
+    Platform::REQUIRED_PREFERENCES.include? name.to_sym
+  end
 end

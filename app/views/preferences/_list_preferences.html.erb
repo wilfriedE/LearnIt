@@ -1,0 +1,14 @@
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th>Preference</th>
+      <th>Value</th>
+      <th class="text-center"><i class="fa fa-pencil"></i></th>
+    </tr>
+  </thead>
+  <tbody >
+  <% preferences.each do |preference| %>
+    <%= render "preferences/preference_row", preference: preference %>
+  <% end %>
+  </tbody>
+</table>

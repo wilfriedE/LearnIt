@@ -22,6 +22,6 @@ Page.create([
 
 PlatformPreference.create([
   { name: 'brand', preftype: PlatformPreference.preftypes[:string], string_field: "LearnIt" },
-  { name: 'description', preftype: PlatformPreference.preftypes[:rich_text], rich_text_field: "A centralized collection of resource for the your learning needs." },
+  { name: 'description', preftype: PlatformPreference.preftypes[:rich_text], rich_text_field: "An open learning platform." },
   { name: 'configured', preftype: PlatformPreference.preftypes[:bool], bool_field: false }
 ])

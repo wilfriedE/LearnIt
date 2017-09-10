@@ -1,0 +1,6 @@
+<% value_field_name = "#{preftype}_field" %>
+
+<div class="form-group <%= preftype %> optional platform_preference_<%= '#{value_field_name}' %> pref_field">
+  <%= label :platform_preference, value_field_name.to_sym, class: "control-label pr-2 #{preftype} optional" %>
+  <%= load_preftype_field(preftype.to_sym, value_field_name, default_value) %>
+</div>

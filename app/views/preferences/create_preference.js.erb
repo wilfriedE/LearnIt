@@ -1,0 +1,6 @@
+<% if @preference.errors.blank? %>
+$("#<%= @form_id %>").remove();
+$("#platform_preferences tbody").append("<%= escape_javascript(render 'preferences/preference_row', { preference: @preference }) %>");
+<% else %>
+$("#<%= @form_id %>").replaceWith("<%= escape_javascript(render 'preference_form', { preference: @preference, action_url: create_preference_url, method_type: :post }) %>");
+<% end %>

@@ -1,12 +1,6 @@
 sudo: false
 language: ruby
 
-before_script:
-  - RAILS_ENV=test bundle exec rake db:migrate --trace
-  - bundle exec rake db:seed
-  - bundle exec rake db:test:prepare
-  - bundle exec rspec spec/ 
- 
 cache:
   bundler: true
   yarn: true
@@ -22,6 +16,12 @@ install:
   - node -v
   - npm i -g yarn
   - yarn
+
+before_script:
+  - ./bin/rails db:environment:set RAILS_ENV=test
+  - bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rake db:seed
 
 script:
   - bundle exec rspec

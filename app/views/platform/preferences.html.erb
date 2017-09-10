@@ -1,0 +1,10 @@
+<div class="row" id="platform_preferences">
+  <div class="w-100 card">
+    <div class="card-body">
+       <%= render 'preferences/list_preferences', preferences: @preferences  %>
+    </div>
+    <div class="card-footer text-muted text-center">
+      <%= link_to "Add New Preference", new_preference_path, class: "btn btn-primary btn-lg", :remote => true %>
+    </div>
+  </div>
+</div>

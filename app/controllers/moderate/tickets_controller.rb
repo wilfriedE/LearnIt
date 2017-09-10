@@ -2,7 +2,7 @@ class Moderate::TicketsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    #if there is a search query, properly handle rendering them
+    # if there is a search query, properly handle rendering them
     @alltickets_active = "active"
     if params[:q]
       @tickets = ModTicketActivity.search(params[:q]).order("created_at DESC")

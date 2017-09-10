@@ -1,0 +1,32 @@
+sudo: false
+language: ruby
+
+test:
+  adapter: sqlite3
+  database: ":memory:"
+  timeout: 500
+
+cache:
+  bundler: true
+  yarn: true
+  directories:
+    - node_modules
+
+before_install:
+  - gem update --system
+
+install:
+  - bundle install --without development production --deployment --jobs=3 --retry=3
+  - nvm install node
+  - node -v
+  - npm i -g yarn
+  - yarn
+
+before_script:
+  - ./bin/rails db:environment:set RAILS_ENV=test
+  - bundle exec rake db:schema:load
+  - bundle exec rake db:test:prepare
+  - bundle exec rake db:seed
+
+script:
+  - bundle exec rspec

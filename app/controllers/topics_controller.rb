@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   def index
-    #if there is a search query, properly handle rendering them
+    # if there is a search query, properly handle rendering them
     if params[:q]
       @topics = Topic.search(params[:q]).order("created_at DESC")
     else

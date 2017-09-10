@@ -17,6 +17,6 @@ RSpec.describe AdministratePolicy do
 
   context 'being and admin' do
     let(:user) { @admin_user }
-    it { is_expected.to permit_action(:access)}
+    it { is_expected.to permit_action(:access) }
   end
 end

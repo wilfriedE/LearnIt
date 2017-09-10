@@ -5,24 +5,24 @@ class Track < ApplicationRecord
   has_many :topic_items, as: :topicable, dependent: :destroy
   has_many :topics, -> { distinct }, through: :topic_items
   has_many :contributions, as: :contribution, dependent: :destroy
-  has_many :user_contributors, through: :contributions, source: :contributor, :source_type => 'User'
-  accepts_nested_attributes_for :track_courses, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :topic_items, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :contributions, :reject_if => :all_blank, :allow_destroy => true
+  has_many :user_contributors, through: :contributions, source: :contributor, source_type: 'User'
+  accepts_nested_attributes_for :track_courses, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :topic_items, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :contributions, reject_if: :all_blank, allow_destroy: true
   validates :name, presence: true
 
   def contributors
-    return self.user_contributors.uniq
+    user_contributors.uniq
   end
 
   def self.search(search)
     Track.where("name LIKE ? OR description LIKE ?", "%#{search}%", "%#{search}%").distinct
   end
 
-  def as_json(options={})
-    super(:only => [:id, :name, :description],
-          :include => {
-            :courses => {:only => [:id, :name, :description]}
+  def as_json(_options = {})
+    super(only: %i[id name description],
+          include: {
+            courses: { only: %i[id name description] }
           }
     )
   end

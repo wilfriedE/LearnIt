@@ -1,6 +1,6 @@
 class Role < ApplicationRecord
-  TYPES = [:admin,  :editor,  :moderator,  :contributor,  :banned]
-  
+  TYPES = %i[admin editor moderator contributor banned].freeze
+
   has_many :role_users, dependent: :destroy
   has_many :users, through: :role_users
 

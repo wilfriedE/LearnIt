@@ -5,6 +5,5 @@ class ProfileController < ApplicationController
   end
 
   def notifications
-
   end
 end

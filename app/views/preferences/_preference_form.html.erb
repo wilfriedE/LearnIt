@@ -1,0 +1,12 @@
+<% form_id = "new_platform_preference_#{(Time.now.to_f * 1000).to_i}" %>
+<% default_preftype = preference.preftype ? preference.preftype.to_sym : :string %>
+
+<%= simple_form_for preference, remote: true, url: action_url, method: method_type,
+                                html: { class: "form-inline w-100 justify-content-between", id:  form_id }  do |f| %>
+  <%= hidden_field_tag :form_id, form_id %>
+  <%= f.input :name %>
+  <%= f.input :preftype, as: :select, selected: default_preftype, input_html: { data: { remote: true, url: preference_field_url, params: { form_id: form_id, preference_id: preference.id }.to_param, method: 'get' } },
+              :collection => PlatformPreference.preftypes.map{ |t| [t[0].humanize, t[0]] } %>
+  <%= render "preference_field", preftype: default_preftype, default_value: preference.value %>
+  <%= f.submit "Save", class: "btn btn-success" %>
+<% end %>

@@ -1,0 +1,11 @@
+<% row_id = "preference_row_#{preference.id}" %>
+<tr id="<%= row_id %>">
+  <td data-toggle="tooltip" data-placement="top" title="<%= preference.name %>"><%= preference.name.humanize %></td>
+  <td><%= preference.value %></td>
+  <td>
+    <%= link_to "Edit", edit_preference_path(preference, pref_row_id: row_id), remote: true, class: "btn btn-outline-info" %>
+    <% unless preference.default? %>
+    <%= link_to "Delete", delete_preference_path(preference, pref_row_id: row_id), method: :delete, remote: true, class: "btn btn-outline-danger" %>
+    <% end %>
+  </td>
+</tr>

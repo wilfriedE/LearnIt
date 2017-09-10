@@ -1,5 +1,5 @@
 class LessonVersionsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: %i[index show]
 
   def index
     redirect_to lessons_path
@@ -16,20 +16,20 @@ class LessonVersionsController < ApplicationController
   end
 
   def edit
-    #only lesson version creator/owner can edit as panel as moderators
-    #one cannot edit a lesson version if it's currently the active_version of
+    # only lesson version creator/owner can edit as panel as moderators
+    # one cannot edit a lesson version if it's currently the active_version of
     # a lesson unless you are a moderator.
   end
 
   def create
     @lesson_version = LessonVersion.new(lesson_version_params)
-    @media = buildMediaContent(params[:lesson_version][:media_attributes][:type])
+    @media = build_media_content(params[:lesson_version][:media_attributes][:type])
     @lesson_version.media = @media
     respond_to do |format|
       if @lesson_version.save && (@lesson_version.user_contributors += [current_user])
         if !@lesson_version.lesson
-          @lesson = Lesson.new()
-          @lesson.active_version =  @lesson_version
+          @lesson = Lesson.new
+          @lesson.active_version = @lesson_version
           @lesson.save
           @lesson_version.lesson = @lesson
           @lesson_version.save
@@ -47,29 +47,27 @@ class LessonVersionsController < ApplicationController
   end
 
   protected
-  def buildMediaContent(type)
-    if MediaContent.types.include? type.strip()
-      media_klass = Object.const_get type.strip()
-      media_params = nil
-      case type.strip()
-      when YoutubeContent.to_s
-        media_params = youtube_content_params
-      when VimeoContent.to_s
-        media_params = vimeo_content_params
-      end
-      media = media_klass.new(media_params)
-      return media
-    else
-      return MediaContent.new()
+
+  def build_media_content(type)
+    return MediaContent.new unless MediaContent.types.include? type.strip
+
+    media_klass = Object.const_get type.strip
+    media_params = nil
+    case type.strip
+    when YoutubeContent.to_s
+      media_params = youtube_content_params
+    when VimeoContent.to_s
+      media_params = vimeo_content_params
     end
+    media_klass.new(media_params)
   end
 
   private
+
   def lesson_version_params
     params.require(:lesson_version).permit(:name, :description, :lesson_id,
-            :media_attributes => [:type, :video_url],
-            :topic_items_attributes => [:id, :_destroy, :topic_id,
-              :topic_attributes => [:id, :name]])
+                                           media_attributes: %i[type video_url],
+                                           topic_items_attributes: %i[id _destroy topic_id topic_attributes: %i[id name]])
   end
 
   def youtube_content_params
@@ -82,22 +80,19 @@ class LessonVersionsController < ApplicationController
 
   def new_lesson_activity(lesson)
     ModTicketActivity.create_ticket("New Lesson: ##{lesson.id} available.",
-     "#{lesson.name} was recently created awaiting approval",
-      [lesson])
+                                    "#{lesson.name} was recently created awaiting approval", [lesson])
     UserFeedActivity.create_user_notification(current_user, "New Lesson: ##{lesson.id} submitted for approval.",
-     "Thank you for contributing #{lesson.name}. It has been submitted for review by moderators.",
-      [lesson])
+                                              "Thank you for contributing #{lesson.name}. It has been submitted for review by moderators.", [lesson])
   end
 
   def updated_lesson_activity(lesson_version)
     ModTicketActivity.create_ticket("New LessonVersion for Lesson: ##{lesson_version.lesson.id}",
-     "An update to #{lesson_version.lesson.name} has been proposed by: #{current_user.nickname}\n reason: #{lesson_version.reason}",
-      [lesson_version])
+                                    "An update to #{lesson_version.lesson.name} has been proposed by: #{current_user.nickname}\n reason: #{lesson_version.reason}",
+                                    [lesson_version])
     track.contributions.each do |contributor|
       UserFeedActivity.create_user_notification(contributor, "Proposal for update to Lesson: ##{lesson_version.lesson.name} has been received.",
-       "LessionVersion: #{lesson_version.id}(#{lesson_version.name}), has been submitted for moderator approval. You will be notified when it gets accepted.",
-        [lesson_version])
+                                                "LessionVersion: #{lesson_version.id}(#{lesson_version.name}), has been submitted for moderator approval. You will be notified when it gets accepted.",
+                                                [lesson_version])
     end
   end
-
 end

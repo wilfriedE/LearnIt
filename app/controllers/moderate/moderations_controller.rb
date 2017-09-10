@@ -14,5 +14,4 @@ class Moderate::ModerationsController < ApplicationController
   def guides
     @guides_active = "active"
   end
-
 end

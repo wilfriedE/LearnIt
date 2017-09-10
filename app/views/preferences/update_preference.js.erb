@@ -1,0 +1,5 @@
+<% if @preference.errors.blank?  %>
+$("#<%= @form_id %>").closest('tr').replaceWith("<%= escape_javascript(render 'preferences/preference_row', { preference: @preference }) %>");
+<% else %>
+$("#<%= @form_id %>").replaceWith("<%= escape_javascript(render 'preference_form', { preference: @preference, action_url: update_preference_path(preference), method_type: :put }) %>");
+<% end %>

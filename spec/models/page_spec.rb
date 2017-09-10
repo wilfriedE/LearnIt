@@ -16,7 +16,7 @@ RSpec.describe Page, type: :model do
     page3 = create(:page, name: "Another Page")
 
     expect(page1).to be_valid
-    expect {create(:page)}.to raise_error(ActiveRecord::RecordInvalid)
+    expect { create(:page) }.to raise_error(ActiveRecord::RecordInvalid)
     expect(page3).to be_valid
   end
 end

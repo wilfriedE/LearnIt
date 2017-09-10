@@ -1,6 +1,11 @@
 sudo: false
 language: ruby
 
+test:
+  adapter: sqlite3
+  database: ":memory:"
+  timeout: 500
+
 cache:
   bundler: true
   yarn: true

@@ -4,7 +4,7 @@ RSpec.describe Page, type: :model do
   it "has name, title and body" do
     expect { create(:page, name: nil) }.to raise_error(ActiveRecord::RecordInvalid)
     expect { create(:page, title: nil) }.to raise_error(ActiveRecord::RecordInvalid)
-    expect { create(:page, body: nil) }.to raise_error(ActiveRecord::RecordInvalid)
+    expect { create(:page, body: nil) }.not_to raise_error(ActiveRecord::RecordInvalid)
 
     home = create(:page, name: "Home", title: "Hello World", body: "It's body")
 

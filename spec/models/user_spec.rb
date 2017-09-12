@@ -14,25 +14,25 @@ RSpec.describe User, type: :model do
   end
 
   it "can be a moderator" do
-    @user.make_moderator
+    @user.make_moderator!
     user2 = create :user
-    user2.make_moderator
+    user2.make_moderator!
 
     expect(@user).to be_moderator
     expect(user2).to be_moderator
   end
 
   it "can be an admin" do
-    @user.make_admin
+    @user.make_admin!
     user2 = create :user
-    user2.make_admin
+    user2.make_admin!
 
     expect(@user).to be_admin
     expect(user2).to be_admin
   end
 
   it "can have multiple roles" do
-    @user.make_editor
+    @user.make_editor!
 
     expect(@user).to be_contributor
     expect(@user).to be_editor

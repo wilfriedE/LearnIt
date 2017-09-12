@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "ContentTools": "^1.5.4",
     "autoprefixer": "^7.1.4",
     "babel-core": "^6.26.0",
     "babel-loader": "7.x",

@@ -16,12 +16,14 @@ user.make_editor!
 user.make_admin!
 
 Page.create([
-  {name: "home", title: "Home", body: "<h1>Welcome to LearnIt!</h1>"},
-  {name: "about", title: "About", body: "<h1>About LearnIt!</h1>"}
+  {name: "home", title: "Home", body: File.read(Rails.root.join("vendor", "templates", "home.md"))},
+  {name: "about", title: "About", body: File.read(Rails.root.join("vendor", "templates", "about.md"))},
+  {name: "contribute", title: "Contribute Content", body: File.read(Rails.root.join("vendor", "templates", "contribute.md"))}
 ])
 
 PlatformPreference.create([
   { name: 'brand', preftype: PlatformPreference.preftypes[:string], string_field: "LearnIt" },
   { name: 'description', preftype: PlatformPreference.preftypes[:rich_text], rich_text_field: "An open learning platform." },
-  { name: 'configured', preftype: PlatformPreference.preftypes[:bool], bool_field: false }
+  { name: 'configured', preftype: PlatformPreference.preftypes[:bool], bool_field: false },
+  { name: 'container_fuild', preftype: PlatformPreference.preftypes[:bool], bool_field: false }
 ])

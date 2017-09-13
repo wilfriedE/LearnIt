@@ -1,0 +1,5 @@
+<% if @page.errors.blank?  %>
+$("#<%= @form_id %>").closest('tr').replaceWith("<%= escape_javascript(render 'pages/page_row', { page: @page }) %>");
+<% else %>
+$("#<%= @form_id %>").replaceWith("<%= escape_javascript(render 'pages/page_form', { page: @page, action_url: update_page_path(page), method_type: :put }) %>");
+<% end %>

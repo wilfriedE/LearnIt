@@ -76,8 +76,9 @@ Rails.application.routes.draw do
 
   # administrate namespace
   scope :administrate do
-    get '/' => 'platform#index', as: :administrate
+    get '/'            => 'platform#index', as: :administrate
     get '/preferences' => 'platform#preferences', as: :administrate_preferences
+    get '/pages'       => 'platform#pages', as: :administrate_pages
   end
 
   scope :preferences do
@@ -90,8 +91,14 @@ Rails.application.routes.draw do
   end
 
   # pages
-  get 'library' => 'pages#library'
-  get 'contribute' => 'pages#contribute' # TODO: remove and have contribute as a page
-  get '/:name' => 'pages#show', as: :page
-  get '/:name/edit' => 'pages#edit', as: :edit_page
+  get 'library'          => 'pages#library', as: :library
+  get '/:name'           => 'pages#show', as: :page
+  scope :pages do
+    get '/new'                => 'pages#new', as: :new_page
+    post '/create'            => 'pages#create', as: :create_page
+    get '/:name/edit'         => 'pages#edit', as: :edit_page
+    get '/:name/edit_wysiwyg' => 'pages#edit_wysiwyg', as: :edit_wysiwyg_page
+    put '/:name/update'       => 'pages#update', as: :update_page
+    delete '/:name/delete'    => 'pages#delete', as: :delete_page
+  end
 end

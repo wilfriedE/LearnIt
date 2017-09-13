@@ -1,0 +1,10 @@
+<div class="row" id="pages">
+  <div class="w-100 card">
+    <div class="card-body">
+       <%= render 'pages/list_pages', pages: @pages  %>
+    </div>
+    <div class="card-footer text-muted text-center">
+      <%= link_to "Add New Page", new_page_path, class: "btn btn-primary btn-lg", :remote => true %>
+    </div>
+  </div>
+</div>

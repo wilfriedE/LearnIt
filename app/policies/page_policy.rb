@@ -8,4 +8,13 @@ class PagePolicy < ApplicationPolicy
     return false unless user
     user.admin?
   end
+
+  def delete?
+    destroy?
+  end
+
+  def create?
+    return false unless user
+    user.admin?
+  end
 end

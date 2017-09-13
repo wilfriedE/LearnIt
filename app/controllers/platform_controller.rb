@@ -7,6 +7,10 @@ class PlatformController < ApplicationController
     @preferences ||= PlatformPreference.all
   end
 
+  def pages
+    @pages ||= Page.all
+  end
+
   private
 
   def verify_access

@@ -5,6 +5,7 @@ $( document ).on('turbolinks:load', function() {
   var editor = ContentTools.EditorApp.get();
 
   editor.init('*[data-editable]', 'data-name');
+  editor.createPlaceholderElement("<p>Empty Page</p>");
   editor.addEventListener('saved', function (ev) {
       var name, dom_element, action, method, payload, dataset, regions, req;
 
@@ -26,11 +27,10 @@ $( document ).on('turbolinks:load', function() {
       }
 
       // Set action path and http method
-      dom_element = $("#editor");
+      dom_element = $("#content-editor-data");
       action      = dom_element.data("action");
       method      = dom_element.data("method");
 
-      console.log(dom_element, payload);
       // Send the updated content to the server to be saved
       req = $.ajax({ beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
                      method: method, url: action, data: payload});

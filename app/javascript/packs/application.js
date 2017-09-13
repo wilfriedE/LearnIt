@@ -8,6 +8,5 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import 'jquery/src/jquery'
-import 'mustache/mustache'
 import 'bootstrap'
 import '../styles'

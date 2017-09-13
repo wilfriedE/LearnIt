@@ -1,5 +1,6 @@
 class Platform
   REQUIRED_PREFERENCES = %i[brand description configured].freeze
+  REQUIRED_PAGES       = %i[home].freeze
 
   def method_missing(method_name, *arguments, &block)
     preference = PlatformPreference.find_by(name: method_name.to_s)

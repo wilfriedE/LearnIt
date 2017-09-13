@@ -1,0 +1,13 @@
+<% row_id = "page_row_#{page.id}" %>
+<tr id="<%= row_id %>">
+  <td data-toggle="tooltip" data-placement="top" title="<%= page.name %>"><%= page.name %></td>
+  <td><%= page.title %></td>
+  <td>
+    <%= link_to "Edit", edit_page_path(name: page.name, row_id: row_id), remote: true, class: "btn btn-outline-info" %>
+    <%= link_to "WYSIWYG Edit", edit_wysiwyg_page_path(name: page.name), class: "btn btn-outline-info", data: { turbolinks: false } %>
+    <%= link_to content_tag(:i, "View", class: "fa fa-eye"), page_path(name: page.name) %>
+    <% unless page.default? %>
+      <%= link_to "Delete", delete_page_path(name: page.name, row_id: row_id), method: :delete, remote: true, class: "btn btn-outline-danger" %>
+    <% end %>
+  </td>
+</tr>

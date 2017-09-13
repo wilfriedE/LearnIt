@@ -6,8 +6,8 @@ class PreferencesController < ApplicationController
   end
 
   def edit_preference
-    @pref_row_id = params[:pref_row_id]
-    @preference  = PlatformPreference.find(params[:id])
+    @row_id = params[:row_id]
+    @preference = PlatformPreference.find(params[:id])
     respond_to :js
   end
 
@@ -26,8 +26,8 @@ class PreferencesController < ApplicationController
   end
 
   def delete_preference
-    @pref_row_id = params[:pref_row_id]
-    @preference  = PlatformPreference.find(params[:id])
+    @row_id = params[:row_id]
+    @preference = PlatformPreference.find(params[:id])
 
     if Platform::REQUIRED_PREFERENCES.include? @preference.preftype.to_sym
       @preference.errors.add(:name, "This preference is required")

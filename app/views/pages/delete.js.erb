@@ -1,0 +1,5 @@
+<% if @page.errors.blank?  %>
+$("#<%=@row_id%>").remove();
+<% else %>
+alert("Failed to delete page");
+<% end %>

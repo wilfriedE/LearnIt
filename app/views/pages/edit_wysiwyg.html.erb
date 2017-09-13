@@ -1,0 +1,9 @@
+<%= stylesheet_pack_tag 'content_tools' %>
+<%= javascript_pack_tag 'content_tools' %>
+
+<span id="content-editor-data" data-action="<%= update_page_path(name: @page.name) %>" data-method="PUT"></span>
+<div data-editable data-name="page-body" >
+  <div data-ce-tag="p">
+    <%= @page.body.html_safe if @page.body %>
+  </div>
+</div>

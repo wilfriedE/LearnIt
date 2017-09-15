@@ -1,6 +1,11 @@
 class Platform
-  REQUIRED_PREFERENCES = %i[brand description configured].freeze
+  REQUIRED_PREFERENCES = %i[brand description configured menus].freeze
   REQUIRED_PAGES       = %i[home].freeze
+
+  def menus
+    @menu_list ||= PlatformPreference.find_by(name: "menus").value.split(",").map(&:strip)
+    @menu_list.map { |menu| { name: menu, title: Page.find_by(name: menu).title } }
+  end
 
   def method_missing(method_name, *arguments, &block)
     preference = PlatformPreference.find_by(name: method_name.to_s)

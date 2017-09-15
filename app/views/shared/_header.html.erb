@@ -7,11 +7,11 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse justify-content-between"  id="navbarToggler">
     <div class="navbar-nav">
-      <a href="/" class="nav-item nav-link">Home</a>
+      <% platform.menus.each do |menu| %>
+      <% @active_page = "active" if @page && @page.name == menu[:name] %>
+      <%= link_to menu[:title], page_path(name: menu[:name]), class: "nav-item nav-link #{@active_page}" %>
+      <% end %>
       <a href="/library" class="nav-item nav-link">Library</a>
-      <a href="/contribute" class="nav-item nav-link">Contribute Content</a>
-      <a href="/about" class="nav-item nav-link">About</a>
-      </li>
     </div>
 
     <div class="navbar-nav">

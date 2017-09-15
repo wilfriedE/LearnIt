@@ -26,35 +26,31 @@ class User < ApplicationRecord
   end
 
   def current_user?(user)
-    return true if id == user.id
-    false
+    id == user.id
   end
 
   def contributor?
     roles.include?(Role.find_by(name: :contributor))
   end
 
-  def make_moderator
-    return if moderator?
-    roles << Role.find_by(name: :moderator)
+  def make_moderator!
+    roles << Role.find_by(name: :moderator) unless moderator?
   end
 
   def moderator?
     roles.include?(Role.find_by(name: :moderator))
   end
 
-  def make_admin
-    return if admin?
-    roles << Role.find_by(name: :admin)
+  def make_admin!
+    roles << Role.find_by(name: :admin) unless admin?
   end
 
   def admin?
     roles.include?(Role.find_by(name: :admin))
   end
 
-  def make_editor
-    return if editor?
-    roles << Role.find_by(name: :editor)
+  def make_editor!
+    roles << Role.find_by(name: :editor) unless editor?
   end
 
   def editor?
@@ -62,8 +58,7 @@ class User < ApplicationRecord
   end
 
   def ban
-    return if banned?
-    roles << Role.find_by(name: :banned)
+    roles << Role.find_by(name: :banned) unless banned?
   end
 
   def banned?

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "ContentTools": "^1.5.4",
     "autoprefixer": "^7.1.4",
     "babel-core": "^6.26.0",
     "babel-loader": "7.x",
@@ -18,7 +19,6 @@
     "glob": "^7.1.2",
     "jquery": "^3.2.1",
     "js-yaml": "^3.9.1",
-    "mustache": "^2.3.0",
     "node-sass": "^4.5.3",
     "path-complete-extname": "^0.1.0",
     "popper.js": "^1.12.5",

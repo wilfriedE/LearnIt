@@ -1,5 +1,5 @@
 <% if @preference.errors.blank?  %>
-$("#<%=@pref_row_id%>").remove();
+$("#<%=@row_id%>").remove();
 <% else %>
 alert("Failed to delete preference");
 <% end %>

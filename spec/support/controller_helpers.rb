@@ -14,7 +14,7 @@ module ControllerHelpers
       FactoryGirl.create(:role, :moderator)
       @request.env["devise.mapping"] = Devise.mappings[:user]
       user = FactoryGirl.create(:user) # Using factory girl as an example
-      user.make_moderator
+      user.make_moderator!
       user.confirm
       sign_in user
     end
@@ -28,9 +28,9 @@ module ControllerHelpers
       FactoryGirl.create(:role, :admin)
       @request.env["devise.mapping"] = Devise.mappings[:user]
       user = FactoryGirl.create(:user) # Using factory girl as an example
-      user.make_moderator
-      user.make_editor
-      user.make_admin
+      user.make_moderator!
+      user.make_editor!
+      user.make_admin!
       user.confirm
       sign_in user
     end

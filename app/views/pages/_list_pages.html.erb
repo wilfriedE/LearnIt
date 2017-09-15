@@ -1,0 +1,14 @@
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th>Name</th>
+      <th>Title</th>
+      <th ><i class="fa fa-cogs"></i> Modify</th>
+    </tr>
+  </thead>
+  <tbody >
+  <% pages.each do |page| %>
+    <%= render "pages/page_row", page: page %>
+  <% end %>
+  </tbody>
+</table>

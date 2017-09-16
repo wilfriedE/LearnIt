@@ -9,10 +9,6 @@ class PagePolicy < ApplicationPolicy
     user.admin?
   end
 
-  def delete?
-    destroy?
-  end
-
   def create?
     return false unless user
     user.admin?

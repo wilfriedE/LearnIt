@@ -7,7 +7,7 @@
         <div class="card-body">
           <h4 class="card-title">Add a Lesson</h4>
           <p class="card-text">Create a Lesson for the community.</p>
-          <a href="/lesson/new" class="btn btn-outline-info">Create a Lesson</a>
+          <a href="/lessons/new" class="btn btn-outline-info">Create a Lesson</a>
         </div>
       </div>
     </div>
@@ -16,7 +16,7 @@
         <div class="card-body">
           <h4 class="card-title">Make a Collection</h4>
           <p class="card-text">Using the existing lessons create collections to make learning a specific topic much easier.</p>  
-          <a href="/collection/new" class="btn btn-outline-info">Create a Collection</a>
+          <a href="/collections/new" class="btn btn-outline-info">Create a Collection</a>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ class LessonVersion < ApplicationRecord
   belongs_to :creator, class_name: 'User'
 
   enum media_type: { rich_text: 0, youtube_video: 1, vimeo_video: 2 }
+  enum approval: { awaiting_approval: 0, approved: 1, rejected: 2 }
 
   def data
     raw_data = self[:data] || {}.to_s

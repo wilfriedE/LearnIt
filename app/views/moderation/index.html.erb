@@ -1,0 +1,13 @@
+<nav class="nav nav-tabs" role="tablist">
+  <a class="nav-item nav-link active" data-toggle="tab" href="#nav-new-lessons" role="tab" aria-controls="nav-new-lessons" aria-expanded="true">Lessons Awaiting Approval</a>
+  <a class="nav-item nav-link" data-toggle="tab" href="#nav-new-lesson-versions" role="tab" aria-controls="nav-new-lesson-versions">Lessons Version Proposals</a>
+  <a class="nav-item nav-link" data-toggle="tab" href="#nav-lessons" role="tab" aria-controls="nav-lessons" aria-expanded="true">Lessons</a>
+  <a class="nav-item nav-link" data-toggle="tab" href="#nav-lesson-versions" role="tab" aria-controls="nav-lesson-versions">Lessons Versions</a>
+</nav>
+
+<div class="tab-content">
+  <div class="tab-pane fade show active" id="nav-new-lessons" role="tabpanel" >new Lessons</div>
+  <div class="tab-pane fade" id="nav-new-lesson-versions" role="tabpanel" >new Lesson Versions</div>
+  <div class="tab-pane fade" id="nav-lessons" role="tabpanel" ><%= render "lessons/list_lessons", lessons: @lessons %></div>
+  <div class="tab-pane fade" id="nav-lesson-versions" role="tabpanel" >Lesson Versions</div>
+</div>

@@ -3,6 +3,7 @@ class LessonVersionsController < ApplicationController
 
   def show
     @lesson_version = LessonVersion.find(params[:id])
+    authorize @lesson_version
   end
 
   def lesson_media_field
@@ -12,10 +13,18 @@ class LessonVersionsController < ApplicationController
   end
 
   def edit
-    # only lesson version creator/owner can edit as panel as moderators
-    # one cannot edit a lesson version if it's currently the active_version of
-    # a lesson unless you are a moderator.
+    @lesson_version = LessonVersion.find(params[:id])
+    authorize @lesson_version
   end
 
-  def update; end
+  def update
+    @lesson_version = LessonVersion.find(params[:id])
+    authorize @lesson_version
+    @lesson_version.update_attributes(build_lesson_version)
+    if @lesson_version.save
+      redirect_to lesson_version_path(id: @lesson_version)
+    else
+      render "lesson_versions/edit"
+    end
+  end
 end

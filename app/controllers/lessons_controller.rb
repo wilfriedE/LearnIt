@@ -7,6 +7,7 @@ class LessonsController < ApplicationController
 
   def show
     @lesson ||= Lesson.find(params[:id])
+    authorize @lesson
   end
 
   def new
@@ -22,7 +23,8 @@ class LessonsController < ApplicationController
   end
 
   def create
-    @lesson_version = build_lesson_version
+    @lesson_version = LessonVersion.new(build_lesson_version)
+    authorize @lesson_version
     if @lesson_version.save
       @lesson = Lesson.new(active_version_id: @lesson_version.id)
       @lesson.save
@@ -34,12 +36,30 @@ class LessonsController < ApplicationController
 
   def create_new_version
     @lesson ||= Lesson.find(params[:id])
-    @lesson_version = build_lesson_version
+    @lesson_version = LessonVersion.new(build_lesson_version)
+    authorize @lesson_version, :create?
     @lesson_version.lesson_id = @lesson.id
     if @lesson_version.save
       redirect_to lesson_version_path(id: @lesson_version)
     else
       render "lesson_versions/new_version_proposal"
     end
+  end
+
+  def lesson_approval
+    @row_id = params[:row_id]
+    @lesson = Lesson.find(params[:id])
+    authorize @lesson, :update?
+    @active_version = @lesson.active_version
+    @active_version.update(approval: params[:approval].to_sym) if LessonVersion.approvals[params[:approval]]
+    respond_to :js
+  end
+
+  def destroy
+    @row_id = params[:row_id]
+    @lesson = Lesson.find(params[:id])
+    authorize @lesson
+    @lesson.destroy
+    respond_to :js
   end
 end

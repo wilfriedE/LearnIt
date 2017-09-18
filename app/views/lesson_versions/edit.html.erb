@@ -1,1 +1,6 @@
-# TODO
+<div class="card">
+  <h4 class="card-header">Edit Lesson Version</h4>
+  <div class="card-body">
+    <%= render "lesson_versions/form", lesson_version: @lesson_version, action_url: lesson_version_path(id: @lesson_version.id), method_type: :put  %>
+  </div>
+</div>

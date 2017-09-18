@@ -10,7 +10,7 @@
   <div class="tab-pane fade show active" role="tabpanel" id="markdown-editor" aria-labelledby="markdown-editor">
     <%= simple_fields_for :lesson_version do |l| %>
       <%= l.simple_fields_for :data do |d| %>
-        <%= d.input :rich_text, as: :text, label: "Content", input_html: { class: "markdown-editor", data: { previewer: "markdown-preview" }} %>
+        <%= d.input :rich_text, as: :text, label: "Content", input_html: { value: default_value.present? ? default_value.text : "", class: "markdown-editor", data: { previewer: "markdown-preview" }} %>
       <% end %>
     <% end %>
   </div>

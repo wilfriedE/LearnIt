@@ -1,4 +1,8 @@
 class LessonVersionPolicy < ApplicationPolicy
+  def show?
+    record.approved? || (user && can_modify?)
+  end
+
   def update?
     return false unless user
     can_modify?

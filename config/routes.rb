@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     member do
       get  :propose_update, path: "propose-update"
       post :create_new_version, path: "propose-update", as: :new_version_submission
+      put  :lesson_approval, path: "lesson-approval", as: :approval
     end
   end
 
@@ -40,6 +41,11 @@ Rails.application.routes.draw do
     put  '/update/:id'      => 'preferences#update_preference', as: :update_preference
     delete '/delete/:id'    => 'preferences#delete_preference', as: :delete_preference
     get '/preference_field' => 'preferences#preference_field', as: :preference_field
+  end
+
+  # moderation
+  scope :moderate do
+    get '/' => "moderation#index", as: :moderate
   end
 
   # pages

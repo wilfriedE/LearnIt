@@ -6,6 +6,6 @@
   <%= f.input :description %>
   <%= f.input :media_type, as: :select, selected: default_media_type, input_html: { data: { remote: true, url: lesson_media_field_path, params: { form_id: form_id, lesson_version_id: lesson_version.id }.to_param, method: 'GET' } },
               :collection => LessonVersion.media_types.map{ |t| [t[0].humanize, t[0]] } %>
-  <%= render "lesson_versions/lesson_media_field", media_type: default_media_type %>
+  <%= render "lesson_versions/lesson_media_field", media_type: default_media_type, default_value: lesson_version.data %>
   <%= f.submit "Save", class: "btn btn-success" %>
 <% end %>

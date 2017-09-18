@@ -2,7 +2,7 @@ module LessonVersionable
   extend ActiveSupport::Concern
 
   def build_lesson_version
-    LessonVersion.new(lesson_version_params.merge(data: build_lesson_version_data, creator_id: current_user.id))
+    lesson_version_params.merge(data: build_lesson_version_data, creator_id: current_user.id)
   end
 
   def build_lesson_version_data

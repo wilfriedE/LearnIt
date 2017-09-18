@@ -1,0 +1,18 @@
+<% row_id = "lesson_row_#{lesson.id}" %>
+<tr id="<%= row_id %>">
+  <td data-toggle="tooltip" data-placement="top" title="<%= lesson.name %>">
+    <span class="badge badge-pill badge-info"><%= lesson.approval.humanize %>
+    </span> <%= lesson.name %>
+  </td>
+  <td><%= content_tag(:i, lesson.description, class: "text-muted") %></td>
+  <td class="d-flex  align-items-center justify-content-around">
+    <%= link_to content_tag(:i, "View", class: "fa fa-eye mr-2"), lesson_path(id: lesson.id) %>
+    <% if policy(lesson).update? %>
+      <%= link_to "Edit", edit_lesson_version_path(id: lesson.active_version_id), class: "btn btn-outline-info mr-2" %>
+      <%= select_tag 'approval', options_for_select(LessonVersion.approvals.map{ |t| [t[0].humanize, t[0]] }, selected: lesson.approval), { class: "form-control input-inline mr-2", data: { remote: true, url: approval_lesson_path(id: lesson.id), params: { row_id: row_id }.to_param, method: 'put' } }%>
+    <% end %>
+    <% if policy(lesson).delete? %>
+      <%= link_to "Delete", lesson_path(id: lesson.id, row_id: row_id), method: :delete, remote: true, class: "btn btn-outline-danger" %>
+    <% end %>
+  </td>
+</tr>

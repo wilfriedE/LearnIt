@@ -1,9 +1,0 @@
-<div class="panel panel-defaultpanel-lg">
-<% if media.type ==  YoutubeContent.to_s %>
-  <%= content_for(:body_attributes) do %>data-no-turbolink<% end %>
-  <%= render partial: "media_contents/viewports/youtube", :locals => {:media => media} %>
-<% elsif media.type == VimeoContent.to_s %>
-  <%= render partial: "media_contents/viewports/vimeo", :locals => {:media => media} %>
-<!-- add other supported fields below -->
-<% end %>
-</div>

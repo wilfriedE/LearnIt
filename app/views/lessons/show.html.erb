@@ -1,0 +1,15 @@
+<div class="card border border-light">
+  <div class="card-body bg-light clearfix">
+    <div class="float-left">
+      <h2 class="card-title text-primary"><%= @lesson.name %></h2>
+      <i class="card-text text-muted"><%= @lesson.description %></i>
+    </div>
+    <div class="float-right d-flex align-content-center flex-wrap">
+      <%= link_to "Propose Lesson Update", propose_update_lesson_path(@lesson), class: "btn btn-outline-primary flex-item" %>
+    </div>
+  </div>
+</div>
+
+<div class="w-100 pt-2 border border-light rounded-bottom pl-4 pr-4">
+  <%= render "lesson_versions/viewport", lesson_version: @lesson.active_version %>
+</div>

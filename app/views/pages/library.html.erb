@@ -1,37 +1,5 @@
-<div class="row">
-  <div class="panel panel-defaultpanel-sm col-lg-offset-1" >
-    <h3  style="text-align: center">Latest Materials</h3>
-  </div>
-</div>
-<% if @lessons.count > 0 %>
-<div class="row">
-  <h1 style="text-align: center" class="col-lg-offset-1">Lesson</h1>
+<div class="card-deck">
   <% @lessons.each do |lesson| %>
-    <div class="col-lg-5 col-lg-offset-1">
-          <%= lesson_card(lesson) %>
-    </div>
-  <%end %>
+    <%= render "lessons/card", lesson: lesson %>
+  <% end %>
 </div>
-<% end %>
-
-<% if @courses.count > 0 %>
-<div class="row">
-  <h1 style="text-align: center" class="col-lg-offset-1">Course</h1>
-  <% @courses.each do |course| %>
-    <div class="col-lg-5 col-lg-offset-1">
-          <%= course_card(course) %>
-    </div>
-  <%end %>
-</div>
-<% end %>
-
-<% if @tracks.count > 0 %>
-<div class="row">
-  <h1 style="text-align: center" class="col-lg-offset-1">Track</h1>
-  <% @tracks.each do |track| %>
-    <div class="col-lg-5 col-lg-offset-1">
-          <%= track_card(track) %>
-    </div>
-  <%end %>
-</div>
-<% end %>

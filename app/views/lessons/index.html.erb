@@ -1,6 +1,5 @@
-<h1>Listing of all available lessons</h1>
-<% @lessons.each do |lesson| %>
-  <tr>
-    <%= lesson_card(lesson).html_safe %>
-  </tr>
-<% end %>
+<div class="card-deck">
+  <% @lessons.each do |lesson| %>
+    <%= render "card", lesson: lesson %>
+  <% end %>
+</div>

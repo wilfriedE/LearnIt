@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170909162107) do
+ActiveRecord::Schema.define(version: 20170916181306) do
+
+  create_table "lesson_versions", force: :cascade do |t|
+    t.text "data"
+    t.boolean "approved", default: false
+    t.integer "media_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.text "description"
+    t.integer "lesson_id"
+    t.integer "creator_id"
+    t.index ["creator_id"], name: "index_lesson_versions_on_creator_id"
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.integer "active_version_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active_version_id"], name: "index_lessons_on_active_version_id"
+  end
 
   create_table "pages", force: :cascade do |t|
     t.string "name"

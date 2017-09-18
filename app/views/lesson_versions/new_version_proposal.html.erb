@@ -1,0 +1,6 @@
+<div class="card">
+  <h4 class="card-header">Lesson Update Proposal</h4>
+  <div class="card-body">
+    <%= render "lesson_versions/form", lesson_version: @lesson_version, action_url: new_version_submission_lesson_path(id: @lesson.id), method_type: :post  %>
+  </div>
+</div>

@@ -20,17 +20,7 @@
           <a  class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="fa fa-bell" aria-hidden="true" ></span></a>
           <ul class="dropdown-menu ">
-            <% current_user.user_feed_activities.last(5).each do |notification| %>
-              <li><%= notification_card(notification) %></li>
-            <% end %>
-            <li role="separator" class="divider"></li>
-            <!-- General Notifications after this point -->
-            <!-- TODO GROUP BY NOTIFICATION TYPE -->
-            <% current_user.general_feed_activities.last(5).each do |notification| %>
-              <li><%= general_notification_card(notification) %></li>
-            <% end %>
-            <li role="separator" class="divider"></li>
-            <li><%= link_to "See All", user_notifications_path(current_user) %></li>
+            TBD
           </ul>
         </div>
         <!-- if moderator -->

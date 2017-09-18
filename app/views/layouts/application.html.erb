@@ -18,7 +18,7 @@
         <div class="notice"><%= flash[:notice] %></div>
       <% end %>
       <% wrapper_class = "container"; wrapper_class = ( platform.container_fuild? ? "container-fuild" : "container") if defined? platform.container_fuild? %>
-      <div class="<%= wrapper_class %> pt-2 pb-2">
+      <div class="<%= wrapper_class %> pt-2 pb-2 mb-5">
             <%= ((render "layouts/#{yield_hierarchically(controller.class.name)}" rescue nil)|| yield ) %>
       </div>
       <%= render partial: "shared/footer" %>

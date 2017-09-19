@@ -2,8 +2,8 @@ class ModerationController < ApplicationController
   before_action :can_moderate?
 
   def index
-    @new_lessons ||= Lesson.all { |lesson| lesson if lesson.approval == :awaiting_approval }
-    @lessons = Lesson.order(:updated_at).first(10)
+    @new_lessons ||= Lesson.all.select { |lesson| lesson.approval.to_sym == :awaiting_approval }
+    @lessons ||= Lesson.order(:updated_at).first(10)
   end
 
   private

@@ -6,7 +6,7 @@
 </nav>
 
 <div class="tab-content">
-  <div class="tab-pane fade show active" id="nav-new-lessons" role="tabpanel" >new Lessons</div>
+  <div class="tab-pane fade show active" id="nav-new-lessons" role="tabpanel" ><%= render "lessons/list_lessons", lessons: @new_lessons %></div>
   <div class="tab-pane fade" id="nav-new-lesson-versions" role="tabpanel" >new Lesson Versions</div>
   <div class="tab-pane fade" id="nav-lessons" role="tabpanel" ><%= render "lessons/list_lessons", lessons: @lessons %></div>
   <div class="tab-pane fade" id="nav-lesson-versions" role="tabpanel" >Lesson Versions</div>

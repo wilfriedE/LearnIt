@@ -1,5 +1,6 @@
 module LessonVersionable
   extend ActiveSupport::Concern
+  include Sanitizable
 
   def make_active_version(lesson_version)
     lesson = lesson_version.lesson
@@ -17,7 +18,7 @@ module LessonVersionable
     return nil unless LessonVersion.media_types[media_type.to_sym]
     data = {}
     data.update(react_player_data) if LessonVersion::REACT_PLAYER_TYPES.include? LessonVersion.media_types[media_type.to_sym]
-    data.update(text: params[:lesson_version][:data][:rich_text]) if media_type.to_sym == :rich_text
+    data.update(text: cleaned_html(params[:lesson_version][:data][:rich_text])) if media_type.to_sym == :rich_text
     data.to_json
   end
 

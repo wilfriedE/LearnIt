@@ -51,7 +51,7 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
     authorize @lesson, :update?
     @active_version = @lesson.active_version
-    @active_version.update(approval: params[:approval].to_sym) if LessonVersion.approvals[params[:approval]]
+    @active_version.update(lesson_id: @lesson.id, approval: params[:approval].to_sym) if LessonVersion.approvals[params[:approval]]
     respond_to :js
   end
 

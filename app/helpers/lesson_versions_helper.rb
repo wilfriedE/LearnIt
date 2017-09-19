@@ -4,4 +4,10 @@ module LessonVersionsHelper
     return "markdown"     if lesson_version.media_type.to_sym == :rich_text
     "undefined"
   end
+
+  def lesson_version_approval_action(action)
+    return "Accept Lesson Version Proposal" if action.to_sym == :approved
+    return "Discard Lesson Version Proposal" if action.to_sym == :rejected
+    "Awaiting Approval"
+  end
 end

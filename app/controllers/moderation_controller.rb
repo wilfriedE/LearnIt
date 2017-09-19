@@ -3,7 +3,9 @@ class ModerationController < ApplicationController
 
   def index
     @new_lessons ||= Lesson.all.select { |lesson| lesson.approval.to_sym == :awaiting_approval }
-    @lessons ||= Lesson.order(:updated_at).first(10)
+    @lessons ||= Lesson.order(updated_at: :desc).first(10)
+    @lesson_versions ||= LessonVersion.order(created_at: :desc).where.not(lesson_id: nil).first(10)
+    @new_lesson_versions ||= LessonVersion.order(created_at: :desc).where.not(lesson_id: nil).select(&:awaiting_approval?).first(10)
   end
 
   private

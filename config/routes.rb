@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get "lessons-form/media-field" => 'lesson_versions#lesson_media_field', as: :lesson_media_field
   resources :lesson_versions do
     member do
+      put  :lesson_version_approval, path: "lesson-version-approval", as: :approval
     end
   end
 

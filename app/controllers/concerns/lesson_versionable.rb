@@ -1,6 +1,13 @@
 module LessonVersionable
   extend ActiveSupport::Concern
 
+  def make_active_version(lesson_version)
+    lesson = lesson_version.lesson
+    lesson.active_version.rejected!
+    lesson.active_version = lesson_version
+    lesson.save
+  end
+
   def build_lesson_version
     lesson_version_params.merge(data: build_lesson_version_data, creator_id: current_user.id)
   end

@@ -21,7 +21,11 @@ class LessonVersionPolicy < ApplicationPolicy
   private
 
   def can_modify?
-    active_version = record.lesson.active_version
-    (user.admin? || user.moderator? || record.creator.id == user.id) && (active_version.id != record.id)
+    (user.admin? || user.moderator? || record.creator.id == user.id) && !active_lesson_version?
+  end
+
+  def active_lesson_version?
+    return false unless record.lesson.present?
+    record.lesson.active_version.id == record.id
   end
 end

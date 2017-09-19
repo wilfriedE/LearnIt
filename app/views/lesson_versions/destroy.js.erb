@@ -1,0 +1,5 @@
+<% if @lesson_version.errors.blank?  %>
+$("#<%=@row_id%>").remove();
+<% else %>
+alert("Failed to delete lesson version");
+<% end %>

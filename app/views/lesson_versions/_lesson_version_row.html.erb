@@ -1,0 +1,23 @@
+<% row_id = "lesson_version_row_#{lesson_version.id}" %>
+<tr id="<%= row_id %>">
+  <td data-toggle="tooltip" data-placement="top" title="<%= lesson_version.name %>">
+    <span class="badge badge-pill badge-info"><%= lesson_version.approval.humanize %>
+    <%= content_tag(:span, "Active Version", class: "badge badge-pill badge-success") if lesson_version.lesson && lesson_version.lesson.active_version.id == lesson_version.id %>
+    </span> <%= lesson_version.name %>
+  </td>
+  <td>
+    <%= content_tag(:p, lesson_version.description, class: "text-muted") %>
+    <%= content_tag(:i, "Updated: #{time_ago_in_words(lesson_version.updated_at)} ago", class: "badge badge-pill badge-light") %>
+  </td>
+  <td><%= link_to "##{lesson_version.lesson.id}", lesson_path(id: lesson_version.lesson.id)%></td>
+  <td class="d-flex  align-items-center justify-content-around">
+    <%= link_to content_tag(:i, "View", class: "fa fa-eye mr-2"), lesson_version_path(id: lesson_version.id) %>
+    <% if policy(lesson_version).update? %>
+      <%= link_to "Edit", edit_lesson_version_path(id: lesson_version.id), class: "btn btn-outline-info mr-2" %>
+      <%= select_tag 'approval', options_for_select(LessonVersion.approvals.map{ |t| [lesson_version_approval_action(t[0]) , t[0]] }, selected: lesson_version.approval), { class: "form-control input-inline mr-2", data: { remote: true, url: approval_lesson_version_path(id: lesson_version.id), params: { row_id: row_id }.to_param, method: 'put' } }%>
+    <% end %>
+    <% if policy(lesson_version).delete? %>
+      <%= link_to "Delete", lesson_version_path(id: lesson_version.id, row_id: row_id), method: :delete, remote: true, class: "btn btn-outline-danger" %>
+    <% end %>
+  </td>
+</tr>

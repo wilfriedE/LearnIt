@@ -1,0 +1,3 @@
+<% collectible_card = render 'lessons/card', lesson: @lesson %>
+<% collection_item_field = render 'collections/collection_item_field', collection_item: @collection_item, collectible_card: collectible_card %>
+$("#collectibles").append("<%= escape_javascript(collection_item_field) %>");

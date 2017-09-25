@@ -1,0 +1,5 @@
+<% if @collectible_type.present?  %>
+$("#collectible-search .search-results").html("<%= escape_javascript(render 'collections/collectible_list', { collectibles: @collectibles }) %>");
+<% else %>
+alert("Something went wrong");
+<% end %>

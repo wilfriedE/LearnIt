@@ -1,0 +1,14 @@
+/* ghostClass */
+.ghost {
+  opacity: .6;
+  background: #eee;
+  border: 2px dashed #f0ad4e;
+}
+
+.sortable-chosen {
+  border: 1px solid #5cb85c;
+}
+
+.collection_item:hover, .collection_item:active {
+  cursor: move;
+}

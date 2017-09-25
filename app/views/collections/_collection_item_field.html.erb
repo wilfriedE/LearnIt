@@ -1,0 +1,12 @@
+<% field_uid = (Time.now.to_f * 1000).to_i %>
+<% field_id = "collection_item_field_#{field_uid}" %>
+<div class="collection_item list-group-item">
+  <%= simple_fields_for :collection do |f|%>
+    <% f.simple_fields_for "collection_items_attributes[#{field_uid}]", collection_item do |c| %>
+      <%= c.input :position, as: :hidden, input_html: { class: "collection_item_position" } %>
+      <%= c.input :collectible_type, as: :hidden %>
+      <%= c.input :collectible_id, as: :hidden %>
+    <% end %>
+  <% end %>
+  <%= collectible_card %>
+</div>

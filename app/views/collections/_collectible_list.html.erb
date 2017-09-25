@@ -1,0 +1,14 @@
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th ><i class="fa fa-cogs"></i> Action</th>
+    </tr>
+  </thead>
+  <tbody >
+  <% collectibles.each do |collectible| %>
+    <%= render "collections/collectible_row", collectible: collectible %>
+  <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,6 @@
+<div class="input-group mb-2 mt-2">
+  <input name="q" type="text" id="collectible-search-input" class="form-control" placeholder="Search for <%= collectible_type %> to add" aria-label="Search for <%= collectible_type %> to add">
+  <span class="input-group-btn" >
+    <%= content_tag :button, "Search", id: "collectible-search-btn", class:"btn btn-outline-success", data: { "collectible-type": collectible_type }%>
+  </span>
+</div>

@@ -1,0 +1,18 @@
+<tr >
+  <td title="<%= collectible.name %>">
+    <%= collectible.name %>
+  </td>
+  <td><%= content_tag(:i, collectible.description, class: "text-muted") %></td>
+  <td class="d-flex  align-items-center justify-content-around">
+    <% if collectible.is_a? Lesson %>
+      <%= link_to content_tag(:i, "View", class: "fa fa-eye mr-2"), lesson_path(id: collectible.id) %>
+      <%= link_to "Add to collection", add_lesson_to_collections_path(id:  collectible.id), remote: true, class: "btn btn-primary collectible-adder" %>
+    <% elsif collectible.is_a? LessonVersion %>
+      <%= link_to content_tag(:i, "View", class: "fa fa-eye mr-2"), lesson_version_path(id: collectible.id) %>
+      <%= link_to "Add to collection", add_lesson_version_to_collections_path(id:  collectible.id), remote: true, class: "btn btn-primary collectible-adder" %>
+    <% elsif collectible.is_a? Collection %>
+      <%= link_to content_tag(:i, "View", class: "fa fa-eye mr-2"), collection_path(id: collectible.id) %>
+      <%= link_to "Add to collection", add_collection_to_collections_path(id:  collectible.id), remote: true, class: "btn btn-primary collectible-adder" %>
+    <% end %>
+  </td>
+</tr>

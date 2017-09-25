@@ -10,11 +10,22 @@ Rails.application.routes.draw do
     end
   end
 
-  # lesson_version pages
+  # lesson_versions
   get "lessons-form/media-field" => 'lesson_versions#lesson_media_field', as: :lesson_media_field
   resources :lesson_versions do
     member do
       put  :lesson_version_approval, path: "lesson-version-approval", as: :approval
+    end
+  end
+
+  # collections
+  resources :collections do
+    collection do
+      get :search_collectible, path: "search-collectible", as: :search_collectible
+      get :list_collectibles, path: "list-collectibles", as: :list_collectibles
+      get :add_lesson, path: "add-lesson", as: :add_lesson_to
+      get :add_lesson_version, path: "add-lesson-version", as: :add_lesson_version_to
+      get :add_collection, path: "add-collection", as: :add_collection_to
     end
   end
 

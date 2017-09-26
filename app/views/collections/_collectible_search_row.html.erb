@@ -1,0 +1,12 @@
+<% row_uid = (Time.now.to_f * 1000).to_i %>
+<% row_id = "collectible_row_#{row_uid}" %>
+<tr id="<%= row_id %>">
+  <td title="<%= collectible.name %>">
+    <%= collectible.name %>
+  </td>
+  <td><%= content_tag(:i, collectible.description, class: "text-muted") %></td>
+  <td class="d-flex  align-items-center justify-content-around">
+    <%= link_to content_tag(:i, "View", class: "fa fa-eye mr-2"), collectible_h_path(collectible) %>
+    <%= link_to "Add to collection", add_collectible_collections_path(id:  collectible.id, collectible_type: collectible.class, row_id: row_id), remote: true, class: "btn btn-primary collectible-adder" %>
+  </td>
+</tr>

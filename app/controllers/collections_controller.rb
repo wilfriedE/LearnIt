@@ -23,21 +23,13 @@ class CollectionsController < ApplicationController
     respond_to :js
   end
 
-  def add_lesson
-    @lesson = Lesson.find(params[:id])
-    @collection_item = CollectionItem.new(collectible: @lesson)
-    respond_to :js
-  end
-
-  def add_lesson_version
-    @lesson_version = LessonVersion.find(params[:id])
-    @collection_item = CollectionItem.new(collectible: @lesson_version)
-    respond_to :js
-  end
-
-  def add_collection
-    @collection = Collection.find(params[:id])
-    @collection_item = CollectionItem.new(collectible: @collection)
+  def add_collectible
+    @row_id = params[:row_id]
+    @collectible_type = params[:collectible_type]
+    @collectible = Lesson.find(params[:id]) if @collectible_type == "Lesson"
+    @collectible = LessonVersion.find(params[:id]).result(distinct: true) if @collectible_type == "LessonVersion"
+    @collectible = Collection.find(params[:id]).result(distinct: true) if @collectible_type == "Collection"
+    @collection_item = CollectionItem.new(collectible: @collectible)
     respond_to :js
   end
 

@@ -21,11 +21,9 @@ Rails.application.routes.draw do
   # collections
   resources :collections do
     collection do
-      get :search_collectible, path: "search-collectible", as: :search_collectible
-      get :list_collectibles, path: "list-collectibles", as: :list_collectibles
-      get :add_lesson, path: "add-lesson", as: :add_lesson_to
-      get :add_lesson_version, path: "add-lesson-version", as: :add_lesson_version_to
-      get :add_collection, path: "add-collection", as: :add_collection_to
+      get :search_collectible, path: "search-collectible"
+      get :list_collectibles, path: "list-collectibles"
+      get :add_collectible, path: "add-collectible"
     end
   end
 

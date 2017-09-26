@@ -1,3 +1,4 @@
-<% collectible_card = render 'lesson_versions/card', lesson_version: @lesson_version %>
+$("#<%= @row_id %>").remove();
+<% collectible_card = render 'collections/collectible_card', collectible: @collectible %>
 <% collection_item_field = render 'collections/collection_item_field', collection_item: @collection_item, collectible_card: collectible_card %>
 $("#collectibles").append("<%= escape_javascript(collection_item_field) %>");

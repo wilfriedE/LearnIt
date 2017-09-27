@@ -3,10 +3,16 @@ class CollectionsController < ApplicationController
 
   def show
     @collection = Collection.find(params[:id])
+    authorize @collection
   end
 
   def new
     @collection = Collection.new
+    authorize @collection
+  end
+
+  def edit
+    @collection = Collection.find(params[:id])
     authorize @collection
   end
 
@@ -27,8 +33,8 @@ class CollectionsController < ApplicationController
     @row_id = params[:row_id]
     @collectible_type = params[:collectible_type]
     @collectible = Lesson.find(params[:id]) if @collectible_type == "Lesson"
-    @collectible = LessonVersion.find(params[:id]).result(distinct: true) if @collectible_type == "LessonVersion"
-    @collectible = Collection.find(params[:id]).result(distinct: true) if @collectible_type == "Collection"
+    @collectible = LessonVersion.find(params[:id]) if @collectible_type == "LessonVersion"
+    @collectible = Collection.find(params[:id]) if @collectible_type == "Collection"
     @collection_item = CollectionItem.new(collectible: @collectible)
     respond_to :js
   end
@@ -43,6 +49,15 @@ class CollectionsController < ApplicationController
     end
   end
 
+  def update
+    @collection = Collection.find(params[:id])
+    if @collection.update_attributes!(collection_params.merge(collection_items_attributes: build_colection_items(@collection)))
+      redirect_to collection_path(@collection)
+    else
+      render "edit"
+    end
+  end
+
   private
 
   def collection_params
@@ -52,7 +67,7 @@ class CollectionsController < ApplicationController
   def build_colection_items(collection)
     collection_items = []
     params.require(:collection).fetch(:collection_items_attributes).each do |_e, v|
-      collection_items << { collection: collection, collectible_type: v[:collectible_type],
+      collection_items << { id: v[:id], collection: collection, collectible_type: v[:collectible_type],
                             collectible_id: v[:collectible_id], position: v[:position] }
     end
     collection_items

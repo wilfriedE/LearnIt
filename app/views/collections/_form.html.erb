@@ -7,7 +7,8 @@
   <p class="text-muted">* Drag the Collection items below to sort and order them in order.</p>
   <div id="collectibles" class="list-group mb-2">
     <% collection.collection_items.each do |collection_item| %>
-      <%= render "collections/collection_item_field", collection_item: collection_item %>
+      <% collectible_card = render 'collections/collectible_card', collectible: collection_item.collectible %>
+      <%= render "collections/collection_item_field", collection_item: collection_item, collectible_card: collectible_card %>
     <% end %>
   </div>
   <div id="collectible-search" >

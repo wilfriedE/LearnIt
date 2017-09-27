@@ -4,6 +4,7 @@ class CollectionItem < ApplicationRecord
 
   belongs_to :collectible, polymorphic: true
   validates  :collection, :position, :collectible, presence: true
+  validates  :collectible_id, uniqueness: { scope: [:collection, :collectible_type] }
 
   def lesson?
     collectible.is_a? Lesson

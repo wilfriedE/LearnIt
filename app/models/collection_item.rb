@@ -1,6 +1,5 @@
 class CollectionItem < ApplicationRecord
   belongs_to :collection
-  acts_as_list scope: :collection, top_of_list: 0
 
   belongs_to :collectible, polymorphic: true
   validates  :collection, :position, :collectible, presence: true

@@ -29,9 +29,6 @@ gem 'devise'
 # Use pundit for authorization
 gem "pundit"
 
-# Use acts as list to manage object reordering
-gem 'acts_as_list'
-
 # Use ransack for Searching and pagination
 gem 'ransack'
 

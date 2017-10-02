@@ -52,7 +52,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
 
-  #Use dotenv for ENV variables
+  # Use dotenv for ENV variables
   gem 'dotenv-rails'
 
   # Use sqlite3 as the database for Active Record

@@ -1,7 +1,7 @@
 import '../content-tools'
 import 'ContentTools'
 
-$( document ).on('turbolinks:load', function() {
+var ready = () => {
   var editor = ContentTools.EditorApp.get();
 
   editor.init('*[data-editable]', 'data-name');
@@ -50,5 +50,7 @@ $( document ).on('turbolinks:load', function() {
           ContentTools.EditorApp.get().busy(false);
       });
   });
+}
 
-})
+$(document).ready(ready);
+$(document).on('turbolinks:load', ready);

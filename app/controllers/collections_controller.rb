@@ -18,6 +18,7 @@ class CollectionsController < ApplicationController
 
   def search_collectible
     @collectible_type = params[:collectible_type]
+    authorize Collection.new, :new?
     respond_to :js
   end
 
@@ -26,6 +27,7 @@ class CollectionsController < ApplicationController
     @collectibles = Lesson.search(active_version_name_or_active_version_description_cont: params[:q]).result(distinct: true) if @collectible_type == "Lesson"
     @collectibles = LessonVersion.search(name_or_description_cont: params[:q]).result(distinct: true) if @collectible_type == "LessonVersion"
     @collectibles = Collection.search(name_or_description_cont: params[:q]).result(distinct: true) if @collectible_type == "Collection"
+    authorize Collection.new, :new?
     respond_to :js
   end
 
@@ -36,6 +38,15 @@ class CollectionsController < ApplicationController
     @collectible = LessonVersion.find(params[:id]) if @collectible_type == "LessonVersion"
     @collectible = Collection.find(params[:id]) if @collectible_type == "Collection"
     @collection_item = CollectionItem.new(collectible: @collectible)
+    authorize @collectible, :new?
+    respond_to :js
+  end
+
+  def remove_collection_item
+    collection = Collection.find(params[:id])
+    @collection_item = collection.collection_items.where(id: params[:collection_item_id]).first
+    @collection_item.destroy!
+    @field_id = params[:field_id]
     respond_to :js
   end
 
@@ -51,7 +62,7 @@ class CollectionsController < ApplicationController
 
   def update
     @collection = Collection.find(params[:id])
-    if @collection.update_attributes!(collection_params.merge(collection_items_attributes: build_colection_items(@collection)))
+    if @collection.update(collection_params.merge(collection_items_attributes: build_colection_items(@collection)))
       redirect_to collection_path(@collection)
     else
       render "edit"

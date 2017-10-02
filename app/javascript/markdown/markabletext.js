@@ -1,6 +1,6 @@
 var marked = require('marked');
 
-$( document ).on('turbolinks:load', function(){
+var ready = () => {
   var markabletext = $(".markabletext");
 
   if (markabletext.length) {
@@ -8,4 +8,7 @@ $( document ).on('turbolinks:load', function(){
     markabletext.html(marked(html_content));
     markabletext.removeClass(".markabletext");
   }
-});
+}
+
+$(document).ready(ready);
+$(document).on('turbolinks:load', ready);

@@ -1,6 +1,6 @@
 import * as Sortable from 'sortablejs'
 
-$( document ).on('turbolinks:load', () => {
+var ready = () => {
   var update_positions = function (el){
     $(el).children('.collection_item').each(function (i) {
       var position_input = $(this).find('input.collection_item_position');
@@ -18,4 +18,12 @@ $( document ).on('turbolinks:load', () => {
   $("body").on('DOMSubtreeModified', "#collectibles", function(evt) {
       update_positions(evt.target);
   });
-})
+
+  $(".remove-field").on('click', function(evt) {
+    var field_id = $(evt.target).data("field-id");
+    $("#" + field_id).remove();
+  });
+}
+
+$(document).ready(ready);
+$(document).on('turbolinks:load', ready);

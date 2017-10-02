@@ -25,6 +25,9 @@ Rails.application.routes.draw do
       get :list_collectibles, path: "list-collectibles"
       get :add_collectible, path: "add-collectible"
     end
+    member do
+      delete :remove_collection_item, path: "remove-collection-item/:collection_item_id"
+    end
   end
 
   # topics pages

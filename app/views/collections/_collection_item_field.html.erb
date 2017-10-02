@@ -1,13 +1,27 @@
 <% field_uid = (Time.now.to_f * 1000).to_i %>
 <% field_id = "collection_item_field_#{field_uid}" %>
-<div class="collection_item list-group-item">
-  <%= simple_fields_for :collection do |f|%>
+<div class="collection_item list-group-item" id="<%= field_id %>">
+  <div class="">
+  <%= simple_fields_for :collection do |f| %>
     <% f.simple_fields_for "collection_items_attributes[#{field_uid}]", collection_item do |c| %>
-      <%= c.input :position, as: :hidden, input_html: { class: "collection_item_position" } %>
-      <%= c.input :collectible_type, as: :hidden %>
-      <%= c.input :collectible_id, as: :hidden %>
-      <%= c.input :id, as: :hidden %>
+      <%= c.error_notification message: c.object.errors[:base].to_sentence %>
+      <%= c.input :position, as: :hidden, input_html: { class: "collection_item_position" }, wrapper_html: { class: "m-0 p-0" }  %>
+      <%= c.input :collectible_type, as: :hidden, wrapper_html: { class: "m-0 p-0" } %>
+      <%= c.input :collectible_id, as: :hidden, wrapper_html: { class: "m-0 p-0" } %>
+      <%= c.input :id, as: :hidden, wrapper_html: { class: "m-0 p-0" } %>
     <% end %>
   <% end %>
-  <%= collectible_card %>
+  </div>
+  <div class="row">
+    <div class="col align-self-center">
+      <%= content_tag :div, collectible_card, class: "m-1" %>
+    </div>
+    <div class="col-2 align-self-center">
+      <% if collection_item.id %>
+        <%= link_to "Remove", remove_collection_item_collection_path(id: collection_item.collection, collection_item_id: collection_item.id), class: "btn btn-outline-danger", data: { params: { field_id: field_id }.to_param }, remote: true, method: :delete, confirm: "Are you sure?"%>
+      <% else %>
+        <%= content_tag :span, "Remove", class: "btn btn-outline-danger pointer remove-field", data: {"field-id": field_id }%>
+      <% end %>
+    </div>
+  </div>
 </div>

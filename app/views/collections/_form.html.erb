@@ -2,6 +2,7 @@
 
 <% form_id = "collection_form" %>
 <%= simple_form_for collection, url: action_url, method: method_type, html: { id:  form_id } do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence %>
   <%= f.input :name %>
   <%= f.input :description %>
   <p class="text-muted">* Drag the Collection items below to sort and order them in order.</p>

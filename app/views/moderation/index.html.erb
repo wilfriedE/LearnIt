@@ -4,6 +4,7 @@
   <a class="nav-item nav-link <%= @active == 'collection'? 'active' : '' %>" data-toggle="tab" href="#nav-new-collections" role="tab" aria-controls="nav-new-collections">Collections Awaiting Approval</a>
   <a class="nav-item nav-link <%= @active == 'lesson-list'? 'active' : '' %>" data-toggle="tab" href="#nav-lessons" role="tab" aria-controls="nav-lessons" aria-expanded="true">Lessons</a>
   <a class="nav-item nav-link <%= @active == 'lesson-version-list'? 'active' : '' %>" data-toggle="tab" href="#nav-lesson-versions" role="tab" aria-controls="nav-lesson-versions">Lessons Versions</a>
+  <a class="nav-item nav-link <%= @active == 'collection-list'? 'active' : '' %>" data-toggle="tab" href="#nav-collections" role="tab" aria-controls="nav-collections">Collections</a>
 </nav>
 
 <div class="tab-content">
@@ -21,4 +22,5 @@
   </div>
   <div class="tab-pane fade <%= @active == 'lesson-list'? 'show active' : '' %>" id="nav-lessons" role="tabpanel" ><%= render "lessons/list_lessons", lessons: @lessons %></div>
   <div class="tab-pane fade <%= @active == 'lesson-version-list'? 'show active' : '' %>" id="nav-lesson-versions" role="tabpanel" ><%= render "lesson_versions/list_lesson_versions", lesson_versions: @lesson_versions %></div>
+  <div class="tab-pane fade <%= @active == 'collection-list'? 'show active' : '' %>" id="nav-collections" role="tabpanel" ><%= render "collections/list_collections", collections: @collections %></div>
 </div>

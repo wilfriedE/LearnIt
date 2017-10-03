@@ -79,6 +79,14 @@ class CollectionsController < ApplicationController
     end
   end
 
+  def destroy
+    @row_id = params[:row_id]
+    @collection = Collection.find(params[:id])
+    authorize @collection
+    @collection.destroy
+    respond_to :js
+  end
+
   private
 
   def collection_params

@@ -45,24 +45,26 @@ class CollectionsController < ApplicationController
   def remove_collection_item
     collection = Collection.find(params[:id])
     @collection_item = collection.collection_items.where(id: params[:collection_item_id]).first
-    @collection_item.destroy!
+    @collection_item.destroy
     @field_id = params[:field_id]
     respond_to :js
   end
 
   def create
     @collection = Collection.new(collection_params.merge(creator: current_user))
-    if @collection.save
-      @collection.destroy! unless @collection.update_attributes!(collection_items_attributes: build_colection_items(@collection))
+    valid_collection_items = valid_collection_items_count? @collection
+    if valid_collection_items && @collection.save && @collection.update(collection_items_attributes: build_colection_items(@collection))
       redirect_to collection_path(@collection)
     else
+      @collection.destroy
       render "new"
     end
   end
 
   def update
     @collection = Collection.find(params[:id])
-    if @collection.update(collection_params.merge(collection_items_attributes: build_colection_items(@collection)))
+    valid_collection_items = valid_collection_items_count? @collection
+    if valid_collection_items && @collection.update(collection_params.merge(collection_items_attributes: build_colection_items(@collection)))
       redirect_to collection_path(@collection)
     else
       render "edit"
@@ -82,5 +84,14 @@ class CollectionsController < ApplicationController
                             collectible_id: v[:collectible_id], position: v[:position] }
     end
     collection_items
+  end
+
+  def valid_collection_items_count?(collection)
+    valid = false
+    if params.require(:collection).include? :collection_items_attributes
+      valid = params.require(:collection).fetch(:collection_items_attributes).values.count > 1
+    end
+    collection.errors.add(:base, "A collection must have at least two Collection Items") unless valid
+    valid
   end
 end

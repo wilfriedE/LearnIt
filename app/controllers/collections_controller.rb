@@ -50,6 +50,14 @@ class CollectionsController < ApplicationController
     respond_to :js
   end
 
+  def collection_approval
+    @row_id = params[:row_id]
+    @collection = Collection.find(params[:id])
+    authorize @collection, :update?
+    @collection.update(approval: params[:approval].to_sym) if Collection.approvals[params[:approval]]
+    respond_to :js
+  end
+
   def create
     @collection = Collection.new(collection_params.merge(creator: current_user))
     valid_collection_items = valid_collection_items_count? @collection

@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     end
     member do
       delete :remove_collection_item, path: "remove-collection-item/:collection_item_id"
+      put    :collection_approval, path: "collection-approval", as: :approval
     end
   end
 

@@ -1,19 +1,24 @@
 <nav class="nav nav-tabs" role="tablist">
-  <a class="nav-item nav-link active" data-toggle="tab" href="#nav-new-lessons" role="tab" aria-controls="nav-new-lessons" aria-expanded="true">Lessons Awaiting Approval</a>
-  <a class="nav-item nav-link" data-toggle="tab" href="#nav-new-lesson-versions" role="tab" aria-controls="nav-new-lesson-versions">Lessons Version Proposals</a>
-  <a class="nav-item nav-link" data-toggle="tab" href="#nav-lessons" role="tab" aria-controls="nav-lessons" aria-expanded="true">Lessons</a>
-  <a class="nav-item nav-link" data-toggle="tab" href="#nav-lesson-versions" role="tab" aria-controls="nav-lesson-versions">Lessons Versions</a>
+  <a class="nav-item nav-link <%= @active == 'lesson'? 'active' : '' %>" data-toggle="tab" href="#nav-new-lessons" role="tab" aria-controls="nav-new-lessons" aria-expanded="true">Lessons Awaiting Approval</a>
+  <a class="nav-item nav-link <%= @active == 'lesson-version'? 'active' : '' %>" data-toggle="tab" href="#nav-new-lesson-versions" role="tab" aria-controls="nav-new-lesson-versions">Lessons Version Proposals</a>
+  <a class="nav-item nav-link <%= @active == 'collection'? 'active' : '' %>" data-toggle="tab" href="#nav-new-collections" role="tab" aria-controls="nav-new-collections">Collections Awaiting Approval</a>
+  <a class="nav-item nav-link <%= @active == 'lesson-list'? 'active' : '' %>" data-toggle="tab" href="#nav-lessons" role="tab" aria-controls="nav-lessons" aria-expanded="true">Lessons</a>
+  <a class="nav-item nav-link <%= @active == 'lesson-version-list'? 'active' : '' %>" data-toggle="tab" href="#nav-lesson-versions" role="tab" aria-controls="nav-lesson-versions">Lessons Versions</a>
 </nav>
 
 <div class="tab-content">
-  <div class="tab-pane fade show active" id="nav-new-lessons" role="tabpanel" >
+  <div class="tab-pane fade <%= @active == 'lesson'? 'show active' : '' %>" id="nav-new-lessons" role="tabpanel" >
     <%= render "lessons/list_lessons", lessons: @new_lessons %>
-    <%= "<div class='text-center'><h3>✨✨✨ All clear ✨✨✨</h3></div>".html_safe if @new_lessons.count <= 0 %>
+    <%= "<div class='text-center'><h3>✨✨✨ All clear ✨✨✨</h3></div>".html_safe if @new_lessons.count < 1 %>
   </div>
-  <div class="tab-pane fade" id="nav-new-lesson-versions" role="tabpanel" >
+  <div class="tab-pane fade <%= @active == 'lesson-version'? 'show active' : '' %>" id="nav-new-lesson-versions" role="tabpanel" >
     <%= render "lesson_versions/list_lesson_versions", lesson_versions: @new_lesson_versions %>
-    <%= "<div class='text-center'><h3>✨✨✨ All clear ✨✨✨</h3></div>".html_safe if @new_lesson_versions.count <= 0 %>
+    <%= "<div class='text-center'><h3>✨✨✨ All clear ✨✨✨</h3></div>".html_safe if @new_lesson_versions.count < 1 %>
   </div>
-  <div class="tab-pane fade" id="nav-lessons" role="tabpanel" ><%= render "lessons/list_lessons", lessons: @lessons %></div>
-  <div class="tab-pane fade" id="nav-lesson-versions" role="tabpanel" ><%= render "lesson_versions/list_lesson_versions", lesson_versions: @lesson_versions %></div>
+  <div class="tab-pane fade <%= @active == 'collection'? 'show active' : '' %>" id="nav-new-collections" role="tabpanel" >
+    <%= render "collections/list_collections", collections: @new_collections %>
+    <%= "<div class='text-center'><h3>✨✨✨ All clear ✨✨✨</h3></div>".html_safe if @new_collections.count < 1 %>
+  </div>
+  <div class="tab-pane fade <%= @active == 'lesson-list'? 'show active' : '' %>" id="nav-lessons" role="tabpanel" ><%= render "lessons/list_lessons", lessons: @lessons %></div>
+  <div class="tab-pane fade <%= @active == 'lesson-version-list'? 'show active' : '' %>" id="nav-lesson-versions" role="tabpanel" ><%= render "lesson_versions/list_lesson_versions", lesson_versions: @lesson_versions %></div>
 </div>

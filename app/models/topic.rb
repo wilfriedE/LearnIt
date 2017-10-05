@@ -10,7 +10,4 @@ class Topic < ApplicationRecord
     super(only: %i[id name description])
   end
 
-  def self.search(search)
-    Topic.where("name LIKE ? OR description LIKE ?", "%#{search}%", "%#{search}%").distinct
-  end
 end

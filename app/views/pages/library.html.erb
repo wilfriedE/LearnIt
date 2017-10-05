@@ -1,5 +1,39 @@
-<div class="card-deck">
-  <% @lessons.each do |lesson| %>
-    <%= render "lessons/card", lesson: lesson %>
-  <% end %>
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Latest</a>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Lessons", lessons_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Collections", collections_path, class: "nav-link" %>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card-body">
+    <h4 class="card-title">Latest Lessons</h4>
+    <p class="card-text">Here are some of the latest added lessons.</p>
+    <a href="#" class="btn btn-primary">View Lessons</a>
+    <div class="card-columns pt-2">
+      <% @lessons.each do |lesson| %>
+        <%= render "lessons/card", lesson: lesson %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <h4 class="card-title">Latest Collections</h4>
+    <p class="card-text">Here are some of the latest added collections.</p>
+    <a href="#" class="btn btn-primary">View Collections</a>
+
+    <div class="card-columns pt-2">
+      <% @collections.each do |collection| %>
+        <%= render "collections/card", collection: collection %>
+      <% end %>
+    </div>
+  </div>
+
 </div>

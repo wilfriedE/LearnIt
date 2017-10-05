@@ -11,7 +11,8 @@ class PagesController < ApplicationController
   end
 
   def library
-    @lessons = Lesson.first(10)
+    @collections = Collection.order(created_at: :desc).first(10)
+    @lessons = Lesson.order(created_at: :desc).first(10)
   end
 
   def new

@@ -2,7 +2,8 @@ class LessonsController < ApplicationController
   include LessonVersionable
 
   def index
-    @lessons ||= Lesson.all
+    @q = Lesson.search(params[:q])
+    @lessons ||= @q.result(distinct: true).page(params[:page]).per(20)
   end
 
   def show

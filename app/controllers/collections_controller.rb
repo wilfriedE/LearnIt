@@ -1,5 +1,8 @@
 class CollectionsController < ApplicationController
-  def index; end
+  def index
+    @q = Collection.search(params[:q])
+    @collections ||= @q.result(distinct: true).page(params[:page]).per(20)
+  end
 
   def show
     @collection = Collection.find(params[:id])

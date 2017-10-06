@@ -2,8 +2,8 @@ class LessonsController < ApplicationController
   include LessonVersionable
 
   def index
-    @q = Lesson.search(params[:q])
-    @lessons ||= @q.result(distinct: true).page(params[:page]).per(20)
+    @q = Lesson.search(query_params)
+    @lessons ||= @q.result(distinct: true).page params[:page]
   end
 
   def show
@@ -62,5 +62,11 @@ class LessonsController < ApplicationController
     authorize @lesson
     @lesson.destroy
     respond_to :js
+  end
+
+  private
+
+  def query_params
+    params.permit(:q).merge(active_version_approval_eq: LessonVersion.approvals[:approved])
   end
 end

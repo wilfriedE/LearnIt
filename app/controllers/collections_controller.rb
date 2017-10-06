@@ -1,7 +1,7 @@
 class CollectionsController < ApplicationController
   def index
-    @q = Collection.search(params[:q])
-    @collections ||= @q.result(distinct: true).page(params[:page]).per(20)
+    @q = Collection.search(query_params)
+    @collections ||= @q.result(distinct: true).page params[:page]
   end
 
   def show
@@ -91,6 +91,10 @@ class CollectionsController < ApplicationController
   end
 
   private
+
+  def query_params
+    params.permit(:q).merge(approval_eq: Collection.approvals[:approved])
+  end
 
   def collection_params
     params.require(:collection).permit(:name, :description)

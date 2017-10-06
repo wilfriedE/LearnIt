@@ -29,8 +29,11 @@ gem 'devise'
 # Use pundit for authorization
 gem "pundit"
 
-# Use ransack for Searching and pagination
+# Use ransack for Searching
 gem 'ransack'
+
+# Use kaminari for pagination
+gem 'kaminari'
 
 # Use SimpleForm for forms
 gem 'simple_form'

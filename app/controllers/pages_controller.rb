@@ -11,8 +11,8 @@ class PagesController < ApplicationController
   end
 
   def library
-    @collections = Collection.order(created_at: :desc).first(10)
-    @lessons = Lesson.order(created_at: :desc).first(10)
+    @collections = Collection.order(created_at: :desc).select(&:approved?).first(10)
+    @lessons = Lesson.order(created_at: :desc).select { |lesson| lesson.approval.to_sym == :approved }.first(10)
   end
 
   def new

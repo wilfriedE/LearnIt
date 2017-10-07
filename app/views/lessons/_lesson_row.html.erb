@@ -9,7 +9,14 @@
     <%= link_to content_tag(:i, "View", class: "fa fa-eye mr-2"), lesson_path(id: lesson.id) %>
     <% if policy(lesson).update? %>
       <%= link_to "Edit", edit_lesson_version_path(id: lesson.active_version_id), class: "btn btn-outline-info mr-2" %>
-      <%= select_tag 'approval', options_for_select(LessonVersion.approvals.map{ |t| [lesson_approval_action(t[0]), t[0]] }, selected: lesson.approval), { class: "form-control input-inline mr-2", data: { remote: true, url: approval_lesson_path(id: lesson.id), params: { row_id: row_id }.to_param, method: 'put' } }%>
+      <div class="btn-group">
+        <%= content_tag :button, "Mark as", class: "btn btn-outline-info dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } %>
+        <div class="dropdown-menu">
+          <% LessonVersion.approvals.each do |approval_state| %>
+            <%= link_to approval_state[0].humanize.capitalize, approval_lesson_path(id: lesson.id, row_id: row_id, approval: approval_state[0]), class: "dropdown-item #{'active' if approval_state[0] == lesson.approval}", remote: true, method: :put %>
+          <% end %>
+        </div>
+      </div>
     <% end %>
     <% if policy(lesson).delete? %>
       <%= link_to "Delete", lesson_path(id: lesson.id, row_id: row_id), method: :delete, remote: true, class: "btn btn-outline-danger" %>

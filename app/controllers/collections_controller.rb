@@ -93,7 +93,7 @@ class CollectionsController < ApplicationController
   private
 
   def query_params
-    params.permit(:q).merge(approval_eq: Collection.approvals[:approved])
+    params.require(:q).merge(approval_eq: Collection.approvals[:approved]).permit! if params[:q]
   end
 
   def collection_params

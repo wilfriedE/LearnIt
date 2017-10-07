@@ -1,5 +1,5 @@
 <% if @lesson_version.errors.blank?  %>
-$("#<%=@row_id%>").replaceWith("<%= escape_javascript(render 'lesson_versions/lesson_version_row', { lesson_version: @lesson_version }) %>");
+location.reload();
 <% else %>
 alert("Failed to update approval");
 <% end %>

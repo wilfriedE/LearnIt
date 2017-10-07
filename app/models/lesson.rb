@@ -6,5 +6,6 @@ class Lesson < ApplicationRecord
 
   validates  :active_version, presence: true
 
-  delegate :name, :description, :media_type, :approval, :data, to: :active_version
+  delegate :name, :description, :media_type, :approval,
+           :awaiting_approval?, :approved?, :rejected?, :data, to: :active_version
 end

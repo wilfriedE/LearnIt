@@ -28,6 +28,7 @@ class LessonsController < ApplicationController
     authorize @lesson_version
     if @lesson_version.save
       @lesson = Lesson.new(active_version_id: @lesson_version.id)
+      @lesson_version.update(lesson: @lesson)
       @lesson.save
       redirect_to lesson_path(id: @lesson)
     else
@@ -67,6 +68,6 @@ class LessonsController < ApplicationController
   private
 
   def query_params
-    params.permit(:q).merge(active_version_approval_eq: LessonVersion.approvals[:approved])
+    params.require(:q).merge(active_version_approval_eq: LessonVersion.approvals[:approved]).permit! if params[:q]
   end
 end

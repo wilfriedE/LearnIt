@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   # moderation
   scope :moderate do
     get '/' => "moderation#index", as: :moderate
+    get '/:active' => "moderation#index", as: :moderate_x
   end
 
   # pages

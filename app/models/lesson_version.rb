@@ -4,7 +4,7 @@ class LessonVersion < ApplicationRecord
   has_many   :collections, through: :collection_items
 
   enum media_type: { rich_text: 0, youtube_video: 1, vimeo_video: 2 }
-  enum approval: { awaiting_approval: 0, approved: 1, rejected: 2 }
+  enum approval: { awaiting_approval: 0, approved: 1, rejected: 2, archived: 3  }
 
   validates  :media_type, :creator, :name, :description, :data, presence: true
   belongs_to :creator, class_name: 'User'

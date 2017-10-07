@@ -9,5 +9,5 @@ class Collection < ApplicationRecord
 
   accepts_nested_attributes_for :collection_items
 
-  enum approval: { awaiting_approval: 0, approved: 1, rejected: 2 }
+  enum approval: { awaiting_approval: 0, approved: 1, rejected: 2, archived: 3 }
 end

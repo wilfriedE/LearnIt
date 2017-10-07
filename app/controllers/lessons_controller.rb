@@ -68,6 +68,7 @@ class LessonsController < ApplicationController
   private
 
   def query_params
-    params.require(:q).merge(active_version_approval_eq: LessonVersion.approvals[:approved]).permit! if params[:q]
+    return { active_version_approval_eq: LessonVersion.approvals[:approved] } unless params[:q]
+    params.require(:q).merge(active_version_approval_eq: LessonVersion.approvals[:approved]).permit!
   end
 end

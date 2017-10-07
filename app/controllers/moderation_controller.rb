@@ -2,21 +2,23 @@ class ModerationController < ApplicationController
   before_action :can_moderate?
 
   def index
-    @active = params[:active] || :new_lessons
-    @active = @active.to_sym
-    @q      = Lesson.search(query_params) if [:new_lessons, :list_lessons].include? @active
-    @q      = LessonVersion.search(query_params) if [:new_lesson_versions, :list_lesson_versions].include? @active
-    @q      = Collection.search(query_params) if [:new_collections, :list_collections].include? @active
-    result  = @q.result(distinct: true)
-    new_record = [:new_lessons, :new_lesson_versions, :new_collections].include? @active
-    @records = result.page(params[:page]) unless new_record
-    @records = Kaminari.paginate_array(result.select(&:awaiting_approval?)).page(params[:page]) if new_record
+    @active  = params[:active] || :new_lessons
+    @active  = @active.to_sym
+    @q       = Lesson.search(query_params(@active)) if [:new_lessons, :list_lessons].include? @active
+    @q       = LessonVersion.search(query_params(@active)) if [:new_lesson_versions, :list_lesson_versions].include? @active
+    @q       = Collection.search(query_params(@active)) if [:new_collections, :list_collections].include? @active
+    @records = @q.result(distinct: true).page(params[:page])
   end
 
   private
 
-  def query_params
-    params.require(:q).permit! if params[:q]
+  def query_params(active)
+    return unless params[:q]
+    q_params = params.require(:q)
+    q_params.merge(active_version_approval_eq: LessonVersion.approvals[:awaiting_approval]) if :new_lessons == active
+    q_params.merge(approval_eq: LessonVersion.approvals[:awaiting_approval]) if :new_lesson_versions == active
+    q_params.merge(approval_eq: Collection.approvals[:awaiting_approval]) if :new_collections == active
+    q_params.permit!
   end
 
   def can_moderate?

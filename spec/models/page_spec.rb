@@ -19,4 +19,12 @@ RSpec.describe Page, type: :model do
     expect { create(:page) }.to raise_error(ActiveRecord::RecordInvalid)
     expect(page3).to be_valid
   end
+
+  context "Platform::REQUIRED_PAGES" do
+    it 'is default if in Platform Required pages' do
+      page = create(:page, name: Platform::REQUIRED_PAGES.sample)
+
+      expect(page).to be_default
+    end
+  end
 end

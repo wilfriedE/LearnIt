@@ -11,4 +11,12 @@ RSpec.describe PlatformPreference, type: :model do
     expect(platform.courses).to eq(preference2.value)
     expect(platform.description).to eq(preference3.value)
   end
+
+  context "Platform::REQUIRED_PREFERENCES" do
+    it 'is default if in Platform Required Preferences' do
+      preference = create(:platform_preference, name: Platform::REQUIRED_PREFERENCES.sample)
+
+      expect(preference).to be_default
+    end
+  end
 end

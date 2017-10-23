@@ -1,8 +1,7 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :platform_preference do
     name "MyString"
-    preftype "MyString"
-    string_field "MyString"
-    text_field "MyText"
+    preftype PlatformPreference.preftypes[:string]
+    string_field "String Field Value"
   end
 end

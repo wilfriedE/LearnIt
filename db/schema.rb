@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170921164409) do
+ActiveRecord::Schema.define(version: 20171023035730) do
 
   create_table "collection_items", force: :cascade do |t|
     t.integer "position"
@@ -26,11 +26,12 @@ ActiveRecord::Schema.define(version: 20170921164409) do
   create_table "collections", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "approval", default: 0
-    t.index ["creator_id"], name: "index_collections_on_creator_id"
+    t.string "creator_type"
+    t.integer "creator_id"
+    t.index ["creator_type", "creator_id"], name: "index_collections_on_creator_type_and_creator_id"
   end
 
   create_table "lesson_versions", force: :cascade do |t|
@@ -41,9 +42,10 @@ ActiveRecord::Schema.define(version: 20170921164409) do
     t.string "name"
     t.text "description"
     t.integer "lesson_id"
-    t.integer "creator_id"
     t.integer "approval", default: 0
-    t.index ["creator_id"], name: "index_lesson_versions_on_creator_id"
+    t.string "creator_type"
+    t.integer "creator_id"
+    t.index ["creator_type", "creator_id"], name: "index_lesson_versions_on_creator_type_and_creator_id"
   end
 
   create_table "lessons", force: :cascade do |t|

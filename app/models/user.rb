@@ -9,12 +9,14 @@ class User < ApplicationRecord
 
   has_many :role_users, dependent: :destroy
   has_many :roles, through: :role_users
-  has_many :contributions, as: :contributor, dependent: :destroy
-  has_many :subscriptions, as: :subscriber, dependent: :destroy
-  has_many :assignments, as: :claimer, dependent: :destroy
-  has_many :mod_ticket_activities, -> { where(type: 'ModTicketActivity') }, through: :assignments, source: :assignable, source_type: "Activity"
-  has_many :user_feed_activities, -> { where(type: 'UserFeedActivity') }, through: :subscriptions, source: :subscription, source_type: "Activity"
-  has_many :general_feed_activities, -> { where(type: 'GeneralFeedActivity') }, through: :subscriptions, source: :subscription, source_type: "Activity"
+  has_many :collections, as: :creator
+  has_many :lesson_versions, as: :creator
+  # has_many :contributions, as: :contributor, dependent: :destroy
+  # has_many :subscriptions, as: :subscriber, dependent: :destroy
+  # has_many :assignments, as: :claimer, dependent: :destroy
+  # has_many :mod_ticket_activities, -> { where(type: 'ModTicketActivity') }, through: :assignments, source: :assignable, source_type: "Activity"
+  # has_many :user_feed_activities, -> { where(type: 'UserFeedActivity') }, through: :subscriptions, source: :subscription, source_type: "Activity"
+  # has_many :general_feed_activities, -> { where(type: 'GeneralFeedActivity') }, through: :subscriptions, source: :subscription, source_type: "Activity"
   validates :nickname, uniqueness: true
 
   def tickets

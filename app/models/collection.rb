@@ -1,5 +1,5 @@
 class Collection < ApplicationRecord
-  belongs_to :creator, class_name: "User"
+  belongs_to :creator, polymorphic: true
   has_many   :collection_items, -> { order(position: :asc) }, dependent: :destroy
   has_many   :lessons, through: :collection_items, source: :collectible, source_type: 'Lesson'
   has_many   :lesson_versions, through: :collection_items, source: :collectible, source_type: 'LessonVersion'

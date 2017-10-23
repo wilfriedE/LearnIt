@@ -1,7 +1,7 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :collection_item do
-    position 1
-    collection nil
-    collectible nil
+    sequence(:position)
+    collection
+    association :collectible, factory: :lesson
   end
 end

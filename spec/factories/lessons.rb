@@ -1,5 +1,5 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :lesson do
-    active_version nil
+    active_version { create :lesson_version }
   end
 end

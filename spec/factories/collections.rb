@@ -1,7 +1,7 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :collection do
-    name "MyString"
-    description "MyText"
-    creator nil
+    name "A collection"
+    description "A collection of items"
+    association :creator, factory: :user
   end
 end

@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "view-coverage": "lite-server --baseDir='coverage'"
+  },
   "dependencies": {
     "ContentTools": "^1.5.4",
     "autoprefixer": "^7.1.4",
@@ -41,6 +44,7 @@
     "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
+    "lite-server": "^2.3.0",
     "webpack-dev-server": "^2.7.1"
   }
 }

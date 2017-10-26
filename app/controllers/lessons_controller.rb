@@ -24,7 +24,7 @@ class LessonsController < ApplicationController
   end
 
   def create
-    @lesson_version = LessonVersion.new(build_lesson_version)
+    @lesson_version = LessonVersion.new(build_lesson_version.merge(creator: current_user))
     authorize @lesson_version
     if @lesson_version.save
       @lesson = Lesson.new(active_version_id: @lesson_version.id)
@@ -38,7 +38,7 @@ class LessonsController < ApplicationController
 
   def create_new_version
     @lesson ||= Lesson.find(params[:id])
-    @lesson_version = LessonVersion.new(build_lesson_version)
+    @lesson_version = LessonVersion.new(build_lesson_version.merge(creator: current_user))
     authorize @lesson_version, :create?
     @lesson_version.lesson_id = @lesson.id
     if @lesson_version.save

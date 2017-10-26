@@ -1,28 +1,77 @@
 require 'rails_helper'
 
 RSpec.describe LessonPolicy do
+  subject { described_class.new(user, lesson) }
+  let(:lesson_version) { create :lesson_version }
+  let(:lesson) { create :lesson, active_version: lesson_version }
+  let(:user) { create :user }
 
-  let(:user) { User.new }
-
-  subject { described_class }
-
-  permissions ".scope" do
-    pending "add some examples to (or delete) #{__FILE__}"
+  after(:each) do
+    RoleUser.delete_all
   end
 
-  permissions :show? do
-    pending "add some examples to (or delete) #{__FILE__}"
+  context "visitor" do
+    context "unapproved lesson" do
+      it { is_expected.to forbid_action(:show) }
+    end
+
+    context "approved lesson" do
+      before do
+        lesson_version.approved!
+      end
+
+      it { is_expected.to permit_action(:show) }
+    end
+
+    it { is_expected.to forbid_actions([:create, :update, :destroy]) }
   end
 
-  permissions :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
+  context "contributor" do
+    before do
+      user.make_contributor!
+    end
+
+    it { is_expected.to permit_action(:create) }
+
+    context "lesson awaiting approval" do
+      context "other contributed" do
+        it { is_expected.to forbid_actions([:show, :update, :destroy]) }
+      end
+
+      context "self contributed" do
+        before do
+          lesson_version.creator = user
+        end
+
+        it { is_expected.to permit_action(:show) }
+        it { is_expected.to permit_action(:update) }
+        it { is_expected.to permit_action(:destroy) }
+      end
+    end
+
+    context "approved lesson" do
+      before do
+        lesson_version.approved!
+      end
+
+      it { is_expected.to permit_action(:show) }
+      it { is_expected.to forbid_actions([:update, :destroy]) }
+    end
   end
 
-  permissions :update? do
-    pending "add some examples to (or delete) #{__FILE__}"
+  context "moderator" do
+    before do
+      user.make_moderator!
+    end
+
+    it { is_expected.to permit_actions([:show, :create, :update, :destroy]) }
   end
 
-  permissions :destroy? do
-    pending "add some examples to (or delete) #{__FILE__}"
+  context "admin" do
+    before do
+      user.make_admin!
+    end
+
+    it { is_expected.to permit_actions([:show, :create, :update, :destroy]) }
   end
 end

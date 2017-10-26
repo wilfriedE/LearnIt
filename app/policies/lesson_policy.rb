@@ -1,27 +1,25 @@
 class LessonPolicy < ApplicationPolicy
   def show?
-    record.active_version.approved? || (user && can_modify?)
+    record.active_version.approved? || can_modify?
   end
 
   def update?
-    return false unless user
-    user.admin? || user.moderator?
+    can_modify?
   end
 
   def destroy?
-    return false unless user
-    user.admin? || user.moderator?
+    can_modify?
   end
 
   def create?
     return false unless user
-    !user.banned?
+    user.contributor?
   end
 
   private
 
   def can_modify?
-    active_version = record.active_version
-    (user.admin? || user.moderator? || active_version.creator.id == user.id)
+    return false unless user
+    user.moderator? || (record.active_version.creator.id == user.id && !record.active_version.approved?)
   end
 end

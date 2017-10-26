@@ -27,6 +27,7 @@ class User < ApplicationRecord
   end
 
   def make_moderator!
+    make_contributor!
     roles << Role.find_or_create_by(name: :moderator) unless moderator?
   end
 
@@ -35,6 +36,7 @@ class User < ApplicationRecord
   end
 
   def make_admin!
+    make_moderator!
     roles << Role.find_or_create_by(name: :admin) unless admin?
   end
 
@@ -43,6 +45,7 @@ class User < ApplicationRecord
   end
 
   def make_editor!
+    make_contributor!
     roles << Role.find_or_create_by(name: :editor) unless editor?
   end
 
@@ -51,6 +54,7 @@ class User < ApplicationRecord
   end
 
   def ban!
+    role_users.destroy_all
     roles << Role.find_or_create_by(name: :banned) unless banned?
   end
 

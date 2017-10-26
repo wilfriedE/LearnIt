@@ -85,7 +85,7 @@ group :test do
   gem 'database_cleaner'
 
   # Use pundit-matchers for pundit tests
-  gem 'pundit-matchers', '~> 1.1.0'
+  gem 'pundit-matchers', '~> 1.3.1'
 
   # Use simplecov for code coverage
   gem 'simplecov'

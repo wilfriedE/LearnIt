@@ -1,16 +1,20 @@
 class PagePolicy < ApplicationPolicy
   def update?
-    return false unless user
-    user.editor? || user.admin?
+    can_modify?
   end
 
   def destroy?
-    return false unless user
-    user.admin?
+    can_modify?
   end
 
   def create?
+    can_modify?
+  end
+
+  private
+
+  def can_modify?
     return false unless user
-    user.admin?
+    user.editor? || user.admin?
   end
 end

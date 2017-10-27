@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Page, type: :model do
-  it "has name, title and body" do
-    expect { create(:page, name: nil) }.to raise_error(ActiveRecord::RecordInvalid)
-    expect { create(:page, title: nil) }.to raise_error(ActiveRecord::RecordInvalid)
-    expect { create(:page, body: nil) }.not_to raise_error(ActiveRecord::RecordInvalid)
+  it "has name and title" do
+    expect(build(:page, name: nil)).not_to be_valid
+    expect(build(:page, title: nil)).not_to be_valid
 
     home = create(:page, name: "Home", title: "Hello World", body: "It's body")
 
@@ -12,12 +11,12 @@ RSpec.describe Page, type: :model do
   end
 
   it "has a unique name" do
-    page1 = create(:page)
-    page3 = create(:page, name: "Another Page")
+    page1 = create(:page, name: "A page")
+    page2 = create(:page, name: "Another Page")
 
     expect(page1).to be_valid
-    expect { create(:page) }.to raise_error(ActiveRecord::RecordInvalid)
-    expect(page3).to be_valid
+    expect(page2).to be_valid
+    expect(build(:page, name: "Another Page")).not_to be_valid
   end
 
   context "Platform::REQUIRED_PAGES" do

@@ -59,6 +59,9 @@ group :development, :test do
   # Use rspec for testing
   gem 'rspec-rails', '~> 3.6'
 
+  # Allow assigns and assert_template in tests
+  gem 'rails-controller-testing'
+
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'

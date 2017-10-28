@@ -16,6 +16,11 @@ class LessonPolicy < ApplicationPolicy
     user.contributor?
   end
 
+  def moderate?
+    return false unless user
+    user.moderator?
+  end
+
   private
 
   def can_modify?

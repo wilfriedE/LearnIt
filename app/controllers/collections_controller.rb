@@ -41,12 +41,13 @@ class CollectionsController < ApplicationController
     @collectible = LessonVersion.find(params[:id]) if @collectible_type == "LessonVersion"
     @collectible = Collection.find(params[:id]) if @collectible_type == "Collection"
     @collection_item = CollectionItem.new(collectible: @collectible)
-    authorize @collectible, :new?
+    authorize  Collection.new, :new?
     respond_to :js
   end
 
   def remove_collection_item
     collection = Collection.find(params[:id])
+    authorize collection, :destroy?
     @collection_item = collection.collection_items.where(id: params[:collection_item_id]).first
     @collection_item.destroy
     @field_id = params[:field_id]
@@ -56,13 +57,14 @@ class CollectionsController < ApplicationController
   def collection_approval
     @row_id = params[:row_id]
     @collection = Collection.find(params[:id])
-    authorize @collection, :update?
+    authorize @collection, :moderate?
     @collection.update(approval: params[:approval].to_sym) if Collection.approvals[params[:approval]]
     respond_to :js
   end
 
   def create
     @collection = Collection.new(collection_params.merge(creator: current_user))
+    authorize @collection
     valid_collection_items = valid_collection_items_count? @collection
     if valid_collection_items && @collection.save && @collection.update(collection_items_attributes: build_colection_items(@collection))
       redirect_to collection_path(@collection)
@@ -74,6 +76,7 @@ class CollectionsController < ApplicationController
 
   def update
     @collection = Collection.find(params[:id])
+    authorize @collection
     valid_collection_items = valid_collection_items_count? @collection
     if valid_collection_items && @collection.update(collection_params.merge(collection_items_attributes: build_colection_items(@collection)))
       redirect_to collection_path(@collection)

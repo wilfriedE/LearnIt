@@ -4,7 +4,7 @@ module LessonVersionable
 
   def make_active_version(lesson_version)
     lesson = lesson_version.lesson
-    lesson.active_version.rejected!
+    lesson.active_version.archived!
     lesson.active_version = lesson_version
     lesson.save
   end

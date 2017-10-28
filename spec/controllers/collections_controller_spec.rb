@@ -292,7 +292,7 @@ RSpec.describe CollectionsController, type: :controller do
     end
   end
 
-  describe "GET #collection_approval" do
+  describe "PUT #collection_approval" do
     let(:collection) do
       lesson_a = build(:collection_item, collectible: create(:lesson))
       collection_a = build(:collection_item, collectible: create(:collection))
@@ -337,9 +337,11 @@ RSpec.describe CollectionsController, type: :controller do
     context "authenticated moderator" do
       login_moderator
 
-      it 'does nothing' do
-        put :collection_approval, xhr: true, format: :js, params: { id: collection.id, row_id: row_id }
+      it 'handles collection approval' do
+        put :collection_approval, xhr: true, format: :js, params: { id: collection.id, row_id: row_id, approval: "approved" }
 
+        collection.reload
+        expect(collection).to be_approved
         expect(response).to render_template("collection_approval")
       end
     end

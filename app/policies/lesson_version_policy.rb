@@ -12,6 +12,7 @@ class LessonVersionPolicy < ApplicationPolicy
   end
 
   def create?
+    return false unless user
     user.contributor?
   end
 

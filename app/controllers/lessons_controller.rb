@@ -24,8 +24,8 @@ class LessonsController < ApplicationController
   end
 
   def create
+    authorize Lesson.new
     @lesson_version = LessonVersion.new(build_lesson_version.merge(creator: current_user))
-    authorize @lesson_version
     if @lesson_version.save
       @lesson = Lesson.new(active_version_id: @lesson_version.id)
       @lesson_version.update(lesson: @lesson)
@@ -38,8 +38,8 @@ class LessonsController < ApplicationController
 
   def create_new_version
     @lesson ||= Lesson.find(params[:id])
+    authorize LessonVersion.new, :create?
     @lesson_version = LessonVersion.new(build_lesson_version.merge(creator: current_user))
-    authorize @lesson_version, :create?
     @lesson_version.lesson_id = @lesson.id
     if @lesson_version.save
       redirect_to lesson_version_path(id: @lesson_version)
@@ -51,7 +51,7 @@ class LessonsController < ApplicationController
   def lesson_approval
     @row_id = params[:row_id]
     @lesson = Lesson.find(params[:id])
-    authorize @lesson, :update?
+    authorize @lesson, :moderate?
     @active_version = @lesson.active_version
     @active_version.update(lesson_id: @lesson.id, approval: params[:approval].to_sym) if LessonVersion.approvals[params[:approval]]
     respond_to :js

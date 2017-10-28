@@ -20,7 +20,7 @@ RSpec.describe CollectionPolicy do
       it { is_expected.to permit_action(:show) }
     end
 
-    it { is_expected.to forbid_actions([:create, :update, :destroy]) }
+    it { is_expected.to forbid_actions([:create, :update, :destroy, :moderate]) }
   end
 
   context "contributor" do
@@ -39,6 +39,7 @@ RSpec.describe CollectionPolicy do
         let(:collection) { create :collection, creator: user }
 
         it { is_expected.to permit_actions([:show, :update, :destroy]) }
+        it { is_expected.to forbid_action(:moderate) }
       end
     end
 
@@ -46,7 +47,7 @@ RSpec.describe CollectionPolicy do
       let(:collection) { create :collection, approval: :approved }
 
       it { is_expected.to permit_action(:show) }
-      it { is_expected.to forbid_actions([:update, :destroy]) }
+      it { is_expected.to forbid_actions([:update, :destroy, :moderate]) }
     end
   end
 
@@ -55,7 +56,7 @@ RSpec.describe CollectionPolicy do
       user.make_moderator!
     end
 
-    it { is_expected.to permit_actions([:show, :create, :update, :destroy]) }
+    it { is_expected.to permit_actions([:show, :create, :update, :destroy, :moderate]) }
   end
 
   context "admin" do
@@ -63,6 +64,6 @@ RSpec.describe CollectionPolicy do
       user.make_admin!
     end
 
-    it { is_expected.to permit_actions([:show, :create, :update, :destroy]) }
+    it { is_expected.to permit_actions([:show, :create, :update, :destroy, :moderate]) }
   end
 end

@@ -23,7 +23,7 @@ RSpec.describe LessonPolicy do
       it { is_expected.to permit_action(:show) }
     end
 
-    it { is_expected.to forbid_actions([:create, :update, :destroy]) }
+    it { is_expected.to forbid_actions([:create, :update, :destroy, :moderate]) }
   end
 
   context "contributor" do
@@ -35,7 +35,7 @@ RSpec.describe LessonPolicy do
 
     context "lesson awaiting approval" do
       context "other contributed" do
-        it { is_expected.to forbid_actions([:show, :update, :destroy]) }
+        it { is_expected.to forbid_actions([:show, :update, :destroy, :moderate]) }
       end
 
       context "self contributed" do
@@ -43,9 +43,8 @@ RSpec.describe LessonPolicy do
           lesson_version.creator = user
         end
 
-        it { is_expected.to permit_action(:show) }
-        it { is_expected.to permit_action(:update) }
-        it { is_expected.to permit_action(:destroy) }
+        it { is_expected.to permit_actions([:show, :update, :destroy]) }
+        it { is_expected.to forbid_action(:moderate) }
       end
     end
 
@@ -64,7 +63,7 @@ RSpec.describe LessonPolicy do
       user.make_moderator!
     end
 
-    it { is_expected.to permit_actions([:show, :create, :update, :destroy]) }
+    it { is_expected.to permit_actions([:show, :create, :update, :destroy, :moderate]) }
   end
 
   context "admin" do
@@ -72,6 +71,6 @@ RSpec.describe LessonPolicy do
       user.make_admin!
     end
 
-    it { is_expected.to permit_actions([:show, :create, :update, :destroy]) }
+    it { is_expected.to permit_actions([:show, :create, :update, :destroy, :moderate]) }
   end
 end

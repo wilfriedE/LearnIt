@@ -49,11 +49,11 @@ Rails.application.routes.draw do
   end
 
   scope :preferences do
-    get  '/new'             => 'preferences#new_preference', as: :new_preference
-    get  '/edit/:id'        => 'preferences#edit_preference', as: :edit_preference
-    post '/create'          => 'preferences#create_preference', as: :create_preference
-    put  '/update/:id'      => 'preferences#update_preference', as: :update_preference
-    delete '/delete/:id'    => 'preferences#delete_preference', as: :delete_preference
+    get  '/new'             => 'preferences#new', as: :new_preference
+    get  '/edit/:id'        => 'preferences#edit', as: :edit_preference
+    post '/create'          => 'preferences#create', as: :create_preference
+    put  '/update/:id'      => 'preferences#update', as: :update_preference
+    delete '/delete/:id'    => 'preferences#destroy', as: :delete_preference
     get '/preference_field' => 'preferences#preference_field', as: :preference_field
   end
 

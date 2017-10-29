@@ -1,35 +1,36 @@
 class PreferencesController < ApplicationController
   before_action :verify_access
 
-  def new_preference
+  def new
     @preference = PlatformPreference.new
+    respond_to :js
   end
 
-  def edit_preference
+  def edit
     @row_id = params[:row_id]
     @preference = PlatformPreference.find(params[:id])
     respond_to :js
   end
 
-  def create_preference
+  def create
     @form_id    = params[:form_id]
     @preference = PlatformPreference.new(preference_params)
     @preference.save
     respond_to :js
   end
 
-  def update_preference
+  def update
     @form_id    = params[:form_id]
     @preference = PlatformPreference.find(params[:id])
     @preference.update_attributes(preference_params)
     respond_to :js
   end
 
-  def delete_preference
+  def destroy
     @row_id = params[:row_id]
     @preference = PlatformPreference.find(params[:id])
 
-    if Platform::REQUIRED_PREFERENCES.include? @preference.preftype.to_sym
+    if @preference.default?
       @preference.errors.add(:name, "This preference is required")
     else
       @preference.destroy

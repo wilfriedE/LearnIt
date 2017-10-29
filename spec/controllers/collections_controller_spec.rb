@@ -126,7 +126,7 @@ RSpec.describe CollectionsController, type: :controller do
         context "self contributed" do
           let(:collection) { create(:collection, creator: user) }
 
-          it 'shows edit page' do
+          it 'redirects to home' do
             get :edit, params: { id: collection.id }
             expect(response).to redirect_to root_url
           end

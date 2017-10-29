@@ -72,6 +72,6 @@ Rails.application.routes.draw do
     get '/:name/edit'         => 'pages#edit', as: :edit_page
     get '/:name/edit_wysiwyg' => 'pages#edit_wysiwyg', as: :edit_wysiwyg_page
     put '/:name/update'       => 'pages#update', as: :update_page
-    delete '/:name/delete'    => 'pages#delete', as: :delete_page
+    delete '/:name/delete'    => 'pages#destroy', as: :delete_page
   end
 end

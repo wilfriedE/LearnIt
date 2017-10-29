@@ -54,7 +54,7 @@ class PagesController < ApplicationController
     respond_to :js
   end
 
-  def delete
+  def destroy
     @row_id = params[:row_id]
     @page = Page.find_by(name: params[:name])
     authorize @page

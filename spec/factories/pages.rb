@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :page do
-    name "MyString"
+    sequence(:name) { |n| "page_#{n}" }
     title "MyString"
     body "MyText"
   end

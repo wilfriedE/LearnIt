@@ -1,6 +1,7 @@
 AdministratePolicy = Struct.new(:user, :administrate)
 class AdministratePolicy
   def access?
-    user && user.admin?
+    return false unless user
+    user.admin?
   end
 end

@@ -1,5 +1,5 @@
 class PlatformController < ApplicationController
-  before_action :verify_access
+  before_action :verify_access, except: [:pages]
 
   def index; end
 
@@ -8,6 +8,7 @@ class PlatformController < ApplicationController
   end
 
   def pages
+    authorize Page.new, :create?
     @pages ||= Page.all
   end
 

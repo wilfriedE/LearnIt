@@ -1,14 +1,21 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the CollectionsHelper. For example:
-#
-# describe CollectionsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe CollectionsHelper, type: :helper do
+  describe '#collectible_h_path' do
+    let(:lesson) { create(:lesson) }
+    let(:lesson_version) { create(:lesson_version) }
+    let(:collection) { create(:collection) }
+
+    it 'returns lesson path' do
+      expect(helper.collectible_h_path(lesson)).to eq(lesson_path(lesson))
+    end
+
+    it 'returns lesson_version path' do
+      expect(helper.collectible_h_path(lesson_version)).to eq(lesson_version_path(lesson_version))
+    end
+
+    it 'returns collection path' do
+      expect(helper.collectible_h_path(collection)).to eq(collection_path(collection))
+    end
+  end
 end

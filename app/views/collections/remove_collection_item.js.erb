@@ -1,0 +1,5 @@
+<% if @collection_item.errors.blank?  %>
+  $("#<%=@field_id%>").remove();
+<% else %>
+  alert("Failed to remove collection item");
+<% end %>

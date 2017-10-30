@@ -1,71 +1,38 @@
 Rails.application.routes.draw do
   root 'pages#index'
 
-  # lesson pages
-  get 'lesson/:id' => 'lessons#show'
-  resources :lessons, except: [:update, :create, :destroy] do
+  # lessons
+  resources :lessons, except: [:edit, :update] do
     member do
-      get 'propose_update'
-      # other lesson specific actions here
+      get  :propose_update, path: "propose-update"
+      post :create_new_version, path: "propose-update", as: :new_version_submission
+      put  :lesson_approval, path: "lesson-approval", as: :approval
     end
   end
 
-  # lesson_version pages
+  # lesson_versions
+  get "lessons-form/media-field" => 'lesson_versions#lesson_media_field', as: :lesson_media_field
   resources :lesson_versions do
     member do
-      # other actions here
+      put  :lesson_version_approval, path: "lesson-version-approval", as: :approval
     end
   end
 
-  # media_content pages
-  get 'media_contents' => 'media_contents#index'
-
-  # helper for managing different field types
-
-  get 'media_contents/fields/:type' => 'media_contents#fields'
-
-  # course pages
-  resources :courses do
-    member do
-      get 'viewing/:position', action: :viewing, as: :viewing
-      # other actions here
+  # collections
+  resources :collections do
+    collection do
+      get :search_collectible, path: "search-collectible"
+      get :list_collectibles, path: "list-collectibles"
+      get :add_collectible, path: "add-collectible"
     end
-  end
-
-  # tracks pages
-  resources :tracks do
     member do
-      get 'viewing/:position', action: :viewing, as: :viewing
-      # other actions here
+      delete :remove_collection_item, path: "remove-collection-item/:collection_item_id"
+      put    :collection_approval, path: "collection-approval", as: :approval
     end
   end
 
   # topics pages
   resources :topics, only: [:index, :show]
-
-  # teams pages
-  resources :teams, only: [:index, :show]
-
-  # moderate namespace
-  namespace :moderate do
-    get '/' => 'moderations#dashboard'
-    get 'mytickets' => 'moderations#mytickets'
-    get 'guides' => 'moderations#guides'
-    get 'lessons' => 'lessons#index'
-    get 'teams' => 'teams#index'
-    get 'topics' => 'topics#index'
-    get 'lesson_versions' => 'lesson_versions#index'
-    get 'tracks' => 'tracks#index'
-    get 'courses' => 'courses#index'
-    get 'tickets' => 'tickets#index'
-    get 'tickets/:id' => 'tickets#show', as: :ticket
-  end
-  post 'tickets/:id/claim' => 'moderate/tickets#claim', as: :claim_ticket
-  post 'tickets/:id/unclaim' => 'moderate/tickets#unclaim', as: :unclaim_ticket
-  post 'tickets/:id/subscribe' => 'moderate/tickets#subscribe', as: :subscribe_to_ticket
-  post 'tickets/:id/unsubscribe' => 'moderate/tickets#unsubscribe', as: :unsubscribe_to_ticket
-  post 'tickets/:id/assign_to/:user_id' => 'moderate/tickets#assign_to', as: :assign_ticket
-  post 'tickets/:id/change_status/:state' => 'moderate/tickets#change_status', as: :change_ticket_status
 
   # users authentication area
   devise_for :users, path: 'auth', controllers: { registrations: 'registrations' }, path_names: { sign_in: 'login', sign_out: 'logout', registration: 'register' }
@@ -82,12 +49,18 @@ Rails.application.routes.draw do
   end
 
   scope :preferences do
-    get  '/new'             => 'preferences#new_preference', as: :new_preference
-    get  '/edit/:id'        => 'preferences#edit_preference', as: :edit_preference
-    post '/create'          => 'preferences#create_preference', as: :create_preference
-    put  '/update/:id'      => 'preferences#update_preference', as: :update_preference
-    delete '/delete/:id'    => 'preferences#delete_preference', as: :delete_preference
+    get  '/new'             => 'preferences#new', as: :new_preference
+    get  '/edit/:id'        => 'preferences#edit', as: :edit_preference
+    post '/create'          => 'preferences#create', as: :create_preference
+    put  '/update/:id'      => 'preferences#update', as: :update_preference
+    delete '/delete/:id'    => 'preferences#destroy', as: :delete_preference
     get '/preference_field' => 'preferences#preference_field', as: :preference_field
+  end
+
+  # moderation
+  scope :moderate do
+    get '/' => "moderation#index", as: :moderate
+    get '/:active' => "moderation#index", as: :moderate_x
   end
 
   # pages
@@ -99,6 +72,6 @@ Rails.application.routes.draw do
     get '/:name/edit'         => 'pages#edit', as: :edit_page
     get '/:name/edit_wysiwyg' => 'pages#edit_wysiwyg', as: :edit_wysiwyg_page
     put '/:name/update'       => 'pages#update', as: :update_page
-    delete '/:name/delete'    => 'pages#delete', as: :delete_page
+    delete '/:name/delete'    => 'pages#destroy', as: :delete_page
   end
 end

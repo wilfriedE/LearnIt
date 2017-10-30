@@ -1,0 +1,20 @@
+<nav class="nav nav-tabs" >
+  <%= link_to "Lessons Awaiting Approval", moderate_x_path(active: :new_lessons), class: "nav-item nav-link #{@active == :new_lessons ? 'active' : '' }" %>
+  <%= link_to "Lessons Version Proposals", moderate_x_path(active: :new_lesson_versions), class: "nav-item nav-link #{@active == :new_lesson_versions ? 'active' : '' }"  %>
+  <%= link_to "Collections Awaiting Approval", moderate_x_path(active: :new_collections), class: "nav-item nav-link  #{@active == :new_collections ? 'active' : '' }"  %>
+  <%= link_to "Lessons", moderate_x_path(active: :list_lessons), class: "nav-item nav-link #{@active == :list_lessons ? 'active' : '' }" %>
+  <%= link_to "Lessons Versions", moderate_x_path(active: :list_lesson_versions), class: "nav-item nav-link #{@active == :list_lesson_versions ? 'active' : '' }"  %>
+  <%= link_to "Collections", moderate_x_path(active: :list_collections), class: "nav-item nav-link #{@active == :list_collections ? 'active' : '' }"  %>
+</nav>
+
+<div class="row justify-content-center m-2">
+  <div class="col pt-3">
+    <%= paginate @records %>
+  </div>
+  <% query_matcher = [:new_lessons, :list_lessons].include?(@active) ? "active_version_name_or_active_version_description_cont" : "name_or_description_cont" %>
+  <%= search_form_for @q, url: moderate_x_path(active: @active), html: { class: "form-inline col-8" } do |f| %>
+    <%= f.search_field :"#{query_matcher}", class: "form-control col-10", placeholder: "Search..."  %>
+    <%= f.submit "Search", class: "btn btn-outline-success" %>
+  <% end %>
+</div>
+<%= render "moderation/#{@active}" %>

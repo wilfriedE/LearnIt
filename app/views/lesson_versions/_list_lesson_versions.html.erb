@@ -1,0 +1,15 @@
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Lesson</th>
+      <th ><i class="fa fa-cogs"></i> Modify</th>
+    </tr>
+  </thead>
+  <tbody >
+  <% lesson_versions.each do |lesson_version| %>
+    <%= render "lesson_versions/lesson_version_row", lesson_version: lesson_version %>
+  <% end %>
+  </tbody>
+</table>

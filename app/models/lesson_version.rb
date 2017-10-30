@@ -1,17 +1,18 @@
 class LessonVersion < ApplicationRecord
+  REACT_PLAYER_TYPES = 1..2
+  belongs_to :creator, polymorphic: true
   belongs_to :lesson
-  belongs_to :media, class_name: "MediaContent", foreign_key: "media_id", dependent: :destroy
-  has_many :topic_items, as: :topicable, dependent: :destroy
-  has_many :topics, -> { distinct }, through: :topic_items
-  has_many :contributions, as: :contribution, dependent: :destroy
-  has_many :user_contributors, through: :contributions, source: :contributor, source_type: 'User'
-  validates :name, uniqueness: true
-  validates :media, uniqueness: true
-  accepts_nested_attributes_for :media, allow_destroy: true
-  accepts_nested_attributes_for :topic_items, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :contributions, reject_if: :all_blank, allow_destroy: true
 
-  def contributors
-    user_contributors.uniq.flatten
+  has_many   :collection_items, as: :collectible
+  has_many   :collections, through: :collection_items
+
+  enum media_type: { rich_text: 0, youtube_video: 1, vimeo_video: 2 }
+  enum approval: { awaiting_approval: 0, approved: 1, rejected: 2, archived: 3 }
+
+  validates :media_type, :creator, :name, :description, :data, presence: true
+
+  def data
+    raw_data = self[:data] || {}.to_s
+    @json_data ||= JSON.parse(raw_data, object_class: OpenStruct)
   end
 end

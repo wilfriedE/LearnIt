@@ -1,0 +1,27 @@
+<% row_id = "collection_row_#{collection.id}" %>
+<tr id="<%= row_id %>">
+  <td data-toggle="tooltip" data-placement="top" title="<%= collection.name %>">
+    <span class="badge badge-pill badge-info"><%= collection.approval.humanize %></span> <%= collection.name %>
+  </td>
+  <td>
+    <%= content_tag(:p, collection.description, class: "text-muted") %>
+    <%= content_tag(:i, "Updated: #{time_ago_in_words(collection.updated_at)} ago", class: "badge badge-pill badge-light") %>
+  </td>
+  <td class="d-flex  align-items-center justify-content-around">
+    <%= link_to content_tag(:i, "View", class: "fa fa-eye mr-2"), collection_path(id: collection.id) %>
+    <% if policy(collection).update? %>
+      <%= link_to "Edit", edit_collection_path(id: collection.id), class: "btn btn-outline-info mr-2" %>
+      <div class="btn-group">
+        <%= content_tag :button, "Mark as", class: "btn btn-outline-info dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } %>
+        <div class="dropdown-menu">
+          <% Collection.approvals.each do |approval_state| %>
+            <%= link_to approval_state[0].humanize.capitalize, approval_collection_path(id: collection.id, row_id: row_id, approval: approval_state[0]), class: "dropdown-item #{'active' if approval_state[0] == collection.approval}", remote: true, method: :put %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <% if policy(collection).delete? %>
+      <%= link_to "Delete", collection_path(id: collection.id, row_id: row_id), method: :delete, remote: true, class: "btn btn-outline-danger" %>
+    <% end %>
+  </td>
+</tr>

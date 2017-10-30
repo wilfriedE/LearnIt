@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe AdministratePolicy do
-  subject { described_class.new(user, :administrate) }
-
   let(:user) { create :user }
+
+  subject { described_class.new(user, :administrate) }
 
   context 'being a visitor' do
     let(:user) { nil }

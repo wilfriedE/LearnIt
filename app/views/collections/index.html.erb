@@ -1,0 +1,36 @@
+<div class="card text-center">
+  <div class="card-header  ">
+    <ul class="nav nav-pills row card-header-pills">
+      <div class="col nav">
+        <li class="nav-item">
+          <%= link_to "Latest", library_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Lessons", lessons_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Collections", collections_path, class: "nav-link active" %>
+        </li>
+      </div>
+
+      <div class="col nav  justify-content-end">
+        <li class="nav-item">
+          <%= link_to "Create a Collection", new_collection_path, class: "nav-link"%>
+        </li>
+        <%= search_form_for @q, html: { class: "form-inline my-2 my-lg-0" } do |f| %>
+          <%= f.search_field :name_or_description_cont, class: "form-control mr-sm-2", placeholder: "Search..."  %>
+          <%= f.submit "Search", class: "btn btn-outline-success my-2 my-sm-0" %>
+        <% end %>
+      </div>
+    </ul>
+  </div>
+
+  <div class="card-body">
+    <div class="card-columns pt-2">
+      <% @collections.each do |collection| %>
+        <%= render "card", collection: collection %>
+      <% end %>
+    </div>
+    <%= paginate @collections %>
+  </div>
+</div>

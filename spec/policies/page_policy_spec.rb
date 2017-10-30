@@ -8,9 +8,23 @@ RSpec.describe PagePolicy do
   let(:user) { create :user }
 
   context "visitor" do
-    let(:user) { nil }
-    it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_actions([:create, :update, :destroy]) }
+  end
+
+  context "contributor" do
+    before do
+      user.make_contributor!
+    end
+
+    it { is_expected.to forbid_actions([:create, :update, :destroy]) }
+  end
+
+  context "moderator" do
+    before do
+      user.make_moderator!
+    end
+
+    it { is_expected.to forbid_actions([:create, :update, :destroy]) }
   end
 
   context "editor" do
@@ -18,9 +32,7 @@ RSpec.describe PagePolicy do
       user.make_editor!
     end
 
-    it { is_expected.to permit_action(:update) }
-
-    it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_actions([:create, :update, :destroy]) }
   end
 
   context "administrator" do
@@ -28,7 +40,6 @@ RSpec.describe PagePolicy do
       user.make_admin!
     end
 
-    it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
+    it { is_expected.to permit_actions([:create, :update, :destroy]) }
   end
 end

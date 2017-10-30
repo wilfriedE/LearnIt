@@ -1,0 +1,9 @@
+$("#<%= @row_id %>").remove();
+<% collectible_card = render 'collections/collectible_card', collectible: @collectible %>
+<% collection_item_field = render 'collections/collection_item_field', collection_item: @collection_item, collectible_card: collectible_card %>
+$("#collectibles").append("<%= escape_javascript(collection_item_field) %>");
+// TODO: Remove Duplicate. The following is already specified in assets, but is being used here because on ajax load it doesn't react properly.
+$(".remove-field").on('click', function(evt) {
+  var field_id = $(evt.target).data("field-id");
+  $("#" + field_id).remove();
+});

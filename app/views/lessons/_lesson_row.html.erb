@@ -1,0 +1,25 @@
+<% row_id = "lesson_row_#{lesson.id}" %>
+<tr id="<%= row_id %>">
+  <td data-toggle="tooltip" data-placement="top" title="<%= lesson.name %>">
+    <span class="badge badge-pill badge-info"><%= lesson.approval.humanize %>
+    </span> <%= lesson.name %>
+  </td>
+  <td><%= content_tag(:i, lesson.description, class: "text-muted") %></td>
+  <td class="d-flex  align-items-center justify-content-around">
+    <%= link_to content_tag(:i, "View", class: "fa fa-eye mr-2"), lesson_path(id: lesson.id) %>
+    <% if policy(lesson).update? %>
+      <%= link_to "Edit", edit_lesson_version_path(id: lesson.active_version_id), class: "btn btn-outline-info mr-2" %>
+      <div class="btn-group">
+        <%= content_tag :button, "Mark as", class: "btn btn-outline-info dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } %>
+        <div class="dropdown-menu">
+          <% LessonVersion.approvals.each do |approval_state| %>
+            <%= link_to approval_state[0].humanize.capitalize, approval_lesson_path(id: lesson.id, row_id: row_id, approval: approval_state[0]), class: "dropdown-item #{'active' if approval_state[0] == lesson.approval}", remote: true, method: :put %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <% if policy(lesson).delete? %>
+      <%= link_to "Delete", lesson_path(id: lesson.id, row_id: row_id), method: :delete, remote: true, class: "btn btn-outline-danger" %>
+    <% end %>
+  </td>
+</tr>

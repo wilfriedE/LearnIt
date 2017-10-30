@@ -1,5 +1,7 @@
 module LessonVersionsHelper
-  def lesson_version_card(lesson_version)
-    render partial: "lesson_versions/card", locals: { lesson_version: lesson_version }
+  def lesson_viewer_name(lesson_version)
+    return "react_player" if LessonVersion::REACT_PLAYER_TYPES.include? LessonVersion.media_types[lesson_version.media_type]
+    return "markdown"     if lesson_version.media_type.to_sym == :rich_text
+    "undefined"
   end
 end

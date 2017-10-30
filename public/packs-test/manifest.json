@@ -1,0 +1,18 @@
+{
+  "application.css": "/packs-test/application.css",
+  "application.js": "/packs-test/application.js",
+  "content_tools.css": "/packs-test/content_tools.css",
+  "content_tools.js": "/packs-test/content_tools.js",
+  "drop-horz.svg": "/packs-test/drop-horz.svg",
+  "drop-vert-above.svg": "/packs-test/drop-vert-above.svg",
+  "drop-vert-below.svg": "/packs-test/drop-vert-below.svg",
+  "fontawesome-webfont.eot": "/packs-test/fontawesome-webfont.eot",
+  "fontawesome-webfont.svg": "/packs-test/fontawesome-webfont.svg",
+  "fontawesome-webfont.ttf": "/packs-test/fontawesome-webfont.ttf",
+  "fontawesome-webfont.woff": "/packs-test/fontawesome-webfont.woff",
+  "fontawesome-webfont.woff2": "/packs-test/fontawesome-webfont.woff2",
+  "icons.woff": "/packs-test/icons.woff",
+  "lesson_react_player.js": "/packs-test/lesson_react_player.js",
+  "sortable_collection_items.js": "/packs-test/sortable_collection_items.js",
+  "video.svg": "/packs-test/video.svg"
+}

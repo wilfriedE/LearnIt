@@ -1,6 +1,36 @@
-<h1>Listing of all available lessons</h1>
-<% @lessons.each do |lesson| %>
-  <tr>
-    <%= lesson_card(lesson).html_safe %>
-  </tr>
-<% end %>
+<div class="card text-center">
+  <div class="card-header  ">
+    <ul class="nav nav-pills row card-header-pills">
+      <div class="col nav">
+        <li class="nav-item">
+          <%= link_to "Latest", library_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Lessons", lessons_path, class: "nav-link active" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Collections", collections_path, class: "nav-link" %>
+        </li>
+      </div>
+
+      <div class="col nav  justify-content-end">
+        <li class="nav-item">
+          <%= link_to "Create a Lesson", new_lesson_path, class: "nav-link"%>
+        </li>
+        <%= search_form_for @q, html: { class: "form-inline my-2 my-lg-0" } do |f| %>
+          <%= f.search_field :active_version_name_or_active_version_description_cont, class: "form-control mr-sm-2", placeholder: "Search..."  %>
+          <%= f.submit "Search", class: "btn btn-outline-success my-2 my-sm-0" %>
+        <% end %>
+      </div>
+    </ul>
+  </div>
+
+  <div class="card-body">
+    <div class="card-columns pt-2">
+      <% @lessons.each do |lesson| %>
+        <%= render "card", lesson: lesson %>
+      <% end %>
+    </div>
+    <%= paginate @lessons %>
+  </div>
+</div>

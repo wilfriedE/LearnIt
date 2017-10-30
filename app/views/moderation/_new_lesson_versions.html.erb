@@ -1,0 +1,2 @@
+<%= render "lesson_versions/list_lesson_versions", lesson_versions: @records %>
+<%= "<div class='text-center'><h3>✨✨✨ All clear ✨✨✨</h3></div>".html_safe if @records.count < 1 %>

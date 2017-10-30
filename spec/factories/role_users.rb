@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :role_user do
-    role nil
-    user nil
+    association :role, factory: :role
+    association :user, factory: :user
   end
 end

@@ -1,0 +1,15 @@
+<% if @collectible_type.present?  %>
+$("#collectible-search .search-results").html("");
+$("#collectible-search .search-field").html("<%= escape_javascript(render 'collections/search_form', { collectible_type: @collectible_type }) %>");
+var searchbtn = $( "#collectible-search-btn" );
+searchbtn.on('click', function(event) {
+  event.preventDefault();
+  $.ajax({
+    url: "<%= list_collectibles_collections_path %>",
+    data: { q: $("#collectible-search-input").val(), collectible_type: searchbtn.data("collectible-type") },
+    dataType: "script"
+  });
+});
+<% else %>
+alert("Invalid collectible search");
+<% end %>

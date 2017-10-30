@@ -1,0 +1,30 @@
+<% row_id = "lesson_version_row_#{lesson_version.id}" %>
+<tr id="<%= row_id %>">
+  <td data-toggle="tooltip" data-placement="top" title="<%= lesson_version.name %>">
+    <span class="badge badge-pill badge-info"><%= lesson_version.approval.humanize %>
+    <%= content_tag(:span, "Active Version", class: "badge badge-pill badge-success") if lesson_version.lesson && lesson_version.lesson.active_version.id == lesson_version.id %>
+    </span> <%= lesson_version.name %>
+  </td>
+  <td>
+    <%= content_tag(:p, lesson_version.description, class: "text-muted") %>
+    <%= content_tag(:i, "Updated: #{time_ago_in_words(lesson_version.updated_at)} ago", class: "badge badge-pill badge-light") %>
+  </td>
+  <td><%= link_to "##{lesson_version.lesson.id}", lesson_path(id: lesson_version.lesson.id)%></td>
+  <td class="d-flex  align-items-center justify-content-around">
+    <%= link_to content_tag(:i, "View", class: "fa fa-eye mr-2"), lesson_version_path(id: lesson_version.id) %>
+    <% if policy(lesson_version).update? %>
+      <%= link_to "Edit", edit_lesson_version_path(id: lesson_version.id), class: "btn btn-outline-info mr-2" %>
+      <div class="btn-group mr-2">
+        <%= content_tag :button, "Mark as", class: "btn btn-outline-info dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } %>
+        <div class="dropdown-menu">
+          <% LessonVersion.approvals.each do |approval_state| %>
+            <%= link_to approval_state[0].humanize.capitalize, approval_lesson_version_path(id: lesson_version.id, row_id: row_id, approval: approval_state[0]), class: "dropdown-item #{'active' if approval_state[0] == lesson_version.approval}", remote: true, method: :put %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <% if policy(lesson_version).delete? %>
+      <%= link_to "Delete", lesson_version_path(id: lesson_version.id, row_id: row_id), method: :delete, remote: true, class: "btn btn-outline-danger" %>
+    <% end %>
+  </td>
+</tr>

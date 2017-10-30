@@ -1,0 +1,25 @@
+<%= javascript_pack_tag 'sortable_collection_items' %>
+
+<% form_id = "collection_form" %>
+<%= simple_form_for collection, url: action_url, method: method_type, html: { id:  form_id } do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <p class="text-muted">* Drag the Collection items below to sort and order them in order.</p>
+  <div id="collectibles" class="list-group mb-2">
+    <% collection.collection_items.each do |collection_item| %>
+      <% collectible_card = render 'collections/collectible_card', collectible: collection_item.collectible %>
+      <%= render "collections/collection_item_field", collection_item: collection_item, collectible_card: collectible_card %>
+    <% end %>
+  </div>
+  <div id="collectible-search" >
+    <div class="search-field"></div>
+    <div class="search-results"></div>
+  </div>
+  <div class="text-center">
+    <%= f.submit "Save", class: "btn btn-success btn-lg" %>
+    <%= link_to "Add a Lesson", search_collectible_collections_path(collectible_type: "Lesson", form_id: form_id), class: "btn btn-primary btn-lg", :remote => true %>
+    <%= link_to "Add a LessonVersion", search_collectible_collections_path(collectible_type: "LessonVersion", form_id: form_id), class: "btn btn-primary btn-lg", :remote => true %>
+    <%= link_to "Add a Collection", search_collectible_collections_path(collectible_type: "Collection", form_id: form_id), class: "btn btn-primary btn-lg", :remote => true %>
+  </div>
+<% end %>

@@ -1,0 +1,5 @@
+<% if @collection.errors.blank?  %>
+$("#<%=@row_id%>").remove();
+<% else %>
+alert("Failed to delete collection");
+<% end %>

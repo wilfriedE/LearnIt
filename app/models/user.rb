@@ -9,63 +9,60 @@ class User < ApplicationRecord
 
   has_many :role_users, dependent: :destroy
   has_many :roles, through: :role_users
-  has_many :contributions, as: :contributor, dependent: :destroy
-  has_many :subscriptions, as: :subscriber, dependent: :destroy
-  has_many :assignments, as: :claimer, dependent: :destroy
-  has_many :mod_ticket_activities, -> { where(type: 'ModTicketActivity') }, through: :assignments, source: :assignable, source_type: "Activity"
-  has_many :user_feed_activities, -> { where(type: 'UserFeedActivity') }, through: :subscriptions, source: :subscription, source_type: "Activity"
-  has_many :general_feed_activities, -> { where(type: 'GeneralFeedActivity') }, through: :subscriptions, source: :subscription, source_type: "Activity"
+  has_many :collections, as: :creator
+  has_many :lesson_versions, as: :creator
+
   validates :nickname, uniqueness: true
 
-  def tickets
-    mod_ticket_activities
+  def visitor?
+    roles.include?(Role.find_or_create_by(name: :visitor))
   end
 
-  def notifications
-    user_feed_activities + general_feed_activities
-  end
-
-  def current_user?(user)
-    id == user.id
+  def make_contributor!
+    roles << Role.find_or_create_by(name: :contributor) unless contributor?
   end
 
   def contributor?
-    roles.include?(Role.find_by(name: :contributor))
+    roles.include?(Role.find_or_create_by(name: :contributor))
   end
 
   def make_moderator!
-    roles << Role.find_by(name: :moderator) unless moderator?
+    make_contributor!
+    roles << Role.find_or_create_by(name: :moderator) unless moderator?
   end
 
   def moderator?
-    roles.include?(Role.find_by(name: :moderator))
+    roles.include?(Role.find_or_create_by(name: :moderator))
   end
 
   def make_admin!
-    roles << Role.find_by(name: :admin) unless admin?
+    make_moderator!
+    roles << Role.find_or_create_by(name: :admin) unless admin?
   end
 
   def admin?
-    roles.include?(Role.find_by(name: :admin))
+    roles.include?(Role.find_or_create_by(name: :admin))
   end
 
   def make_editor!
-    roles << Role.find_by(name: :editor) unless editor?
+    make_contributor!
+    roles << Role.find_or_create_by(name: :editor) unless editor?
   end
 
   def editor?
-    roles.include?(Role.find_by(name: :editor))
+    roles.include?(Role.find_or_create_by(name: :editor))
   end
 
-  def ban
-    roles << Role.find_by(name: :banned) unless banned?
+  def ban!
+    role_users.destroy_all
+    roles << Role.find_or_create_by(name: :banned) unless banned?
   end
 
   def banned?
-    roles.include?(Role.find_by(name: :banned))
+    roles.include?(Role.find_or_create_by(name: :banned))
   end
 
   def set_default_role
-    roles << Role.find_by(name: :contributor) if Role.find_by(name: :contributor)
+    roles << Role.find_or_create_by(name: :visitor)
   end
 end

@@ -1,37 +1,39 @@
-<div class="row">
-  <div class="panel panel-defaultpanel-sm col-lg-offset-1" >
-    <h3  style="text-align: center">Latest Materials</h3>
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Latest</a>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Lessons", lessons_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Collections", collections_path, class: "nav-link" %>
+      </li>
+    </ul>
   </div>
-</div>
-<% if @lessons.count > 0 %>
-<div class="row">
-  <h1 style="text-align: center" class="col-lg-offset-1">Lesson</h1>
-  <% @lessons.each do |lesson| %>
-    <div class="col-lg-5 col-lg-offset-1">
-          <%= lesson_card(lesson) %>
-    </div>
-  <%end %>
-</div>
-<% end %>
 
-<% if @courses.count > 0 %>
-<div class="row">
-  <h1 style="text-align: center" class="col-lg-offset-1">Course</h1>
-  <% @courses.each do |course| %>
-    <div class="col-lg-5 col-lg-offset-1">
-          <%= course_card(course) %>
+  <div class="card-body">
+    <h4 class="card-title">Latest Lessons</h4>
+    <p class="card-text">Here are some of the latest added lessons.</p>
+    <a href="#" class="btn btn-primary">View Lessons</a>
+    <div class="card-columns pt-2">
+      <% @lessons.each do |lesson| %>
+        <%= render "lessons/card", lesson: lesson %>
+      <% end %>
     </div>
-  <%end %>
-</div>
-<% end %>
+  </div>
 
-<% if @tracks.count > 0 %>
-<div class="row">
-  <h1 style="text-align: center" class="col-lg-offset-1">Track</h1>
-  <% @tracks.each do |track| %>
-    <div class="col-lg-5 col-lg-offset-1">
-          <%= track_card(track) %>
+  <div class="card-body">
+    <h4 class="card-title">Latest Collections</h4>
+    <p class="card-text">Here are some of the latest added collections.</p>
+    <a href="#" class="btn btn-primary">View Collections</a>
+
+    <div class="card-columns pt-2">
+      <% @collections.each do |collection| %>
+        <%= render "collections/card", collection: collection %>
+      <% end %>
     </div>
-  <%end %>
+  </div>
+
 </div>
-<% end %>

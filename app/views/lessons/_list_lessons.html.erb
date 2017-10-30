@@ -1,0 +1,14 @@
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th ><i class="fa fa-cogs"></i> Modify</th>
+    </tr>
+  </thead>
+  <tbody >
+  <% lessons.each do |lesson| %>
+    <%= render "lessons/lesson_row", lesson: lesson %>
+  <% end %>
+  </tbody>
+</table>

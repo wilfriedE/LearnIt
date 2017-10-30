@@ -1,0 +1,5 @@
+<%= simple_fields_for :lesson_version do |l| %>
+  <%= l.simple_fields_for :data do |d| %>
+    <%= d.input :url, input_html: { value: default_value.present? ? default_value.url : "" } %>
+  <% end %>
+<% end %>

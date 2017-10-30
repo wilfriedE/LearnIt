@@ -10,3 +10,5 @@
 import 'jquery/src/jquery'
 import 'bootstrap'
 import '../styles'
+import '../markdown/markdown_editor'
+import '../markdown/markabletext'

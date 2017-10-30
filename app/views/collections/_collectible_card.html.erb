@@ -1,0 +1,7 @@
+<% if collectible.is_a? Lesson %>
+  <%= render 'lessons/card', lesson: collectible %>
+<% elsif collectible.is_a? LessonVersion %>
+  <%= render 'lesson_versions/card', lesson_version: collectible %>
+<% elsif collectible.is_a? Collection %>
+  <%= render 'collections/card', collection: collectible %>
+<% end %>

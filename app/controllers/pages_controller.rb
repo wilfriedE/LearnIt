@@ -11,10 +11,8 @@ class PagesController < ApplicationController
   end
 
   def library
-    limit = 6
-    @lessons = Lesson.offset(params[:lesson_pg].to_i * limit).first(limit)
-    @courses = Course.offset(params[:course_pg].to_i * limit).first(limit)
-    @tracks = Track.offset(params[:track_pg].to_i * limit).first(limit)
+    @collections = Collection.order(created_at: :desc).select(&:approved?).first(10)
+    @lessons = Lesson.order(created_at: :desc).select { |lesson| lesson.approval.to_sym == :approved }.first(10)
   end
 
   def new
@@ -56,7 +54,7 @@ class PagesController < ApplicationController
     respond_to :js
   end
 
-  def delete
+  def destroy
     @row_id = params[:row_id]
     @page = Page.find_by(name: params[:name])
     authorize @page

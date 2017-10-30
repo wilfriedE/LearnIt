@@ -1,49 +1,74 @@
 class LessonsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  include LessonVersionable
 
   def index
-    # if there is a search query, properly handle rendering them
-    if params[:q]
-      @lessons = Lesson.search(params[:q]).order("created_at DESC")
-    else
-      limit = 10
-      @lessons = Lesson.offset(params[:page].to_i * limit).first(limit)
-    end
-    respond_to do |format|
-      format.html
-      format.json { render json: @lessons }
-    end
+    @q = Lesson.search(query_params)
+    @lessons ||= @q.result(distinct: true).page params[:page]
   end
 
   def show
-    @course = nil
-    @lesson = Lesson.find(params[:id])
-    @lesson_version = @lesson.active_version
-    render template: 'lesson_versions/show'
+    @lesson ||= Lesson.find(params[:id])
+    authorize @lesson
   end
 
   def new
-    @lesson = nil
     @lesson_version = LessonVersion.new
-    @lesson_version.media = MediaContent.new
-    render template: 'lesson_versions/new'
-  end
-
-  def edit
-    @lesson = Lesson.find(params[:id])
-    redirect_to propose_update_lesson_path(@lesson)
+    authorize @lesson_version
   end
 
   def propose_update
-    @lesson = Lesson.find(params[:id])
-    if @lesson
-      @lesson_version = LessonVersion.new(@lesson.active_version.attributes.merge(id: nil, approved: false))
-      @lesson_version.media = MediaContent.new(@lesson.active_version.media.attributes.merge(id: nil))
-      @lesson_version.topic_items = @lesson.active_version.topic_items.each { |topic_item|
-        TopicItem.new(topic_item.attributes.merge(topicable_id: nil))
-      }
+    @lesson ||= Lesson.find(params[:id])
+    @lesson_version = LessonVersion.new(lesson_id: @lesson.id)
+    authorize @lesson_version, :create?
+    render "lesson_versions/new_version_proposal"
+  end
+
+  def create
+    authorize Lesson.new
+    @lesson_version = LessonVersion.new(build_lesson_version.merge(creator: current_user))
+    if @lesson_version.save
+      @lesson = Lesson.new(active_version_id: @lesson_version.id)
+      @lesson_version.update(lesson: @lesson)
+      @lesson.save
+      redirect_to lesson_path(id: @lesson)
+    else
+      render "new"
     end
-    # create a new lesson version with new data
-    render template: 'lesson_versions/new'
+  end
+
+  def create_new_version
+    @lesson ||= Lesson.find(params[:id])
+    authorize LessonVersion.new, :create?
+    @lesson_version = LessonVersion.new(build_lesson_version.merge(creator: current_user))
+    @lesson_version.lesson_id = @lesson.id
+    if @lesson_version.save
+      redirect_to lesson_version_path(id: @lesson_version)
+    else
+      render "lesson_versions/new_version_proposal"
+    end
+  end
+
+  def lesson_approval
+    @row_id = params[:row_id]
+    @lesson = Lesson.find(params[:id])
+    authorize @lesson, :moderate?
+    @active_version = @lesson.active_version
+    @active_version.update(lesson_id: @lesson.id, approval: params[:approval].to_sym) if LessonVersion.approvals[params[:approval]]
+    respond_to :js
+  end
+
+  def destroy
+    @row_id = params[:row_id]
+    @lesson = Lesson.find(params[:id])
+    authorize @lesson
+    @lesson.destroy
+    respond_to :js
+  end
+
+  private
+
+  def query_params
+    return { active_version_approval_eq: LessonVersion.approvals[:approved] } unless params[:q]
+    params.require(:q).merge(active_version_approval_eq: LessonVersion.approvals[:approved]).permit!
   end
 end

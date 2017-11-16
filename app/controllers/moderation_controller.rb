@@ -13,12 +13,11 @@ class ModerationController < ApplicationController
   private
 
   def query_params(active)
-    return unless params[:q]
-    q_params = params.require(:q)
-    q_params.merge(active_version_approval_eq: LessonVersion.approvals[:awaiting_approval]) if :new_lessons == active
-    q_params.merge(approval_eq: LessonVersion.approvals[:awaiting_approval]) if :new_lesson_versions == active
-    q_params.merge(approval_eq: Collection.approvals[:awaiting_approval]) if :new_collections == active
-    q_params.permit!
+    q_params = params[:q] ? params.require(:q).permit! : {}
+    q_params = q_params.merge(active_version_approval_eq: LessonVersion.approvals[:awaiting_approval]) if :new_lessons == active
+    q_params = q_params.merge(approval_eq: LessonVersion.approvals[:awaiting_approval]) if :new_lesson_versions == active
+    q_params = q_params.merge(approval_eq: Collection.approvals[:awaiting_approval]) if :new_collections == active
+    q_params
   end
 
   def can_moderate?

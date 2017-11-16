@@ -6,7 +6,9 @@
           <%= link_to notification.name, user_notification_path(notification, user_id: user.id), class: "#{ notification.read? ? 'text-muted' : 'font-weight-bold'}" %>
         </li>
       <% end %>
+      <li  class="row justify-content-center p-1">
+        <%= link_to "view all notifications", notifications_path, class: "btn btn-outline-info col-10" %>
+      </li>
     </ul>
-    <%= link_to "View all Notifications", notifications_path, class: "btn btn-outline-info mx-auto" %>
   </div>
 </div>

@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   devise_for :users, path: 'auth', controllers: { registrations: 'registrations' }, path_names: { sign_in: 'login', sign_out: 'logout', registration: 'register' }
 
   # user profile
-  get 'profile' => 'profile#show', as: :user_profile
+  get 'profile' => 'profile#page', as: :user_profile
   get 'profile/notifications' => 'notifications#index', as: :notifications
   get 'profile/notifications/:id' => 'notifications#show', as: :user_notification
 

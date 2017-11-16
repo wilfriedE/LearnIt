@@ -52,4 +52,42 @@ RSpec.describe User, type: :model do
     expect(subject).to be_moderator
     expect(subject).to be_admin
   end
+
+  describe "#new_notifications?" do
+    it 'has notification if one is unread' do
+      create :notification, recipient: user
+      expect(user.new_notifications?).to be_truthy
+    end
+  end
+
+  describe "#latest_notifications" do
+    let(:notification) { create :notification, recipient: user }
+
+    before(:each) do
+      create(:notification, recipient: user).seen!
+      create(:notification, recipient: user).read!
+      create(:notification, recipient: user).read!
+    end
+
+    after(:each) do
+      Notification.destroy_all
+    end
+
+    it 'returns latest notifications' do
+      expect(notification.recipient).to eq(user)
+      expect(user.latest_notifications).to include(notification)
+    end
+
+    it 'shows unread notification at top of latest notifications' do
+      expect(notification).to be_unread
+      expect(user.latest_notifications.first).to eq(notification)
+    end
+
+    it 'does not show read notitifications at top of latest notifications' do
+      notification.read!
+
+      expect(notification).to be_read
+      expect(user.latest_notifications.first).not_to eq(notification)
+    end
+  end
 end

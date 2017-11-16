@@ -1,28 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe NotificationPolicy do
+  subject { described_class.new(user, notification) }
+  let(:user) { create :user }
+  let(:notification) { create :notification, recipient: user }
 
-  let(:user) { User.new }
+  it 'does not permits show if not recipient' do
+    notification.recipient = create :user
 
-  subject { described_class }
-
-  permissions ".scope" do
-    pending "add some examples to (or delete) #{__FILE__}"
+    expect(user).to_not eq(notification.recipient)
+    is_expected.to forbid_action(:show)
   end
 
-  permissions :show? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :update? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :destroy? do
-    pending "add some examples to (or delete) #{__FILE__}"
+  it 'permits show if recipient' do
+    expect(user).to eq(notification.recipient)
+    is_expected.to permit_action(:show)
   end
 end

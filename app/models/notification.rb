@@ -4,9 +4,5 @@ class Notification < ApplicationRecord
 
   validates :name, :description, :recipient, presence: true
 
-  enum read_status: { unread: 0, read: 1 }
-
-  def mark_as_read
-    read!
-  end
+  enum read_status: { unread: 0, seen: 1, read: 2 }
 end

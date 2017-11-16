@@ -1,6 +1,6 @@
 class ProfileController < ApplicationController
   before_action :authenticate_user!
-  def show
+  def page
     @user = current_user
   end
 end

@@ -1,17 +1,19 @@
 class NotificationsController < ApplicationController
   def index
+    return not_found unless current_user.present?
     @notifications ||= current_user.notifications.page params[:page]
-    @notifications.each { |n| n.read! if n.unread? }
+    @notifications.each { |n| n.seen! if n.unread? }
 
     respond_to do |format|
       format.html
       format.js
-     end
+    end
   end
 
   def show
-    @notification = Notification.find_by(id: params[:id], recipient: params[:user_id])
+    @notification = Notification.find_by(id: params[:id])
     authorize @notification
-    @notification.read! if @notification.unread?
+    @notification.read! unless @notification.read?
+    redirect_to @notification.source || root_url
   end
 end

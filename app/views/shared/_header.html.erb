@@ -32,7 +32,7 @@
                 moderate_path, class: "btn btn-info"%>
         <% end %>
       <%= link_to raw("<i class='fa fa-user' ></i> Profile"),
-                  user_profile_path(current_user.id), class: "btn btn-info"%>
+                  user_profile_path, class: "btn btn-info"%>
       </div>
 
       <% if policy(:administrate).access? %>

@@ -1,0 +1,20 @@
+<div class="card text-center">
+  <div class="card-header  ">
+    <ul class="nav nav-pills row card-header-pills">
+      <div class="col nav">
+        <li class="nav-item">
+          <%= link_to "Profile", user_profile_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Notifications", notifications_path, class: "nav-link active" %>
+        </li>
+      </div>
+    </ul>
+  </div>
+
+  <div class="card-body">
+    <div class="card-columns">
+      <%= render "card", notification: @notification %>
+    </div>
+  </div>
+</div>

@@ -6,9 +6,8 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
-
-import 'jquery/src/jquery'
 import 'bootstrap'
+import '../bt/bootstrap_enables'
 import '../styles'
 import '../markdown/markdown_editor'
 import '../markdown/markabletext'

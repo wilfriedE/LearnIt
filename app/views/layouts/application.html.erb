@@ -6,8 +6,8 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <title><%= platform.brand %></title>
-        <%= javascript_pack_tag 'application' %>
         <%= stylesheet_pack_tag 'application' %>
+        <%= javascript_pack_tag 'application' %>
         <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
         <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
         <%= csrf_meta_tags %>
@@ -17,6 +17,7 @@
       <% if flash[:notice] %>
         <div class="notice"><%= flash[:notice] %></div>
       <% end %>
+
       <% wrapper_class = "container"; wrapper_class = ( platform.container_fuild? ? "container-fuild" : "container") if defined? platform.container_fuild? %>
       <div class="<%= wrapper_class %> pt-2 pb-2 mb-5">
             <%= ((render "layouts/#{yield_hierarchically(controller.class.name)}" rescue nil)|| yield ) %>

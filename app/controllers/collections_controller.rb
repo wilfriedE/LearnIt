@@ -1,4 +1,6 @@
 class CollectionsController < ApplicationController
+  include Notifiable
+
   def index
     @q = Collection.search(query_params)
     @collections ||= @q.result(distinct: true).page params[:page]
@@ -58,7 +60,9 @@ class CollectionsController < ApplicationController
     @row_id = params[:row_id]
     @collection = Collection.find(params[:id])
     authorize @collection, :moderate?
-    @collection.update(approval: params[:approval].to_sym) if Collection.approvals[params[:approval]]
+    return unless Collection.approvals[params[:approval]] && @collection.approval != params[:approval]
+    @collection.update(approval: params[:approval].to_sym)
+    notification_for_collection_approval_change(@collection.creator, @collection)
     respond_to :js
   end
 
@@ -67,6 +71,7 @@ class CollectionsController < ApplicationController
     authorize @collection
     valid_collection_items = valid_collection_items_count? @collection
     if valid_collection_items && @collection.save && @collection.update(collection_items_attributes: build_colection_items(@collection))
+      notification_for_new_collection(current_user, @collection)
       redirect_to collection_path(@collection)
     else
       @collection.destroy

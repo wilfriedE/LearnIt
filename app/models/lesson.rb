@@ -8,4 +8,12 @@ class Lesson < ApplicationRecord
 
   delegate :name, :description, :media_type, :approval,
            :awaiting_approval?, :approved?, :rejected?, :archived?, :data, to: :active_version
+
+  def lesson_subscribers
+    subscribers = []
+    lesson_versions.map(&:creator).each do |creator|
+      subscribers << creator unless subscribers.include? creator
+    end
+    subscribers
+  end
 end

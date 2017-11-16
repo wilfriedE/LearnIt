@@ -16,33 +16,36 @@
 
     <div class="navbar-nav">
       <% if user_signed_in? %>
-        <div class="btn-group btn-group-md" role="group">
-          <a  class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="fa fa-bell" aria-hidden="true" ></span></a>
-          <ul class="dropdown-menu ">
-            TBD
-          </ul>
+
+      <%= link_to content_tag(:span, '', class: "fa fa-bell"), notifications_path, class: "btn #{ current_user.new_notifications? ? 'btn-outline-primary' : 'btn-light' } pointer m-1",
+          data: { toggle: "popover", title: "Notifications", container: "body", placement: "bottom", popover: "#notifications" }, remote: true %>
+
+      <div style="display:none;">
+        <div id="notifications">
+          <div class="data-content"><div id="notifications-list"><%= render 'notifications/latest_notifications', user: current_user %></div></div>
         </div>
-        <!-- if moderator -->
-        <div class=" btn-group btn-group-md ">
+      </div>
+
+      <div class=" btn-group btn-group-md m-1">
+        <% if current_user.moderator? %>
         <%= link_to raw("<i class='fa fa-ticket' aria-hidden='true' ></i> Moderate"),
-                  moderate_path, class: "btn btn-info"%>
-        <!-- -->
-        <%= link_to raw("<i class='fa fa-user' ></i> Profile"),
-                    user_profile_path(current_user.id), class: "btn btn-info"%>
-        </div>
-
-        <% if policy(:administrate).access? %>
-          <%= link_to administrate_path, class: "btn btn-danger" do %>
-            <i class='fa fa-cog' ></i> Admin
-          <% end %>
+                moderate_path, class: "btn btn-info"%>
         <% end %>
+      <%= link_to raw("<i class='fa fa-user' ></i> Profile"),
+                  user_profile_path(current_user.id), class: "btn btn-info"%>
+      </div>
 
-        <div class="btn-group btn-group-md ">
-          <%= link_to raw("<i class='fa fa-sign-out' ></i> Sign out"),
-                  destroy_user_session_path,
-                  :method => :delete, class: "btn btn-danger"%>
-        </div>
+      <% if policy(:administrate).access? %>
+        <%= link_to administrate_path, class: "btn btn-danger m-1" do %>
+          <i class='fa fa-cog' ></i> Admin
+        <% end %>
+      <% end %>
+
+      <div class="btn-group btn-group-md m-1">
+        <%= link_to raw("<i class='fa fa-sign-out' ></i> Sign out"),
+                destroy_user_session_path,
+                :method => :delete, class: "btn btn-danger"%>
+      </div>
       <% else %>
         <a class="btn btn-outline-success" role="button" href="<%= url_for new_user_session_path %>"><i class="fa fa-fw fa-sign-in"></i> Sign in </a>
         <i class="p-1"></i>

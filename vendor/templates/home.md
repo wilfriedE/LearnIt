@@ -8,4 +8,6 @@
       <a class="btn btn-primary btn-lg" href="/library" role="button">Learn Now</a>
     </p>
   </div>
+  <p></p>
 </div>
+<p></p>

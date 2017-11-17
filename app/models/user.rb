@@ -11,8 +11,18 @@ class User < ApplicationRecord
   has_many :roles, through: :role_users
   has_many :collections, as: :creator
   has_many :lesson_versions, as: :creator
+  has_many :notifications, as: :recipient
 
   validates :nickname, uniqueness: true
+
+  def new_notifications?
+    return false if notifications.count <= 0
+    notifications.first.unread?
+  end
+
+  def latest_notifications
+    notifications.first(5)
+  end
 
   def visitor?
     roles.include?(Role.find_or_create_by(name: :visitor))

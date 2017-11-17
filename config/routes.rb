@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     member do
       delete :remove_collection_item, path: "remove-collection-item/:collection_item_id"
       put    :collection_approval, path: "collection-approval", as: :approval
+      get    :player, path: "player/(:page)"
     end
   end
 
@@ -38,14 +39,22 @@ Rails.application.routes.draw do
   devise_for :users, path: 'auth', controllers: { registrations: 'registrations' }, path_names: { sign_in: 'login', sign_out: 'logout', registration: 'register' }
 
   # user profile
-  get 'profile/:id' => 'profile#show', as: :user_profile
-  get 'profile/:id/notifications' => 'profile#notifications', as: :user_notifications
+  get 'profile' => 'profile#page', as: :user_profile
+  get 'profile/notifications' => 'notifications#index', as: :notifications
+  get 'profile/notifications/:id' => 'notifications#show', as: :user_notification
 
   # administrate namespace
   scope :administrate do
-    get '/'            => 'platform#index', as: :administrate
-    get '/preferences' => 'platform#preferences', as: :administrate_preferences
-    get '/pages'       => 'platform#pages', as: :administrate_pages
+    get '/'                               => 'platform#index', as: :administrate
+    get '/preferences'                    => 'platform#preferences', as: :administrate_preferences
+    get '/pages'                          => 'platform#pages', as: :administrate_pages
+    get '/users'                          => 'platform#users', as: :administrate_users
+    put '/users/:id/make-admin'           => 'platform#make_user_admin', as: :make_user_admin
+    put '/users/:id/make-editor'          => 'platform#make_user_editor', as: :make_user_editor
+    put '/users/:id/make-moderator'       => 'platform#make_user_moderator', as: :make_user_moderator
+    put '/users/:id/make-contributor'     => 'platform#make_user_contributor', as: :make_user_contributor
+    put '/users/:id/ban'                  => 'platform#ban_user', as: :ban_user
+    put '/users/:id/remove-role/:role_id' => 'platform#remove_user_role', as: :remove_user_role
   end
 
   scope :preferences do

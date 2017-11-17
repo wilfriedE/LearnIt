@@ -34,7 +34,7 @@ module.exports = {
   module: {
     rules: sync(join(loadersDir, '*.js')).map(loader => require(loader))
   },
-  
+
   plugins: [
     new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
     new ExtractTextPlugin(env.NODE_ENV === 'production' ? '[name]-[hash].css' : '[name].css'),
@@ -55,7 +55,10 @@ module.exports = {
     modules: [
       resolve(settings.source_path),
       'node_modules'
-    ]
+    ],
+    alias: {
+        jquery: "jquery/src/jquery"
+    }
   },
 
   resolveLoader: {

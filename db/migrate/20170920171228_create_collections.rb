@@ -3,7 +3,8 @@ class CreateCollections < ActiveRecord::Migration[5.1]
     create_table :collections do |t|
       t.string :name
       t.text :description
-      t.references :creator, foreign_key: true
+      t.integer :approval, default: 0
+      t.references :creator, polymorphic: true
 
       t.timestamps
     end

@@ -187,6 +187,43 @@ RSpec.describe CollectionsController, type: :controller do
     end
   end
 
+  describe "GET #player" do
+    let(:collection) { create(:collection) }
+    login_user
+
+    before(:each) do
+      collection.approved!
+      create(:collection_item, collection: collection, collectible: create(:lesson), position: 1)
+      create(:collection_item, collection: collection, collectible: create(:lesson_version), position: 2)
+      create(:collection_item, collection: collection, collectible: create(:collection), position: 3)
+    end
+
+    after(:each) do
+      CollectionItem.destroy_all
+    end
+
+    it 'renders lesson show view when collectible is a lesson' do
+      get :player, params: { id: collection.id }
+
+      expect(collection.collection_items.first).to be_lesson
+      expect(response).to render_template("lessons/show")
+    end
+
+    it 'renders lesson version show view when collectible is a lesson version' do
+      get :player, params: { id: collection.id, page: 2 }
+
+      expect(collection.collection_items.second).to be_lesson_version
+      expect(response).to render_template("lesson_versions/show")
+    end
+
+    it 'renders collection show view when collectible is a collection' do
+      get :player, params: { id: collection.id, page: 3 }
+
+      expect(collection.collection_items.third).to be_collection
+      expect(response).to render_template("collections/show")
+    end
+  end
+
   describe "GET #list_collectibles" do
     context "unauthenticated user" do
       it 'does nothing' do

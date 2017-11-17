@@ -2,7 +2,7 @@ class CreatePlatformPreferences < ActiveRecord::Migration[5.0]
   def change
     create_table :platform_preferences do |t|
       t.string :name
-      t.string :preftype
+      t.integer :preftype, default: 0
       t.string :string_field
       t.text :text_field
       t.boolean :bool_field

@@ -1,4 +1,6 @@
 class CollectionsController < ApplicationController
+  include Notifiable
+
   def index
     @q = Collection.search(query_params)
     @collections ||= @q.result(distinct: true).page params[:page]
@@ -23,6 +25,14 @@ class CollectionsController < ApplicationController
     @collectible_type = params[:collectible_type]
     authorize Collection.new, :new?
     respond_to :js
+  end
+
+  def player
+    @collection_player = true
+    @collection = Collection.find(params[:id])
+    authorize @collection, :show?
+    @collection_items = @collection.collection_items.page(params[:page]).per(1)
+    render_player_view @collection_items.first
   end
 
   def list_collectibles
@@ -58,7 +68,9 @@ class CollectionsController < ApplicationController
     @row_id = params[:row_id]
     @collection = Collection.find(params[:id])
     authorize @collection, :moderate?
-    @collection.update(approval: params[:approval].to_sym) if Collection.approvals[params[:approval]]
+    return unless Collection.approvals[params[:approval]] && @collection.approval != params[:approval]
+    @collection.update(approval: params[:approval].to_sym)
+    notification_for_collection_approval_change(@collection.creator, @collection)
     respond_to :js
   end
 
@@ -67,6 +79,7 @@ class CollectionsController < ApplicationController
     authorize @collection
     valid_collection_items = valid_collection_items_count? @collection
     if valid_collection_items && @collection.save && @collection.update(collection_items_attributes: build_colection_items(@collection))
+      notification_for_new_collection(current_user, @collection)
       redirect_to collection_path(@collection)
     else
       @collection.destroy
@@ -120,5 +133,26 @@ class CollectionsController < ApplicationController
     end
     collection.errors.add(:base, "A collection must have at least two Collection Items") unless valid
     valid
+  end
+
+  def render_player_view(collection_item)
+    render_lesson_viewer collection_item.collectible if collection_item.lesson?
+    render_lesson_version_viewer collection_item.collectible if collection_item.lesson_version?
+    render_collection_viewer collection_item.collectible if collection_item.collection?
+  end
+
+  def render_lesson_viewer(lesson)
+    @lesson = lesson
+    render "lessons/show"
+  end
+
+  def render_lesson_version_viewer(lesson_version)
+    @lesson_version = lesson_version
+    render "lesson_versions/show"
+  end
+
+  def render_collection_viewer(collection)
+    @collection = collection
+    render "collections/show"
   end
 end

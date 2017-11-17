@@ -1,5 +1,6 @@
 class LessonVersionsController < ApplicationController
   include LessonVersionable
+  include Notifiable
 
   def show
     @lesson_version = LessonVersion.find(params[:id])
@@ -32,7 +33,9 @@ class LessonVersionsController < ApplicationController
     @row_id = params[:row_id]
     @lesson_version = LessonVersion.find(params[:id])
     authorize @lesson_version, :moderate?
-    @lesson_version.update(approval: params[:approval].to_sym) if LessonVersion.approvals[params[:approval]]
+    return unless LessonVersion.approvals[params[:approval]] && @lesson_version.approval != params[:approval]
+    @lesson_version.update(approval: params[:approval].to_sym)
+    notification_for_lesson_version_approval_change(@lesson_version.creator, @lesson_version)
     make_active_version(@lesson_version) if params[:approval].to_sym == :approved
     respond_to :js
   end

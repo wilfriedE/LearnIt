@@ -1,9 +1,19 @@
 <div class="card border border-light">
-  <div class="card-body bg-light">
-    <h4 class="card-title text-primary"><%= @collection.name %></h4>
-    <p class="card-text text-muted"><%= @collection.description %></p>
-    <p class="card-text"><small class="text-muted">Contributed by: <%= @collection.creator.nickname %></small></p>
+  <div class="card-body bg-light clearfix">
+    <div class="float-left col-8 justify-content-start">
+      <h4 class="card-title text-primary"><%= @collection.name %></h4>
+      <p class="card-text text-muted"><%= @collection.description %></p>
+      <p class="card-text"><small class="text-muted">Contributed by: <%= @collection.creator.nickname %></small></p>
+    </div>
+    <div class="float-right col-4 d-flex align-content-center justify-content-end flex-wrap">
+      <%= link_to "Start collection", player_collection_path(@collection, page: 1), class: "btn btn-outline-primary flex-item" %>
+    </div>
   </div>
+  <% if @collection_player %>
+    <div class="card-body bg-light clearfix">
+      <%= render "collections/player_pagination" %>
+    </div>
+  <% end %>
 </div>
 
 <div class="w-100 pt-2 border border-light rounded-bottom pl-4 pr-4">

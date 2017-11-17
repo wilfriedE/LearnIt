@@ -1,0 +1,15 @@
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th><%= @q.present? ? sort_link(@q, :nickname, 'Nickname') : "Nickname" %></th>
+      <th><%= @q.present? ? sort_link(@q, :email, 'Email') : "Email" %></th>
+      <th>Roles</th>
+      <th ><i class="fa fa-cogs"></i> Modify</th>
+    </tr>
+  </thead>
+  <tbody >
+  <% users.each do |user| %>
+    <%= render "users/user_row", user: user %>
+  <% end %>
+  </tbody>
+</table>

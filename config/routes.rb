@@ -44,9 +44,16 @@ Rails.application.routes.draw do
 
   # administrate namespace
   scope :administrate do
-    get '/'            => 'platform#index', as: :administrate
-    get '/preferences' => 'platform#preferences', as: :administrate_preferences
-    get '/pages'       => 'platform#pages', as: :administrate_pages
+    get '/'                               => 'platform#index', as: :administrate
+    get '/preferences'                    => 'platform#preferences', as: :administrate_preferences
+    get '/pages'                          => 'platform#pages', as: :administrate_pages
+    get '/users'                          => 'platform#users', as: :administrate_users
+    put '/users/:id/make-admin'           => 'platform#make_user_admin', as: :make_user_admin
+    put '/users/:id/make-editor'          => 'platform#make_user_editor', as: :make_user_editor
+    put '/users/:id/make-moderator'       => 'platform#make_user_moderator', as: :make_user_moderator
+    put '/users/:id/make-contributor'     => 'platform#make_user_contributor', as: :make_user_contributor
+    put '/users/:id/ban'                  => 'platform#ban_user', as: :ban_user
+    put '/users/:id/remove-role/:role_id' => 'platform#remove_user_role', as: :remove_user_role
   end
 
   scope :preferences do

@@ -1,0 +1,30 @@
+<% row_id = "user_row_#{user.id}" %>
+<tr id="<%= row_id %>">
+  <td><%= user.nickname %></td>
+  <td><%= user.email %></td>
+  <td>
+    <% user.roles.each do |role| %>
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+      <%= @q.present? ? link_to(role.name, url_for(only_path: false,  q: { roles_name_eq: role.name }),
+                                class: "btn btn-sm btn-info") : content_tag(:span, role.name, class: "btn btn-sm btn-info") %>
+      <% if policy(:administrate).access? %>
+        <%= link_to "", remove_user_role_path(id: user.id, role_id: role.id, row_id: row_id ), class: "btn btn-sm btn-danger fa fa-close", remote: true, method: :put  %>
+      <% end %>
+    </div>
+    <% end %>
+  </td>
+  <td class="d-flex  align-items-center justify-content-around">
+    <% if policy(:administrate).access? %>
+      <div class="btn-group">
+        <%= content_tag :button, "Assign role", class: "btn btn-outline-info dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } %>
+        <div class="dropdown-menu">
+          <%= link_to "Admin", make_user_admin_path(id: user.id, row_id: row_id), class: "dropdown-item", remote: true, method: :put %>
+          <%= link_to "Moderator", make_user_moderator_path(id: user.id, row_id: row_id), class: "dropdown-item", remote: true, method: :put %>
+          <%= link_to "Editor", make_user_editor_path(id: user.id, row_id: row_id), class: "dropdown-item", remote: true, method: :put %>
+          <%= link_to "Contributor", make_user_contributor_path(id: user.id, row_id: row_id), class: "dropdown-item", remote: true, method: :put %>
+          <%= link_to "Banned", ban_user_path(id: user.id, row_id: row_id), class: "dropdown-item", remote: true, method: :put %>
+        </div>
+      </div>
+    <% end %>
+  </td>
+</tr>

@@ -1,0 +1,10 @@
+<div class="row justify-content-center m-2">
+  <div class="col pt-3">
+    <%= paginate @users %>
+  </div>
+  <%= search_form_for @q, url: administrate_users_path, html: { class: "form-inline col-8" } do |f| %>
+    <%= f.search_field :email_or_nickname_cont, class: "form-control col-10", placeholder: "Search..."  %>
+    <%= f.submit "Search", class: "btn btn-outline-success" %>
+  <% end %>
+</div>
+<%= render "users/users_list", users: @users %>

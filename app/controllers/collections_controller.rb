@@ -27,6 +27,14 @@ class CollectionsController < ApplicationController
     respond_to :js
   end
 
+  def player
+    @collection_player = true
+    @collection = Collection.find(params[:id])
+    authorize @collection, :show?
+    @collection_items = @collection.collection_items.page(params[:page]).per(1)
+    render_player_view @collection_items.first
+  end
+
   def list_collectibles
     @collectible_type = params[:collectible_type]
     @collectibles = Lesson.search(active_version_name_or_active_version_description_cont: params[:q]).result(distinct: true) if @collectible_type == "Lesson"
@@ -125,5 +133,26 @@ class CollectionsController < ApplicationController
     end
     collection.errors.add(:base, "A collection must have at least two Collection Items") unless valid
     valid
+  end
+
+  def render_player_view(collection_item)
+    render_lesson_viewer collection_item.collectible if collection_item.lesson?
+    render_lesson_version_viewer collection_item.collectible if collection_item.lesson_version?
+    render_collection_viewer collection_item.collectible if collection_item.collection?
+  end
+
+  def render_lesson_viewer(lesson)
+    @lesson = lesson
+    render "lessons/show"
+  end
+
+  def render_lesson_version_viewer(lesson_version)
+    @lesson_version = lesson_version
+    render "lesson_versions/show"
+  end
+
+  def render_collection_viewer(collection)
+    @collection = collection
+    render "collections/show"
   end
 end

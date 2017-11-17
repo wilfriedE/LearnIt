@@ -3,8 +3,8 @@ Rails.application.configure do
     address:              ENV["SMTP_ADDRESS"],
     port:                 587,
     domain:               ENV["APP_DOMAIN"],
-    user_name:            ENV["MAILER_USERNAME"],
-    password:             ENV["MAILER_PASSWORD"],
+    user_name:            ENV["MAILER_USERNAME"] || ENV["SENDGRID_USERNAME"],
+    password:             ENV["MAILER_PASSWORD"] || ENV["SENDGRID_PASSWORD"],
     authentication:       :plain,
     enable_starttls_auto: true
   }

@@ -9,11 +9,14 @@ Role::TYPES.each do |role|
   Role.find_or_create_by({name: role})
 end
 
-user = User.where(nickname: :admin).first_or_create(nickname: 'admin', first_name:'LearnIt', last_name: 'Admin', email:'admin@example.com', password:'admin1234', password_confirmation:'admin1234')
-user.confirm
-user.make_moderator!
-user.make_editor!
-user.make_admin!
+if User.all.count == 0
+  user = User.new(nickname: 'admin', first_name:'LearnIt', last_name: 'Admin', email:'admin@example.com', password:'admin1234', password_confirmation:'admin1234')
+  user.skip_confirmation_notification!
+  user.save!
+  user.make_moderator!
+  user.make_editor!
+  user.make_admin!
+end
 
 Page.create([
   {name: "home", title: "Home", body: File.read(Rails.root.join("vendor", "templates", "home.md"))},

@@ -10,18 +10,19 @@
       "required": true
     },
     "SMTP_ADDRESS": {
-      "description": "Your SMTP service address e.i smtp.sendgrid.net or smtp.gmail.com.",
+      "description": "Your SMTP service address e.i smtp.sendgrid.net with the sendgrid addon or smtp.gmail.com to setup gmail.",
       "required": true
     },
     "MAILER_PASSWORD": {
-      "description": "SMPT service password. e.i sendgrid addon password or a gmail password."
+      "description": "SMPT service password. e.i sendgrid addon password (prefiled after deploy) or a gmail password.",
+      "required": false
     },
     "MAILER_USERNAME": {
-      "description": "SMPT service username. e.i sengrid addon username or a gmail username"
+      "description": "SMPT service username. e.i sengrid addon username (prefiled after deploy) or a gmail username",
+      "required": false
     },
     "MAILER_SENDER": {
       "description": "Default email address to use when sending emails. e.i sender@myapp_name.herokuapp.com",
-      "required": true
     },
     "DEVISE_SECRET_KEY": {
       "description": "Secret key to use for Devise.",

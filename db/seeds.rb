@@ -11,7 +11,7 @@ end
 
 if User.all.count == 0
   user = User.new(nickname: 'admin', first_name:'LearnIt', last_name: 'Admin', email:'admin@example.com', password:'admin1234', password_confirmation:'admin1234')
-  user.skip_confirmation_notification!
+  user.skip_confirmation!
   user.save!
   user.make_moderator!
   user.make_editor!

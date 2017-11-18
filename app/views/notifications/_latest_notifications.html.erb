@@ -1,0 +1,14 @@
+<div class="card border-0 m-0">
+  <div class="card-body m-0 p-0">
+    <ul class="list-group">
+      <% user.latest_notifications.each do |notification| %>
+        <li class="list-group-item list-group-item-action flex-column align-items-start border-0">
+          <%= link_to notification.name, user_notification_path(notification, user_id: user.id), class: "#{ notification.read? ? 'text-muted' : 'font-weight-bold'}" %>
+        </li>
+      <% end %>
+      <li  class="row justify-content-center p-1">
+        <%= link_to "view all notifications", notifications_path, class: "btn btn-outline-info col-10" %>
+      </li>
+    </ul>
+  </div>
+</div>

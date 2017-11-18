@@ -1,0 +1,41 @@
+<div class="card text-center">
+  <div class="card-header  ">
+    <ul class="nav nav-pills row card-header-pills">
+      <div class="col nav">
+        <li class="nav-item">
+          <%= link_to "Profile", user_profile_path, class: "nav-link active" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Edit information", edit_user_registration_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Notifications", notifications_path, class: "nav-link" %>
+        </li>
+      </div>
+    </ul>
+  </div>
+
+  <div class="card-body">
+    <h2>Thanks for your contributions. </h2>
+  </div>
+
+  <div class="card-body">
+    <h4 class="card-title">Lessons Versions Contributed</h4>
+    <div class="card-columns pt-2">
+      <% current_user.lesson_versions.each do |lesson_version| %>
+        <%= render "lesson_versions/card", lesson_version: lesson_version %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <h4 class="card-title">Collections Contributed</h4>
+    <p class="card-text">Here are some of the latest added collections.</p>
+
+    <div class="card-columns pt-2">
+      <% current_user.collections.each do |collection| %>
+        <%= render "collections/card", collection: collection %>
+      <% end %>
+    </div>
+  </div>
+</div>

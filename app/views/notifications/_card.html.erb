@@ -1,0 +1,8 @@
+<div class="card">
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <a href="<%= notification.source || '#' %>" class="<%= notification.read? ? 'text-muted' : '' %>" ><%= notification.name %></a>
+      <footer class="text-muted"><%= notification.description.html_safe %></footer>
+    </blockquote>
+  </div>
+</div>

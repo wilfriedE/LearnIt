@@ -1,5 +1,6 @@
 class LessonsController < ApplicationController
   include LessonVersionable
+  include Notifiable
 
   def index
     @q = Lesson.search(query_params)
@@ -30,6 +31,7 @@ class LessonsController < ApplicationController
       @lesson = Lesson.new(active_version_id: @lesson_version.id)
       @lesson_version.update(lesson: @lesson)
       @lesson.save
+      notification_for_new_lesson(current_user, @lesson)
       redirect_to lesson_path(id: @lesson)
     else
       render "new"
@@ -42,18 +44,23 @@ class LessonsController < ApplicationController
     @lesson_version = LessonVersion.new(build_lesson_version.merge(creator: current_user))
     @lesson_version.lesson_id = @lesson.id
     if @lesson_version.save
+      notification_for_new_lesson_proposal(current_user, @lesson_version)
       redirect_to lesson_version_path(id: @lesson_version)
     else
       render "lesson_versions/new_version_proposal"
     end
   end
 
+  ## Change lesson approval
+  ##
   def lesson_approval
     @row_id = params[:row_id]
     @lesson = Lesson.find(params[:id])
     authorize @lesson, :moderate?
+    return unless LessonVersion.approvals[params[:approval]] && @lesson.approval != params[:approval]
     @active_version = @lesson.active_version
-    @active_version.update(lesson_id: @lesson.id, approval: params[:approval].to_sym) if LessonVersion.approvals[params[:approval]]
+    @active_version.update(lesson_id: @lesson.id, approval: params[:approval].to_sym)
+    @lesson.lesson_subscribers.each { |subscriber| notification_for_lesson_approval_change(subscriber, @lesson) }
     respond_to :js
   end
 

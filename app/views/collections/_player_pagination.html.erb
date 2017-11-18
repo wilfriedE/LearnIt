@@ -1,0 +1,9 @@
+<% prev_link = path_to_prev_page(@collection_items) %>
+<% next_link = path_to_next_page(@collection_items) %>
+<div class="float-left col-6 justify-content-start">
+  <%= prev_link.present? ? link_to( "Previous", prev_link, class: "btn btn-outline-secondary") : ""%>
+</div>
+
+<div class="float-right col-6 justify-content-end text-right">
+  <%= next_link.present? ? link_to( "Next", next_link, class: "btn btn-outline-primary") : "" %>
+</div>

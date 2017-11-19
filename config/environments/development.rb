@@ -31,6 +31,12 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.default charset: "utf-8"
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.default_options = { from: "no-reply@#{ENV['APP_DOMAIN']}" }
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -44,8 +50,6 @@ Rails.application.configure do
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
-
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 

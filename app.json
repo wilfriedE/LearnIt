@@ -9,7 +9,8 @@
       "description": "Your domain name. e.i  myapp_name.herokuapp.com "
     },
     "SMTP_ADDRESS": {
-      "description": "Your SMTP service address e.i smtp.sendgrid.net with the sendgrid addon or smtp.gmail.com to setup gmail."
+      "description": "Your SMTP service address e.i smtp.sendgrid.net with the sendgrid addon or smtp.gmail.com to setup gmail.",
+      "value": "smtp.sendgrid.net"
     },
     "MAILER_PASSWORD": {
       "description": "SMPT service password. e.i sendgrid addon password (prefiled after deploy) or a gmail password.",

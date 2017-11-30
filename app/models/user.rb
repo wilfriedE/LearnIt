@@ -15,13 +15,8 @@ class User < ApplicationRecord
 
   validates :nickname, uniqueness: true
 
-  def unseen_notication_count
-    notifications.select { |n| !n.seen? }.count
-  end
-
-  def new_notifications?
-    return false if notifications.count <= 0
-    notifications.first.unread?
+  def new_notifications
+    notifications.select(&:unread?)
   end
 
   def latest_notifications

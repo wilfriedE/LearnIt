@@ -54,9 +54,9 @@ RSpec.describe User, type: :model do
   end
 
   describe "#new_notifications?" do
-    it 'has notification if one is unread' do
+    it 'has new notifications at least one is unread' do
       create :notification, recipient: user
-      expect(user.new_notifications?).to be_truthy
+      expect(user.new_notifications.count).to be > 0
     end
   end
 

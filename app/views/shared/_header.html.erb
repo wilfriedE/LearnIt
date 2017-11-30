@@ -16,8 +16,8 @@
 
     <div class="navbar-nav">
       <% if user_signed_in? %>
-      <% unseen_badge = current_user.new_notifications? ? content_tag(:span, current_user.unseen_notication_count, class: "notification-badge badge badge-danger")  : '' %>
-      <%= link_to content_tag(:span,  unseen_badge , class: "fa fa-bell  #{ 'text-primary' if current_user.new_notifications? }"), notifications_path, class: "btn btn-light pointer m-1",
+      <% unseen_badge = current_user.new_notifications.count > 0 ? content_tag(:span, current_user.new_notifications.count, class: "notification-badge badge badge-danger")  : '' %>
+      <%= link_to content_tag(:span,  unseen_badge , class: "fa fa-bell  #{ 'text-primary' if current_user.new_notifications.count > 0 }"), notifications_path, class: "btn btn-light pointer m-1",
           data: { toggle: "popover", title: "Notifications", container: "body", placement: "bottom", popover: "#notifications" }, remote: true %>
 
       <div style="display:none;">

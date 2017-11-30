@@ -19,7 +19,7 @@ class LessonsController < ApplicationController
 
   def propose_update
     @lesson ||= Lesson.find(params[:id])
-    @lesson_version = LessonVersion.new(lesson_id: @lesson.id)
+    @lesson_version = LessonVersion.new(@lesson.active_version.attributes.merge(id: nil))
     authorize @lesson_version, :create?
     render "lesson_versions/new_version_proposal"
   end

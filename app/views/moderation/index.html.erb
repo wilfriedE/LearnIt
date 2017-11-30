@@ -1,6 +1,6 @@
 <nav class="nav nav-tabs" >
   <%= link_to "Lessons Awaiting Approval", moderate_x_path(active: :new_lessons), class: "nav-item nav-link #{@active == :new_lessons ? 'active' : '' }" %>
-  <%= link_to "Lessons Version Proposals", moderate_x_path(active: :new_lesson_versions), class: "nav-item nav-link #{@active == :new_lesson_versions ? 'active' : '' }"  %>
+  <%= link_to "Lesson Update Proposals", moderate_x_path(active: :new_lesson_versions), class: "nav-item nav-link #{@active == :new_lesson_versions ? 'active' : '' }"  %>
   <%= link_to "Collections Awaiting Approval", moderate_x_path(active: :new_collections), class: "nav-item nav-link  #{@active == :new_collections ? 'active' : '' }"  %>
   <%= link_to "Lessons", moderate_x_path(active: :list_lessons), class: "nav-item nav-link #{@active == :list_lessons ? 'active' : '' }" %>
   <%= link_to "Lessons Versions", moderate_x_path(active: :list_lesson_versions), class: "nav-item nav-link #{@active == :list_lesson_versions ? 'active' : '' }"  %>

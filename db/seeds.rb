@@ -29,5 +29,6 @@ PlatformPreference.create([
   { name: 'description', preftype: PlatformPreference.preftypes[:rich_text], rich_text_field: "An open learning platform." },
   { name: 'configured', preftype: PlatformPreference.preftypes[:bool], bool_field: false },
   { name: 'menus', preftype: PlatformPreference.preftypes[:string], string_field: "home,about,contribute" },
-  { name: 'container_fuild', preftype: PlatformPreference.preftypes[:bool], bool_field: false }
+  { name: 'container_fuild', preftype: PlatformPreference.preftypes[:bool], bool_field: false },
+  { name: 'contributors_by_default', preftype: PlatformPreference.preftypes[:bool], bool_field: true }
 ])

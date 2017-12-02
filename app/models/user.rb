@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
 
-  before_create :set_default_role
+  after_create :set_default_role
 
   has_many :role_users, dependent: :destroy
   has_many :roles, through: :role_users
@@ -73,5 +73,6 @@ class User < ApplicationRecord
 
   def set_default_role
     roles << Role.find_or_create_by(name: :visitor)
+    make_contributor! if platform.contributors_by_default
   end
 end

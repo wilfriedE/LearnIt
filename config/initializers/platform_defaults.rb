@@ -1,5 +1,5 @@
 class Platform
-  REQUIRED_PREFERENCES = %i[brand description configured menus].freeze
+  REQUIRED_PREFERENCES = %i[brand description configured menus contributors_by_default].freeze
   REQUIRED_PAGES       = %i[home].freeze
 
   def menus

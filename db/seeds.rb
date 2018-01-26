@@ -19,9 +19,9 @@ if User.all.count == 0
 end
 
 Page.create([
-  {name: "home", title: "Home", body: File.read(Rails.root.join("vendor", "templates", "home.md"))},
-  {name: "about", title: "About", body: File.read(Rails.root.join("vendor", "templates", "about.md"))},
-  {name: "contribute", title: "Contribute Content", body: File.read(Rails.root.join("vendor", "templates", "contribute.md"))}
+  {name: "home", title: "Home", body: File.read(Rails.root.join("app", "assets", "templates", "home.md"))},
+  {name: "about", title: "About", body: File.read(Rails.root.join("app", "assets", "templates", "about.md"))},
+  {name: "contribute", title: "Contribute Content", body: File.read(Rails.root.join("app", "assets", "templates", "contribute.md"))}
 ])
 
 PlatformPreference.create([

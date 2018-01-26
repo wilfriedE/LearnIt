@@ -30,6 +30,7 @@ Contributing
 
 #### Local setup
 * Copy .env.example to .env and fill env variables
+* Run ```rake db:setup```
 * Run ```rake db:migrate```
 * Run ```rake db:seed``` to create admin user and default pages.
 * Start server

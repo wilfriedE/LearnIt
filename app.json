@@ -6,10 +6,11 @@
   "addons": ["heroku-postgresql:hobby-dev", "sendgrid:starter"],
   "env": {
     "APP_DOMAIN": {
-      "description": "Your domain name. e.i  myapp_name.herokuapp.com "
-    },
+      "description": "Your domain name. e.i example.herokuapp.com ",
+ 			"value": "<My App Name>.herokuapp.com"
+ 		},
     "SMTP_ADDRESS": {
-      "description": "Your SMTP service address e.i smtp.sendgrid.net with the sendgrid addon or smtp.gmail.com to setup gmail.",
+      "description": "Your SMTP service address e.i smtp.sendgrid.net with the sendgrid addon or smtp.gmail.com to setup with gmail.",
       "value": "smtp.sendgrid.net"
     },
     "MAILER_PASSWORD": {
@@ -21,7 +22,8 @@
       "required": false
     },
     "MAILER_SENDER": {
-      "description": "Default email address to use when sending emails. e.i sender@myapp_name.herokuapp.com"
+      "description": "Default email address to use when sending emails. e.i sender@example.herokuapp.com",
+			"value": "sender@<My App Name>.herokuapp.com"
     },
     "DEVISE_SECRET_KEY": {
       "description": "Secret key to use for Devise.",

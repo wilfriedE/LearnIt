@@ -41,7 +41,7 @@ RSpec.describe PlatformController, type: :controller do
 
       it 'shows index' do
         get :index
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
@@ -86,7 +86,7 @@ RSpec.describe PlatformController, type: :controller do
 
       it 'shows preferences page' do
         get :preferences
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
@@ -125,7 +125,7 @@ RSpec.describe PlatformController, type: :controller do
 
       it 'shows pages' do
         get :pages
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
 
@@ -134,7 +134,7 @@ RSpec.describe PlatformController, type: :controller do
 
       it 'shows pages' do
         get :pages
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
@@ -152,7 +152,7 @@ RSpec.describe PlatformController, type: :controller do
 
       it 'shows users list' do
         get :users
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to render_template("users")
       end
     end

@@ -32,14 +32,14 @@ RSpec.describe ModerationController, type: :controller do
       it 'allows moderation if moderator' do
         user.make_moderator!
         get :index
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to render_template("index")
       end
 
       it 'allows moderation if admin' do
         user.make_admin!
         get :index
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to render_template("index")
       end
     end
@@ -50,7 +50,7 @@ RSpec.describe ModerationController, type: :controller do
       it 'respondes to active page' do
         get :index, params: { q: { collection_name_cont: "learn" }, active: :new_collections }
 
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to render_template("index")
       end
     end

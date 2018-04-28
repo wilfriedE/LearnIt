@@ -20,7 +20,7 @@ RSpec.describe LessonVersionsController, type: :controller do
       it 'shows lesson_version page' do
         get :show, params: { id: lesson_version.id }
 
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).not_to redirect_to root_url
       end
     end
@@ -96,7 +96,7 @@ RSpec.describe LessonVersionsController, type: :controller do
             get :edit, params: { id: lesson_version.id }
 
             expect(response).not_to redirect_to root_url
-            expect(response).to be_success
+            expect(response).to be_successful
           end
         end
       end
@@ -134,7 +134,7 @@ RSpec.describe LessonVersionsController, type: :controller do
       context "unapproved lesson_version" do
         it 'shows edit page' do
           get :edit, params: { id: lesson_version.id }
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
 
@@ -147,7 +147,7 @@ RSpec.describe LessonVersionsController, type: :controller do
           get :edit, params: { id: lesson_version.id }
 
           expect(response).not_to redirect_to root_url
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
     end

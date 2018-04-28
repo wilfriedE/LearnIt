@@ -7,13 +7,13 @@ RSpec.describe CollectionsController, type: :controller do
     it 'shows collections' do
       get :index
 
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'shows collections when searching' do
       get :index, params: { q: { name_cont: "A collection" } }
 
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -34,7 +34,7 @@ RSpec.describe CollectionsController, type: :controller do
       it 'shows collection page' do
         get :show, params: { id: collection.id }
 
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
@@ -64,7 +64,7 @@ RSpec.describe CollectionsController, type: :controller do
       it 'shows new page' do
         get :new
 
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
@@ -105,7 +105,7 @@ RSpec.describe CollectionsController, type: :controller do
 
           it 'shows edit page' do
             get :edit, params: { id: collection.id }
-            expect(response).to be_success
+            expect(response).to be_successful
           end
         end
       end
@@ -140,7 +140,7 @@ RSpec.describe CollectionsController, type: :controller do
       context "unapproved collection" do
         it 'shows edit page' do
           get :edit, params: { id: collection.id }
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
 
@@ -151,7 +151,7 @@ RSpec.describe CollectionsController, type: :controller do
 
         it 'shows edit page' do
           get :edit, params: { id: collection.id }
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
     end
@@ -410,7 +410,7 @@ RSpec.describe CollectionsController, type: :controller do
         it 'allows contributor to retry' do
           post :create, params: { collection: attributes_for(:collection) }
 
-          expect(response).to be_success
+          expect(response).to be_successful
           expect(response).to render_template('new')
         end
       end

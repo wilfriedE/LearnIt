@@ -7,13 +7,13 @@ RSpec.describe LessonsController, type: :controller do
     it 'shows lessons' do
       get :index
 
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'shows lessons when searching' do
       get :index, params: { q: { active_version_name_cont: "Learn Stuff" } }
 
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -34,7 +34,7 @@ RSpec.describe LessonsController, type: :controller do
       it 'shows lesson page' do
         get :show, params: { id: lesson.id }
 
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
@@ -64,7 +64,7 @@ RSpec.describe LessonsController, type: :controller do
       it 'shows new page' do
         get :new
 
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
@@ -94,7 +94,7 @@ RSpec.describe LessonsController, type: :controller do
       it 'shows new page' do
         get :propose_update, params: { id: lesson.id }
 
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to render_template('lesson_versions/new_version_proposal')
       end
     end
@@ -128,7 +128,7 @@ RSpec.describe LessonsController, type: :controller do
 
           post :create, params: { lesson_version: lesson_version_attributes }
 
-          expect(response).to be_success
+          expect(response).to be_successful
           expect(response).to render_template('new')
         end
       end
@@ -171,7 +171,7 @@ RSpec.describe LessonsController, type: :controller do
 
           post :create_new_version, params: { id: lesson.id, lesson_version: lesson_version_attributes }
 
-          expect(response).to be_success
+          expect(response).to be_successful
           expect(response).to render_template('lesson_versions/new_version_proposal')
         end
       end

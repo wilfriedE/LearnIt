@@ -26,7 +26,7 @@ RSpec.describe NotificationsController, type: :controller do
         get :index
 
         expect(response).to render_template("index")
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'loads latest_notifications for ajax requests' do

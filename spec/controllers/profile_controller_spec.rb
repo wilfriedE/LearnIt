@@ -16,7 +16,7 @@ RSpec.describe ProfileController, type: :controller do
         get :page
 
         expect(response).to render_template("page")
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end

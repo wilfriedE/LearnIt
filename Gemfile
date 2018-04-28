@@ -8,7 +8,7 @@ end
 ruby File.read(File.expand_path('../.ruby-version', __FILE__)).chomp
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.1'
+gem 'rails', '~> 5.2.0'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
@@ -52,6 +52,10 @@ gem 'sanitize'
 # Use postgresql for database
 gem 'pg'
 
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
+
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -60,7 +64,7 @@ group :development, :test do
   gem 'dotenv-rails'
 
   # Use rspec for testing
-  gem 'rspec-rails', '~> 3.6'
+  gem 'rspec-rails', '~> 3.7'
 
   # Allow assigns and assert_template in tests
   gem 'rails-controller-testing'

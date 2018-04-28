@@ -12,7 +12,7 @@ RSpec.describe PagesController, type: :controller do
       create(:page, name: "home")
       get :index
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to render_template("show")
     end
   end
@@ -26,7 +26,7 @@ RSpec.describe PagesController, type: :controller do
       create(:page, name: "learn")
       get :show, params: { name: "learn" }
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to render_template("show")
     end
   end
@@ -35,7 +35,7 @@ RSpec.describe PagesController, type: :controller do
     it 'shows library' do
       get :library, params: { name: "learn" }
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to render_template("library")
     end
   end
@@ -75,14 +75,14 @@ RSpec.describe PagesController, type: :controller do
       it 'allows new page creation if editor' do
         user.make_editor!
         get :new, xhr: true
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to render_template("new")
       end
 
       it 'allows new page creation if admin' do
         user.make_admin!
         get :new, xhr: true
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to render_template("new")
       end
     end
@@ -123,14 +123,14 @@ RSpec.describe PagesController, type: :controller do
       it 'allows page modification if editor' do
         user.make_editor!
         get :edit, xhr: true, params: { name: page.name }
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to render_template("edit")
       end
 
       it 'allows page modification if admin' do
         user.make_admin!
         get :edit, xhr: true, params: { name: page.name }
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to render_template("edit")
       end
     end
@@ -171,14 +171,14 @@ RSpec.describe PagesController, type: :controller do
       it 'allows page modification if editor' do
         user.make_editor!
         get :edit_wysiwyg, params: { name: page.name }
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to render_template("edit_wysiwyg")
       end
 
       it 'allows page modification if admin' do
         user.make_admin!
         get :edit_wysiwyg, params: { name: page.name }
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to render_template("edit_wysiwyg")
       end
     end

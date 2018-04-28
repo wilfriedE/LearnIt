@@ -5,7 +5,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-        <title><%= platform.brand %></title>
+        <title><%= platform.pref :brand %></title>
         <%= stylesheet_pack_tag 'application' %>
         <%= javascript_pack_tag 'application' %>
         <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -15,7 +15,7 @@
     <body  <%= yield(:body_attributes) %>>
       <%= render partial: "shared/header" %>
 
-      <% wrapper_class = ( (platform.container_fuild == true) ? "container-fuild" : "container") %>
+      <% wrapper_class = ( (platform.pref(:container_fuild) == true) ? "container-fuild" : "container") %>
       <div class="<%= wrapper_class %> pt-2 pb-2 mb-5">
         <%= render partial: "shared/flash_alert" %>
         <%= yield %>

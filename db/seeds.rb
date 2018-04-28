@@ -5,6 +5,15 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+PlatformPreference.create([
+  { name: 'brand', preftype: PlatformPreference.preftypes[:string], string_field: "LearnIt" },
+  { name: 'description', preftype: PlatformPreference.preftypes[:rich_text], rich_text_field: "An open learning platform." },
+  { name: 'configured', preftype: PlatformPreference.preftypes[:bool], bool_field: false },
+  { name: 'menus', preftype: PlatformPreference.preftypes[:string], string_field: "home,about,contribute" },
+  { name: 'container_fuild', preftype: PlatformPreference.preftypes[:bool], bool_field: false },
+  { name: 'contributors_by_default', preftype: PlatformPreference.preftypes[:bool], bool_field: true }
+])
+
 Role::TYPES.each do |role|
   Role.find_or_create_by({name: role})
 end
@@ -24,11 +33,3 @@ Page.create([
   {name: "contribute", title: "Contribute Content", body: File.read(Rails.root.join("vendor", "templates", "contribute.md"))}
 ])
 
-PlatformPreference.create([
-  { name: 'brand', preftype: PlatformPreference.preftypes[:string], string_field: "LearnIt" },
-  { name: 'description', preftype: PlatformPreference.preftypes[:rich_text], rich_text_field: "An open learning platform." },
-  { name: 'configured', preftype: PlatformPreference.preftypes[:bool], bool_field: false },
-  { name: 'menus', preftype: PlatformPreference.preftypes[:string], string_field: "home,about,contribute" },
-  { name: 'container_fuild', preftype: PlatformPreference.preftypes[:bool], bool_field: false },
-  { name: 'contributors_by_default', preftype: PlatformPreference.preftypes[:bool], bool_field: true }
-])

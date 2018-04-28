@@ -73,6 +73,6 @@ class User < ApplicationRecord
 
   def set_default_role
     roles << Role.find_or_create_by(name: :visitor)
-    make_contributor! if platform.contributors_by_default
+    make_contributor! if platform.pref :contributors_by_default
   end
 end

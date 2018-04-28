@@ -44,7 +44,7 @@ gem 'kaminari'
 gem 'simple_form'
 
 # Use webpacker for assets
-gem 'webpacker'
+gem 'webpacker', '~> 3.4'
 
 # Use Sanitize for html sanitizing
 gem 'sanitize'

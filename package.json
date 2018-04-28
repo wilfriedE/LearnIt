@@ -45,6 +45,6 @@
   },
   "devDependencies": {
     "lite-server": "^2.3.0",
-    "webpack-dev-server": "^2.7.1"
+    "webpack-dev-server": "^2.11.1"
   }
 }
